@@ -2,6 +2,7 @@ require "nested_form/engine"
 require "nested_form/builder_mixin"
 
 RailsAdmin.config do |config|
+  config.main_app_name = ["GuarichERP", "Admin"]
 
   ### Popular gems integration
 
