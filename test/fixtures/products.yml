@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  codigo_producto: MyString
+  nombre_producto: MyString
+  existencia_producto: 1
+  descripcion_producto: MyString
+  precio_producto: 9.99
+  min_producto: 1
+  max_producto: 1
+  condicion_producto: false
+  categories: one
+  units: one
+  locations: one
+
+two:
+  codigo_producto: MyString
+  nombre_producto: MyString
+  existencia_producto: 1
+  descripcion_producto: MyString
+  precio_producto: 9.99
+  min_producto: 1
+  max_producto: 1
+  condicion_producto: false
+  categories: two
+  units: two
+  locations: two

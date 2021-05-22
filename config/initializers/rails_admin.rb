@@ -4,6 +4,19 @@ require "nested_form/builder_mixin"
 RailsAdmin.config do |config|
   config.main_app_name = ["GuarichERP", "Admin"]
 
+  #Auntenficia si hay un usuario logeado
+  config.authenticate_with do
+    warden.authenticate! scope: :user
+  end
+  config.current_user_method(&:current_user)
+  #########################################
+
+  #Autoriza acceso si tiene rol admin (acomodar en un futuro)
+  config.authorize_with do
+    redirect_to main_app.root_path unless current_user.role_id==1
+  end
+##########################################
+
   ### Popular gems integration
 
   ## == Devise ==

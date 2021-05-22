@@ -1,6 +1,20 @@
 Rails.application.routes.draw do
+  #Necesario para acceder a rails admin
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  #####################################
+
+  #Necesario para gema devise
   devise_for :users
+  ###########################
+
+  #Ruta root
   root 'principal#index'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  #####################
+
+  #Rutas para las categorias
+  resources :categories
+
+  # en caso de que la ruta no exista, redirecciona a root
+  get '*path' => redirect('/')
+  ###############################
 end
