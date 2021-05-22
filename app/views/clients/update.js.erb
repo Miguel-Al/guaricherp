@@ -1,0 +1,4 @@
+$('#modalClientes').modal('toggle');
+$('#cliente_<%= @client.id %>').replaceWith(
+    '<tr id="cliente_<%= @client.id %>" ><td><%= @client.rif_cliente %></td><td><%= @client.nombre_cliente %></td><td><%= @client.correo_cliente %></td><td><%= @client.type_client != nil ? @client.type_client.nombre_tipo_cliente : "No tiene tipo" %></td><td><%= link_to 'editar', edit_client_path(@client), html_options = {class: "btn btn-info btn-xs", remote: true} %> <%= link_to "Borrar", @client, remote: true, method: :delete, data: { confirm: "Borrar cliente: #{@client.nombre_cliente}?"}, class: "btn btn-danger btn-xs" %></td></tr>'
+);

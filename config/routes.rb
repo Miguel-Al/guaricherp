@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   resources :categories
   #Rutas para los productos
   resources :products, except: [:show]
+  #Rutas para los clientes
+  resources :clients, except: [:show]
+  #Rutas de los proveedores
+  resources :suppliers, except: [:show]
   
   # en caso de que la ruta no exista, redirecciona a root
   get '*path' => redirect('/')

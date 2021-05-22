@@ -1,0 +1,4 @@
+$('#modalProveedores').modal('toggle');
+$('#proveedor_<%= @proveedor.id %>').replaceWith(
+    '<tr id="proveedor_<%= @proveedor.id %>" ><td><%= @proveedor.rif_proveedor %></td><td><%= @proveedor.nombre_proveedor %></td><td><%= @proveedor.correo_proveedor %></td><td><%= @proveedor.descripcion_proveedor %></td><td><%= link_to 'editar', edit_supplier_path(@proveedor), html_options = {class: "btn btn-info btn-xs", remote: true} %> <%= link_to "Borrar", @proveedor, remote: true, method: :delete, data: { confirm: "Borrar proveedor: #{@proveedor.nombre_proveedor}?"}, class: "btn btn-danger btn-xs" %></td></tr>'
+);
