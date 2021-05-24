@@ -1,0 +1,47 @@
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="id">ID</label>
+      <input type="text" readonly class="form-control-plaintext" value="<%= @venta.id %>">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="fecha">Fecha</label>
+      <input type="text" readonly class="form-control-plaintext" value="<%= @venta.created_at.strftime("%d-%m-%Y") %>">
+    </div>
+  </div>
+    <div class="form-group col-md-6">
+      <label for="vendedor">Vendedor:</label>
+      <input type="text" readonly class="form-control-plaintext" value="<%= @venta.user.username %>">
+    </div>
+        <div class="form-group col-md-6">
+      <label for="cliente">Cliente:</label>
+      <input type="text" readonly class="form-control-plaintext" value="<%= @venta.client.nombre_cliente %>">
+    </div>
+  </div>
+</form>
+<br>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Producto</th>
+      <th>Cantidad</th>
+      <th>Precio</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @venta.sale_details.each do |detalle| %>
+    <tr>
+       <td><%= detalle.product.nombre_producto %></td>
+       <td><%= detalle.cantidad %></td>
+       <td>$ <%= detalle.product.precio_producto %></td>
+       <td>$ <%= detalle.product.precio_producto * detalle.cantidad %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="id">Monto final de la venta</label>
+      <input type="text" readonly class="form-control-plaintext" value="$ <%= @venta.total_venta %>">
+    </div>

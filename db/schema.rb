@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_22_201657) do
+ActiveRecord::Schema.define(version: 2021_05_23_040942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,10 +70,40 @@ ActiveRecord::Schema.define(version: 2021_05_22_201657) do
     t.index ["unit_id"], name: "index_products_on_unit_id"
   end
 
+  create_table "purchases", force: :cascade do |t|
+    t.string "numero_compra"
+    t.decimal "total_compra"
+    t.integer "user_id"
+    t.bigint "supplier_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["supplier_id"], name: "index_purchases_on_supplier_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "nombre_rol"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "sale_details", force: :cascade do |t|
+    t.integer "cantidad"
+    t.bigint "product_id"
+    t.bigint "sale_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_sale_details_on_product_id"
+    t.index ["sale_id"], name: "index_sale_details_on_sale_id"
+  end
+
+  create_table "sales", force: :cascade do |t|
+    t.string "numero_venta"
+    t.decimal "total_venta"
+    t.integer "user_id"
+    t.bigint "client_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_sales_on_client_id"
   end
 
   create_table "suppliers", force: :cascade do |t|
@@ -117,5 +147,9 @@ ActiveRecord::Schema.define(version: 2021_05_22_201657) do
   add_foreign_key "products", "categories"
   add_foreign_key "products", "locations"
   add_foreign_key "products", "units"
+  add_foreign_key "purchases", "suppliers"
+  add_foreign_key "sale_details", "products"
+  add_foreign_key "sale_details", "sales"
+  add_foreign_key "sales", "clients"
   add_foreign_key "users", "roles"
 end

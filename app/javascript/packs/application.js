@@ -11,6 +11,7 @@ import "channels"
 
 // js
 import '../src/bootstrap.js'
+import "../custom/algo.js"
 
 
 Rails.start()

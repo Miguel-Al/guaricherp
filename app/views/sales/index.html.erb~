@@ -1,0 +1,38 @@
+<%= link_to new_sale_path, {class: "btn btn-info", id: "crear-venta-btn"}  do %>
+    <span class="fas fa-plus-square"> </span>
+    Realizar venta
+<%end%>
+<br />
+<br />
+<div class="card shadow mb-4">
+<div class="card-body">
+    <div class="table-responsive">
+    <table class="table table-bordered" id="tabla_ventas" width="60%" cellspacing="0">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+          <% if @ventas.empty? %>
+          <tr> 
+            <td> No hay ventas </td><td></td><td></td> 
+          </tr>
+          <% else %>
+            <% @ventas.each do |venta| %>
+              <tr> 
+                <td> <%= venta.id %> </td>
+                <td> <%= venta.total_venta %> </td>
+                <td> 
+                  <%= link_to 'Borrar', venta, method: :delete, data: { confirm: 'Eliminar la venta?' }, class: "btn btn-danger btn-xs" %> 
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+    </table>
+    </div>
+  </div>
+</div>

@@ -24,7 +24,7 @@ class ProductsController < ApplicationController
         format.json { head :no_content }
         format.js
       else
-        format.json { render json: @producto.errors.full_messages, status: :unprocessable_entity }
+        format.json { render json: @product.errors.full_messages, status: :unprocessable_entity }
         format.js { render :new }
       end
     end
@@ -48,6 +48,21 @@ class ProductsController < ApplicationController
       format.json { head :no_content }
       format.js
     end
+    end
+
+    def buscador
+      @resultados = Product.buscador(params[:termino]).map do |producto|
+        {
+          id: producto.id,
+          nombre_producto: producto.nombre_producto,
+          existencia_producto: producto.existencia_producto
+        }
+      end
+
+      respond_to do |format|
+        format.json { render :json => @resultados }
+      end
+      
     end
 
     private

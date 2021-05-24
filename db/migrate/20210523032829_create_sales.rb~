@@ -1,0 +1,11 @@
+class CreateSales < ActiveRecord::Migration[6.1]
+  def change
+    create_table :sales do |t|
+      t.string :Numero_venta
+      t.decimal :total_venta
+      t.integer :user_id
+
+      t.timestamps
+    end
+  end
+end

@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Numero_venta: MyString
+  total_venta: 9.99
+  user_id: 1
+
+two:
+  Numero_venta: MyString
+  total_venta: 9.99
+  user_id: 1

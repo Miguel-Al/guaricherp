@@ -47,6 +47,20 @@ class ClientsController < ApplicationController
     end
   end
 
+  def buscador
+    @resultados = Client.buscador(params[:termino]).map do |cliente|
+      {
+        id: cliente.id,
+        nombre_cliente: cliente.nombre_cliente
+      }
+    end
+
+    respond_to do |format|
+      format.json { render :json => @resultados }
+    end
+
+  end
+
   private
     def client_params
       params.require(:client).permit(:rif_cliente, :nombre_cliente, :correo_cliente, :descripcion_cliente, :type_client_id)
