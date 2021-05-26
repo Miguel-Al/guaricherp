@@ -28,7 +28,7 @@
                 <td> <%= venta.id %> </td>
 		<td> <%= venta.user.username %> </td>
 		<td> <%= venta.try(:client).try(:nombre_cliente) %> </td>
-                <td> <%= venta.total_venta * 1.16%> </td>
+                <td> <%= venta.total_venta %> </td>
                 <td> 
                   <%= link_to 'Borrar', venta, method: :delete, data: { confirm: 'Eliminar la venta?' }, class: "btn btn-danger btn-xs" %>
 		  <%= link_to 'Mostrar', sale_path(venta), {class: "btn btn-info btn-xs", remote: true} %>

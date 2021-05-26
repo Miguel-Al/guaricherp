@@ -1,0 +1,41 @@
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="id">ID</label>
+      <input type="text" readonly class="form-control-plaintext" value="<%= @compra.id %>">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="fecha">Fecha</label>
+      <input type="text" readonly class="form-control-plaintext" value="<%= @compra.created_at.strftime("%d-%m-%Y") %>">
+    </div>
+  </div>
+    <div class="form-group col-md-6">
+      <label for="almacenista">Almacenista:</label>
+      <input type="text" readonly class="form-control-plaintext" value="<%= @compra.user.username %>">
+    </div>
+        <div class="form-group col-md-6">
+      <label for="proveedor">Proveedor:</label>
+      <input type="text" readonly class="form-control-plaintext" value="<%= @compra.supplier.nombre_proveedor %>">
+    </div>
+  </div>
+</form>
+<br>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Producto</th>
+      <th>Cantidad</th>
+      <th>Precio</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @compra.purchase_details.each do |detalle| %>
+    <tr>
+       <td><%= detalle.product.nombre_producto %></td>
+       <td><%= detalle.cantidad %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+

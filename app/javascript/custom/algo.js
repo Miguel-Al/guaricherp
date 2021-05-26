@@ -63,6 +63,40 @@ document.addEventListener("turbolinks:load", function() {
       });
     }
     });
+
+    $("#buscador_proveedores").keyup(function(event){
+    let termino = $(this).val();
+    let id_compra = $(this).data("compra");
+    if(termino.length == 0) {
+      $("#tabla_buscador_proveedores tbody").empty();
+    }
+    else {
+      let request_url = getRootUrl() + "/buscador_proveedores/" + termino;
+      $.get(request_url, function(data, status){
+        if(data.length > 0){
+          $("#tabla_buscador_proveedores tbody").empty();
+          for(x in data){
+            let nombre = data[x].nombre_proveedor;
+            let id_proveedor = data[x].id;
+            let rowContent = `
+               <tr>
+                 <td>${nombre}</td>
+                 <td>
+                     <button 
+                       class = "btn btn-primary"
+                       onclick="seleccionarProveedor(${id_proveedor}, ${id_compra})"
+                       >
+                         Agregar
+                     </button>
+                 </td>
+               </tr>
+            `;
+            $("#tabla_buscador_proveedores tbody").append(rowContent);
+          }
+        }
+      });
+    }
+    });
     
     
 });
@@ -72,7 +106,8 @@ window.seleccionarProducto = function (id_producto, id_modelo, tipo_modelo){
     case 'sales':
       agregarItemVenta(id_producto, id_modelo);
       break;
-    case 'purchases':
+  case 'purchases':
+      agregarItemCompra(id_producto, id_modelo);
       break;
   }
 }
@@ -97,7 +132,25 @@ window.seleccionarCliente = function (id_cliente, id_venta){
   });
 }
 
-
+window.seleccionarProveedor = function (id_proveedor, id_compra){
+  let request_url = getRootUrl() + "/add_proveedor_compra/";
+  let info = { proveedor_id: id_proveedor, id: id_compra };
+  $.ajax({
+    url: request_url,
+    type: 'POST',
+    data: JSON.stringify(info),
+    contentType: 'application/json; charset=utf-8',
+    success: function(result){
+      if(result != null) {
+        $("#buscador_proveedor").modal("hide");
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        let nombre_proveedor = result.nombre_proveedor;
+        $("#proveedor-compra").html("Proveedor: " + nombre_proveedor)
+      }
+    }
+  });
+}
 
 
 
@@ -115,10 +168,13 @@ function agregarItemVenta(id_producto, id_venta){
           $("#buscador_producto").modal('hide');
           $('body').removeClass('modal-open');
           $('.modal-backdrop').remove();
+	  // estos toman el valor enviado por el controlado y lo colocan en la pantalla
           let cantidad = result.cantidad;
           let precio_producto = result.precio_producto;
           let importe_item = result.importe_item;
           let importe_venta = result.importe_venta;
+	  let importe_venta1 = result.importe_venta * 0.16;
+	  let importe_venta2 = result.importe_venta * 1.16;
           let nombre_producto = result.nombre_producto;
           let newRowContent = `<tr>
                                  <td>${nombre_producto}</td>
@@ -129,10 +185,42 @@ function agregarItemVenta(id_producto, id_venta){
           
           $("#tabla_ventas tbody").append(newRowContent);
           $("#importe_venta_lbl").text("Total de venta: $" + importe_venta);
+	  $("#importe_venta_lbl2").text("Total de venta: $" + importe_venta1);
+	  $("#importe_venta_lbl3").text("Total de venta: $" + importe_venta2);
       }
     }
   });
 }
+
+function agregarItemCompra(id_producto, id_compra){
+  let cantidad_inicial = $('#cantidad_producto').val();
+  let request_url = getRootUrl() + "/add_item_compra/";
+    info = { producto_id: id_producto, id: id_compra, cantidad: cantidad_inicial }
+  $.ajax({
+    url: request_url,
+    type: 'POST',
+    data: JSON.stringify(info),
+    contentType: "application/json; charset=utf-8",
+    success: function(result){
+      if( result != null ) {
+          $("#buscador_producto").modal('hide');
+          $('body').removeClass('modal-open');
+          $('.modal-backdrop').remove();
+	  let id_producto = result.producto_id;
+          let cantidad = result.cantidad;
+	  let producto = result.nombre_producto;
+	  let registro_compra = `<tr>
+                                 <td>${id_producto}</td>
+                                 <td>${producto}</td>
+                                 <td>${cantidad}</td>
+                              </tr>`;
+          
+          $("#tabla_compras tbody").append(registro_compra);
+      }
+    }
+  });
+}
+
     
 function getRootUrl() {
     return window.location.origin;

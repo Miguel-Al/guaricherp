@@ -18,13 +18,24 @@ class SalesController < ApplicationController
   end
 
   def destroy
-    @venta.destroy
+    ActiveRecord::Base.transaction do
+    @venta.sale_details.map do |detail|
+      prod_vendido = Product.find(detail.product_id)
+      prod_vendido.existencia_producto+= detail.cantidad
+      ActiveRecord::Rollback unless prod_vendido.save 
+    end
+    ActiveRecord::Rollback unless @venta.destroy
+    end
     respond_to do |format|
       format.html { redirect_to sales_url, notice: "La venta ha sido eliminada" }
       format.json { head :no_content }
     end
   end
 
+
+  #ver si se puedo meter el precio del produto en la variable precio detalle antes del build
+  #revisar como el proceso de como las rutas llegan a esta, para hacer la notacion de arriba
+  # creo que si pongo algo como cantidad pero agarrando el precio del proudcto y enviandolo funcionaria creo
   def add_item
     producto = Product.find(params[:producto_id])
     cantidad = params[:cantidad].nil? ? 1 : params[:cantidad].to_i

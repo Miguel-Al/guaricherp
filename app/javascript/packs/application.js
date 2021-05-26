@@ -12,6 +12,7 @@ import "channels"
 // js
 import '../src/bootstrap.js'
 import "../custom/algo.js"
+import "@fortawesome/fontawesome-free/css/all"
 
 
 Rails.start()

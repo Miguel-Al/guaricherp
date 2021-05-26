@@ -1,0 +1,42 @@
+<%= link_to new_purchase_path, {class: "btn btn-info", id: "registrar-entrada-btn"}  do %>
+    <span class="fas fa-plus-square"> </span>
+    Registrar entrada
+<%end%>
+<br />
+<br />
+<div class="card shadow mb-4">
+<div class="card-body">
+    <div class="table-responsive">
+    <table class="table table-bordered" id="tabla_compras" width="60%" cellspacing="0">
+        <thead>
+        <tr>
+          <th>Id</th>
+	  <th>Almacenista</th>
+	  <th>Proveedor</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+          <% if @compras.empty? %>
+          <tr> 
+            <td> No hay compras </td><td></td><td></td> 
+          </tr>
+          <% else %>
+            <% @compras.each do |compra| %>
+              <tr> 
+                <td> <%= compra.id %> </td>
+		<td> <%= compra.user.username %> </td>
+		<td> <%= compra.try(:supplier).try(:nombre_proveedor) %> </td>
+                <td> 
+                  <%= link_to 'Borrar', compra, method: :delete, data: { confirm: 'Eliminar la compra?' }, class: "btn btn-danger btn-xs" %>
+		  <%= link_to 'Mostrar', purchase_path(compra), {class: "btn btn-info btn-xs", remote: true} %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+    </table>
+    </div>
+  </div>
+</div
+<%= render 'modal_purchases' %>

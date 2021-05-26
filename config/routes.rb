@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   resources :suppliers, except: [:show]
   #Rutas para ventas
   resources :sales
+  #Rutas para compras
+  resources :purchases
   #Ruta para el buscador de productos en /app/javascript
   get 'buscador_productos/:termino', to: 'products#buscador'
   #Ruta para agreagar productos al detalle de venta
@@ -29,6 +31,12 @@ Rails.application.routes.draw do
   get 'buscador_clientes/:termino', to: 'clients#buscador'
   #Ruta para agregar clientes a la venta
   post 'add_cliente_venta', to: 'sales#add_cliente'
+  #Ruta para agreagar productos al detalle de compra
+  post 'add_item_compra', to: 'purchases#add_item'
+  #Ruta para buscar proveedores
+  get 'buscador_proveedores/:termino', to: 'suppliers#buscador'
+  #Ruta para agregar proveedores a la compra
+  post 'add_proveedor_compra', to: 'purchases#add_proveedor'
 
   
   # en caso de que la ruta no exista, redirecciona a root (poner siempre de ultimo)

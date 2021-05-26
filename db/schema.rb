@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_23_040942) do
+ActiveRecord::Schema.define(version: 2021_05_24_235901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,16 @@ ActiveRecord::Schema.define(version: 2021_05_23_040942) do
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["location_id"], name: "index_products_on_location_id"
     t.index ["unit_id"], name: "index_products_on_unit_id"
+  end
+
+  create_table "purchase_details", force: :cascade do |t|
+    t.integer "cantidad"
+    t.bigint "product_id"
+    t.bigint "purchase_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_purchase_details_on_product_id"
+    t.index ["purchase_id"], name: "index_purchase_details_on_purchase_id"
   end
 
   create_table "purchases", force: :cascade do |t|
@@ -147,6 +157,8 @@ ActiveRecord::Schema.define(version: 2021_05_23_040942) do
   add_foreign_key "products", "categories"
   add_foreign_key "products", "locations"
   add_foreign_key "products", "units"
+  add_foreign_key "purchase_details", "products"
+  add_foreign_key "purchase_details", "purchases"
   add_foreign_key "purchases", "suppliers"
   add_foreign_key "sale_details", "products"
   add_foreign_key "sale_details", "sales"
