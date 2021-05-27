@@ -58,7 +58,6 @@ ActiveRecord::Schema.define(version: 2021_05_24_235901) do
     t.string "descripcion_producto"
     t.decimal "precio_producto"
     t.integer "min_producto"
-    t.integer "max_producto"
     t.boolean "condicion_producto"
     t.bigint "category_id", null: false
     t.bigint "unit_id", null: false
@@ -72,6 +71,7 @@ ActiveRecord::Schema.define(version: 2021_05_24_235901) do
 
   create_table "purchase_details", force: :cascade do |t|
     t.integer "cantidad"
+    t.decimal "precio_detalle_compra"
     t.bigint "product_id"
     t.bigint "purchase_id"
     t.datetime "created_at", precision: 6, null: false
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 2021_05_24_235901) do
 
   create_table "sale_details", force: :cascade do |t|
     t.integer "cantidad"
+    t.decimal "precio_detalle_venta"
     t.bigint "product_id"
     t.bigint "sale_id"
     t.datetime "created_at", precision: 6, null: false

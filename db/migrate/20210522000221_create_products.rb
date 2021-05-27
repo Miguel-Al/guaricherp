@@ -7,7 +7,6 @@ class CreateProducts < ActiveRecord::Migration[6.1]
       t.string :descripcion_producto
       t.decimal :precio_producto
       t.integer :min_producto
-      t.integer :max_producto
       t.boolean :condicion_producto
       t.references :category, null: false, foreign_key: true
       t.references :unit, null: false, foreign_key: true

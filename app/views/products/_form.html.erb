@@ -63,19 +63,7 @@
         <% end %>
       </div>
     </div>
-
-
-    <div class="item form-group<%= @product.errors[:max_producto].any? ? ' has-error has-feedback' : '' %>">
-      <%= f.label :max, "Maximo de Stock: " %>
-      <div class="input-group">
-        <%= f.number_field :max_producto, {class: "form-control", :placeholder=>"Stock maximo"} %>
-        <%if @product.errors[:max_producto].any? %>
-          <p class="bg-danger"><%= @product.errors[:max_producto].to_s[/\w([^"]*)/] %></p>
-        <% end %>
-      </div>
-    </div>
-
-    
+   
     <div class="item form-group<%= @product.errors[:category].any? ? ' has-error has-feedback' : '' %>">
       <%= f.label :categoria, "Categoria: " %>
       <div class="input-group">

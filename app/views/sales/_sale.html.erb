@@ -34,22 +34,22 @@
     <tr>
        <td><%= detalle.product.nombre_producto %></td>
        <td><%= detalle.cantidad %></td>
-       <td>$ <%= detalle.product.precio_producto %></td>
-       <td>$ <%= detalle.product.precio_producto * detalle.cantidad %></td>
+       <td>$ <%= detalle.precio_detalle_venta %></td>
+       <td>$ <%= detalle.precio_detalle_venta * detalle.cantidad %></td>
     </tr>
     <% end %>
   </tbody>
 </table>
 <div class="form-row">
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-6 float-end">
       <label for="id">Sub total de venta</label>
       <input type="text" readonly class="form-control-plaintext" value="$ <%= @venta.total_venta %>">
     </div>
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-6 float-end">
       <label for="id">16% del iva</label>
       <input type="text" readonly class="form-control-plaintext" value="$ <%= @venta.total_venta * 0.16 %>">
     </div>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-6 float-end">
       <label for="id">Monto final de la venta</label>
       <input type="text" readonly class="form-control-plaintext" value="$ <%= @venta.total_venta * 1.16 %>">
     </div>

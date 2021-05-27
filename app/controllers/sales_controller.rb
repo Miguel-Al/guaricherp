@@ -38,9 +38,10 @@ class SalesController < ApplicationController
   # creo que si pongo algo como cantidad pero agarrando el precio del proudcto y enviandolo funcionaria creo
   def add_item
     producto = Product.find(params[:producto_id])
+    precio_producto = producto.precio_producto.to_i
     cantidad = params[:cantidad].nil? ? 1 : params[:cantidad].to_i
     importe_producto = producto.precio_producto * cantidad
-    @sale_detail = @venta.sale_details.build(product: producto, cantidad: cantidad)
+    @sale_detail = @venta.sale_details.build(product: producto, cantidad: cantidad, precio_detalle_venta: precio_producto)
     importe_antes_registro = @venta.total_venta
     importe_despues_registro = importe_antes_registro + importe_producto
     @venta.total_venta = importe_despues_registro
@@ -49,7 +50,7 @@ class SalesController < ApplicationController
 
     result = {
       product_id: @sale_detail.product_id,
-      precio_producto: producto.precio_producto,
+      precio_producto: @sale_detail.precio_detalle_venta,
       nombre_producto: @sale_detail.product.try(:nombre_producto),
       cantidad: @sale_detail.cantidad,
       importe_item: producto.precio_producto * cantidad,
