@@ -55,6 +55,22 @@ class ProductsController < ApplicationController
         {
           id: producto.id,
           nombre_producto: producto.nombre_producto,
+          precio_producto: producto.precio_producto,
+          existencia_producto: producto.existencia_producto
+        }
+      end
+
+      respond_to do |format|
+        format.json { render :json => @resultados }
+      end
+      
+    end
+
+    def buscadorcompra
+      @resultados = Product.buscador(params[:termino]).map do |producto|
+        {
+          id: producto.id,
+          nombre_producto: producto.nombre_producto,
           existencia_producto: producto.existencia_producto
         }
       end

@@ -6,5 +6,9 @@ class Product < ApplicationRecord
   def self.buscador(termino)
     Product.where("nombre_producto LIKE ?", "%#{termino}%")
   end
+
+    def self.buscadorcompra(termino)
+    Product.where("nombre_producto LIKE ?", "%#{termino}%")
+  end
   
 end

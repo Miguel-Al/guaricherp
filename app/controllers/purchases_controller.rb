@@ -7,7 +7,7 @@ class PurchasesController < ApplicationController
 
 
   def new
-    @compra = current_user.purchases.create
+    @compra = current_user.purchases.create(total_compra: 0.0)
     redirect_to edit_purchase_path(@compra)
   end
 
@@ -22,7 +22,7 @@ class PurchasesController < ApplicationController
     ActiveRecord::Base.transaction do
     @compra.purchase_details.map do |detail|
       prod_comprado = Product.find(detail.product_id)
-      prod_comprado.existencia_producto+= detail.cantidad
+      prod_comprado.existencia_producto-= detail.cantidad
       ActiveRecord::Rollback unless prod_comprado.save 
     end
     ActiveRecord::Rollback unless @compra.destroy
@@ -38,7 +38,12 @@ class PurchasesController < ApplicationController
   def add_item
     producto = Product.find(params[:producto_id])
     cantidad = params[:cantidad].nil? ? 1 : params[:cantidad].to_i
-    @purchase_detail = @compra.purchase_details.build(product: producto, cantidad: cantidad)
+    precio_detalle_compra = params[:precio_detalle_compra].nil? ? 1 : params[:precio_detalle_compra].to_d
+    importe_producto = precio_detalle_compra * cantidad
+    @purchase_detail = @compra.purchase_details.build(product: producto, cantidad: cantidad, precio_detalle_compra: precio_detalle_compra)
+    importe_antes_registro = @compra.total_compra
+    importe_despues_registro = importe_antes_registro + importe_producto
+    @compra.total_compra = importe_despues_registro
 
     existencia_antes_compra = producto.existencia_producto
 
@@ -47,9 +52,13 @@ class PurchasesController < ApplicationController
       producto_id: @purchase_detail.product_id,
       nombre_producto: @purchase_detail.product.try(:nombre_producto),
       cantidad: @purchase_detail.cantidad,
+      precio_detalle_compra: @purchase_detail.precio_detalle_compra,
+      importe_item: @purchase_detail.precio_detalle_compra * cantidad,
+      importe_compra: importe_despues_registro
     }
-
+    
     producto.existencia_producto = producto.existencia_producto + cantidad
+    producto.precio_producto = precio_detalle_compra
 
     respond_to do |format|
       if @compra.save && producto.save

@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   resources :purchases
   #Ruta para el buscador de productos en /app/javascript
   get 'buscador_productos/:termino', to: 'products#buscador'
+  #Ruta para el buscador de productos en /app/javascript
+  get 'buscador_productoscompra/:termino', to: 'products#buscadorcompra'
   #Ruta para agreagar productos al detalle de venta
   post 'add_item_venta', to: 'sales#add_item'
   #Ruta para buscar clientes
