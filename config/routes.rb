@@ -14,13 +14,15 @@ Rails.application.routes.draw do
   #Rutas para las categorias
   resources :categories
   #Rutas para los productos
-  resources :products, except: [:show]
+  resources :products
   #Rutas para los clientes
   resources :clients, except: [:show]
   #Rutas de los proveedores
   resources :suppliers, except: [:show]
   #Rutas para ventas
-  resources :sales
+  resources :sales do
+    resources :sale_details
+  end
   #Rutas para compras
   resources :purchases
   #Ruta para el buscador de productos en /app/javascript
@@ -29,6 +31,7 @@ Rails.application.routes.draw do
   get 'buscador_productoscompra/:termino', to: 'products#buscadorcompra'
   #Ruta para agreagar productos al detalle de venta
   post 'add_item_venta', to: 'sales#add_item'
+  
   #Ruta para buscar clientes
   get 'buscador_clientes/:termino', to: 'clients#buscador'
   #Ruta para agregar clientes a la venta
@@ -39,7 +42,8 @@ Rails.application.routes.draw do
   get 'buscador_proveedores/:termino', to: 'suppliers#buscador'
   #Ruta para agregar proveedores a la compra
   post 'add_proveedor_compra', to: 'purchases#add_proveedor'
-
+  #Ruta para el buscador
+  post '/search', to: 'search#results'
   
   # en caso de que la ruta no exista, redirecciona a root (poner siempre de ultimo)
   get '*path' => redirect('/')

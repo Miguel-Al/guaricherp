@@ -88,8 +88,6 @@ class SalesController < ApplicationController
     end
   end
 
-
-
   private
 
   def set_sale

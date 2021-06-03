@@ -34,37 +34,33 @@
 <br>
 <div class="card shadow mb-4">
 <div class="card-body">
-    <div class="table-responsive">
+  <div class="table-responsive">
     <table class="table table-bordered" id="tabla_ventas" width="80%" cellspacing="0">
         <thead>
         <tr>
-            <th>Producto</th>x
+            <th>Producto</th>
             <th>Precio unitario</th>
 	    <th>Cantidad</th>
             <th>Total</th>
         </tr>
         </thead>
         <tbody>
-          <% if @productos_venta.empty? %>
-          <tr> 
-          <td> No hay productos en la venta </td><td></td><td></td> 
-          </tr>
-          <% else %>
             <% @productos_venta.each do |det| %>
               <tr> 
                 <td> <%= det.product.try(:nombre_producto) %> </td>
 		<td> $ <%= det.product.try(:precio_producto) %> </td>
                 <td> <%= det.cantidad %> </td>
                 <td> $ <%= det.product.try(:precio_producto) * det.cantidad %> </td>
-		 <td><%= link_to "Borrar", sale_path, remote: true, method: :delete, data: { confirm: "Borrar producto: #{det.id}?"}, class: "btn btn-danger btn-xs" %></td>
+		 <td><%= link_to "Remover producto", sale_sale_detail_path(@venta, det), method: :delete, data: { confirm: "Borrar producto: #{det.product.id}?"}, class: "btn btn-danger btn-xs" %></td>
               </tr>
             <% end %>
-          <% end %>
         </tbody>
     </table>
     </div>
   </div>
 </div>
+
+
 <% @model = @venta %>
 <% @tipo = 'sales' %>
 <%= render 'buscador_producto', model: @model, tipo: @tipo %>

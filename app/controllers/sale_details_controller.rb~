@@ -1,0 +1,4 @@
+class SaleDetailsController < ApplicationController
+  def destroy
+  end
+end

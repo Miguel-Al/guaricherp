@@ -213,13 +213,13 @@ function agregarItemVenta(id_producto, id_venta){
                                  <td>${nombre_producto}</td>
                                  <td>$ ${precio_producto}</td>
                                  <td>${cantidad}</td>
-                                 <td>$ ${importe_item}</td>
-                              </tr>`;
+                                 <td>$ ${importe_item}</td>`;
           
           $("#tabla_ventas tbody").append(newRowContent);
           $("#importe_venta_lbl").text("Subtotal de venta: $" + importe_venta);
 	  $("#importe_venta_lbl2").text("16% del IVA: $" + importe_venta1);
 	  $("#importe_venta_lbl3").text("Total de venta: $" + importe_venta2);
+	  location.reload();
       }
     }
   });

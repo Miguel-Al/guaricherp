@@ -20,9 +20,10 @@
             </a>
         </div>
         <div class="d-flex align-items-center">
-            <form class="w-100 me-3">
-                <input type="search" class="form-control" placeholder="Buscar...">
-            </form>
+	  <%= form_tag( '/search' , options = {class: "w-100 me-3"}) do %>
+	  <%= text_field_tag("termino", value = nil, options = {class: "form-control", placeholder: "Buscar..."}) %>
+	  <%end%>
+	    
             <div class="flex-shrink-0 dropdown">
                 <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                    <i class="fas fa-user-circle"></i>
