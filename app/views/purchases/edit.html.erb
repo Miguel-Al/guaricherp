@@ -44,19 +44,14 @@
         </tr>
         </thead>
         <tbody>
-          <% if @productos_compra.empty? %>
-          <tr> 
-          <td> No hay productos agregados </td><td></td><td></td> 
-          </tr>
-          <% else %>
             <% @productos_compra.each do |det| %>
           <tr>
 	    <td> <%= det.product.try(:nombre_producto) %> </td>
 	    <td> <%= det.cantidad %> </td>
 	    <td> $ <%= det.precio_detalle_compra %> </td>
 	    <td> $ <%= det.precio_detalle_compra * det.cantidad %> </td>
+	     <td><%= link_to "Remover producto", purchase_purchase_detail_path(@compra, det), method: :delete, data: { confirm: "Borrar producto: #{det.product.id}?"}, class: "btn btn-danger btn-xs" %></td>
               </tr>
-            <% end %>
           <% end %>
         </tbody>
     </table>

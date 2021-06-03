@@ -259,6 +259,7 @@ function agregarItemCompra(id_producto, id_compra){
 	  $("#importe_compra_lbl").text("Subtotal de compra: $" + importe_compra);
 	  $("#importe_compra_lbl2").text("16% del IVA: $" + importe_compra1);
 	  $("#importe_compra_lbl3").text("Total de compra: $" + importe_compra2);
+	  location.reload();
       }
     }
   });
