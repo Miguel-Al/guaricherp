@@ -1,0 +1,18 @@
+<h1 class="h3 mb-2 text-gray-800">Empleados</h1>
+
+<br />
+<div class="card shadow mb-4">
+<div class="card-body">
+    <div class="table-responsive">
+    <table class="table table-bordered" id="tablaEmpleados" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+            <th>Nombre empleado</th>
+        </tr>
+        </thead>
+        <tbody>
+            <% @empleados.each do |prod| %>
+            <tr id="empleado_<%= prod.id %>" >
+	        <td><%= prod.primer_nombre %></td>
+            </tr>
+            <% end %>

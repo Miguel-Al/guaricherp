@@ -1,17 +1,4 @@
-<!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Proveedores</h1>
-       <div class="d-flex align-items-center">
-	  <%= form_tag( '/buscar_proveedores' , options = {class: "w-100 me-3"}) do %>
-	  <%= text_field_tag("termino", value = nil, options = {class: "form-control", placeholder: "Buscar..."}) %>
-	  <%end%>
-       </div>
-       <br />
-
-<div>  
-  <%= link_to new_supplier_path, {remote: true, class: "btn btn-info", id: "anadir-proveedor-btn"}  do %>
-    <span class="fas fa-plus-square" style=""></span>
-  <%end%>
-</div>
+<h1 class="h3 mb-2 text-gray-800">Proveedores Encontrados</h1>
 <br />
 <div class="card shadow mb-4">
 <div class="card-body">
@@ -44,4 +31,4 @@
     </div>
   </div>
 </div>
-<%= render 'modal_proveedores' %>
+<%= link_to "Volver", :back %> 

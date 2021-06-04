@@ -1,0 +1,4 @@
+ <% @empleados.each do |prod| %>
+	        <p><%= @empleados.primer_nombre %></p>
+
+            <% end %>

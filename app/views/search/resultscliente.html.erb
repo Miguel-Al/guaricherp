@@ -1,16 +1,4 @@
-<h1 class="h3 mb-2 text-gray-800">Clientes</h1>
-       <div class="d-flex align-items-center">
-	  <%= form_tag( '/buscar_clientes' , options = {class: "w-100 me-3"}) do %>
-	  <%= text_field_tag("termino", value = nil, options = {class: "form-control", placeholder: "Buscar..."}) %>
-	  <%end%>
-       </div>
-       <br />
-
-<div>  
-  <%= link_to new_client_path, { remote: true, class: "btn btn-info" }  do %>
-    <span class="fas fa-plus-square" ></span>
-  <% end %>
-</div>
+<h1 class="h3 mb-2 text-gray-800">Clientes Encontrados</h1>
 <br />
 <div class="card shadow mb-4">
 <div class="card-body">
@@ -43,4 +31,4 @@
     </div>
   </div>
 </div>
-<%= render 'modal_clientes' %>
+<%= link_to "Volver", :back %> 
