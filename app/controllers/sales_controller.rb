@@ -1,21 +1,23 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show, :edit, :add_item, :destroy, :add_cliente]
 
-  def index
-    @ventas = Sale.all
-    @search = SaleSearch.new(params[:search])
-    unless @search.scope.empty?
-      @ventas = @search.scope
-    end
-      puts "#{@ventas.count}"
-      respond_to do |format|
+   def index
+    @search = Sale.search(params[:q])
+    @ventas = @search.result
+             respond_to do |format|
         format.html
         format.pdf do
           pdf = Prawn::Document.new
-          pdf.text "#{@search.scope.count}"
-          send_data pdf.render
+          # anotar esto para cuando generes el pdf, usa last para el mas viejo
+          pdf.text "#{@ventas.first.created_at}"
+          send_data pdf.render, filename: "estadoinventario_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
         end
-      end
+          end
+  end
+
+  def search
+    index
+    render :index
   end
 
   def new
@@ -24,6 +26,14 @@ class SalesController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.js
+      format.pdf do
+        pdf = ReporteVentaPdf.new(@venta)
+          send_data pdf.render, filename: "reportedeventa_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
+        end
+          end
   end
 
   def edit

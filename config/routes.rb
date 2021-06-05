@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   #Rutas para ventas
   resources :sales do
     resources :sale_details
+    collection do
+      match 'search' => 'sales#search', via: [:get, :post], as: :search
+    end
   end
   #Rutas para compras
   resources :purchases do

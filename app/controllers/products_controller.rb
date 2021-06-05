@@ -10,13 +10,11 @@ class ProductsController < ApplicationController
           respond_to do |format|
         format.html
         format.pdf do
-          pdf = Prawn::Document.new
-          pdf.text "#{@productos.count}"
-          send_data pdf.render, filename: "ejemplo.pdf"
+          pdf = ReporteInventarioPdf.new(@productos)
+          send_data pdf.render, filename: "estadoinventario_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
         end
           end
   end
-
 
   def new
     @product = Product.new

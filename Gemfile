@@ -39,7 +39,7 @@ gem 'ransack'
 
 # Gemas para los pdfs
 gem 'prawn'
-#gem 'wicked_pdf'
+gem 'prawn-table'
 
 
 group :development, :test do

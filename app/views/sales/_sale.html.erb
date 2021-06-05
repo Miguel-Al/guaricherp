@@ -53,3 +53,6 @@
       <label for="id">Monto final de la venta</label>
       <input type="text" readonly class="form-control-plaintext" value="$ <%= @venta.total_venta * 1.16 %>">
     </div>
+    <div>
+      <%= link_to "Generar reporte de venta", sale_path(@venta, format: :pdf), class: "btn btn-primary", target: :_blank %>
+</div>

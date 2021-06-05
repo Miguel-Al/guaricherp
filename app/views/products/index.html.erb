@@ -1,12 +1,12 @@
 <h1 class="h3 mb-2 text-gray-800">Productos</h1>
-
-<%= search_form_for @q do |f| %>
-  <%= f.label :nombre_producto_cont %>
-  <%= f.search_field :nombre_producto_cont %>
-  <%= f.submit %>
+<div class="d-flex align-items-center">
+<%= search_form_for @q, options = {class: "w-100 me-3"} do |f| %>
+  <%= f.label :"buscar por nombre de producto" %>
+  <%= f.search_field :nombre_producto_cont, options = {class: "form-control", placeholder: "Buscar..."} %>
+  <%= f.submit class: "btn btn-info form-control" %>
 <% end %>
-
-
+</div>
+<br />
        <div class="d-flex align-items-center">
 	  <%= form_tag( '/buscar_productos' , options = {class: "w-100 me-3"}) do %>
 	  <%= text_field_tag("termino", value = nil, options = {class: "form-control", placeholder: "Buscar..."}) %>
@@ -57,7 +57,8 @@
     </div>
   </div>
 </div>
+<%# funcion para generar un reporte del inventario, en base al query %>
 <div class="pdf_link">
-    <%= link_to "Generate PDF", products_path(request.params.merge(format: :pdf)), class: "btn btn-primary" %>
+  <%= link_to "Generar reporte de inventario", products_path(request.params.merge(format: :pdf)), class: "btn btn-primary", target: :_blank %>
 </div>
 <%= render 'modal_productos' %>
