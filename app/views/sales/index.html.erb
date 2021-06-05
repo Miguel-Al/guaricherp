@@ -1,4 +1,13 @@
 <h1 class="h3 mb-2 text-gray-800">Ventas</h1>
+<div class="d-flex pull-right range-query">
+  <%= form_tag sales_path, method: :get, :class => 'd-flex flex-row bd-highlight' do %>
+  <%= text_field_tag 'search[date_from]', @search.date_from, :class => 'form-control' %>
+  <%= text_field_tag 'search[date_to]', @search.date_to, :class => 'form-control' %>
+  <%= submit_tag 'Buscar', class: 'btn btn-info form-control'%>
+  <%end%>
+  </div>
+<br />
+
 
 <%= link_to new_sale_path, {class: "btn btn-info", id: "crear-venta-btn"}  do %>
     <span class="fas fa-plus-square"> </span>
@@ -44,7 +53,8 @@
   </div>
 </div>
 <div>
-<%= link_to "ventas del mes", ventas_del_mes_path, class: "btn btn-info btn-xs" %>
+<%= link_to "ventas del mes", ventas_del_mes_path, class: "btn btn-info btn-xs"%>
 <%= link_to "ventas de la semana", ventas_de_semana_path, class: "btn btn-info btn-xs" %>
+<%= link_to "pdf", sales_path(params.merge(format: "pdf")), class: "btn btn-info btn-xs" %>
 </div>
 <%= render 'modal_sales' %>

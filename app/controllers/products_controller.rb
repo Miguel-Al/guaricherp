@@ -5,7 +5,16 @@ class ProductsController < ApplicationController
   before_action :set_locations, only: [:new, :edit, :create]
   
   def index
-    @productos = Product.all
+    @q = Product.ransack(params[:q])
+    @productos = @q.result
+          respond_to do |format|
+        format.html
+        format.pdf do
+          pdf = Prawn::Document.new
+          pdf.text "#{@productos.count}"
+          send_data pdf.render, filename: "ejemplo.pdf"
+        end
+          end
   end
 
 

@@ -1,4 +1,12 @@
 <h1 class="h3 mb-2 text-gray-800">Productos</h1>
+
+<%= search_form_for @q do |f| %>
+  <%= f.label :nombre_producto_cont %>
+  <%= f.search_field :nombre_producto_cont %>
+  <%= f.submit %>
+<% end %>
+
+
        <div class="d-flex align-items-center">
 	  <%= form_tag( '/buscar_productos' , options = {class: "w-100 me-3"}) do %>
 	  <%= text_field_tag("termino", value = nil, options = {class: "form-control", placeholder: "Buscar..."}) %>
@@ -48,5 +56,8 @@
     </table>
     </div>
   </div>
+</div>
+<div class="pdf_link">
+    <%= link_to "Generate PDF", products_path(request.params.merge(format: :pdf)), class: "btn btn-primary" %>
 </div>
 <%= render 'modal_productos' %>

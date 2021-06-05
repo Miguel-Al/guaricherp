@@ -3,6 +3,19 @@ class SalesController < ApplicationController
 
   def index
     @ventas = Sale.all
+    @search = SaleSearch.new(params[:search])
+    unless @search.scope.empty?
+      @ventas = @search.scope
+    end
+      puts "#{@ventas.count}"
+      respond_to do |format|
+        format.html
+        format.pdf do
+          pdf = Prawn::Document.new
+          pdf.text "#{@search.scope.count}"
+          send_data pdf.render
+        end
+      end
   end
 
   def new
