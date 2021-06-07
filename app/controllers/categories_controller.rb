@@ -2,8 +2,7 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: [:edit, :update, :destroy]
   
   def index
-    @q = Category.ransack(params[:q])
-    @categorias = @q.result
+    @categorias = Category.all
   end
 
   def new

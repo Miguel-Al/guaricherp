@@ -34,14 +34,6 @@ gem 'devise'
 # Gema de administrador
 gem 'rails_admin', '~> 2.0'
 
-# Gema para busqueda
-gem 'ransack'
-
-# Gemas para los pdfs
-gem 'prawn'
-gem 'prawn-table'
-
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

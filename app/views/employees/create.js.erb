@@ -1,4 +1,0 @@
-$('#modalEmpleados').modal('toggle');
-$('#tablaEmpleados').append(
-    '<tr id="empleado_<%= @empleado.id %>" ><td><%= @empleado.numero_cedula %></td><td><%= @empleado.primer_nombre %></td><td><%= @empleado.primer_apellido %></td><td><%= @empleado.salario_empleado %></td><td><%= (@empleado.salario_empleado / 30).round(2)  %></td><td><%= @empleado.try(:position).try(:nombre_cargo)%></td><td><%= link_to 'Borrar', @empleado, remote: true, method: :delete, data: { confirm: "Borrar al empleado: #{@empleado.primer_nombre} #{@empleado.primer_apellido}?"}, class: "btn btn-danger btn-xs" %></td></tr>'
-);

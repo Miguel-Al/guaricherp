@@ -1,70 +1,46 @@
-<h1 class="h3 mb-2 text-gray-800">Ventas</h1>
-
-        <%= search_form_for @search, url: search_sales_path, html: {class: "form-inline col-md-8 col-md-offset-1", method: :post} do |f| %>
-          <div class="input-daterange">
-            <div class="col-md-4">
-              <%= f.text_field :created_at_gteq, class: "form-control", placeholder: "Fecha de inicio..." %>
-            </div>
-            <div class="col-md-4 col-md-offset-1">
-              <%= f.text_field :created_at_lteq, class: "form-control", placeholder: "Fecha fin..." %>
-            </div>
-          </div>
-
-          <div class="col-md-2 col-md-offset-1 form-actions">
-            <%= f.submit "Buscar", class: "btn btn-success" %>
-          </div>
-          
-        <% end %>
-</div>
-   
-<div>
-  <%= link_to new_sale_path, {class: "btn btn-info", id: "crear-venta-btn"}  do %>
-  <span class="fas fa-plus-square"> </span>
-  Realizar venta
-  <%end%>
-  <%= link_to "ventas del mes", ventas_del_mes_path, class: "btn btn-info btn-xs"%>
-  <%= link_to "ventas de la semana", ventas_de_semana_path, class: "btn btn-info btn-xs" %>
-  <%= link_to "Generar reporte de ventas", sales_path(request.params.merge(format: :pdf)), class: "btn btn-primary", target: :_blank %>
-    </div>
+<%= link_to new_sale_path, {class: "btn btn-info", id: "crear-venta-btn"}  do %>
+    <span class="fas fa-plus-square"> </span>
+    Realizar venta
+<%end%>
 <br />
 <br />
 <div class="card shadow mb-4">
 <div class="card-body">
     <div class="table-responsive">
-    <table class="table table-bordered" id="tabla_ventas" width="60%" cellspacing="0">
-        <thead>
-        <tr>
-          <th>Id</th>
-	  <th>Vendedor</th>
-	  <th>Cliente</th>
-	  <th>Total</th>
-	  <th>Fecha y hora</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-          <% if @ventas.empty? %>
-          <tr> 
-            <td> No hay ventas </td><td></td><td></td> 
-          </tr>
-          <% else %>
-            <% @ventas.each do |venta| %>
-              <tr> 
-                <td> <%= venta.id %> </td>
-		<td> <%= venta.user.username %> </td>
-		<td> <%= venta.try(:client).try(:nombre_cliente) %> </td>
-                <td> $<%= venta.total_venta * 1.16%> </td>
-		<td> <%= venta.created_at.to_s(:db) %> </td>
-                <td> 
-		  <%= link_to 'Mostrar', sale_path(venta), {class: "btn btn-info btn-xs", remote: true} %>
-		  <%= link_to 'Borrar', venta, method: :delete, data: { confirm: 'Eliminar la venta?' }, class: "btn btn-danger btn-xs" %>
-                </td>
-              </tr>
-            <% end %>
-          <% end %>
-        </tbody>
+    <table class="table table-striped" id="tabla_ventas" width="60%" cellspacing="0">
+		<thead>
+			<tr>
+				<th class="align-middle text-center">Id</th>
+				<th class="align-middle text-center">Vendedor</th>
+				<th class="align-middle text-center">Cliente</th>
+				<th class="align-middle text-center">Total</th>
+				<th class="align-middle text-center"></th>
+			</tr>
+		</thead>
+		<tbody>
+		<% if @ventas.empty? %>
+			<tr> 
+				<td>No hay ventas</td>
+				<td ></td>
+				<td></td> 
+			</tr>
+		<% else %>
+		<% @ventas.each do |venta| %>
+			<tr> 
+				<td class="align-middle text-center"> <%= venta.id %> </td>
+				<td class="align-middle text-center"> <%= venta.user.username %> </td>
+				<td class="align-middle text-center"> <%= venta.try(:client).try(:nombre_cliente) %> </td>
+				<td class="align-middle text-center"> <%= venta.total_venta * 1.16%> </td>
+				<td class="btn-group "> 
+				<%= link_to 'Borrar', venta, method: :delete, data: { confirm: 'Eliminar la venta?' }, class: "btn btn-danger btn-sm" %>
+				<%= link_to 'Mostrar', sale_path(venta), {class: "btn btn-info btn-sm", remote: true} %>
+				</td>
+			</tr>
+			<% end %>
+		<% end %>
+		</tbody>
     </table>
     </div>
-  </div>
+</div>
 </div>
 <%= render 'modal_sales' %>

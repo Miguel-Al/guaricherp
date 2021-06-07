@@ -1,22 +1,4 @@
-<h1 class="h3 mb-2 text-gray-800">Productos</h1>
-<div class="d-flex align-items-center">
-<%= search_form_for @q, options = {class: "w-100 me-3"} do |f| %>
-  <%= f.search_field :nombre_producto_or_codigo_producto_cont, options = {class: "form-control", placeholder: "Buscar por nombre o codigo..."} %>
-  <%= f.submit "Buscar", class: "btn btn-info form-control" %>
-<% end %>
-</div>
-<br />
-
-<% if false %>
-Buscador anterior, dejado como recordatorio
-<div class="d-flex align-items-center">
-  <%= form_tag( '/buscar_productos' , options = {class: "w-100 me-3"}) do %>
-  <%= text_field_tag("termino", value = nil, options = {class: "form-control", placeholder: "Buscar..."}) %>
-  <%end%>
-</div>
-<br />
-<% end %>
-
+<h3 class=" mb-2 text-gray-800">Productos</h3>
 <div>  
   <%= link_to new_product_path, { remote: true, class: "btn btn-info" }  do %>
     <span class="fas fa-plus-square" ></span>
@@ -26,29 +8,33 @@ Buscador anterior, dejado como recordatorio
 <div class="card shadow mb-4">
 <div class="card-body">
     <div class="table-responsive">
-    <table class="table table-bordered" id="tablaProductos" width="100%" cellspacing="0">
+    <table class="table table-striped" id="tablaProductos" width="100%" cellspacing="0">
         <thead>
         <tr>
-	    <th>Codigo</th>
-            <th>Nombre</th>
+	    <th>Codigo producto</th>
+            <th>Nombre producto</th>
             <th>Existencia</th>
             <th>Precio</th>
-	    <th>Ubicacion</th>
+            <th>Categoria</th>
+            <th>Unidad</th>
+			<th>Ubicacion</th>
 	    <th></th>
         </tr>
         </thead>
         <tbody>
             <% @productos.each do |prod| %>
             <tr id="producto_<%= prod.id %>" >
-	        <td><%= prod.codigo_producto %></td>
-                <td><%= prod.nombre_producto %></td>
-                <td><%= prod.existencia_producto %></td>
-                <td>$<%= prod.precio_producto %></td>
-		<td><%= prod.location != nil ? prod.location.nombre_lugar : "No tiene ubicacion" %></td>
-                <td>
-		<%= link_to "Ver", product_path(prod), html_options = {class: "btn btn-info btn-xs", remote: true} %>
-                <%= link_to "editar", edit_product_path(prod), html_options = {class: "btn btn-info btn-xs", remote: true} %>
-                <%= link_to "Borrar", prod, remote: true, method: :delete, data: { confirm: "Borrar producto: #{prod.nombre_producto}?"}, class: "btn btn-danger btn-xs" %>
+	        <td class="align-middle text-center"><%= prod.codigo_producto %></td>
+                <td class="align-middle "><%= prod.nombre_producto %></td>
+                <td class="align-middle text-center"><%= prod.existencia_producto %></td>
+                <td class="align-middle text-center">$<%= prod.precio_producto %></td>
+                <td class="align-middle text-center"><%= prod.category != nil ? prod.category.nombre_categoria : "No tiene categoria" %></td>
+                <td class="align-middle text-center"><%= prod.unit != nil ? prod.unit.nombre_unidad : "No tiene unidad" %></td>
+				<td class="align-middle text-center"><%= prod.location != nil ? prod.location.nombre_lugar : "No tiene ubicacion" %></td>
+                <td class="align-middle text-center">
+				<div class="btn-group ">
+                <%= link_to "editar", edit_product_path(prod), html_options = {class: "btn btn-info btn-sm", remote: true} %>
+                <%= link_to "Borrar", prod, remote: true, method: :delete, data: { confirm: "Borrar producto: #{prod.nombre_producto}?"}, class: "btn btn-danger btn-sm" %>
                 </td>
             </tr>
             <% end %>
@@ -56,9 +42,5 @@ Buscador anterior, dejado como recordatorio
     </table>
     </div>
   </div>
-</div>
-<%# funcion para generar un reporte del inventario, en base al query %>
-<div class="pdf_link">
-  <%= link_to "Generar reporte de inventario", products_path(request.params.merge(format: :pdf)), class: "btn btn-primary", target: :_blank %>
 </div>
 <%= render 'modal_productos' %>

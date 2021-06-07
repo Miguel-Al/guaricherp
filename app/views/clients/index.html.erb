@@ -1,24 +1,5 @@
-<h1 class="h3 mb-2 text-gray-800">Clientes</h1>
 
-<div class="d-flex align-items-center">
-<%= search_form_for @q, options = {class: "w-100 me-3"} do |f| %>
-  <%= f.label :"buscar cliente" %>
-  <%= f.search_field :nombre_cliente_or_rif_cliente_cont, options = {class: "form-control", placeholder: "Buscar..."} %>
-  <%= f.submit class: "btn btn-info form-control" %>
-<% end %>
-</div>
-<br />
-
-
-<% if false %>
-<div class="d-flex align-items-center">
-  <%= form_tag( '/buscar_clientes' , options = {class: "w-100 me-3"}) do %>
-  <%= text_field_tag("termino", value = nil, options = {class: "form-control", placeholder: "Buscar..."}) %>
-  <%end%>
-</div>
-<br />
-<% end %>
-
+<h3 class=" mb-2 text-gray-800">Clientes</h3>
 <div>  
   <%= link_to new_client_path, { remote: true, class: "btn btn-info" }  do %>
     <span class="fas fa-plus-square" ></span>
@@ -28,27 +9,29 @@
 <div class="card shadow mb-4">
 <div class="card-body">
     <div class="table-responsive">
-    <table class="table table-bordered" id="tablaClientes" width="100%" cellspacing="0">
+    <table class="table table-striped" id="tablaClientes" width="100%" cellspacing="0">
         <thead>
         <tr>
-	    <th>Rif cliente</th>
+			<th>Rif cliente</th>
             <th>Nombre cliente</th>
             <th>Correo cliente</th>
             <th>Tipo cliente</th>
-	    <th></th>
+			<th></th>
         </tr>
         </thead>
         <tbody>
             <% @clientes.each do |clit| %>
             <tr id="cliente_<%= clit.id %>" >
-	        <td><%= clit.rif_cliente %></td>
-                <td><%= clit.nombre_cliente %></td>
-                <td><%= clit.correo_cliente %></td>
-                <td><%= clit.type_client != nil ? clit.type_client.nombre_tipo_cliente : "No tiene tipo" %></td>
-                <td>
-                <%= link_to "editar", edit_client_path(clit), html_options = {class: "btn btn-info btn-xs", remote: true} %>
-                <%= link_to "Borrar", clit, remote: true, method: :delete, data: { confirm: "Borrar cliente: #{clit.nombre_cliente}?"}, class: "btn btn-danger btn-xs" %>
-                </td>
+				<td class="align-middle text-center"><%= clit.rif_cliente %></td>
+                <td class="align-middle text-center"><%= clit.nombre_cliente %></td>
+                <td class="align-middle text-center"><%= clit.correo_cliente %></td>
+                <td class="align-middle text-center"><%= clit.type_client != nil ? clit.type_client.nombre_tipo_cliente : "No tiene tipo" %></td>
+                <td class="align-middle text-center">
+				<div class="btn-group">
+                <%= link_to "editar", edit_client_path(clit), html_options = {class: "btn btn-info btn-sm", remote: true} %>
+                <%= link_to "Borrar", clit, remote: true, method: :delete, data: { confirm: "Borrar cliente: #{clit.nombre_cliente}?"}, class: "btn btn-danger btn-sm" %>
+				</div>
+			   </td>
             </tr>
             <% end %>
         </tbody>

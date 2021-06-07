@@ -4,8 +4,8 @@
       <h4 class="control-label">Datos del proveedor:</h4>
     </div>
 
-    <div class="item form-group<%= @proveedor.errors[:rif_proveedor].any? ? ' has-error has-feedback' : '' %>">
-      <%= f.label :rif, "Rif del Proveedor: " %>
+    <div class="item form-group mt-1 pt-1<%= @proveedor.errors[:rif_proveedor].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :rif, "Rif del Proveedor: ", class:"form-label" %>
       <div class="input-group">
         <%= f.text_field :rif_proveedor, {:class=> "form-control", :placeholder=>"Introduzca el rif del proveedor..."} %>        
         <%if @proveedor.errors[:rif_proveedor].any? %>
@@ -14,7 +14,7 @@
       </div>
     </div>
     
-    <div class="item form-group<%= @proveedor.errors[:nombre_proveedor].any? ? ' has-error has-feedback' : '' %>">
+    <div class="item form-group mt-1 pt-1<%= @proveedor.errors[:nombre_proveedor].any? ? ' has-error has-feedback' : '' %>">
       <%= f.label :nombre, "Nombre del Proveedor: " %>
       <div class="input-group">
         <%= f.text_field :nombre_proveedor, {:class=> "form-control", :placeholder=>"Introduzca el nombre del proveedor..."} %>        
@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <div class="item form-group<%= @proveedor.errors[:correo_proveedor].any? ? ' has-error has-feedback' : '' %>">
+    <div class="item form-group mt-1 pt-1<%= @proveedor.errors[:correo_proveedor].any? ? ' has-error has-feedback' : '' %>">
       <%= f.label :correo, "Correo del proveedor: " %>
       <div class="input-group">
         <%= f.text_field :correo_proveedor, {class: "form-control", :placeholder=>"Correo del proveedor..."} %>
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div class="item form-group<%= @proveedor.errors[:descripcion_proveedor].any? ? ' has-error has-feedback' : '' %>">
+    <div class="item form-group mt-1 pt-1<%= @proveedor.errors[:descripcion_proveedor].any? ? ' has-error has-feedback' : '' %>">
       <%= f.label :descripcion, "descripcion del Proveedor: " %>
       <div class="input-group">
         <%= f.text_area :descripcion_proveedor, {:class=> "form-control", :placeholder=>"Introduzca la descripcion del proveedor..."} %>        
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div class="actions col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+    <div class="mt-3 pt-3">
       <%= f.submit @proveedor.new_record? ? "Crear Proveedor" : "Actualizar Proveedor", :class => "btn btn-success"%>
     </div>  
 <% end %>

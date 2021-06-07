@@ -22,21 +22,11 @@ Rails.application.routes.draw do
   #Rutas para ventas
   resources :sales do
     resources :sale_details
-    collection do
-      match 'search' => 'sales#search', via: [:get, :post], as: :search
-    end
   end
   #Rutas para compras
   resources :purchases do
     resources :purchase_details
-    collection do
-      match 'search' => 'purchases#search', via: [:get, :post], as: :search
-    end
   end
-  
-  #Rutas para empleados
-  resources :employees
-  
   #Ruta para el buscador de productos en /app/javascript
   get 'buscador_productos/:termino', to: 'products#buscador'
   #Ruta para el buscador de productos en /app/javascript
@@ -54,16 +44,8 @@ Rails.application.routes.draw do
   get 'buscador_proveedores/:termino', to: 'suppliers#buscador'
   #Ruta para agregar proveedores a la compra
   post 'add_proveedor_compra', to: 'purchases#add_proveedor'
-  #Ruta para el buscador de productos
-  post '/buscar_productos', to: 'search#resultsproducto'
-  #Ruta para el buscador de clientes
-  post '/buscar_clientes', to: 'search#resultscliente'
-  #Ruta para el buscador de proveedores
-  post '/buscar_proveedores', to: 'search#resultsproveedor'
-  #ruta de ventas del mes
-  get '/ventas_del_mes', to: 'search#resultsventasmes'
-  #ruta de ventas de la semana
-  get '/ventas_de_semana', to: 'search#resultsventassemana'
+  #Ruta para el buscador
+  post '/search', to: 'search#results'
   
   # en caso de que la ruta no exista, redirecciona a root (poner siempre de ultimo)
   get '*path' => redirect('/')

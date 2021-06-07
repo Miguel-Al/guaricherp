@@ -11,21 +11,6 @@ RailsAdmin.config do |config|
   config.current_user_method(&:current_user)
   #########################################
 
-  #Esconder el modelo del navegador a la izquierda
-  config.model 'Role' do
-    visible false
-  end
-
-  # mostrar campos de creacion y edicion de rails admin
-config.model 'User' do
-  edit do
-    field :username
-    field :email
-    field :password
-    field :role_id
-    end
-end
-
   #Autoriza acceso si tiene rol admin (acomodar en un futuro)
   config.authorize_with do
     redirect_to main_app.root_path unless current_user.role_id==1
@@ -58,15 +43,11 @@ end
   config.actions do
     dashboard                     # mandatory
     index                         # mandatory
-    new do
-      except ['Role', 'Sale']
-    end
+    new
     export
     bulk_delete
-    show 
-    edit do
-      except ['Role']
-    end
+    show
+    edit
     delete
     show_in_app
 

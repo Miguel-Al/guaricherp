@@ -1,17 +1,17 @@
-<h4>Ingresar al sistema</h4>
-<%= form_for(resource, as: resource_name, url: session_path(resource_name), html_options: {class: "row g-3"}) do |f| %>
-  <div class="col-12">
-    <%= f.label :login %><br />
+<h4 class="fw-bold text-center pe-4">Ingresar al sistema</h4>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html_options: {class: "col g-3 bg-primary mt-4 mb-4"}) do |f| %>
+  <div class="mb-4">
+    <%= f.label :login, class:"form-label ms-3"%>
     <%= f.text_field :login, autofocus: true, class: "form-control", placeholder: "Usuario..."%>
   </div>
 
-  <div class="col-12">
-    <%= f.label :Clave %><br />
+  <div class="mb-4">
+    <%= f.label :Clave, class:"form-label ms-3" %>
     <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "Clave..."%>
   </div>
-<br>
-  <div class="col-12">
-    <%= f.submit "Ingresar", class: "btn btn-dark float-end"%>
+
+  <div class="d-grid gap-2 col-4 mx-auto">
+    <%= f.submit "Ingresar", class: "btn btn-primary "%>
   </div>
 <% end %>
 

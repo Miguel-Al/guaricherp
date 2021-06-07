@@ -4,8 +4,8 @@
       <h4 class="control-label">Datos del cliente:</h4>
     </div>
 
-    <div class="item form-group<%= @client.errors[:rif_cliente].any? ? ' has-error has-feedback' : '' %>">
-      <%= f.label :rif, "Rif del cliente: " %>
+    <div class="item form-group mt-1 pt-1<%= @client.errors[:rif_cliente].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :rif, "Rif del cliente: ", class:"form-label" %>
       <div class="input-group">
         <%= f.text_field :rif_cliente, {:class=> "form-control", :placeholder=>"Introduzca el rif del cliente..."} %>        
         <%if @client.errors[:rif_cliente].any? %>
@@ -14,8 +14,8 @@
       </div>
     </div>
 
-    <div class="item form-group<%= @client.errors[:nombre_cliente].any? ? ' has-error has-feedback' : '' %>">
-      <%= f.label :nombre, "Nombre del cliente: " %>
+    <div class="item form-group mt-1 pt-1<%= @client.errors[:nombre_cliente].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :nombre, "Nombre del cliente: ", class:"form-label" %>
       <div class="input-group">
         <%= f.text_field :nombre_cliente, {:class=> "form-control", :placeholder=>"Introduzca el nombre del cliente..."} %>        
         <%if @client.errors[:nombre_cliente].any? %>
@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <div class="item form-group<%= @client.errors[:correo_cliente].any? ? ' has-error has-feedback' : '' %>">
+    <div class="item form-group mt-1 pt-1<%= @client.errors[:correo_cliente].any? ? ' has-error has-feedback' : '' %>">
       <%= f.label :correo, "Correo del cliente: " %>
       <div class="input-group">
         <%= f.text_field :correo_cliente, {class: "form-control", :placeholder=>"Introduzca el correo del cliente..."} %>
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div class="item form-group<%= @client.errors[:descripcion_cliente].any? ? ' has-error has-feedback' : '' %>">
+    <div class="item form-group mt-1 pt-1<%= @client.errors[:descripcion_cliente].any? ? ' has-error has-feedback' : '' %>">
       <%= f.label :descripcion, "Descripcion del cliente: " %>
       <div class="input-group">
         <%= f.text_area :descripcion_cliente, {:class=> "form-control", :placeholder=>"Introduzca la descripcion del cliente.."} %>        
@@ -44,17 +44,17 @@
       </div>
     </div>
 
-        <div class="item form-group<%= @client.errors[:type_client].any? ? ' has-error has-feedback' : '' %>">
+        <div class="item form-group mt-1 pt-1<%= @client.errors[:type_client].any? ? ' has-error has-feedback' : '' %>">
       <%= f.label :categoria, "Categoria de cliente: " %>
       <div class="input-group">
       <%= collection_select(:client, :type_client_id, @tipoclientes, :id, :nombre_tipo_cliente, {:prompt => 'Seleccione categoria'}, { class: "form-control" })%>
         <%if @client.errors[:type_client].any? %>
-          <p class="bg-danger"><%= @client.errors[:type_client].to_s[/\w([^"]*)/] %></p>
+          <p class="text-danger ms-3"><%= @client.errors[:type_client].to_s[/\w([^"]*)/] %></p>
         <% end %>
       </div>
     </div>
 
-    <div class="actions col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+    <div class="mt-3 pt-3">
       <%= f.submit @client.new_record? ? "Crear Cliente" : "Actualizar Cliente", :class => "btn btn-success"%>
     </div>  
 <% end %>

@@ -5,16 +5,9 @@ class ProductsController < ApplicationController
   before_action :set_locations, only: [:new, :edit, :create]
   
   def index
-    @q = Product.ransack(params[:q])
-    @productos = @q.result
-    respond_to do |format|
-      format.html
-      format.pdf do
-        pdf = ReporteInventarioPdf.new(@productos)
-        send_data pdf.render, filename: "estadodeinventario_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
-      end
-    end
+    @productos = Product.all
   end
+
 
   def new
     @product = Product.new

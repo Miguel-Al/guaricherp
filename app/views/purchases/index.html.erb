@@ -1,61 +1,41 @@
-<h1 class="h3 mb-2 text-gray-800">Compras</h1>
-
-        <%= search_form_for @search, url: search_purchases_path, html: {class: "form-inline col-md-8 col-md-offset-1", method: :post} do |f| %>
-          <div class="input-daterange">
-            <div class="col-md-4">
-              <%= f.text_field :created_at_gteq, class: "form-control", placeholder: "Fecha de inicio..." %>
-            </div>
-            <div class="col-md-4 col-md-offset-1">
-              <%= f.text_field :created_at_lteq, class: "form-control", placeholder: "Fecha fin..." %>
-            </div>
-          </div>
-
-          <div class="col-md-2 col-md-offset-1 form-actions">
-            <%= f.submit "Buscar", class: "btn btn-success" %>
-          </div>
-          
-        <% end %>
-</div>
-<div>
-  <%= link_to new_purchase_path, {class: "btn btn-info", id: "registrar-entrada-btn"}  do %>
-  <span class="fas fa-plus-square"> </span>
-  Registrar entrada
-  <%end%>
-  <%= link_to "Generar reporte de compras", purchases_path(request.params.merge(format: :pdf)), class: "btn btn-primary", target: :_blank %>
-  </div>
+<%= link_to new_purchase_path, {class: " btn btn-info", id: "registrar-entrada-btn"}  do %>
+    <span class="fas fa-plus-square me-2"> </span>
+    Registrar entrada
+<%end%>
+<br />
 <br />
 <div class="card shadow mb-4">
 <div class="card-body">
     <div class="table-responsive">
-    <table class="table table-bordered" id="tabla_compras" width="60%" cellspacing="0">
+    <table class="table table-striped" id="tabla_compras" width="60%" cellspacing="0">
         <thead>
         <tr>
-          <th>Id</th>
-	  <th>Almacenista</th>
-	  <th>Proveedor</th>
-	  <th>Total</th>
-	  <th>Fecha y hora</th>
-          <th></th>
+			<th class="align-middle text-center">Id</th>
+			<th class="align-middle text-center">Almacenista</th>
+			<th class="align-middle text-center">Proveedor</th>
+			<th class="align-middle text-center"></th>
         </tr>
         </thead>
         <tbody>
           <% if @compras.empty? %>
-          <tr> 
-            <td> No hay compras </td><td></td><td></td> 
-          </tr>
+			<tr> 
+				<td>No hay compras</td>
+				<td></td>
+				<td></td> 
+			</tr>
           <% else %>
             <% @compras.each do |compra| %>
-              <tr> 
-                <td> <%= compra.id %> </td>
-		<td> <%= compra.user.username %> </td>
-		<td> <%= compra.try(:supplier).try(:nombre_proveedor) %> </td>
-		<td> $<%= compra.total_compra * 1.16%> </td>
-		<td> <%= compra.created_at.to_s(:db) %> </td>
-                <td> 
-		  <%= link_to 'Mostrar', purchase_path(compra), {class: "btn btn-info btn-xs", remote: true} %>
-		   <%= link_to 'Borrar', compra, method: :delete, data: { confirm: 'Eliminar la compra?' }, class: "btn btn-danger btn-xs" %>
-                </td>
-              </tr>
+            <tr> 
+                <td class="align-middle text-center"> <%= compra.id %> </td>
+				<td class="align-middle text-center"> <%= compra.user.username %> </td>
+				<td class="align-middle text-center"> <%= compra.try(:supplier).try(:nombre_proveedor) %> </td>
+                <td class="align-middle text-center"> 
+					<div class="btn-group ">
+					<%= link_to 'Borrar', compra, method: :delete, data: { confirm: 'Eliminar la compra?' }, class: "btn btn-danger btn-sm" %>
+					<%= link_to 'Mostrar', purchase_path(compra), {class: "btn btn-info btn-sm", remote: true} %>
+					</div>
+			   </td>
+             </tr>
             <% end %>
           <% end %>
         </tbody>

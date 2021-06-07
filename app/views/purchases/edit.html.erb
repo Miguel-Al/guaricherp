@@ -1,64 +1,61 @@
 <%= stylesheet_link_tag 'sales' %>
-<div class = "row">
-  <div class="col-md-6">
-    <h3 class="h3 mb-2 text-gray-800">Detalle de entrada</h3>
-  </div>
-  <div class="col-md-6" style="text-align:right;">
-    <h2 id="importe_compra_lbl" > Subtotal de compra: $<%= @compra.total_compra %> </h2>
-    </div>
-      <div class="col-md-6" style="text-align:right;">
-    <h2 id="importe_compra_lbl2" > 16% del IVA: $<%= @compra.total_compra * 0.16 %> </h2>
-  </div>
-  <div class="col-md-6" style="text-align:right;">
-    <h2 id="importe_compra_lbl3" > Total de compra: $<%= @compra.total_compra * 1.16 %> </h2>
-  </div>
-  <div class="col-md-5">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buscador_productocompra">
-      Buscar producto
-    </button>
-    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#buscador_proveedor">
-      Buscar proveedor
-    </button>
-  </div>
-  <div class="col-md-7" style="text-align:right;">
-    <%= link_to 'Finalizar registro', purchases_path, class: "btn btn-success" %>
-    
-    <%= link_to 'Cancelar registro', @compra, method: :delete, data: { confirm: 'Cancelar la registro?' }, class: "btn btn-danger" %>
-
-  </div>
-  <div id="proveedor-compra" class="nombre-proveedor col-md-3" > 
-   <%= @compra.supplier.present? ?  @compra.supplier.try(:nombre_proveedor) : "No se ha asignado un proveedor" %>
-  </div>
+<div class="row">
+	<div class="col-md-6 ">
+	<h2 class="mb-2 text-gray-800 text-start">Detalle de entrada</h2>
+	<div id="proveedor-compra" class="nombre-proveedor col-md-3" > 
+	<%= @compra.supplier.present? ?  @compra.supplier.try(:nombre_proveedor) : "No se ha asignado un proveedor" %>
+	</div>
+	</div>
+	<div class="col text-end pt-1 mt-1">
+		<h3 id="importe_compra_lbl" > Subtotal de compra: $<%= @compra.total_compra %> </h3>
+		<h3 id="importe_compra_lbl2" > 16% del IVA: $<%= @compra.total_compra * 0.16 %> </h3>
+		<h3 id="importe_compra_lbl3" > Total de compra: $<%= @compra.total_compra * 1.16 %> </h3>
+	</div>
 </div>
-<br />
+
+<div class="d-flex btn-group align-middle" role="group">
+	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buscador_productocompra">
+	Buscar producto
+	</button>
+	<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#buscador_proveedor">
+	Buscar proveedor
+	</button>
+</div>
+
 <div class="card shadow mb-4">
 <div class="card-body">
-    <div class="table-responsive">
+    <div class="table-responsive mb-4 pb-4">
     <table class="table table-bordered" id="tabla_compras" width="80%" cellspacing="0">
         <thead>
-          <tr>
-            <th>Producto</th>
-	    <th>Cantidad</th>
-	    <th>Precio</th>
-	    <th>Total</th>
-        </tr>
+		<tr>
+			<th class="align-middle text-center">Producto</th>
+			<th class="align-middle text-center">Cantidad</th>
+			<th class="align-middle text-center">Precio</th>
+			<th class="align-middle text-center">Total</th>
+		</tr>
         </thead>
         <tbody>
-            <% @productos_compra.each do |det| %>
-          <tr>
-	    <td> <%= det.product.try(:nombre_producto) %> </td>
-	    <td> <%= det.cantidad %> </td>
-	    <td> $ <%= det.precio_detalle_compra %> </td>
-	    <td> $ <%= det.precio_detalle_compra * det.cantidad %> </td>
-	     <td><%= link_to "Remover producto", purchase_purchase_detail_path(@compra, det), method: :delete, data: { confirm: "Borrar producto: #{det.product.id}?"}, class: "btn btn-danger btn-xs" %></td>
-              </tr>
-          <% end %>
+		<% @productos_compra.each do |det| %>
+		<tr>
+			<td class="align-middle text-center"> <%= det.product.try(:nombre_producto) %> </td>
+			<td class="align-middle text-center"> <%= det.cantidad %> </td>
+			<td class="align-middle text-center"> $ <%= det.precio_detalle_compra %> </td>
+			<td class="align-middle text-center"> $ <%= det.precio_detalle_compra * det.cantidad %> </td>
+			<td class="align-middle text-center"><%= link_to "Remover producto", purchase_purchase_detail_path(@compra, det), method: :delete, data: { confirm: "Borrar producto: #{det.product.id}?"}, class: "btn btn-danger btn-xs" %></td>
+		</tr>
+		<% end %>
         </tbody>
     </table>
-    </div>
-  </div>
+	</div>
+	<div class="btn-group position-absolute bottom-0 end-0 pt-2 mt-2 pt-2 mt-2" role="group" aria-label="Basic mixed styles example">
+	<%= link_to 'Finalizar registro', purchases_path, class: "btn btn-success" %>
+
+	<%= link_to 'Cancelar registro', @compra, method: :delete, data: { confirm: 'Cancelar la registro?' }, class: "btn btn-danger" %>
+
+	</div>
 </div>
 <% @model = @compra %>
 <% @tipo = 'purchases' %>
 <%= render 'buscador_productocompra', model: @model, tipo: @tipo %>
 <%= render 'buscador_proveedor' , compra: @compra %>
+</div>

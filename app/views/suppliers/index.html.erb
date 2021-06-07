@@ -1,23 +1,5 @@
+<!-- Page Heading -->
 <h1 class="h3 mb-2 text-gray-800">Proveedores</h1>
-
-<div class="d-flex align-items-center">
-<%= search_form_for @q, options = {class: "w-100 me-3"} do |f| %>
-  <%= f.label :"buscar por nombre de proveedor" %>
-  <%= f.search_field :nombre_proveedor_or_rif_proveedor_cont, options = {class: "form-control", placeholder: "Buscar..."} %>
-  <%= f.submit class: "btn btn-info form-control" %>
-<% end %>
-</div>
-<br />
-
-<% if false %>
-<div class="d-flex align-items-center">
-  <%= form_tag( '/buscar_proveedores' , options = {class: "w-100 me-3"}) do %>
-  <%= text_field_tag("termino", value = nil, options = {class: "form-control", placeholder: "Buscar..."}) %>
-  <%end%>
-</div>
-<br />
-<% end %>
-
 <div>  
   <%= link_to new_supplier_path, {remote: true, class: "btn btn-info", id: "anadir-proveedor-btn"}  do %>
     <span class="fas fa-plus-square" style=""></span>
@@ -27,27 +9,29 @@
 <div class="card shadow mb-4">
 <div class="card-body">
     <div class="table-responsive">
-    <table class="table table-bordered" id="tablaProveedores" width="100%" cellspacing="0">
+    <table class="table table-striped" id="tablaProveedores" width="100%" cellspacing="0">
         <thead>
         <tr>
             <th>Numero rif</th>
             <th>Nombre</th>
             <th>Correo</th>
-	    <th>Descripcion</th>
+			<th>Descripcion</th>
 	    <th></th>
         </tr>
         </thead>
         <tbody>
         <% @proveedores.each do |prov| %>
         <tr id="proveedor_<%= prov.id %>" >
-            <td><%= prov.rif_proveedor %></td>
-            <td><%= prov.nombre_proveedor %></td>
-            <td><%= prov.correo_proveedor %></td>
-	    <td><%= prov.descripcion_proveedor %></td>
-            <td>
-            <%= link_to "editar", edit_supplier_path(prov), html_options = {class: "btn btn-info btn-xs", remote: true} %>
-            <%= link_to 'Borrar', prov, remote: true, method: :delete, data: { confirm: "Borrar proveedor: #{prov.nombre_proveedor}?"}, class: "btn btn-danger btn-xs" %>
-            </td>
+            <td class="align-middle text-center"><%= prov.rif_proveedor %></td>
+            <td class="align-middle text-center"><%= prov.nombre_proveedor %></td>
+            <td class="align-middle text-center"><%= prov.correo_proveedor %></td>
+			<td class="align-middle text-center"><%= prov.descripcion_proveedor %></td>
+            <td class="align-middle text-center" >
+			<div class="btn-group ">
+            <%= link_to "editar", edit_supplier_path(prov), html_options = {class: "btn btn-info btn-sm", remote: true} %>
+            <%= link_to 'Borrar', prov, remote: true, method: :delete, data: { confirm: "Borrar proveedor: #{prov.nombre_proveedor}?"}, class: "btn btn-danger btn-sm" %>
+			</div>
+		   </td>
         </tr>
         <% end %>
         </tbody>

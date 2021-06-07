@@ -1,55 +1,71 @@
 <form>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="id">ID</label>
-      <input type="text" readonly class="form-control-plaintext" value="<%= @compra.id %>">
-    </div>
-    <div class="form-group col-md-6">
-      <label for="fecha">Fecha</label>
-      <input type="text" readonly class="form-control-plaintext" value="<%= @compra.created_at.strftime("%d-%m-%Y") %>">
-    </div>
-  </div>
-    <div class="form-group col-md-6">
-      <label for="almacenista">Almacenista:</label>
-      <input type="text" readonly class="form-control-plaintext" value="<%= @compra.user.username %>">
-    </div>
-        <div class="form-group col-md-6">
-      <label for="proveedor">Proveedor:</label>
-      <input type="text" readonly class="form-control-plaintext" value="<%= @compra.supplier.nombre_proveedor %>">
-    </div>
-  </div>
+<div class="mb-3 row align-items-start"><!id y fecha primera filas >
+		<! contenido de la columna mas a la izquierda>
+		<label class="col-sm-2 col-form-label" for="ID">ID: </label>
+		<div class="col-sm-2">
+			<input type="text" id="ID" readonly class="form-control-plaintext" value="<%= @compra.id %>">	
+		</div>
+		<label class=" ms-2 col-sm-2 col-form-label" for="fecha">Fecha: </label>
+		<div class="col-sm-5">
+		<input type="text" id="fecha" readonly class="form-control-plaintext" value="<%= @compra.created_at.strftime("%d-%m-%Y") %>">
+		</div>
+</div>
+<div class="mb-3 row "><! proveedor y almecenista segunda fila>
+	<! contenido de la columna mas a la izquierda>
+	<label class="col-sm-2 col-form-label" for="almacenista">Almacenista: </label>
+	<div class="col-sm-5">
+	<input type="text" id="almacenista" readonly class="form-control-plaintext ms-3" value="<%= @compra.user.username %>">
+	</div>
+	<div class="row mb-2">
+	<label class="col-sm-2 col-form-label" for="proveedor">Proveedor:</label>
+	<div class="col-sm-5">
+		<input type="text" id="proveedor" readonly class="form-control-plaintext ms-3" value="<%= @compra.supplier.nombre_proveedor %>">
+	</div>
+	</div>
+</div>
 </form>
-<br>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Producto</th>
-      <th>Cantidad</th>
-      <th>Precio</th>
-      <th>Total</th>
+      <th class="align-middle text-center">Producto</th>
+      <th class="align-middle text-center">Cantidad</th>
+      <th class="align-middle text-center">Precio</th>
+      <th class="align-middle text-center">Total</th>
     </tr>
   </thead>
   <tbody>
     <% @compra.purchase_details.each do |detalle| %>
     <tr>
-       <td><%= detalle.product.nombre_producto %></td>
-       <td><%= detalle.cantidad %></td>
-       <td>$ <%= detalle.precio_detalle_compra %></td>
-       <td>$ <%= detalle.precio_detalle_compra * detalle.cantidad %></td>
+       <td class="align-middle text-center"><%= detalle.product.nombre_producto %></td>
+       <td class="align-middle text-center"><%= detalle.cantidad %></td>
+       <td class="align-middle text-center">$ <%= detalle.precio_detalle_compra %></td>
+       <td class="align-middle text-center">$ <%= detalle.precio_detalle_compra * detalle.cantidad %></td>
     </tr>
     <% end %>
   </tbody>
 </table>
-<div class="form-row">
-      <div class="form-group col-md-6 float-end">
-      <label for="id">Sub total de compra</label>
-      <input type="text" readonly class="form-control-plaintext" value="$ <%= @compra.total_compra %>">
-    </div>
-      <div class="form-group col-md-6 float-end">
-      <label for="id">16% del iva</label>
-      <input type="text" readonly class="form-control-plaintext" value="$ <%= @compra.total_compra * 0.16 %>">
-    </div>
-    <div class="form-group col-md-6 float-end">
-      <label for="id">Monto final de la compra</label>
-      <input type="text" readonly class="form-control-plaintext" value="$ <%= @compra.total_compra * 1.16 %>">
-    </div>
+<! montos de la compras >
+<div class="row ">
+	<div class="col-md-6 align-self-end">
+		<label class="h3"for="id">Sub total de compra</label>
+		<div class="col-sm-5">
+		<input type="text" id="id" readonly class="form-control-plaintext" value="$ <%= @compra.total_compra %>">
+		</div>
+	</div>
+</div>
+<div class="row ">
+	<div class="col-md-6 align-self-end">
+		<label class="h3" for="iva">16% del iva</label>
+		<div class="col-sm-5">
+		<input type="text" id="iva" readonly class="form-control-plaintext" value="$ <%= @compra.total_compra * 0.16 %>">
+		</div>
+	</div>
+</div>
+<div class="row ">	
+    <div class="col-md-6 align-self-end">
+		<label  class="h3" for="total">Monto final de la compra</label>
+		<div class="col-sm-5">
+		<input type="text" id="total" readonly class="form-control-plaintext" value="$ <%= @compra.total_compra * 1.16 %>">
+		</div>
+	</div>
+</div>	

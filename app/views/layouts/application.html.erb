@@ -12,45 +12,32 @@
   </head>
 
   <body>
-    <header class="py-3 mb-4 border-bottom shadow">
+    <header class="py-3 mb-4 border-bottom shadow  ">
     <div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
         <div>
             <a href="#" class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-dark text-decoration-none">
                 <h4>GuarichERP</h4><i class="bi bi-bootstrap fs-2 text-dark"></i>
             </a>
         </div>
-        <div class="d-flex align-items-center">
-	  <%= form_tag( '/search' , options = {class: "w-100 me-3"}) do %>
+		<div class="d-flex align-items-center ">
+	  <%= form_tag( '/search' , options = {class: "w-75 "}) do %>
 	  <%= text_field_tag("termino", value = nil, options = {class: "form-control", placeholder: "Buscar..."}) %>
 	  <%end%>
-	    
-            <div class="flex-shrink-0 dropdown">
-                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+		</div>
+            <div class="dropdown show mt-2 pt-2 me-4 pe-4  position-absolute top-0 end-0">
+                <a class="btn dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false" arial-haspopup="tre">
                    <i class="fas fa-user-circle"></i>
                 </a>
-                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-		      <li><a><%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %>	
-			  Salir</a>
-		      <% end %></li>
-                </ul>
+                <div class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" >
+                    <a class="dropdown-item" href="#">Settings</a>
+                    <hr class="dropdown-divider">
+					<a><%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %>	Salir</a>
+					<% end %>
+                </div>
             </div>
-        </div>
+
     </div>
     </header>
-    	    <% if notice %>
-    <div id="notice_wrapper">
-      <p class="notice"><%= notice %></p>
-      </div>
-    <% elsif alert %>
-    <div id="notice_wrapper">
-      <p class="alert"><%= alert %></p>
-    </div>
-  <% end %>
 <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
@@ -59,11 +46,6 @@
                     <span class="fs-5 d-none d-sm-inline">Menu</span>
                 </a>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0">
-                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
-                        </a>
-                    </li>
                     <li>
                         <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             <i class="fas fa-warehouse"></i> <span class="ms-1 d-none d-sm-inline">Inventario</span> </a>
@@ -84,16 +66,16 @@
                         <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
                             <i class="fas fa-truck"></i> <span class="ms-1 d-none d-sm-inline">Suministro</span></a>
                         <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-                          <li class="w-100">
-			    <%= link_to purchases_path, class: "nav-link px-0 align-middle" do %>	
-                            <i class="fas fa-money-check"></i> <span class="ms-1 d-none d-sm-inline">Compras</span>
-			    <% end %>
-                          </li>
-			  <li>
-			    <%= link_to suppliers_path, class: "nav-link px-0 align-middle" do %>	
+                            <li class="w-100">
+                                <%= link_to suppliers_path, class: "nav-link px-0 align-middle" do %>	
                             <i class="fas fa-handshake"></i> <span class="ms-1 d-none d-sm-inline">Proveedores</span>
 			    <% end %>
-			  </li>
+                            </li>
+                            <li>
+			      <%= link_to purchases_path, class: "nav-link px-0 align-middle" do %>	
+                            <i class="fas fa-money-check"></i> <span class="ms-1 d-none d-sm-inline">Compras</span>
+			    <% end %>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -112,22 +94,6 @@
                             </li>
                         </ul>
                     </li>
-		    <li>
-		       <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="far fa-clipboard"></i> <span class="ms-1 d-none d-sm-inline">RRHH</span> </a>
-                        <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
-                          <li class="w-100">
-			    <%= link_to employees_path, class: "nav-link px-0 align-middle" do %>	
-                        <i class="fas fa-users"></i> <span class="ms-1 d-none d-sm-inline">Empleados</span>
-		      <% end %>
-                            </li>
-                            <li>
-			    <%= link_to categories_path, class: "nav-link px-0 align-middle" do %>	
-                            <i class="far fa-edit"></i> <span class="ms-1 d-none d-sm-inline">Nomina</span>
-			    <% end %>
-                            </li>
-                        </ul>
-                    </li>
                     <li>
                       <%= link_to rails_admin_path, class: "nav-link px-0 align-middle" do %>	
                         <i class="fas fa-tools"></i> <span class="ms-1 d-none d-sm-inline">Administracion</span>
@@ -139,19 +105,12 @@
         </div>
         <div class="col overflow-auto h-100">
             <div class="bg-light border rounded-3 p-3">
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
     <%= yield %>
             </div>
     </div>
 </div>
 
-    <script>
-      $(document).ready(function() {
-	  setTimeout(function(){
-	      $('#notice_wrapper').fadeOut("slow", function(){
-		  $(this).remove();
-	      });
-	  }, 3500);
-      });
-    </script>
   </body>
 </html>

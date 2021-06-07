@@ -11,36 +11,17 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-<body>
-    <% if notice %>
-    <div id="notice_wrapper">
-      <p class="notice"><%= notice %></p>
-      </div>
-    <% elsif alert %>
-    <div id="notice_wrapper">
-      <p class="alert"><%= alert %></p>
-    </div>
-  <% end %>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 offset-md-4">
-              <div class="login-form bg-light mt-4 p-4">
+<body style="background:#ffe259; background:linear-gradient(to right,#ffa751, #ffe259)">
+    <div class="container " >
+        <div class="row" >
+            <div class="col-md-4 offset-md-4 w-85 " >
+                <div class=" aling-items-stretch bg-white mt-4 rounded mt-4 p-4" > <!aqui controlo la login entero>
                   <%= yield %>
-		  <br>
                     </div>
                 </div>
             </div>
         </div>
 </div>
-    <script>
-      $(document).ready(function() {
-	  setTimeout(function(){
-	      $('#notice_wrapper').fadeOut("slow", function(){
-		  $(this).remove();
-	      });
-	  }, 3500);
-      });
-    </script>
 </body>
 </html>
 

@@ -1,67 +1,59 @@
 <%= stylesheet_link_tag 'sales' %>
 <div class = "row">
-  <div class="col-md-6">
-    <h3 class="h3 mb-2 text-gray-800">Punto de venta</h3>
-  </div>
-    <div class="col-md-6" style="text-align:right;">
-    <h2 id="importe_venta_lbl" > Subtotal de venta: $<%= @venta.total_venta %> </h2>
-    </div>
-      <div class="col-md-6" style="text-align:right;">
-    <h2 id="importe_venta_lbl2" > 16% del IVA: $<%= (@venta.total_venta * 0.16).round(2) %> </h2>
-  </div>
-  <div class="col-md-6" style="text-align:right;">
-    <h2 id="importe_venta_lbl3" > Total de venta: $<%= (@venta.total_venta * 1.16).round(2) %> </h2>
-  </div>
-  <div class="col-md-5">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buscador_producto">
-      Buscar producto
-    </button>
-    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#buscador_cliente">
-      Buscar cliente
-    </button>
+	<div class="col-md-6">
+	<h2 class="mb-2 text-gray-800 text-start">Punto de venta</h2>
+	<div id="cliente_venta" class="nombre-cliente col-md-3" > 
+	<%= @venta.client.present? ?  @venta.client.try(:nombre_cliente) : "No se ha asignado cliente" %>
+	</div>
+	</div>
+	<div class="col text-end pt-1 mt-1 ">
+		<h3 id="importe_venta_lbl" > Subtotal de venta: $<%= @venta.total_venta %> </h3>
+		<h3 id="importe_venta_lbl2" > 16% del iva: $<%= @venta.total_venta * 0.16 %> </h3>
+		<h3 id="importe_venta_lbl3" > Total de venta: $<%= @venta.total_venta * 1.16 %> </h3>
+	</div>
 </div>
-  </div>
-  <div class="col-md-7" style="text-align:right;">
-    <%= link_to 'Finalizar venta', sales_path, class: "btn btn-success" %>
-    
-    <%= link_to 'Cancelar venta', @venta, method: :delete, data: { confirm: 'Cancelar la venta?' }, class: "btn btn-danger" %>
 
-  </div>
-  <div id="cliente_venta" class="nombre-cliente col-md-3" > 
-   <%= @venta.client.present? ?  @venta.client.try(:nombre_cliente) : "No se ha asignado cliente" %>
-  </div>
+<div class="d-flex btn-group align-middle" role="group">
+	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buscador_producto">
+	Buscar producto
+	</button>
+	<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#buscador_cliente">
+	Buscar cliente
+	</button>
 </div>
-<br>
+
 <div class="card shadow mb-4">
 <div class="card-body">
-  <div class="table-responsive">
-    <table class="table table-bordered" id="tabla_ventas" width="80%" cellspacing="0">
-        <thead>
-        <tr>
-            <th>Producto</th>
-            <th>Precio unitario</th>
-	    <th>Cantidad</th>
-            <th>Total</th>
-        </tr>
-        </thead>
-        <tbody>
-            <% @productos_venta.each do |det| %>
-              <tr> 
-                <td> <%= det.product.try(:nombre_producto) %> </td>
-		<td> $ <%= det.product.try(:precio_producto) %> </td>
-                <td> <%= det.cantidad %> </td>
-                <td> $ <%= det.product.try(:precio_producto) * det.cantidad %> </td>
-		 <td><%= link_to "Remover producto", sale_sale_detail_path(@venta, det), method: :delete, data: { confirm: "Borrar producto: #{det.product.id}?"}, class: "btn btn-danger btn-xs" %></td>
-              </tr>
-            <% end %>
-        </tbody>
-    </table>
-    </div>
-  </div>
+	<div class="table-responsive mb-4 pb-4">
+	<table class="table table-bordered" id="tabla_ventas" width="80%" cellspacing="0">
+		<thead>
+		<tr>
+			<th class="align-middle text-center">Producto</th>
+			<th class="align-middle text-center">Precio unitario</th>
+			<th class="align-middle text-center">Cantidad</th>
+			<th class="align-middle text-center">Total</th>
+		</tr>
+		</thead>
+		<tbody>
+		<% @productos_venta.each do |det| %>
+		<tr> 
+			<td class="align-middle text-center"> <%= det.product.try(:nombre_producto) %> </td>
+			<td class="align-middle text-center"> $ <%= det.product.try(:precio_producto) %> </td>
+			<td class="align-middle text-center"> <%= det.cantidad %> </td>
+			<td class="align-middle text-center"> $ <%= det.product.try(:precio_producto) * det.cantidad %> </td>
+			<td class="align-middle text-center"><%= link_to "Remover producto", sale_sale_detail_path(@venta, det), method: :delete, data: { confirm: "Borrar producto: #{det.product.id}?"}, class: "btn btn-danger btn-xs" %></td>
+		</tr>
+		<% end %>
+		</tbody>
+	</table>
+	</div>
+	<div class="btn-group position-absolute bottom-0 end-0 pt-2 mt-2 pt-2 mt-2" role="group" aria-label="Basic mixed styles example" >
+		<%= link_to 'Finalizar venta', sales_path, class: "btn btn-success" %>
+		<%= link_to 'Cancelar venta', @venta, method: :delete, data: { confirm: 'Cancelar la venta?' }, class: "btn btn-danger" %>
+	</div>
 </div>
-
-
 <% @model = @venta %>
 <% @tipo = 'sales' %>
 <%= render 'buscador_producto', model: @model, tipo: @tipo %>
 <%= render 'buscador_cliente' , venta: @venta %>
+</div>

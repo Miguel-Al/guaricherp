@@ -4,8 +4,5 @@ class Sale < ApplicationRecord
   belongs_to :user
   #si borra una venta borro todas los detalles de la misma
 
-  #ver como implementar esto mejor
-  #validates :client_id, presence: true, on: :update
-
   default_scope {order(created_at: :desc)}
 end
