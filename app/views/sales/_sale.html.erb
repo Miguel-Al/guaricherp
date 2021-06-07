@@ -2,7 +2,7 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="id">ID</label>
-      <input type="text" readonly class="form-control-plaintext" value="<%= @venta.id %>">
+      <input type="text" readonly class="form-control-plaintext" value="<%= @venta.numero_venta %>">
     </div>
     <div class="form-group col-md-6">
       <label for="fecha">Fecha</label>
@@ -54,5 +54,5 @@
       <input type="text" readonly class="form-control-plaintext" value="$ <%= @venta.total_venta * 1.16 %>">
     </div>
     <div>
-      <%= link_to "Generar reporte de venta", sale_path(@venta, format: :pdf), class: "btn btn-primary", target: :_blank %>
+      <%= link_to "Generar factura de venta", sale_path(@venta, format: :pdf), class: "btn btn-primary", target: :_blank %>
 </div>

@@ -4,15 +4,14 @@ class SalesController < ApplicationController
    def index
     @search = Sale.search(params[:q])
     @ventas = @search.result
-             respond_to do |format|
-        format.html
-        format.pdf do
-          pdf = Prawn::Document.new
-          # anotar esto para cuando generes el pdf, usa last para el mas viejo
-          pdf.text "#{@ventas.first.created_at}"
-          send_data pdf.render, filename: "estadoinventario_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
-        end
-          end
+    respond_to do |format|
+      format.html
+      format.js
+      format.pdf do
+        pdf = ReporteVentaPdf.new(@ventas)
+          send_data pdf.render, filename: "registro_de_ventas_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
+      end
+    end
   end
 
   def search
@@ -21,7 +20,7 @@ class SalesController < ApplicationController
   end
 
   def new
-    @venta = current_user.sales.create(total_venta: 0.0)
+    @venta = current_user.sales.create(total_venta: 0.0, numero_venta: "#{Sale.all.count+1}")
     redirect_to edit_sale_path(@venta)
   end
 
@@ -30,8 +29,8 @@ class SalesController < ApplicationController
       format.html
       format.js
       format.pdf do
-        pdf = ReporteVentaPdf.new(@venta)
-          send_data pdf.render, filename: "reportedeventa_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
+        pdf = FacturaVentaPdf.new(@venta)
+          send_data pdf.render, filename: "facturadeventa_#{@venta.numero_venta}_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
         end
           end
   end
@@ -67,7 +66,7 @@ class SalesController < ApplicationController
     @sale_detail = @venta.sale_details.build(product: producto, cantidad: cantidad, precio_detalle_venta: precio_producto)
     importe_antes_registro = @venta.total_venta
     importe_despues_registro = importe_antes_registro + importe_producto
-    @venta.total_venta = importe_despues_registro
+    @venta.total_venta = importe_despues_registro.round(2)
 
     existencia_antes_venta = producto.existencia_producto
 
@@ -77,7 +76,7 @@ class SalesController < ApplicationController
       nombre_producto: @sale_detail.product.try(:nombre_producto),
       cantidad: @sale_detail.cantidad,
       importe_item: producto.precio_producto * cantidad,
-      importe_venta: importe_despues_registro
+      importe_venta: importe_despues_registro.round(2)
     }
 
     producto.existencia_producto = producto.existencia_producto - cantidad

@@ -1,4 +1,5 @@
 <%= form_for @product, remote: true  do |f| %>
+
    <div class="item form-group<%= @product.errors[:codigo_producto].any? ? ' has-error has-feedback' : '' %>">
       <%= f.label :codigo, "Codigo del producto: " %>
       <div class="input-group">
@@ -35,16 +36,6 @@
         <%= f.number_field :precio_producto, {class: "form-control", :placeholder=>"Precio del producto"} %>
         <%if @product.errors[:precio_producto].any? %>
           <p class="bg-danger"><%= @product.errors[:precio_producto].to_s[/\w([^"]*)/] %></p>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="item form-group<%= @product.errors[:existencia_producto].any? ? ' has-error has-feedback' : '' %>">
-      <%= f.label :existencia, "Stock inicial: " %>
-      <div class="input-group">
-        <%= f.number_field :existencia_producto, {class: "form-control", :placeholder=>"Stock inicial"} %>
-        <%if @product.errors[:existencia_producto].any? %>
-          <p class="bg-danger"><%= @product.errors[:existencia_producto].to_s[/\w([^"]*)/] %></p>
         <% end %>
       </div>
     </div>

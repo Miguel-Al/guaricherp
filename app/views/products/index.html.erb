@@ -1,18 +1,21 @@
 <h1 class="h3 mb-2 text-gray-800">Productos</h1>
 <div class="d-flex align-items-center">
 <%= search_form_for @q, options = {class: "w-100 me-3"} do |f| %>
-  <%= f.label :"buscar por nombre de producto" %>
-  <%= f.search_field :nombre_producto_cont, options = {class: "form-control", placeholder: "Buscar..."} %>
-  <%= f.submit class: "btn btn-info form-control" %>
+  <%= f.search_field :nombre_producto_or_codigo_producto_cont, options = {class: "form-control", placeholder: "Buscar por nombre o codigo..."} %>
+  <%= f.submit "Buscar", class: "btn btn-info form-control" %>
 <% end %>
 </div>
 <br />
-       <div class="d-flex align-items-center">
-	  <%= form_tag( '/buscar_productos' , options = {class: "w-100 me-3"}) do %>
-	  <%= text_field_tag("termino", value = nil, options = {class: "form-control", placeholder: "Buscar..."}) %>
-	  <%end%>
-       </div>
-       <br />
+
+<% if false %>
+Buscador anterior, dejado como recordatorio
+<div class="d-flex align-items-center">
+  <%= form_tag( '/buscar_productos' , options = {class: "w-100 me-3"}) do %>
+  <%= text_field_tag("termino", value = nil, options = {class: "form-control", placeholder: "Buscar..."}) %>
+  <%end%>
+</div>
+<br />
+<% end %>
 
 <div>  
   <%= link_to new_product_path, { remote: true, class: "btn btn-info" }  do %>
@@ -26,12 +29,10 @@
     <table class="table table-bordered" id="tablaProductos" width="100%" cellspacing="0">
         <thead>
         <tr>
-	    <th>Codigo producto</th>
-            <th>Nombre producto</th>
+	    <th>Codigo</th>
+            <th>Nombre</th>
             <th>Existencia</th>
             <th>Precio</th>
-            <th>Categoria</th>
-            <th>Unidad</th>
 	    <th>Ubicacion</th>
 	    <th></th>
         </tr>
@@ -43,10 +44,9 @@
                 <td><%= prod.nombre_producto %></td>
                 <td><%= prod.existencia_producto %></td>
                 <td>$<%= prod.precio_producto %></td>
-                <td><%= prod.category != nil ? prod.category.nombre_categoria : "No tiene categoria" %></td>
-                <td><%= prod.unit != nil ? prod.unit.nombre_unidad : "No tiene unidad" %></td>
 		<td><%= prod.location != nil ? prod.location.nombre_lugar : "No tiene ubicacion" %></td>
                 <td>
+		<%= link_to "Ver", product_path(prod), html_options = {class: "btn btn-info btn-xs", remote: true} %>
                 <%= link_to "editar", edit_product_path(prod), html_options = {class: "btn btn-info btn-xs", remote: true} %>
                 <%= link_to "Borrar", prod, remote: true, method: :delete, data: { confirm: "Borrar producto: #{prod.nombre_producto}?"}, class: "btn btn-danger btn-xs" %>
                 </td>

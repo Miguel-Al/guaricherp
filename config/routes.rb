@@ -29,7 +29,11 @@ Rails.application.routes.draw do
   #Rutas para compras
   resources :purchases do
     resources :purchase_details
+    collection do
+      match 'search' => 'purchases#search', via: [:get, :post], as: :search
+    end
   end
+  
   #Rutas para empleados
   resources :employees
   

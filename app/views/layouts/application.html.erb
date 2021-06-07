@@ -42,6 +42,15 @@
         </div>
     </div>
     </header>
+    	    <% if notice %>
+    <div id="notice_wrapper">
+      <p class="notice"><%= notice %></p>
+      </div>
+    <% elsif alert %>
+    <div id="notice_wrapper">
+      <p class="alert"><%= alert %></p>
+    </div>
+  <% end %>
 <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
@@ -75,16 +84,16 @@
                         <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
                             <i class="fas fa-truck"></i> <span class="ms-1 d-none d-sm-inline">Suministro</span></a>
                         <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <%= link_to suppliers_path, class: "nav-link px-0 align-middle" do %>	
-                            <i class="fas fa-handshake"></i> <span class="ms-1 d-none d-sm-inline">Proveedores</span>
-			    <% end %>
-                            </li>
-                            <li>
-			      <%= link_to purchases_path, class: "nav-link px-0 align-middle" do %>	
+                          <li class="w-100">
+			    <%= link_to purchases_path, class: "nav-link px-0 align-middle" do %>	
                             <i class="fas fa-money-check"></i> <span class="ms-1 d-none d-sm-inline">Compras</span>
 			    <% end %>
-                            </li>
+                          </li>
+			  <li>
+			    <%= link_to suppliers_path, class: "nav-link px-0 align-middle" do %>	
+                            <i class="fas fa-handshake"></i> <span class="ms-1 d-none d-sm-inline">Proveedores</span>
+			    <% end %>
+			  </li>
                         </ul>
                     </li>
                     <li>
@@ -130,12 +139,19 @@
         </div>
         <div class="col overflow-auto h-100">
             <div class="bg-light border rounded-3 p-3">
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
     <%= yield %>
             </div>
     </div>
 </div>
 
+    <script>
+      $(document).ready(function() {
+	  setTimeout(function(){
+	      $('#notice_wrapper').fadeOut("slow", function(){
+		  $(this).remove();
+	      });
+	  }, 3500);
+      });
+    </script>
   </body>
 </html>

@@ -7,10 +7,10 @@
     <h2 id="importe_venta_lbl" > Subtotal de venta: $<%= @venta.total_venta %> </h2>
     </div>
       <div class="col-md-6" style="text-align:right;">
-    <h2 id="importe_venta_lbl2" > 16% del iva: $<%= @venta.total_venta * 0.16 %> </h2>
+    <h2 id="importe_venta_lbl2" > 16% del IVA: $<%= (@venta.total_venta * 0.16).round(2) %> </h2>
   </div>
   <div class="col-md-6" style="text-align:right;">
-    <h2 id="importe_venta_lbl3" > Total de venta: $<%= @venta.total_venta * 1.16 %> </h2>
+    <h2 id="importe_venta_lbl3" > Total de venta: $<%= (@venta.total_venta * 1.16).round(2) %> </h2>
   </div>
   <div class="col-md-5">
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buscador_producto">

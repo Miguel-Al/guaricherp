@@ -1,10 +1,24 @@
 class PurchasesController < ApplicationController
   before_action :set_purchase, only: [:show, :edit, :add_item, :destroy, :add_proveedor]
 
-  def index
-    @compras = Purchase.all
+   def index
+    @search = Purchase.search(params[:q])
+    @compras = @search.result
+    respond_to do |format|
+        format.html
+        format.pdf do
+          pdf = Prawn::Document.new
+          # anotar esto para cuando generes el pdf, usa last para el mas viejo
+          pdf.text "#{@compras.first.created_at}"
+          send_data pdf.render, filename: "registro_de_compras_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
+        end
+    end
   end
 
+  def search
+    index
+    render :index
+  end
 
   def new
     @compra = current_user.purchases.create(total_compra: 0.0)
@@ -43,7 +57,7 @@ class PurchasesController < ApplicationController
     @purchase_detail = @compra.purchase_details.build(product: producto, cantidad: cantidad, precio_detalle_compra: precio_detalle_compra)
     importe_antes_registro = @compra.total_compra
     importe_despues_registro = importe_antes_registro + importe_producto
-    @compra.total_compra = importe_despues_registro
+    @compra.total_compra = importe_despues_registro.round(2)
 
     existencia_antes_compra = producto.existencia_producto
 
@@ -54,7 +68,7 @@ class PurchasesController < ApplicationController
       cantidad: @purchase_detail.cantidad,
       precio_detalle_compra: @purchase_detail.precio_detalle_compra,
       importe_item: @purchase_detail.precio_detalle_compra * cantidad,
-      importe_compra: importe_despues_registro
+      importe_compra: importe_despues_registro.round(2)
     }
     
     producto.existencia_producto = producto.existencia_producto + cantidad

@@ -1,8 +1,17 @@
 <h1 class="h3 mb-2 text-gray-800">Categorias de productos</h1>
 
-<div>  
+<div class="d-flex align-items-center">
+<%= search_form_for @q, options = {class: "w-100 me-3"} do |f| %>
+  <%= f.label :"buscar categoria" %>
+  <%= f.search_field :nombre_categoria_cont, options = {class: "form-control", placeholder: "Buscar..."} %>
+  <%= f.submit class: "btn btn-info form-control" %>
+<% end %>
+</div>
+<br />
+
+<div>
   <%= link_to new_category_path, {remote: true, class: "btn btn-info", id: "anadir-categoria-btn"}  do %>
-    <span class="fas fa-plus-square" ></span>
+  <span class="fas fa-plus-square" ></span>
   <% end %>
 </div>
 <br />
@@ -13,7 +22,7 @@
        <table id="tablaCategorias" class="table table-bordered" width="100%">
          <thead>
            <tr>
-             <th>Nombre Categoria</th>
+             <th>Nombre</th>
              <th>Descripcion</th>
              <th></th>
            </tr>

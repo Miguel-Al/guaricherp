@@ -7,13 +7,13 @@ class ProductsController < ApplicationController
   def index
     @q = Product.ransack(params[:q])
     @productos = @q.result
-          respond_to do |format|
-        format.html
-        format.pdf do
-          pdf = ReporteInventarioPdf.new(@productos)
-          send_data pdf.render, filename: "estadoinventario_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
-        end
-          end
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = ReporteInventarioPdf.new(@productos)
+        send_data pdf.render, filename: "estadodeinventario_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
+      end
+    end
   end
 
   def new

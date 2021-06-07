@@ -3,7 +3,8 @@ class ClientsController < ApplicationController
   before_action :set_type_clients, only: [:new, :edit, :create]
 
   def index
-    @clientes = Client.all
+    @q = Client.ransack(params[:q])
+    @clientes = @q.result
   end
 
   def new

@@ -3,10 +3,10 @@
         <%= search_form_for @search, url: search_sales_path, html: {class: "form-inline col-md-8 col-md-offset-1", method: :post} do |f| %>
           <div class="input-daterange">
             <div class="col-md-4">
-              <%= f.text_field :created_at_gteq, class: "form-control", placeholder: "yyyy/mm/dd" %>
+              <%= f.text_field :created_at_gteq, class: "form-control", placeholder: "Fecha de inicio..." %>
             </div>
             <div class="col-md-4 col-md-offset-1">
-              <%= f.text_field :created_at_lteq, class: "form-control", placeholder: "yyyy/mm/dd" %>
+              <%= f.text_field :created_at_lteq, class: "form-control", placeholder: "Fecha fin..." %>
             </div>
           </div>
 
@@ -16,13 +16,16 @@
           
         <% end %>
 </div>
-
    
-
-<%= link_to new_sale_path, {class: "btn btn-info", id: "crear-venta-btn"}  do %>
-    <span class="fas fa-plus-square"> </span>
-    Realizar venta
-    <%end%>
+<div>
+  <%= link_to new_sale_path, {class: "btn btn-info", id: "crear-venta-btn"}  do %>
+  <span class="fas fa-plus-square"> </span>
+  Realizar venta
+  <%end%>
+  <%= link_to "ventas del mes", ventas_del_mes_path, class: "btn btn-info btn-xs"%>
+  <%= link_to "ventas de la semana", ventas_de_semana_path, class: "btn btn-info btn-xs" %>
+  <%= link_to "Generar reporte de ventas", sales_path(request.params.merge(format: :pdf)), class: "btn btn-primary", target: :_blank %>
+    </div>
 <br />
 <br />
 <div class="card shadow mb-4">
@@ -34,8 +37,9 @@
           <th>Id</th>
 	  <th>Vendedor</th>
 	  <th>Cliente</th>
-            <th>Total</th>
-            <th></th>
+	  <th>Total</th>
+	  <th>Fecha y hora</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
@@ -49,10 +53,11 @@
                 <td> <%= venta.id %> </td>
 		<td> <%= venta.user.username %> </td>
 		<td> <%= venta.try(:client).try(:nombre_cliente) %> </td>
-                <td> <%= venta.total_venta * 1.16%> </td>
+                <td> $<%= venta.total_venta * 1.16%> </td>
+		<td> <%= venta.created_at.to_s(:db) %> </td>
                 <td> 
-                  <%= link_to 'Borrar', venta, method: :delete, data: { confirm: 'Eliminar la venta?' }, class: "btn btn-danger btn-xs" %>
 		  <%= link_to 'Mostrar', sale_path(venta), {class: "btn btn-info btn-xs", remote: true} %>
+		  <%= link_to 'Borrar', venta, method: :delete, data: { confirm: 'Eliminar la venta?' }, class: "btn btn-danger btn-xs" %>
                 </td>
               </tr>
             <% end %>
@@ -61,10 +66,5 @@
     </table>
     </div>
   </div>
-</div>
-<div>
-<%= link_to "ventas del mes", ventas_del_mes_path, class: "btn btn-info btn-xs"%>
-<%= link_to "ventas de la semana", ventas_de_semana_path, class: "btn btn-info btn-xs" %>
-  <%= link_to "Generar reporte de ventas", sales_path(request.params.merge(format: :pdf)), class: "btn btn-primary", target: :_blank %>
 </div>
 <%= render 'modal_sales' %>

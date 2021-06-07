@@ -11,7 +11,6 @@ class ReporteInventarioPdf < Prawn::Document
     text "Listado Del inventario #{DateTime.now.to_s(:db)}", size: 15, style: :bold
   end
 
-
   
  def listado
     table product_rows do
@@ -26,7 +25,7 @@ class ReporteInventarioPdf < Prawn::Document
     [['Codigo #', 'Nombre del producto', 'Existencia actual']] +
       @productos.map do |product|
       [product.codigo_producto, product.nombre_producto, product.existencia_producto]
-    end  
+    end * 20
   end
 
 end

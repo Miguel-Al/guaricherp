@@ -1,8 +1,8 @@
-<%= form_for @product, remote: true  do |f| %>
-   <div class="item form-group<%= @product.errors[:codigo_producto].any? ? ' has-error has-feedback' : '' %>">
-      <%= f.label :codigo, "Codigo del producto: " %>
+<%= form_for @empleado, remote: true  do |f| %>
+   <div class="item form-group<%= @empleado.errors[:numero_cedula].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :cedula, "Cedula del empleado: " %>
       <div class="input-group">
-        <%= f.text_field :codigo_producto, {:class=> "form-control", :placeholder=>"Introduzca el codigo de producto..."} %>        
+        <%= f.text_field :numero_cedula, {:class=> "form-control", :placeholder=>"Introduzca el numero de cedula..."} %>        
         <%if @product.errors[:codigo_producto].any? %>
           <p class="bg-danger"><%= @product.errors[:codigo_producto].to_s[/\w([^"]*)/] %></p>
         <% end %>

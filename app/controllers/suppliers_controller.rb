@@ -2,7 +2,8 @@ class SuppliersController < ApplicationController
   before_action :set_supplier, only: [:edit, :update, :destroy]
 
   def index
-    @proveedores = Supplier.all
+    @q = Supplier.ransack(params[:q])
+    @proveedores = @q.result
   end
 
   def new
