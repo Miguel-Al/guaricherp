@@ -1,0 +1,57 @@
+<%= form_for @paycheck, remote: true  do |f| %>
+   <div class="item form-group<%= @paycheck.errors[:inicio_nomina].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :fecha, "Fecha inicio del periodo: " %>
+      <div class="input-group">
+        <%= f.date_field :inicio_nomina, {:class=> "form-control", :placeholder=>"Introduzca la fecha de inicio..."} %>        
+        <%if @paycheck.errors[:inicio_nomina].any? %>
+          <p class="bg-danger"><%= @paycheck.errors[:inicio_nomina].to_s[/\w([^"]*)/] %></p>
+        <% end %>
+      </div>
+    </div>
+
+   <div class="item form-group<%= @paycheck.errors[:inicio_nomina].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :fecha, "Fecha fin del periodo: " %>
+      <div class="input-group">
+        <%= f.date_field :fin_nomina, {:class=> "form-control", :placeholder=>"Introduzca la fecha de fin..."} %>        
+        <%if @paycheck.errors[:fin_nomina].any? %>
+          <p class="bg-danger"><%= @paycheck.errors[:fin_nomina].to_s[/\w([^"]*)/] %></p>
+        <% end %>
+      </div>
+   </div>
+
+       <div class="item form-group<%= @paycheck.errors[:employee].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :empleado, "Empleado: " %>
+      <div class="input-group">
+      <%= collection_select(:paycheck, :employee_id, @empleados, :id, :nombre_apellido, {:prompt => 'Seleccione un empleado'}, { class: "form-control" })%>
+        <%if @paycheck.errors[:employee].any? %>
+          <p class="bg-danger"><%= @paycheck.errors[:employee].to_s[/\w([^"]*)/] %></p>
+        <% end %>
+      </div>
+    </div>
+
+       <div class="item form-group<%= @paycheck.errors[:paycheck_type].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :empleado, "Tipo de nomina: " %>
+      <div class="input-group">
+      <%= collection_select(:paycheck, :paycheck_type_id, @tiponomina, :id, :tipo_nomina_nombre, {:prompt => 'Seleccione el tipo de nomina'}, { class: "form-control" })%>
+        <%if @paycheck.errors[:paycheck_type].any? %>
+          <p class="bg-danger"><%= @paycheck.errors[:paycheck_type].to_s[/\w([^"]*)/] %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="item form-group<%= @paycheck.errors[:salario_nomina].any? ? ' has-error has-feedback' : '' %>">
+      <%= f.label :pago, "Monto del pago: " %>
+      <div class="input-group">
+        <%= f.number_field :salario_nomina, {class: "form-control", :placeholder=>"Monto del pago"} %>
+        <%if @paycheck.errors[:salario_nomina].any? %>
+          <p class="bg-danger"><%= @paycheck.errors[:salario_nomina].to_s[/\w([^"]*)/] %></p>
+        <% end %>
+      </div>
+       </div>
+
+       <div class="actions col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+      <%= f.submit @paycheck.new_record? ? "Registrar pago" : "Actualizar pago", :class => "btn btn-success"%>
+    </div>
+   
+
+<% end %>

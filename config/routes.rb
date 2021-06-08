@@ -36,6 +36,8 @@ Rails.application.routes.draw do
   
   #Rutas para empleados
   resources :employees
+  #Rutas para las nominas
+  resources :paychecks
   
   #Ruta para el buscador de productos en /app/javascript
   get 'buscador_productos/:termino', to: 'products#buscador'

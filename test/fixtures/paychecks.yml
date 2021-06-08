@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  employee: one
+  paycheck_type: one
+  salario_nomina: 9.99
+  inicio_nomina: 2021-06-07
+  fin_nomina: 2021-06-07
+
+two:
+  user: two
+  employee: two
+  paycheck_type: two
+  salario_nomina: 9.99
+  inicio_nomina: 2021-06-07
+  fin_nomina: 2021-06-07

@@ -1,0 +1,4 @@
+$('#modalNominas').modal('toggle');
+$('#tablaNominas').append(
+    '<tr id="paycheck_<%= @paycheck.id %>" ><td><%= @paycheck.id %></td><td><%= @paycheck.employee.primer_nombre%> <%= @paycheck.employee.primer_apellido %></td><td><%= @paycheck.inicio_nomina%> - <%= @paycheck.fin_nomina %></td><td>$<%= @paycheck.salario_nomina %></td><td><%= link_to "Ver", paycheck_path(@paycheck), html_options = {class: "btn btn-info btn-xs", remote: true} %> <%= link_to "editar", edit_paycheck_path(@paycheck), html_options = {class: "btn btn-info btn-xs", remote: true} %> <%= link_to "Borrar", @paycheck, remote: true, method: :delete, data: { confirm: "Borrar registro: #{@paycheck.id}?"}, class: "btn btn-danger btn-xs" %></td></tr>'
+);

@@ -1,0 +1,14 @@
+class CreatePaychecks < ActiveRecord::Migration[6.1]
+  def change
+    create_table :paychecks do |t|
+      t.references :user, null: false, foreign_key: true
+      t.references :employee, null: false, foreign_key: true
+      t.references :paycheck_type, null: false, foreign_key: true
+      t.decimal :salario_nomina
+      t.date :inicio_nomina
+      t.date :fin_nomina
+
+      t.timestamps
+    end
+  end
+end

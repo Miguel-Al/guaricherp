@@ -9,6 +9,7 @@ class ClientsController < ApplicationController
 
   def new
     @client = Client.new
+    @client.phoneclients.build
   end
 
   def edit
@@ -64,7 +65,7 @@ class ClientsController < ApplicationController
 
   private
     def client_params
-      params.require(:client).permit(:rif_cliente, :nombre_cliente, :correo_cliente, :descripcion_cliente, :type_client_id)
+      params.require(:client).permit(:rif_cliente, :nombre_cliente, :correo_cliente, :descripcion_cliente, :type_client_id, phoneclients_attributes: [:id, :numero_cliente])
     end
 
     def set_client

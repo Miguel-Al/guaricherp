@@ -60,7 +60,7 @@
     </div>
 
     <div class="item form-group<%= @empleado.errors[:salario_empleado].any? ? ' has-error has-feedback' : '' %>">
-      <%= f.label :precio, "Salario del empleado: " %>
+      <%= f.label :salario, "Salario mensual del empleado: " %>
       <div class="input-group">
         <%= f.number_field :salario_empleado, {class: "form-control", :placeholder=>"Salario del empleado..."} %>
         <%if @empleado.errors[:salario_empleado].any? %>

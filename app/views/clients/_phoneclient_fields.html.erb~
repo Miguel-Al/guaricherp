@@ -1,0 +1,2 @@
+
+<%= builder.text_field :numero_cliente, {class: "form-control", :placeholder=>"Introduzca el numeroo del cliente..."} %>

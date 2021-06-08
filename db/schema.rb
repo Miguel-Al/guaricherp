@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_06_232941) do
+ActiveRecord::Schema.define(version: 2021_06_08_040348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,34 @@ ActiveRecord::Schema.define(version: 2021_06_06_232941) do
     t.string "nombre_lugar"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "paycheck_types", force: :cascade do |t|
+    t.string "tipo_nomina_nombre"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "paychecks", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "employee_id"
+    t.bigint "paycheck_type_id"
+    t.decimal "salario_nomina"
+    t.date "inicio_nomina"
+    t.date "fin_nomina"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_paychecks_on_employee_id"
+    t.index ["paycheck_type_id"], name: "index_paychecks_on_paycheck_type_id"
+    t.index ["user_id"], name: "index_paychecks_on_user_id"
+  end
+
+  create_table "phoneclients", force: :cascade do |t|
+    t.bigint "client_id"
+    t.string "numero_cliente"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_phoneclients_on_client_id"
   end
 
   create_table "positions", force: :cascade do |t|
@@ -175,6 +203,10 @@ ActiveRecord::Schema.define(version: 2021_06_06_232941) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "paychecks", "employees"
+  add_foreign_key "paychecks", "paycheck_types"
+  add_foreign_key "paychecks", "users"
+  add_foreign_key "phoneclients", "clients"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "locations"
   add_foreign_key "products", "units"
