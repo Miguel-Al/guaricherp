@@ -5,7 +5,6 @@ class Employee < ApplicationRecord
   #implementar esto para validar los correos en creacion
   validates_format_of :correo_empleado, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create
 
-
   def nombre_apellido
     "#{primer_nombre} #{primer_apellido}"
   end

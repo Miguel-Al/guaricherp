@@ -1,1 +1,6 @@
-<%= foro.text_field :numero_cliente, {class: "form-control", :placeholder=>"Introduzca el numeroo del cliente..."} %>
+
+<%= f.text_field :numero_cliente, {class: "form-control", :placeholder=>"Introduzca el numero del cliente..."} %>
+<% if false %>
+<%= f.hidden_field :_destroy %>
+<%= link_to "quitar", "#", class: "btn btn-danger btn-xs remove_field" %>
+<% end %>

@@ -25,7 +25,7 @@
 	        <td><%= pay.id %></td>
                 <td><%= pay.employee.primer_nombre %> <%= pay.employee.primer_apellido %></td>
                 <td><%= pay.inicio_nomina %> - <%= pay.fin_nomina %></td>
-                <td>$<%= pay.salario_nomina %></td>
+                <td>$<%= pay.salario_nomina - ((pay.salario_nomina * 0.04) + (pay.salario_nomina * 0.005) + (pay.salario_nomina * 0.01)) %></td>
                 <td>
 		<%= link_to "Ver", paycheck_path(pay), html_options = {class: "btn btn-info btn-xs", remote: true} %>
                 <%= link_to "editar", edit_paycheck_path(pay), html_options = {class: "btn btn-info btn-xs", remote: true} %>

@@ -48,10 +48,10 @@
 	      <%= f.fields_for :phoneclients do |foro| %>
 	      <%= foro.label :"Numero de telefono" %>
 	      <div class="input-group" >
-		<%= render 'phoneclient_fields', foro: foro %>
+		<%= render partial: 'phoneclient_fields', locals: {f: foro} %>
 	      <% end %>
 	      </div>
-	      <%# link_to_add_fields "Agregar otro telefono", f, :phoneclients %>
+	      <%= link_to_add_fields "Agregar otro telefono", f, :phoneclients %>
 	    </div>
 	    
 
@@ -74,19 +74,30 @@
 <% end %>
 
 <script>
+(function() {
+var ready;
+ready = function() {
 
-$('form').on('click', '.remove-fields', function(event) {
-    $(this).prev('input[type=hidden]').val('1');
-    $(this).closest('fieldset').hide();
-    return event.preventDefault();
-  });
-
-$('form').on('click', '.add_fields', function(event) {
-    console.log('clicked!')
-     var regexp, time;
-     time = new Date().getTime();
-     regexp = new RegExp($(this).data('id'), 'g');
-     $(this).before($(this).data('fields').replace(regexp, time));
-     return event.preventDefault();
+    $('#modal-body-clientes').on('click', '.remove_field', function(event) {
+      $(this).prev('input[type=hidden]').val('1');
+      $(this).closest('fields').hide();
+      event.preventDefault();
+      console.log('yo dazo....')
     });
+    $('#modal-body-clientes').on('click', '.add_fields', function(event) {
+      var regexp, time;
+      console.log('It is really happening ....');
+      time = new Date().getTime();
+      regexp = new RegExp($(this).data('id'), 'g');
+      $(this).before($(this).data('fields').replace(regexp, time));
+      return event.preventDefault();
+    });
+  };
+
+  $(document).ready(ready);
+
+  $(document).on('page:load', ready);
+
+}).call(this);
+
 </script>

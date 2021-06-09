@@ -1,5 +1,5 @@
 class PaychecksController < ApplicationController
-  before_action :set_paycheck, only: [:edit, :update, :destroy]
+  before_action :set_paycheck, only: [:edit, :update, :destroy, :show]
   before_action :set_paycheck_type, only: [:new, :edit, :create]
   before_action :set_employee, only: [:new, :edit, :create]
 
