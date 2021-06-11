@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_08_040348) do
+ActiveRecord::Schema.define(version: 2021_06_11_010706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,9 @@ ActiveRecord::Schema.define(version: 2021_06_08_040348) do
     t.date "fin_nomina"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "dias_nomina"
+    t.integer "horas_extra"
+    t.decimal "adelanto_nomina"
     t.index ["employee_id"], name: "index_paychecks_on_employee_id"
     t.index ["paycheck_type_id"], name: "index_paychecks_on_paycheck_type_id"
     t.index ["user_id"], name: "index_paychecks_on_user_id"

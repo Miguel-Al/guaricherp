@@ -51,8 +51,8 @@ class EmployeesController < ApplicationController
   def buscador
     @resultados = Employee.buscador(params[:termino]).map do |empleado|
       {
-        id: cliente.id,
-        nombre_empleado: empleado.nombre_empleado
+        id: empleado.id,
+        primer_nombre: empleado.primer_nombre
       }
     end
 

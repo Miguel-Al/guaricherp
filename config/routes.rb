@@ -45,7 +45,11 @@ Rails.application.routes.draw do
   get 'buscador_productoscompra/:termino', to: 'products#buscadorcompra'
   #Ruta para agreagar productos al detalle de venta
   post 'add_item_venta', to: 'sales#add_item'
-  
+
+  #Ruta para buscar empleados
+  get 'buscador_empleados/:termino', to: 'employees#buscador'
+  #Ruta para agregar empleados a la nomina
+  post 'add_empleado_nomina', to: 'paychecks#add_empleado'
   #Ruta para buscar clientes
   get 'buscador_clientes/:termino', to: 'clients#buscador'
   #Ruta para agregar clientes a la venta

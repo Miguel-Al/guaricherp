@@ -1,64 +1,74 @@
 class PaychecksController < ApplicationController
-  before_action :set_paycheck, only: [:edit, :update, :destroy, :show]
-  before_action :set_paycheck_type, only: [:new, :edit, :create]
-  before_action :set_employee, only: [:new, :edit, :create]
+  before_action :set_paycheck, only: [:edit, :destroy, :show, :add_empleado, :update]
+  before_action :set_paycheck_type, only: [:edit, :destroy, :update, :show]
 
   def index
-    @q = Paycheck.ransack(params[:q])
-    @paychecks = @q.result
+    @nominas = Paycheck.all
   end
 
   def new
-    @paycheck = Paycheck.new
+    @nomina = current_user.paychecks.create(salario_nomina: 0.0)
+    redirect_to edit_paycheck_path(@nomina)
   end
 
   def show
   end
 
   def edit
-  end
-
-  def create
-    @paycheck = current_user.paychecks.new(paycheck_params)
-
-    respond_to do |format|
-      if @paycheck.save
-        format.json { head :no_content }
-        format.js
-      else
-        format.json { render json: @paycheck.errors.full_messages, status: :unprocessable_entity }
-        format.js { render :new }
-      end
-    end
+    @nomina2 = @nomina
   end
 
   def update
+    @nomina = Paycheck.find(params[:id])
+    if @nomina.update(paycheck_params)
+      redirect_to paychecks_path, :notice => "si"
+    else
+      render :edit
+    end
   end
 
   def destroy
-    @paycheck.destroy
+    @nomina.destroy
     respond_to do |format|
+      format.html { redirect_to paychecks_url, notice: "La nomina ha sido eliminada" }
       format.json { head :no_content }
-      format.js
     end
   end
 
-  private
-
-  def paycheck_params
-      params.require(:paycheck).permit(:user_id, :employee_id, :paycheck_type_id, :salario_nomina, :inicio_nomina, :fin_nomina)
+   def add_empleado
+     empleado = Employee.find(params[:empleado_id])
+     salario_nomina = empleado.salario_empleado
+    if empleado.present?
+      @nomina.employee = empleado
+      @nomina.salario_nomina = salario_nomina
+      if @nomina.valid?
+        result = { primer_nombre: @nomina.employee.try(:primer_nombre), salario_nomina: @nomina.salario_nomina}
+        respond_to do |format|
+          if @nomina.save && empleado.save
+            format.json { render json: result }
+          else
+            format.json { render json: @nomina.errors.full_messages, status: :unprocessable_entity }
+          end
+        end
+      end
+    else
+      render json: { message: "El empleado no se podido encontrar"}, status: :not_found
     end
+  end
+
+  
+   private
+
+   def paycheck_params
+  params.require(:paycheck).permit(:paycheck_type_id, :inicio_nomina, :fin_nomina, :dias_nomina, :horas_extra, :adelanto_nomina)
+end
 
   def set_paycheck
-    @paycheck = Paycheck.find(params[:id])
+    @nomina = Paycheck.find(params[:id])
   end
 
   def set_paycheck_type
     @tiponomina = PaycheckType.all
-  end
-
-  def set_employee
-    @empleados = Employee.all
   end
 
 end

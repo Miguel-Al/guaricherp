@@ -1,42 +1,50 @@
 <h1 class="h3 mb-2 text-gray-800">Nominas de pago</h1>
-
-<div>  
-  <%= link_to new_paycheck_path, { remote: true, class: "btn btn-info" }  do %>
-    <span class="fas fa-plus-square" ></span>
-  <% end %>
-</div>
+   
+<div>
+  <%= link_to new_paycheck_path, {class: "btn btn-info", id: "crear-nomina-btn"}  do %>
+  <span class="fas fa-plus-square"> </span>
+  Registrar nomina
+  <%end%>
+    </div>
+<br />
 <br />
 <div class="card shadow mb-4">
 <div class="card-body">
     <div class="table-responsive">
-    <table class="table table-bordered" id="tablaNominas" width="100%" cellspacing="0">
+    <table class="table table-bordered" id="tabla_nominas" width="60%" cellspacing="0">
         <thead>
         <tr>
-	    <th>Codigo</th>
-            <th>Empleado</th>
-            <th>Periodo</th>
-            <th>Total</th>
-	    <th></th>
+          <th>Id</th>
+	  <th>Encargado</th>
+	  <th>Empleado</th>
+	  <th>Total</th>
+	  <th>Fecha y hora</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
-            <% @paychecks.each do |pay| %>
-            <tr id="paycheck_<%= pay.id %>" >
-	        <td><%= pay.id %></td>
-                <td><%= pay.employee.primer_nombre %> <%= pay.employee.primer_apellido %></td>
-                <td><%= pay.inicio_nomina %> - <%= pay.fin_nomina %></td>
-                <td>$<%= pay.salario_nomina - ((pay.salario_nomina * 0.04) + (pay.salario_nomina * 0.005) + (pay.salario_nomina * 0.01)) %></td>
-                <td>
-		<%= link_to "Ver", paycheck_path(pay), html_options = {class: "btn btn-info btn-xs", remote: true} %>
-                <%= link_to "editar", edit_paycheck_path(pay), html_options = {class: "btn btn-info btn-xs", remote: true} %>
-                <%= link_to "Borrar", pay, remote: true, method: :delete, data: { confirm: "Borrar registro: #{pay.id}?"}, class: "btn btn-danger btn-xs" %>
+          <% if @nominas.empty? %>
+          <tr> 
+            <td> No hay nominas </td><td></td><td></td> 
+          </tr>
+          <% else %>
+            <% @nominas.each do |pay| %>
+              <tr> 
+                <td> <%= pay.id %> </td>
+		<td> <%= pay.user.username %> </td>
+		<td> <%= pay.try(:employee).try(:primer_nombre) %> </td>
+                <td> $<%= pay.salario_nomina%> </td>
+		<td> <%= pay.created_at.to_s(:db) %> </td>
+                <td> 
+		  <%= link_to 'Mostrar', paycheck_path(pay), {class: "btn btn-info btn-xs", remote: true} %>
+		  <%= link_to 'Borrar', pay, method: :delete, data: { confirm: 'Eliminar la nomina?' }, class: "btn btn-danger btn-xs" %>
                 </td>
-            </tr>
+              </tr>
             <% end %>
+          <% end %>
         </tbody>
     </table>
     </div>
   </div>
 </div>
-
-<%= render 'modal_nominas' %>
+<%= render 'modal_paychecks' %>

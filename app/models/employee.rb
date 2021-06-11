@@ -9,4 +9,8 @@ class Employee < ApplicationRecord
     "#{primer_nombre} #{primer_apellido}"
   end
 
+    def self.buscador(termino)
+      Employee.where("primer_nombre LIKE ?", "%#{termino}%")
+    end
+
 end

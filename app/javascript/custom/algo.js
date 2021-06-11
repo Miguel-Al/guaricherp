@@ -130,7 +130,43 @@ document.addEventListener("turbolinks:load", function() {
       });
     }
     });
-    
+
+
+
+    $("#buscador_empleados").keyup(function(event){
+    let termino = $(this).val();
+    let id_nomina = $(this).data("nomina");
+    if(termino.length == 0) {
+      $("#tabla_buscador_empleados tbody").empty();
+    }
+    else {
+      let request_url = getRootUrl() + "/buscador_empleados/" + termino;
+      $.get(request_url, function(data, status){
+        if(data.length > 0){
+          $("#tabla_buscador_empleados tbody").empty();
+          for(x in data){
+            let primer_nombre = data[x].primer_nombre;
+            let id_empleado = data[x].id;
+            let rowContent = `
+               <tr>
+                 <td>${primer_nombre}</td>
+                 <td>
+                     <button 
+                       class = "btn btn-primary"
+                       onclick="seleccionarEmpleado(${id_empleado}, ${id_nomina})"
+                       >
+                         Agregar
+                     </button>
+                 </td>
+               </tr>
+            `;
+            $("#tabla_buscador_empleados tbody").append(rowContent);
+          }
+        }
+      });
+    }
+    });
+ 
     
 });
 
@@ -160,6 +196,31 @@ window.seleccionarCliente = function (id_cliente, id_venta){
         $('.modal-backdrop').remove();
         let nombre_cliente = result.nombre_cliente;
         $("#cliente_venta").html("Cliente: " + nombre_cliente)
+      }
+    }
+  });
+}
+
+window.seleccionarEmpleado = function (id_empleado, id_nomina){
+  let request_url = getRootUrl() + "/add_empleado_nomina/";
+    let info = { empleado_id: id_empleado, id: id_nomina};
+  $.ajax({
+    url: request_url,
+    type: 'POST',
+    data: JSON.stringify(info),
+    contentType: 'application/json; charset=utf-8',
+    success: function(result){
+      if(result != null) {
+        $("#buscador_empleado").modal("hide");
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+          let primer_nombre = result.primer_nombre;
+	  let salario_nomina = result.salario_nomina;
+	  let salario_nomina2 = result.salario_nomina / 30;
+	  let salario_nomina3 = parseFloat(salario_nomina2).toFixed(2);
+          $("#empleado_nomina").html("Empleado: " + primer_nombre)
+	  $("#importe_nomina_lbl").text("Salario mensual: $" + salario_nomina);
+	  $("#importe_nomina_lb2").text("Salario diario: $" + salario_nomina3);
       }
     }
   });
