@@ -41,10 +41,13 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    @categoria.destroy
     respond_to do |format|
-      format.json { head :no_content }
-      format.js
+      if @categoria.destroy
+        format.json { head :no_content }
+        format.js { flash.now[:notice] = "Here is my flash notice" }
+      else
+       format.html { redirect_to categories_path, alert: "si" }
+      end
     end
       
   end

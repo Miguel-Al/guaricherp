@@ -1,5 +1,5 @@
 class SuppliersController < ApplicationController
-  before_action :set_supplier, only: [:edit, :update, :destroy]
+  before_action :set_supplier, only: [:edit, :update, :destroy, :show]
 
   def index
     @q = Supplier.ransack(params[:q])
@@ -11,6 +11,9 @@ class SuppliersController < ApplicationController
   end
 
   def edit
+  end
+
+  def show
   end
 
   def create

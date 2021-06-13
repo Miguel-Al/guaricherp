@@ -1,6 +1,6 @@
 class ClientsController < ApplicationController
-  before_action :set_client, only: [:edit, :update, :destroy]
-  before_action :set_type_clients, only: [:new, :edit, :create]
+  before_action :set_client, only: [:edit, :update, :destroy, :show]
+  before_action :set_type_clients, only: [:new, :edit, :create, :update]
 
   def index
     @q = Client.ransack(params[:q])

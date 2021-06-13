@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_11_010706) do
+ActiveRecord::Schema.define(version: 2021_06_13_023923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2021_06_11_010706) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "type_client_id"
+    t.string "direccion_cliente"
     t.index ["type_client_id"], name: "index_clients_on_type_client_id"
   end
 
@@ -50,6 +51,7 @@ ActiveRecord::Schema.define(version: 2021_06_11_010706) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "position_id"
     t.decimal "salario_empleado"
+    t.string "direccion_empleado"
     t.index ["position_id"], name: "index_employees_on_position_id"
   end
 
@@ -77,8 +79,10 @@ ActiveRecord::Schema.define(version: 2021_06_11_010706) do
     t.integer "dias_nomina"
     t.integer "horas_extra"
     t.decimal "adelanto_nomina"
+    t.bigint "type_payment_id"
     t.index ["employee_id"], name: "index_paychecks_on_employee_id"
     t.index ["paycheck_type_id"], name: "index_paychecks_on_paycheck_type_id"
+    t.index ["type_payment_id"], name: "index_paychecks_on_type_payment_id"
     t.index ["user_id"], name: "index_paychecks_on_user_id"
   end
 
@@ -169,6 +173,7 @@ ActiveRecord::Schema.define(version: 2021_06_11_010706) do
     t.string "descripcion_proveedor"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "direccion_proveedor"
   end
 
   create_table "type_clients", force: :cascade do |t|
@@ -208,6 +213,7 @@ ActiveRecord::Schema.define(version: 2021_06_11_010706) do
 
   add_foreign_key "paychecks", "employees"
   add_foreign_key "paychecks", "paycheck_types"
+  add_foreign_key "paychecks", "type_payments"
   add_foreign_key "paychecks", "users"
   add_foreign_key "phoneclients", "clients"
   add_foreign_key "products", "categories"

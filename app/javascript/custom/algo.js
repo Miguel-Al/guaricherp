@@ -218,7 +218,7 @@ window.seleccionarEmpleado = function (id_empleado, id_nomina){
 	  let salario_nomina = result.salario_nomina;
 	  let salario_nomina2 = result.salario_nomina / 30;
 	  let salario_nomina3 = parseFloat(salario_nomina2).toFixed(2);
-          $("#empleado_nomina").html("Empleado: " + primer_nombre)
+          $("#empleado_nomina").html("<h3>Empleado: " + primer_nombre + "</h3>")
 	  $("#importe_nomina_lbl").text("Salario mensual: $" + salario_nomina);
 	  $("#importe_nomina_lb2").text("Salario diario: $" + salario_nomina3);
       }

@@ -1,0 +1,21 @@
+<form>
+     <div class="form-row">
+       <div class="form-group col-md-6">
+	 <label for="id">Numero Rif:</label>
+	 <input type="text" readonly class="form-control-plaintext" value="<%= @proveedor.rif_proveedor %>"> </input>
+       </div>
+       <div class="form-group col-md-6">
+	 <label for="fecha">Nombre del proveedor:</label>
+	 <input type="text" readonly class="form-control-plaintext" value="<%= @proveedor.nombre_proveedor %>"></input>
+       </div>
+     </div>
+     <div class="form-group col-md-6">
+       <label for="vendedor">Correo Electronico:</label>
+       <input type="text" readonly class="form-control-plaintext" value="<%= @proveedor.correo_proveedor %>"></input>
+     </div>
+     <div class="form-group col-md-6">
+       <label for="cliente">Descripcion:</label>
+       <input type="text" readonly class="form-control-plaintext" value="<%= @proveedor.descripcion_proveedor %>"></input>
+     </div>
+</div>
+</form>

@@ -1,6 +1,6 @@
 class EmployeesController < ApplicationController
-  before_action :set_employee, only: [:edit, :update, :destroy]
-  before_action :set_position, only: [:new, :edit, :create]
+  before_action :set_employee, only: [:edit, :update, :destroy, :show]
+  before_action :set_position, only: [:new, :edit, :create, :update]
 
   def index
     @q = Employee.ransack(params[:q])
@@ -28,6 +28,9 @@ class EmployeesController < ApplicationController
     end
   end
 
+  def show
+  end
+  
   def update
     respond_to do |format|
       if @empleado.update(employee_params)
@@ -48,11 +51,12 @@ class EmployeesController < ApplicationController
     end
   end
 
+  #antes aaqui en donde dice empleado.nombre_apellido, estaba empleado.primer_nombre
   def buscador
     @resultados = Employee.buscador(params[:termino]).map do |empleado|
       {
         id: empleado.id,
-        primer_nombre: empleado.primer_nombre
+        primer_nombre: empleado.nombre_apellido
       }
     end
 

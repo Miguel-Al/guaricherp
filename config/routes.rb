@@ -16,9 +16,9 @@ Rails.application.routes.draw do
   #Rutas para los productos
   resources :products
   #Rutas para los clientes
-  resources :clients, except: [:show]
+  resources :clients
   #Rutas de los proveedores
-  resources :suppliers, except: [:show]
+  resources :suppliers
   #Rutas para ventas
   resources :sales do
     resources :sale_details

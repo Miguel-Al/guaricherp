@@ -1,51 +1,54 @@
 <h1 class="h3 mb-2 text-gray-800">Empleados</h1>
-
-<div class="d-flex align-items-center">
-<%= search_form_for @q, options = {class: "w-100 me-3"} do |f| %>
-  <%= f.label :"buscar empleado" %>
-  <%= f.search_field :numero_cedula_or_primer_nombre_or_primer_apellido_cont, options = {class: "form-control", placeholder: "Buscar por cedula, nombre o apellido..."} %>
-  <%= f.submit class: "btn btn-info form-control" %>
-<% end %>
-</div>
 <br />
-<div>  
+
+<div class="row">
   <%= link_to new_employee_path, { remote: true, class: "btn btn-info" }  do %>
-    <span class="fas fa-plus-square" ></span>
+    <span class="fas fa-plus-square" ></span> Registrar nuevo empleado
   <% end %>
 </div>
 <br />
 
+<div class="d-flex align-items-center">
+  <%= search_form_for @q, options = {class: "w-100 me-3"} do |f| %>
+  <%= f.search_field :numero_cedula_or_primer_nombre_or_primer_apellido_cont, options = {class: "form-control", placeholder: "Buscar por cedula, nombre o apellido..."} %>
+  <%= f.submit "Buscar", class: "btn btn-info form-control" %>
+  <% end %>
+</div>
+<br />
+ 
 <div class="card shadow mb-4">
-<div class="card-body">
+  <div class="card-body">
     <div class="table-responsive">
-    <table class="table table-bordered" id="tablaEmpleados" width="100%" cellspacing="0">
-        <thead>
-          <tr>
+      <table class="table table-bordered" id="tablaEmpleados" width="100%" cellspacing="0">
+	<thead>
+	  <p> Listado de empleados </p>
+	  <tr>
 	    <th>Cedula</th>
-            <th>Nombre</th>
-	    <th>Apellido</th>
+            <th>Nombre y apellido</th>
 	    <th>Sueldo(Mes)</th>
 	    <th>Sueldo(Dia)</th>
 	    <th>Cargo</th>
 	    <th></th>
-        </tr>
-        </thead>
-        <tbody>
-            <% @empleados.each do |emp| %>
-            <tr id="empleado_<%= emp.id %>" >
-	      <td><%= emp.numero_cedula %></td>
-	      <td><%= emp.primer_nombre %></td>
-	      <td><%= emp.primer_apellido %></td>
-	      <td><%= emp.salario_empleado.round(2) %></td>
-	      <td><%= (emp.salario_empleado / 30).round(2)  %></td>
-	      <td><%= emp.try(:position).try(:nombre_cargo)%></td>
-	      <td>
-                <%= link_to 'Borrar', emp, remote: true, method: :delete, data: { confirm: "Borrar al empleado: #{emp.primer_nombre} #{emp.primer_apellido}?"}, class: "btn btn-danger btn-xs" %>
-	      </td>
-	    </tr>
-		<% end %>
+	  </tr>
+	</thead>
+	<tbody>
+	  <% @empleados.each do |emp| %>
+	  <tr id="empleado_<%= emp.id %>" >
+	    <td><%= emp.numero_cedula %></td>
+	    <td><%= emp.nombre_apellido %></td>
+	    <td><%= emp.salario_empleado.round(2) %></td>
+	    <td><%= emp.salario_diario %></td>
+	    <td><%= emp.position.nombre_cargo %></td>
+	    <td>
+	      <%= link_to "Ver", employee_path(emp), html_options = {class: "btn btn-info btn-xs", remote: true} %>
+	      <%= link_to "Editar", edit_employee_path(emp), html_options = {class: "btn btn-info btn-xs", remote: true} %>
+	      <%= link_to 'Borrar', emp, remote: true, method: :delete, data: { confirm: "Borrar al empleado: #{emp.nombre_apellido}?"}, class: "btn btn-danger btn-xs" %>
+	    </td>
+	  </tr>
+	  <% end %>
 	</tbody>
-    </table>
+      </table>
     </div>
+  </div>
 </div>
 <%= render 'modal_empleados' %>

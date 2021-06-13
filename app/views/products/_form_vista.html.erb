@@ -1,28 +1,28 @@
 <form>
      <div class="form-row">
        <div class="form-group col-md-6">
-	 <label for="id">Codigo</label>
+	 <label for="id">Codigo:</label>
 	 <input type="text" readonly class="form-control-plaintext" value="<%= @product.codigo_producto %>"> </input>
        </div>
        <div class="form-group col-md-6">
-	 <label for="fecha">Nombre</label>
+	 <label for="fecha">Nombre:</label>
 	 <input type="text" readonly class="form-control-plaintext" value="<%= @product.nombre_producto %>"></input>
        </div>
      </div>
      <div class="form-group col-md-6">
-       <label for="vendedor">Descripcion</label>
+       <label for="vendedor">Descripcion:</label>
        <input type="text" readonly class="form-control-plaintext" value="<%= @product.descripcion_producto %>"></input>
      </div>
      <div class="form-group col-md-6">
        <label for="cliente">Precio:</label>
-       <input type="text" readonly class="form-control-plaintext" value="<%= @product.precio_producto %>"></input>
+       <input type="text" readonly class="form-control-plaintext" value="$<%= @product.precio_producto %>"></input>
      </div>
      <div class="form-group col-md-6">
        <label for="cliente">Existencia actual:</label>
        <input type="text" readonly class="form-control-plaintext" value="<%= @product.existencia_producto %>"></input>
      </div>
      <div class="form-group col-md-6">
-       <label for="cliente">Existencia minima permitiada:</label>
+       <label for="cliente">Existencia minima permitida:</label>
        <input type="text" readonly class="form-control-plaintext" value="<%= @product.min_producto %>"></input>
      </div>
      <div class="form-group col-md-6">

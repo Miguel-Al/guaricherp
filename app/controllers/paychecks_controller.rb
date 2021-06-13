@@ -1,6 +1,7 @@
 class PaychecksController < ApplicationController
   before_action :set_paycheck, only: [:edit, :destroy, :show, :add_empleado, :update]
   before_action :set_paycheck_type, only: [:edit, :destroy, :update, :show]
+  before_action :set_type_payment, only: [:edit, :destroy, :update, :show]
 
   def index
     @nominas = Paycheck.all
@@ -42,7 +43,7 @@ class PaychecksController < ApplicationController
       @nomina.employee = empleado
       @nomina.salario_nomina = salario_nomina
       if @nomina.valid?
-        result = { primer_nombre: @nomina.employee.try(:primer_nombre), salario_nomina: @nomina.salario_nomina}
+        result = { primer_nombre: @nomina.employee.try(:nombre_apellido), salario_nomina: @nomina.salario_nomina}
         respond_to do |format|
           if @nomina.save && empleado.save
             format.json { render json: result }
@@ -60,7 +61,7 @@ class PaychecksController < ApplicationController
    private
 
    def paycheck_params
-  params.require(:paycheck).permit(:paycheck_type_id, :inicio_nomina, :fin_nomina, :dias_nomina, :horas_extra, :adelanto_nomina)
+  params.require(:paycheck).permit(:paycheck_type_id, :inicio_nomina, :fin_nomina, :dias_nomina, :horas_extra, :adelanto_nomina, :type_payment_id)
 end
 
   def set_paycheck
@@ -69,6 +70,10 @@ end
 
   def set_paycheck_type
     @tiponomina = PaycheckType.all
+  end
+
+  def set_type_payment
+    @tipopago = TypePayment.all
   end
 
 end

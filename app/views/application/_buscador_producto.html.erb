@@ -9,29 +9,30 @@
       </div>
       <div class="modal-body-items modal-body" id="modal-body-items">
         <div class="form-group">
-            <label for="buscador">Ingresa el nombre del producto</label>
-            <input type="text" class="form-control" data-tipo = "<%= @tipo %>" data-model = "<%= @model.try(:id) %>" id="buscador_productos" placeholder="Nombre producto...">
-        </div>
-        <div class="form-group">
-            <label for="buscador">Ingresa una cantidad</label>
-            <input type="number" class="form-control" id="cantidad_producto" placeholder="Ingresa la cantidad a vender..." value="1">
-        </div>
-        <table class="table table-dark" id="tabla_buscador" >
-            <thead>
-                <tr>
-                <th >Nombre</th>
-                <th >Existencia</th>
-		<th >Precio</th>
-                <th >Agregar</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-            </tbody>
-        </table>
+	  <label for="buscador">Ingresa el nombre del producto</label>
+	  <input type="text" class="form-control" data-tipo = "<%= @tipo %>" data-model = "<%= @model.try(:id) %>" id="buscador_productos" placeholder="Nombre producto...">
+	</div>
+	<div class="form-group">
+	  <label for="buscador">Ingresa una cantidad</label>
+	  <input type="number" class="form-control" id="cantidad_producto" placeholder="Ingresa la cantidad a vender..." value="1">
+	</div>
+	<table class="table table-dark" id="tabla_buscador" >
+	  <thead>
+	    <tr>
+	      <th >Nombre</th>
+	      <th >Existencia</th>
+	      <th >Precio</th>
+	      <th >Agregar</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+
+
+	  </tbody>
+	</table>
       </div>
       <div class="modal-footer" id="modal-footer-items">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
