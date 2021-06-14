@@ -1,2 +1,0 @@
-$("#flash").html('<%= flash[:notice] %>');
-$('#categoria_<%= @categoria.id %>').fadeOut();

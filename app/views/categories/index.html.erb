@@ -1,6 +1,6 @@
-<h1 class="h3 mb-2 text-gray-800">Categorias de productos</h1>
+<h1 id="ayaya" class="h3 mb-2 text-gray-800">Categorias de productos</h1>
 <br />
-
+<div class="something"></div>
 <div class="row">
   <%= link_to new_category_path, {remote: true, class: "btn btn-info", id: "anadir-categoria-btn"}  do %>
   <span class="fas fa-plus-square" ></span> Crear nueva categoria
@@ -43,5 +43,4 @@
     </div>
   </div>
 </div>
-
 <%= render 'modal_categorias' %>

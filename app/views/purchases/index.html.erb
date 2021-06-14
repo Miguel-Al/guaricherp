@@ -1,29 +1,34 @@
 <h1 class="h3 mb-2 text-gray-800">Compras</h1>
-
-        <%= search_form_for @search, url: search_purchases_path, html: {class: "form-inline col-md-8 col-md-offset-1", method: :post} do |f| %>
-          <div class="input-daterange">
-            <div class="col-md-4">
-              <%= f.text_field :created_at_gteq, class: "form-control", placeholder: "Fecha de inicio..." %>
-            </div>
-            <div class="col-md-4 col-md-offset-1">
-              <%= f.text_field :created_at_lteq, class: "form-control", placeholder: "Fecha fin..." %>
-            </div>
-          </div>
-
-          <div class="col-md-2 col-md-offset-1 form-actions">
-            <%= f.submit "Buscar", class: "btn btn-success" %>
-          </div>
-          
-        <% end %>
-</div>
-<div>
-  <%= link_to new_purchase_path, {class: "btn btn-info", id: "registrar-entrada-btn"}  do %>
-  <span class="fas fa-plus-square"> </span>
-  Registrar entrada
-  <%end%>
-  <%= link_to "Generar reporte de compras", purchases_path(request.params.merge(format: :pdf)), class: "btn btn-primary", target: :_blank %>
-  </div>
 <br />
+
+<%= search_form_for @search, url: search_purchases_path, html: { method: :post} do |f| %>
+<div class="row">
+  <div class="col">
+    <%= f.text_field :created_at_gteq, class: "form-control", placeholder: "Fecha de inicio..." %>
+  </div>
+  <div class="col">
+    <%= f.text_field :created_at_lteq, class: "form-control", placeholder: "Fecha fin..." %>
+  </div>
+  <div class="col">
+    <%= f.submit "Buscar", class: "btn btn-success form-control" %>
+  </div>
+  <% end %>
+</div>
+<br />
+
+<div class="row">
+  <div class="col">
+    <%= link_to new_purchase_path, {class: "btn btn-info form-control", id: "registrar-entrada-btn"}  do %>
+    <span class="fas fa-plus-square"> </span>
+    Registrar entrada
+    <%end%>
+  </div>
+  <div class="col">
+    <%= link_to "Generar reporte de compras", purchases_path(request.params.merge(format: :pdf)), class: "btn btn-primary form-control", target: :_blank %>
+  </div>
+</div>
+<br />
+
 <div class="card shadow mb-4">
 <div class="card-body">
     <div class="table-responsive">

@@ -44,9 +44,10 @@ class CategoriesController < ApplicationController
     respond_to do |format|
       if @categoria.destroy
         format.json { head :no_content }
-        format.js { flash.now[:notice] = "Here is my flash notice" }
+        format.js { flash[:notice] = "Thanks for your review!" }
       else
-       format.html { redirect_to categories_path, alert: "si" }
+        flash[:error] = "Thanks for you"
+        format.html { redirect_to categories_path }
       end
     end
       

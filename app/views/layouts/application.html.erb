@@ -39,15 +39,6 @@
 	</div>
       </div>
     </header>
-    <% if notice %>
-    <div id="notice_wrapper">
-      <p class="notice"><%= notice %></p>
-    </div>
-    <% elsif alert %>
-    <div id="notice_wrapper">
-      <p class="alert"><%= alert %></p>
-    </div>
-    <% end %>
 
 
     <div class="container-fluid">
@@ -138,20 +129,22 @@
 	</div>
 	<div class="col overflow-auto h-100">
 	  <div class="bg-light border rounded-3 p-3">
-	    <%= yield %>
+	    <% if flash[:notice] %>
+	    <div id="si" class="alert alert-info alert-dismissible fade show" role="alert">
+	      <%= flash[:notice] %>
+	      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	    </div>
+	    <% elsif flash[:error] %>
+	    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+	      <%= flash[:error] %>
+	      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	      </button>
+	     </div>
+	     <% end %>
+	     <%= yield %>
 	  </div>
 	</div>
       </div>
 
-      <script>
-	$(document).ready(function() {
-	    setTimeout(function(){
-		$('#notice_wrapper').fadeOut("slow", function(){
-		    $(this).remove();
-		});
-	    }, 3500);
-	});
-      </script>
-      
   </body>
 </html>
