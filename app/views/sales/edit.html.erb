@@ -19,8 +19,13 @@
     <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#buscador_cliente">
       Buscar cliente
     </button>
-</div>
+    <div>  
+  <%= link_to new_client_path, { remote: true, class: "btn btn-info" }  do %>
+  <span class="fas fa-plus-square" ></span> Registrar nuevo cliente
+  <% end %>
+    </div>
   </div>
+</div>
   <div class="col-md-7" style="text-align:right;">
     <%= link_to 'Finalizar venta', sales_path, class: "btn btn-success" %>
     
@@ -65,3 +70,4 @@
 <% @tipo = 'sales' %>
 <%= render 'buscador_producto', model: @model, tipo: @tipo %>
 <%= render 'buscador_cliente' , venta: @venta %>
+<%= render 'modal_clientes' %>
