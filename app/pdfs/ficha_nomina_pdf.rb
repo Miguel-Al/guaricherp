@@ -9,3 +9,4 @@ class FichaNominaPdf < Prawn::Document
     iva
     total
   end
+end
