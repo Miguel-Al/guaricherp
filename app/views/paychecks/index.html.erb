@@ -1,5 +1,24 @@
 <h1 class="h3 mb-2 text-gray-800">Nominas de pago</h1>
-   
+
+<%= search_form_for @search, url: search_paychecks_path, html: {method: :post} do |f| %>
+<div class="row">
+  <div class="col">
+    <%= f.date_field :inicio_nomina_gteq, class: "form-control", placeholder: "Fecha de inicio..." %>
+  </div>
+  <div class="col">
+    <%= f.date_field :fin_nomina_lteq, class: "form-control", placeholder: "Fecha fin..." %>
+  </div>
+  <div class="col">
+    <%= f.submit "Buscar", class: "btn btn-success form-control" %>
+    <% end %>
+  </div>
+</div>
+<br />
+
+  <div class="row">
+    <%= link_to "Generar reporte de nominas", paychecks_path(request.params.merge(format: :pdf)), class: "btn btn-primary form-control", target: :_blank %>
+  </div>
+
 <div>
   <%= link_to new_paycheck_path, {class: "btn btn-info", id: "crear-nomina-btn"}  do %>
   <span class="fas fa-plus-square"> </span>
@@ -13,7 +32,11 @@
     <div class="table-responsive">
     <table class="table table-bordered" id="tabla_nominas" width="60%" cellspacing="0">
         <thead>
-        <tr>
+          <tr>
+	    <p> <%= @minimo %> </p>
+	    <p> <%= (@nominas.sum(:salario_nomina) /30).round(2) %> </p>
+	    <p> <%= @nominas.sum(:dias_nomina) %></p>
+	    <p> <%= (@nominas.sum(:salario_nomina) /30).round(2) * ((@nominas.sum(:dias_nomina)*(1/2.5)))  %> </p>
           <th>Id</th>
 	  <th>Encargado</th>
 	  <th>Empleado</th>
@@ -40,7 +63,7 @@
 		  <%= link_to 'Borrar', pay, method: :delete, data: { confirm: 'Eliminar la nomina?' }, class: "btn btn-danger btn-xs" %>
                 </td>
               </tr>
-            <% end %>
+              <% end %>
           <% end %>
         </tbody>
     </table>

@@ -130,7 +130,7 @@
 	<div class="col overflow-auto h-100">
 	  <div class="bg-light border rounded-3 p-3">
 	    <% if flash[:notice] %>
-	    <div id="si" class="alert alert-info alert-dismissible fade show" role="alert">
+	    <div class="alert alert-info alert-dismissible fade show" role="alert">
 	      <%= flash[:notice] %>
 	      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	    </div>
@@ -138,10 +138,14 @@
 	    <div class="alert alert-danger alert-dismissible fade show" role="alert">
 	      <%= flash[:error] %>
 	      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-	      </button>
-	     </div>
-	     <% end %>
-	     <%= yield %>
+	    </div>
+	    <% elsif flash[:success] %>
+	    <div class="alert alert-success alert-dismissible fade show" role="alert">
+	      <%= flash[:success] %>
+	      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	    </div>
+	    <% end %>
+	    <%= yield %>
 	  </div>
 	</div>
       </div>

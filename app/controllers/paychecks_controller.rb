@@ -4,7 +4,22 @@ class PaychecksController < ApplicationController
   before_action :set_type_payment, only: [:edit, :destroy, :update, :show]
 
   def index
-    @nominas = Paycheck.all
+    @search = Paycheck.search(params[:q])
+    @nominas = @search.result
+    @minimo = @nominas.minimum("inicio_nomina")
+    respond_to do |format|
+      format.html
+      format.js
+      format.pdf do
+        pdf = ReporteNominaPdf.new(@nominas)
+          send_data pdf.render, filename: "registro_de_nominas_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
+      end
+    end
+  end
+
+  def search
+    index
+    render :index
   end
 
   def new
@@ -13,6 +28,14 @@ class PaychecksController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.js
+      format.pdf do
+        pdf = FichaNominaPdf.new(@nomina)
+          send_data pdf.render, filename: "fichadenomina_#{@nomina.employee.nombre_apellido}_#{@nomina.inicio_nomina}_#{@nomina.fin_nomina}.pdf", type: "application/pdf", disposition: "inline"
+        end
+          end
   end
 
   def edit

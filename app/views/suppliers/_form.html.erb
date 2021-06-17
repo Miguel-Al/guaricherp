@@ -1,5 +1,6 @@
 <%= form_for @proveedor, remote: true do |f| %>
 
+<% if @proveedor.new_record? %>
 <div class="item form-group<%= @proveedor.errors[:rif_proveedor].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :rif, "Rif del Proveedor: " %>
   <div class="input-group">
@@ -19,6 +20,31 @@
     <% end %>
   </div>
 </div>
+<% end %>
+
+<div class="item form-group<%= @proveedor.errors[:direccion_proveedor].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :direccion, "Direccion del proveedor: " %>
+  <div class="input-group">
+    <%= f.text_field :direccion_proveedor, {:class=> "form-control", :placeholder=>"Introduzca la direccion del proveedor...", required: true} %>
+    <%if @proveedor.errors[:direccion_proveedor].any? %>
+    <p class="bg-danger"><%= @proveedor.errors[:direccion_proveedor].to_s[/\w([^"]*)/] %></p>
+    <% end %>
+  </div>
+</div>
+
+<div class="item form-group<%= @proveedor.errors[:phonesuppliers].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :"Numeros de telefono" %>
+  <%= f.fields_for :phonesuppliers do |foro| %>
+  <div class="input-group" >
+    <%= render partial: 'phonesupplier_fields', locals: {f: foro} %>
+    <% end %>
+  </div>
+  <%= link_to_add_fields "Agregar otro telefono", f, :phonesuppliers %>
+  <%if @proveedor.errors[:phonesuppliers].any? %>
+  <p class="bg-danger"><%= @proveedor.errors[:phonesuppliers].to_s[/\w([^"]*)/] %></p>
+  <% end %>
+</div>
+
 
 <div class="item form-group<%= @proveedor.errors[:correo_proveedor].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :correo, "Correo del proveedor: " %>
@@ -39,9 +65,35 @@
     <% end %>
   </div>
 </div>
+<br />
 
 <div class="actions col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
   <%= f.submit @proveedor.new_record? ? "Crear Proveedor" : "Actualizar Proveedor", :class => "btn btn-success"%>
 </div>
-
 <% end %>
+
+<%# ver como acomodar el bug con este javascript para que no se muestren tantos input type %>
+<script>
+  (function() {
+      var ready;
+      ready = function() {
+	  $('#modal-body-proveedores').on('click', '.remove_fields', function(event) {
+	      $(this).prev('input[type="hidden"]').val('0');
+	      $(this).prev('input[type="hidden"]').val('1');
+	      $(this).closest("div.row").hide();
+	      event.preventDefault();
+	      console.log('yo dazo....');
+	  });
+	  $('#modal-body-proveedores').on('click', '.add_fields', function(event) {
+	      var regexp, time;
+	      console.log('It is really happening ....');
+	      time = new Date().getTime();
+	      regexp = new RegExp($(this).data('id'), 'g');
+	      $(this).before($(this).data('fields').replace(regexp, time));
+	      event.preventDefault();
+	  });
+      };
+      $(document).ready(ready);
+      $(document).on('page:load', ready);
+  }).call(this);
+</script>

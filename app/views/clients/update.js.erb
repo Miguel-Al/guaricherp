@@ -2,3 +2,4 @@ $('#modalClientes').modal('toggle');
 $('#cliente_<%= @client.id %>').replaceWith(
     '<tr id="cliente_<%= @client.id %>" ><td><%= @client.rif_cliente %></td><td><%= @client.nombre_cliente %></td><td><%= @client.phoneclients.first.try(:numero_cliente) %></td><td><%= link_to "Ver", client_path(@client), html_options = {class: "btn btn-info btn-xs", remote: true} %> <%= link_to 'Editar', edit_client_path(@client), html_options = {class: "btn btn-info btn-xs", remote: true} %> <%= link_to "Borrar", @client, remote: true, method: :delete, data: { confirm: "Borrar cliente: #{@client.nombre_cliente}?"}, class: "btn btn-danger btn-xs" %></td></tr>'
 );
+$('#comienzoclit').before('<div id="si" class="alert alert-info alert-dismissible fade show" role="alert"><%= flash.now[:notice] = "Se ha actualizado el cliente" %><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');

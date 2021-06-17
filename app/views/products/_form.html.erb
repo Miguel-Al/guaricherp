@@ -39,6 +39,7 @@
   </div>
 </div>
 
+<% if @product.new_record? %>
 <div class="item form-group<%= @product.errors[:existencia_producto].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :existencia, "Stock inicial: " %>
   <div class="input-group">
@@ -48,6 +49,7 @@
     <% end %> 
  </div>
 </div>
+<% end %>
 
 <div class="item form-group<%= @product.errors[:min_producto].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :min, "Minimo de Stock: " %>

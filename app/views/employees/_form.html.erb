@@ -1,4 +1,6 @@
 <%= form_for @empleado, remote: true  do |f| %>
+
+<% if @empleado.new_record? %>
 <div class="item form-group<%= @empleado.errors[:numero_cedula].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :cedula, "Cedula del empleado: " %>
   <div class="input-group">
@@ -58,6 +60,7 @@
     <% end %>
   </div>
 </div>
+<% end %>
 
 <div class="item form-group<%= @empleado.errors[:salario_empleado].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :salario, "Salario mensual del empleado: " %>
@@ -80,7 +83,7 @@
 </div>
 
 <div class="item form-group<%= @empleado.errors[:position].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :cargo, "Cargo: " %>
+  <%= f.label :position, "Cargo: " %>
   <div class="input-group">
     <%= collection_select(:employee, :position_id, @cargos, :id, :nombre_cargo, {:prompt => 'Seleccione cargo'}, { class: "form-control" })%>
     <%if @empleado.errors[:position].any? %>

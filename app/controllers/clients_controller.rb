@@ -65,7 +65,7 @@ class ClientsController < ApplicationController
 
   private
     def client_params
-      params.require(:client).permit(:rif_cliente, :nombre_cliente, :correo_cliente, :descripcion_cliente, :type_client_id, phoneclients_attributes: [:id, :_destroy, :numero_cliente])
+      params.require(:client).permit(:rif_cliente, :nombre_cliente, :correo_cliente, :direccion_cliente, :descripcion_cliente, :type_client_id, phoneclients_attributes: [:id, :_destroy, :numero_cliente])
     end
 
     def set_client

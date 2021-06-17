@@ -44,9 +44,9 @@ class CategoriesController < ApplicationController
     respond_to do |format|
       if @categoria.destroy
         format.json { head :no_content }
-        format.js { flash[:notice] = "Thanks for your review!" }
+        format.js
       else
-        flash[:error] = "Thanks for you"
+        flash[:error] = "No se ha podido borrar la categoria"
         format.html { redirect_to categories_path }
       end
     end

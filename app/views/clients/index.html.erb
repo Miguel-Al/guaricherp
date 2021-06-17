@@ -1,28 +1,20 @@
-<h1 class="h3 mb-2 text-gray-800">Clientes</h1>
-<br />
-<div class="row">  
-  <%= link_to new_client_path, { remote: true, class: "btn btn-info" }  do %>
-  <span class="fas fa-plus-square" ></span> Registrar nuevo cliente
-  <% end %>
-</div>
+<h1 id="comienzoclit" class="h3 mb-2 text-gray-800">Clientes</h1>
 <br />
 
-<div class="d-flex align-items-center">
-  <%= search_form_for @q, options = {class: "w-100 me-3"} do |f| %>
-  <%= f.search_field :nombre_cliente_or_rif_cliente_cont, options = {class: "form-control", placeholder: "Buscar por nombre o rif..."} %>
-  <%= f.submit "Buscar", class: "btn btn-info form-control" %>
-  <% end %>
+<div class="row">
+  <div class="col">
+    <%= link_to new_client_path, { remote: true, class: "btn btn-info form-control" }  do %>
+    <span class="fas fa-plus-square" ></span> Registrar nuevo cliente
+    <% end %>
+  </div>
+  <div class="col">
+    <%= search_form_for @q, options = {class: "w-100 me-3"} do |f| %>
+    <%= f.search_field :nombre_cliente_or_rif_cliente_cont, options = {class: "form-control", placeholder: "Buscar por nombre o rif..."} %>
+    <%= f.submit "Buscar", class: "btn btn-info form-control" %>
+    <% end %>
+  </div>
 </div>
 <br />
-
-<% if false %>
-<div class="d-flex align-items-center">
-  <%= form_tag( '/buscar_clientes' , options = {class: "w-100 me-3"}) do %>
-  <%= text_field_tag("termino", value = nil, options = {class: "form-control", placeholder: "Buscar..."}) %>
-  <%end%>
-</div>
-<br />
-<% end %>
 
 <div class="card shadow mb-4">
   <div class="card-body">

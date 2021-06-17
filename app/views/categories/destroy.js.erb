@@ -1,2 +1,2 @@
 $('#categoria_<%= @categoria.id %>').fadeOut();
-$('#ayaya').before('<div id="si" class="alert alert-info alert-dismissible fade show" role="alert"><%= flash.now[:notice] = "Thanks for your review!" %><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+$('#comienzo').before('<div id="si" class="alert alert-info alert-dismissible fade show" role="alert"><%= flash.now[:success] = "Se ha borrado la categoria" %><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');

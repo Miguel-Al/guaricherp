@@ -1,36 +1,27 @@
-<h1 class="h3 mb-2 text-gray-800">Proveedores</h1>
+<h1 id="comienzoprov" class="h3 mb-2 text-gray-800">Proveedores</h1>
 <br />
 
 <div class="row">
-  <%= link_to new_supplier_path, {remote: true, class: "btn btn-info", id: "anadir-proveedor-btn"}  do %>
-  <span class="fas fa-plus-square" style=""></span> Registrar nuevo proveedor
-  <%end%>
+  <div class="col">
+    <%= link_to new_supplier_path, {remote: true, class: "btn btn-info form-control", id: "anadir-proveedor-btn"}  do %>
+    <span class="fas fa-plus-square" style=""></span> Registrar nuevo proveedor
+    <% end %>
+  </div>
+  <div class="col">
+    <%= search_form_for @q, options = {class: "w-100"} do |f| %>
+    <%= f.search_field :nombre_proveedor_or_rif_proveedor_cont, options = {class: "form-control", placeholder: "Buscar por nombre o rif..."} %>
+    <%= f.submit "Buscar", class: "btn btn-info form-control" %>
+    <% end %>
+  </div>
 </div>
 <br />
-
-<div class="d-flex align-items-center">
-  <%= search_form_for @q, options = {class: "w-100 me-3"} do |f| %>
-  <%= f.search_field :nombre_proveedor_or_rif_proveedor_cont, options = {class: "form-control", placeholder: "Buscar por nombre o rif..."} %>
-  <%= f.submit "Buscar", class: "btn btn-info form-control" %>
-  <% end %>
-</div>
-<br />
-
-<% if false %>
-<div class="d-flex align-items-center">
-  <%= form_tag( '/buscar_proveedores' , options = {class: "w-100 me-3"}) do %>
-  <%= text_field_tag("termino", value = nil, options = {class: "form-control", placeholder: "Buscar..."}) %>
-  <%end%>
-</div>
-<br />
-<% end %>
 
 <div class="card shadow mb-4">
   <div class="card-body">
     <div class="table-responsive">
       <table class="table table-bordered" id="tablaProveedores" width="100%" cellspacing="0">
 	<thead>
-	  <p> listado de proveedores </p>
+	  <p> Listado de Proveedores </p>
 	  <tr>
 	    <th>Numero Rif</th>
             <th>Nombre</th>
@@ -43,7 +34,7 @@
 	  <tr id="proveedor_<%= prov.id %>" >
 	    <td><%= prov.rif_proveedor %></td>
             <td><%= prov.nombre_proveedor %></td>
-            <td>telefono </td>
+            <td><%= prov.phonesuppliers.first.try(:numero_proveedor) %></td>
             <td>
 	      <%= link_to "Ver", supplier_path(prov), html_options = {class: "btn btn-info btn-xs", remote: true} %>
 	      <%= link_to "Editar", edit_supplier_path(prov), html_options = {class: "btn btn-info btn-xs", remote: true} %>

@@ -1,13 +1,23 @@
 <form>
      <div class="form-row">
        <div class="form-group col-md-6">
-	 <label for="id">Numero Rif:</label>
+	 <label for="id">Numero de Rif:</label>
 	 <input type="text" readonly class="form-control-plaintext" value="<%= @proveedor.rif_proveedor %>"> </input>
        </div>
        <div class="form-group col-md-6">
 	 <label for="fecha">Nombre del proveedor:</label>
 	 <input type="text" readonly class="form-control-plaintext" value="<%= @proveedor.nombre_proveedor %>"></input>
        </div>
+     </div>
+     <div class="form-group col-md-6">
+       <label for="fecha">Direccion:</label>
+       <input type="text" readonly class="form-control-plaintext" value="<%= @proveedor.direccion_proveedor %>"></input>
+     </div>
+     <div class="form-group col-md-6">
+       <label for="proveedor">Telefonos:</label>
+       <% @proveedor.phonesuppliers.each do |tel| %>
+       <input type="text" readonly class="form-control-plaintext" value="- <%= tel.numero_proveedor %>">
+       <% end %>
      </div>
      <div class="form-group col-md-6">
        <label for="vendedor">Correo Electronico:</label>

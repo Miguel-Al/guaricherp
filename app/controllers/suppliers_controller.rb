@@ -8,6 +8,7 @@ class SuppliersController < ApplicationController
 
   def new
     @proveedor = Supplier.new
+    @proveedor.phonesuppliers.build
   end
 
   def edit
@@ -71,6 +72,6 @@ class SuppliersController < ApplicationController
   end
 
   def supplier_params
-    params.require(:supplier).permit(:rif_proveedor, :nombre_proveedor, :correo_proveedor, :descripcion_proveedor)
+    params.require(:supplier).permit(:rif_proveedor, :nombre_proveedor, :correo_proveedor, :direccion_proveedor, :descripcion_proveedor, phonesuppliers_attributes: [:id, :_destroy, :numero_proveedor])
   end  
 end

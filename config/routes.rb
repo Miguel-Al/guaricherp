@@ -37,7 +37,11 @@ Rails.application.routes.draw do
   #Rutas para empleados
   resources :employees
   #Rutas para las nominas
-  resources :paychecks
+  resources :paychecks do
+    collection do
+      match 'search' => 'paychecks#search', via: [:get, :post], as: :search
+    end
+  end
   
   #Ruta para el buscador de productos en /app/javascript
   get 'buscador_productos/:termino', to: 'products#buscador'

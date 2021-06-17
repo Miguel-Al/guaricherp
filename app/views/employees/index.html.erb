@@ -1,18 +1,18 @@
-<h1 class="h3 mb-2 text-gray-800">Empleados</h1>
+<h1 id="comienzoemp" class="h3 mb-2 text-gray-800">Empleados</h1>
 <br />
 
 <div class="row">
-  <%= link_to new_employee_path, { remote: true, class: "btn btn-info" }  do %>
+  <div class="col">
+    <%= link_to new_employee_path, { remote: true, class: "btn btn-info form-control" }  do %>
     <span class="fas fa-plus-square" ></span> Registrar nuevo empleado
-  <% end %>
-</div>
-<br />
-
-<div class="d-flex align-items-center">
-  <%= search_form_for @q, options = {class: "w-100 me-3"} do |f| %>
-  <%= f.search_field :numero_cedula_or_primer_nombre_or_primer_apellido_cont, options = {class: "form-control", placeholder: "Buscar por cedula, nombre o apellido..."} %>
-  <%= f.submit "Buscar", class: "btn btn-info form-control" %>
-  <% end %>
+    <% end %>
+  </div>
+  <div class="col">
+    <%= search_form_for @q, options = {class: "w-100"} do |f| %>
+    <%= f.search_field :numero_cedula_or_primer_nombre_or_primer_apellido_cont, options = {class: "form-control", placeholder: "Buscar por cedula, nombre o apellido..."} %>
+    <%= f.submit "Buscar", class: "btn btn-info form-control" %>
+    <% end %>
+  </div>
 </div>
 <br />
  

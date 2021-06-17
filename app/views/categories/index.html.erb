@@ -1,18 +1,18 @@
-<h1 id="ayaya" class="h3 mb-2 text-gray-800">Categorias de productos</h1>
-<br />
-<div class="something"></div>
-<div class="row">
-  <%= link_to new_category_path, {remote: true, class: "btn btn-info", id: "anadir-categoria-btn"}  do %>
-  <span class="fas fa-plus-square" ></span> Crear nueva categoria
-  <% end %>
-</div>
+<h1 id="comienzo" class="h3 mb-2 text-gray-800">Categorias de Productos</h1>
 <br />
 
-<div class="d-flex align-items-center">
-  <%= search_form_for @q, options = {class: "w-100 me-3"} do |f| %>
-  <%= f.search_field :nombre_categoria_cont, options = {class: "form-control", placeholder: "Buscar..."} %>
-  <%= f.submit "Buscar", class: "btn btn-info form-control" %>
-  <% end %>
+<div class="row">
+  <div class="col">
+    <%= link_to new_category_path, {remote: true, class: "btn btn-info form-control", id: "anadir-categoria-btn"}  do %>
+    <span class="fas fa-plus-square" ></span> Crear nueva categoria
+    <% end %>
+  </div>
+  <div class="col">
+    <%= search_form_for @q, options = {class: "w-100"} do |f| %>
+    <%= f.search_field :nombre_categoria_cont, options = {class: "form-control", placeholder: "Buscar..."} %>
+    <%= f.submit "Buscar", class: "btn btn-info form-control" %>
+    <% end %>
+  </div>
 </div>
 <br />
 

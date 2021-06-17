@@ -1,0 +1,12 @@
+require 'prawn/table'
+class ReporteNominaaPdf < Prawn::Document
+  def initialize(nominas)
+    super()
+    @nominas = nominas
+    titulo
+  end
+
+  def titulo
+    text "Listado de las ventas Nominas realizadas entre #{@nominas.minimum.inicio_nomina.strftime("%d-%m-%Y")} y #{@nominas.maximum.fin_nomina.strftime("%d-%m-%Y")}", size: 10, style: :bold
+    text "Este documento ha sido generado el dia #{DateTime.now.to_s(:db)}", size: 10, style: :bold
+  end

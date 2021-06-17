@@ -1,9 +1,20 @@
 <%= form_for @client, remote: true  do |f| %>
 
-<div class="item form-group<%= @client.errors[:rif_cliente].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :rif, "Rif del cliente: " %>
+<% if @client.new_record? %>
+<div class="item form-group<%= @client.errors[:type_client].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :categoria, "Categoria de cliente: " %>
   <div class="input-group">
-    <%= f.text_field :rif_cliente, {:class=> "form-control", :placeholder=>"Introduzca el numero de rif..."} %>
+    <%= collection_select(:client, :type_client_id, @tipoclientes, :id, :nombre_tipo_cliente, {:prompt => 'Seleccione una categoria'}, { class: "form-control" })%>
+    <%if @client.errors[:type_client].any? %>
+    <p class="bg-danger"><%= @client.errors[:type_client].to_s[/\w([^"]*)/] %></p>
+    <% end %>
+  </div>
+</div>
+
+<div class="item form-group<%= @client.errors[:rif_cliente].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :rif, "Rif o cedula del cliente: " %>
+  <div class="input-group">
+    <%= f.text_field :rif_cliente, {:class=> "form-control", :placeholder=>"Introduzca el numero de rif o cedula..."} %>
     <%if @client.errors[:rif_cliente].any? %>
     <p class="bg-danger"><%= @client.errors[:rif_cliente].to_s[/\w([^"]*)/] %></p>
     <% end %>
@@ -19,16 +30,7 @@
     <% end %>
   </div>
 </div>
-
-<div class="item form-group<%= @client.errors[:type_client].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :categoria, "Categoria de cliente: " %>
-  <div class="input-group">
-    <%= collection_select(:client, :type_client_id, @tipoclientes, :id, :nombre_tipo_cliente, {:prompt => 'Seleccione una categoria'}, { class: "form-control" })%>
-    <%if @client.errors[:type_client].any? %>
-    <p class="bg-danger"><%= @client.errors[:type_client].to_s[/\w([^"]*)/] %></p>
-    <% end %>
-  </div>
-</div>
+<% end %>
 
 <div class="item form-group<%= @client.errors[:direccion_cliente].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :descripcion, "Direccion del cliente: " %>
@@ -36,17 +38,6 @@
     <%= f.text_field :direccion_cliente, {:class=> "form-control", :placeholder=>"Introduzca la direccion del cliente..", required: true} %>
     <%if @client.errors[:direccion_cliente].any? %>
     <p class="bg-danger"><%= @client.errors[:direccion_cliente].to_s[/\w([^"]*)/] %></p>
-    <% end %>
-  </div>
-</div>
-
-
-<div class="item form-group<%= @client.errors[:correo_cliente].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :correo, "Correo del cliente: " %>
-  <div class="input-group">
-    <%= f.text_field :correo_cliente, {class: "form-control", :placeholder=>"Introduzca el correo del cliente...", required: true} %>
-    <%if @client.errors[:correo_cliente].any? %>
-    <p class="bg-danger"><%= @client.errors[:correo_cliente].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
@@ -62,6 +53,16 @@
   <%if @client.errors[:descripcion_cliente].any? %>
   <p class="bg-danger"><%= @client.errors[:phoneclients].to_s[/\w([^"]*)/] %></p>
   <% end %>
+</div>
+
+<div class="item form-group<%= @client.errors[:correo_cliente].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :correo, "Correo del cliente: " %>
+  <div class="input-group">
+    <%= f.text_field :correo_cliente, {class: "form-control", :placeholder=>"Introduzca el correo del cliente..."} %>
+    <%if @client.errors[:correo_cliente].any? %>
+    <p class="bg-danger"><%= @client.errors[:correo_cliente].to_s[/\w([^"]*)/] %></p>
+    <% end %>
+  </div>
 </div>
 
 <div class="item form-group<%= @client.errors[:descripcion_cliente].any? ? ' has-error has-feedback' : '' %>">
@@ -99,7 +100,7 @@
 	      time = new Date().getTime();
 	      regexp = new RegExp($(this).data('id'), 'g');
 	      $(this).before($(this).data('fields').replace(regexp, time));
-	      return event.preventDefault();
+	      event.preventDefault();
 	  });
       };
       $(document).ready(ready);
