@@ -56,7 +56,8 @@ class EmployeesController < ApplicationController
     @resultados = Employee.buscador(params[:termino]).map do |empleado|
       {
         id: empleado.id,
-        primer_nombre: empleado.nombre_apellido
+        primer_nombre: empleado.nombre_apellido,
+        salario: empleado.salario_empleado
       }
     end
 

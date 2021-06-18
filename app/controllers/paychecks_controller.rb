@@ -6,7 +6,6 @@ class PaychecksController < ApplicationController
   def index
     @search = Paycheck.search(params[:q])
     @nominas = @search.result
-    @minimo = @nominas.minimum("inicio_nomina")
     respond_to do |format|
       format.html
       format.js
@@ -57,13 +56,16 @@ class PaychecksController < ApplicationController
       format.html { redirect_to paychecks_url, notice: "La nomina ha sido eliminada" }
       format.json { head :no_content }
     end
-  end
+  end 
 
    def add_empleado
      empleado = Employee.find(params[:empleado_id])
-     salario_nomina = empleado.salario_empleado
+     dias_nomina = params[:dias_nomina].nil? ? 1 : params[:dias_nomina].to_i
+     salario_empleado = (empleado.salario_empleado / 30).round(2)
+     salario_nomina = salario_empleado * dias_nomina.to_d
     if empleado.present?
       @nomina.employee = empleado
+      @nomina.dias_nomina = dias_nomina
       @nomina.salario_nomina = salario_nomina
       if @nomina.valid?
         result = { primer_nombre: @nomina.employee.try(:nombre_apellido), salario_nomina: @nomina.salario_nomina}

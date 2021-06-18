@@ -15,48 +15,44 @@
 </div>
 <br />
 
-  <div class="row">
+<div class="row">
+  <div class="col">
+    <%= link_to new_paycheck_path, {class: "btn btn-info form-control", id: "crear-nomina-btn"}  do %>
+    <span class="fas fa-plus-square"> </span>Registrar nomina
+    <% end %>
+  </div>
+  <div class="col">
     <%= link_to "Generar reporte de nominas", paychecks_path(request.params.merge(format: :pdf)), class: "btn btn-primary form-control", target: :_blank %>
   </div>
+</div>
+<br />
 
-<div>
-  <%= link_to new_paycheck_path, {class: "btn btn-info", id: "crear-nomina-btn"}  do %>
-  <span class="fas fa-plus-square"> </span>
-  Registrar nomina
-  <%end%>
-    </div>
-<br />
-<br />
 <div class="card shadow mb-4">
-<div class="card-body">
+  <div class="card-body">
     <div class="table-responsive">
-    <table class="table table-bordered" id="tabla_nominas" width="60%" cellspacing="0">
-        <thead>
+      <table class="table table-bordered" id="tabla_nominas" width="60%" cellspacing="0">
+	<thead>
           <tr>
-	    <p> <%= @minimo %> </p>
-	    <p> <%= (@nominas.sum(:salario_nomina) /30).round(2) %> </p>
-	    <p> <%= @nominas.sum(:dias_nomina) %></p>
-	    <p> <%= (@nominas.sum(:salario_nomina) /30).round(2) * ((@nominas.sum(:dias_nomina)*(1/2.5)))  %> </p>
-          <th>Id</th>
-	  <th>Encargado</th>
-	  <th>Empleado</th>
-	  <th>Total</th>
-	  <th>Fecha y hora</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-          <% if @nominas.empty? %>
-          <tr> 
-            <td> No hay nominas </td><td></td><td></td> 
+	    <th>Id</th>
+	    <th>Periodo</th>
+	    <th>Encargado</th>
+	    <th>Empleado</th>
+	    <th>Fecha Elaboracion</th>
+	    <th></th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <% if @nominas.empty? %>
+          <tr>
+	    <td> No hay nominas </td><td></td><td></td> 
           </tr>
           <% else %>
             <% @nominas.each do |pay| %>
               <tr> 
                 <td> <%= pay.id %> </td>
+		<td> <%= pay.try(:periodo) %> </td>
 		<td> <%= pay.user.username %> </td>
 		<td> <%= pay.try(:employee).try(:primer_nombre) %> </td>
-                <td> $<%= pay.salario_nomina%> </td>
 		<td> <%= pay.created_at.to_s(:db) %> </td>
                 <td> 
 		  <%= link_to 'Mostrar', paycheck_path(pay), {class: "btn btn-info btn-xs", remote: true} %>

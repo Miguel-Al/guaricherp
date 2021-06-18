@@ -15,9 +15,10 @@ document.addEventListener("turbolinks:load", function() {
                 let nombre_producto = data[x].nombre_producto;
                   let existencia_producto = data[x].existencia_producto;
 		  let precio_producto = data[x].precio_producto;
+		  let unidad = data[x].unidad;
                 let id_producto = data[x].id;
                 newRowContent = `<tr>
-                                    <td>${nombre_producto}</td>
+                                    <td>${nombre_producto}(${unidad})</td>
                                     <td>${existencia_producto}</td>
                                     <td>$${precio_producto}</td>
                                     <td><button type="button" class="btn btn-primary" onclick="seleccionarProducto(${id_producto}, ${id_modelo}, '${tipo_modelo}')">
@@ -47,9 +48,10 @@ document.addEventListener("turbolinks:load", function() {
               for(x in data){
                 let nombre_producto = data[x].nombre_producto;
                   let existencia_producto = data[x].existencia_producto;
+		  let unidad = data[x].unidad;
                 let id_producto = data[x].id;
                 newRowContent = `<tr>
-                                    <td>${nombre_producto}</td>
+                                    <td>${nombre_producto}(${unidad})</td>
                                     <td>${existencia_producto}</td>
                                     <td><button type="button" class="btn btn-primary" onclick="seleccionarProducto(${id_producto}, ${id_modelo}, '${tipo_modelo}')">
                                         Agregar
@@ -146,10 +148,13 @@ document.addEventListener("turbolinks:load", function() {
           $("#tabla_buscador_empleados tbody").empty();
           for(x in data){
             let primer_nombre = data[x].primer_nombre;
-            let id_empleado = data[x].id;
+              let id_empleado = data[x].id;
+	      let salario1 = data[x].salario;
+	      let salario2 =  salario1 / 30;
+	      let salario3 = parseFloat(salario2).toFixed(2);
             let rowContent = `
                <tr>
-                 <td>${primer_nombre}</td>
+                 <td>${primer_nombre}(Bs ${salario3} por dia)</td>
                  <td>
                      <button 
                        class = "btn btn-primary"
@@ -202,8 +207,9 @@ window.seleccionarCliente = function (id_cliente, id_venta){
 }
 
 window.seleccionarEmpleado = function (id_empleado, id_nomina){
+  let cantidad_inicial = $('#dias_nomina').val();
   let request_url = getRootUrl() + "/add_empleado_nomina/";
-    let info = { empleado_id: id_empleado, id: id_nomina};
+    let info = { empleado_id: id_empleado, id: id_nomina, dias_nomina: cantidad_inicial };
   $.ajax({
     url: request_url,
     type: 'POST',
@@ -213,14 +219,12 @@ window.seleccionarEmpleado = function (id_empleado, id_nomina){
       if(result != null) {
         $("#buscador_empleado").modal("hide");
         $('body').removeClass('modal-open');
-        $('.modal-backdrop').remove();
+          $('.modal-backdrop').remove();
+	  let dias_nomina = result.dias_nomina;
           let primer_nombre = result.primer_nombre;
 	  let salario_nomina = result.salario_nomina;
-	  let salario_nomina2 = result.salario_nomina / 30;
-	  let salario_nomina3 = parseFloat(salario_nomina2).toFixed(2);
           $("#empleado_nomina").html("<h3>Empleado: " + primer_nombre + "</h3>")
-	  $("#importe_nomina_lbl").text("Salario mensual: $" + salario_nomina);
-	  $("#importe_nomina_lb2").text("Salario diario: $" + salario_nomina3);
+	  $("#importe_nomina_lbl").text("Asignacion por en base a los dias laborados: Bs" + salario_nomina);
       }
     }
   });

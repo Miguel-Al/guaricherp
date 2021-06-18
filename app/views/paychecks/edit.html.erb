@@ -11,8 +11,7 @@
     </div>
   </div>
   <div class="col-md-6" style="text-align:right;">
-    <h2 id="importe_nomina_lbl" > Salario mensual:  $<%= @nomina.salario_nomina %> </h2>
-    <h2 id="importe_nomina_lb2" > Salario Diario:  $<%= (@nomina.salario_nomina / 30).round(2) %> </h2>
+    <h2 id="importe_nomina_lbl" > Asignacion por en base a los dias laborados: Bs<%= @nomina.salario_nomina %> </h2>
   </div>
 </div>
 </div>
@@ -53,16 +52,6 @@
       <%= f.label :fecha, "Fecha de fin: " %>
       <div class="input-group">
         <%= f.date_field :fin_nomina, {:class=> "form-control", :placeholder=>"Introduzca la fecha de fin del periodo...", required: true} %>       </div>
-    </div>
-    <div class="item form-group<%= @nomina.errors[:dias_nomina].any? ? ' has-error has-feedback' : '' %>">
-      <%= f.label :fecha, "Dias laborados: " %>
-      <div class="input-group">
-        <%= f.number_field :dias_nomina, {:class=> "form-control", :placeholder=>"Introduzca los dias laborados...", required: true} %>       </div>
-    </div>
-    <div class="item form-group<%= @nomina.errors[:horas_extra].any? ? ' has-error has-feedback' : '' %>">
-      <%= f.label :fecha, "horas extra: " %>
-      <div class="input-group">
-        <%= f.number_field :horas_extra, {:class=> "form-control", :placeholder=>"Introduzca las horas extra realizadas...", required: true} %>       </div>
     </div>
     <div class="item form-group<%= @nomina.errors[:adelanto_nomina].any? ? ' has-error has-feedback' : '' %>">
       <%= f.label :adelanto, "incluya si se hizo un adelanto de la nomina: " %>

@@ -66,7 +66,8 @@ class ProductsController < ApplicationController
         id: producto.id,
         nombre_producto: producto.nombre_producto,
         precio_producto: producto.precio_producto,
-        existencia_producto: producto.existencia_producto
+        existencia_producto: producto.existencia_producto,
+        unidad: producto.unit.simbolo_unidad
       }
     end
     respond_to do |format|
@@ -80,6 +81,7 @@ class ProductsController < ApplicationController
         id: producto.id,
         nombre_producto: producto.nombre_producto,
         existencia_producto: producto.existencia_producto
+        unidad: producto.unit.simbolo_unidad
       }
     end
     respond_to do |format|
