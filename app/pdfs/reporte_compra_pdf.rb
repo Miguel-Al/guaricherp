@@ -1,15 +1,15 @@
 require 'prawn/table'
-class ReporteVentaPdf < Prawn::Document
-  def initialize(ventas)
+class ReporteCompraPdf < Prawn::Document
+  def initialize(compras)
     super :page_size => "A4", :page_layout => :landscape
-    @ventas = ventas
+    @compras = compras
     titulo
     listado
     total
   end
 
   def titulo
-    text "Listado de  las ventas realizadas entre #{@ventas.last.created_at.strftime("%d-%m-%Y")} y #{@ventas.first.created_at.strftime("%d-%m-%Y")}", size: 10, style: :bold
+    text "Listado de  las compras realizadas entre #{@compras.last.created_at.strftime("%d-%m-%Y")} y #{@compras.first.created_at.strftime("%d-%m-%Y")}", size: 10, style: :bold
     text "Este documento ha sido generado el dia #{DateTime.now.to_s(:db)}", size: 10, style: :bold
   end
 
@@ -23,12 +23,12 @@ class ReporteVentaPdf < Prawn::Document
   end
 
   def item_header
-  ["#N de venta", "Fecha", "Cliente", "Total pagado"]
+  ["#N de compra", "Fecha", "Proveedor", "Total pagado"]
 end
 
 def item_rows
-  @ventas.map do |venta|
-    [venta.numero_venta, venta.created_at.strftime("%d-%m-%Y") , venta.client.nombre_cliente, "Bs #{venta.total_venta * 1.16}"]
+  @compras.map do |compra|
+    [compra.numero_compra, compra.created_at.strftime("%d-%m-%Y"), compra.supplier.nombre_proveedor, "Bs #{compra.total_compra * 1.16}"]
   end
 end
 
@@ -37,9 +37,8 @@ def item_table_data
 end
 
 def total
-  move_down 20
   span(310, position: :right) do
-    text "Total vendido en el periodo: Bs #{@ventas.all.sum(:total_venta) * 1.16}"
+    text "Total comprado en el periodo: Bs #{@compras.all.sum(:total_compra) * 1.16}"
   end
 end
 

@@ -24,7 +24,9 @@
     <%end%>
   </div>
   <div class="col">
-    <%= link_to "Generar reporte de compras", purchases_path(request.params.merge(format: :pdf)), class: "btn btn-primary form-control", target: :_blank %>
+    <%= link_to purchases_path(request.params.merge(format: :pdf)), {class: "btn btn-primary form-control", target: :_blank} do %>
+    <span class="fas fa-file-alt" ></span> Generar reporte de compras
+    <% end %>
   </div>
 </div>
 <br />
@@ -51,10 +53,10 @@
           <% else %>
             <% @compras.each do |compra| %>
               <tr> 
-                <td> <%= compra.id %> </td>
+                <td> <%= compra.try(:numero_compra) %> </td>
 		<td> <%= compra.user.username %> </td>
 		<td> <%= compra.try(:supplier).try(:nombre_proveedor) %> </td>
-		<td> $<%= compra.total_compra * 1.16%> </td>
+		<td> Bs <%= compra.total_compra * 1.16%> </td>
 		<td> <%= compra.created_at.to_s(:db) %> </td>
                 <td> 
 		  <%= link_to 'Mostrar', purchase_path(compra), {class: "btn btn-info btn-xs", remote: true} %>

@@ -24,17 +24,18 @@
     <%end%>
   </div>
   <div class="col">
-    <%= link_to "ventas de la semana", ventas_de_semana_path, class: "btn btn-info btn-xs form-control" %>
+    <%= link_to "Ventas de la semana", ventas_de_semana_path, class: "btn btn-info btn-xs form-control" %>
   </div>
   <div class="col">
-    <%= link_to "ventas del mes", ventas_del_mes_path, class: "btn btn-info btn-xs form-control"%>
+    <%= link_to "Ventas del mes", ventas_del_mes_path, class: "btn btn-info btn-xs form-control"%>
   </div>
   <div class="col">
-    <%= link_to "Generar reporte de ventas", sales_path(request.params.merge(format: :pdf)), class: "btn btn-primary form-control", target: :_blank %>
+    <%= link_to sales_path(request.params.merge(format: :pdf)), {class: "btn btn-primary form-control", target: :_blank} do %>
+    <span class="fas fa-file-alt" ></span> Generar reporte de ventas
+    <% end %>
   </div>
 </div>  
 <br />
-
 
 <div class="card shadow mb-4">
   <div class="card-body">
@@ -42,7 +43,7 @@
       <table class="table table-bordered" id="tabla_ventas" width="60%" cellspacing="0">
 	<thead>
 	  <tr>
-	    <th>Id</th>
+	    <th>ID</th>
 	    <th>Vendedor</th>
 	    <th>Cliente</th>
 	    <th>Total</th>
@@ -58,11 +59,11 @@
 	  <% else %>
 	  <% @ventas.each do |venta| %>
 	  <tr>
-	    <td> <%= venta.id %> </td>
+	    <td> <%= venta.try(:numero_venta) %> </td>
 	    <td> <%= venta.user.username %> </td>
 	    <td> <%= venta.try(:client).try(:nombre_cliente) %> </td>
-            <td> $<%= venta.total_venta * 1.16%> </td>
-	    <td> <%= venta.created_at.to_s(:db) %> </td>
+            <td> Bs <%= venta.total_venta * 1.16 %> </td>
+	    <td> <%= venta.created_at.strftime("%d-%m-%Y") %> </td>
 	    <td> 
 	      <%= link_to 'Mostrar', sale_path(venta), {class: "btn btn-info btn-xs", remote: true} %>
 	      <%= link_to 'Borrar', venta, method: :delete, data: { confirm: 'Eliminar la venta?' }, class: "btn btn-danger btn-xs" %>

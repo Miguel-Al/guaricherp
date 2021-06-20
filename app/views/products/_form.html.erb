@@ -50,9 +50,9 @@
 </div>
 
 <div class="item form-group<%= @product.errors[:precio_producto].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :precio, "Precio del producto: " %>
+  <%= f.label :precio, "Precio del producto (Bs): " %>
   <div class="input-group">
-    <%= f.number_field :precio_producto, {class: "form-control", :placeholder=>"Precio del producto"} %>
+    <%= f.number_field :precio_producto, {class: "form-control", :placeholder=>"Precio del producto (Bs)"} %>
     <%if @product.errors[:precio_producto].any? %>
       <p class="bg-danger"><%= @product.errors[:precio_producto].to_s[/\w([^"]*)/] %></p>
     <% end %>

@@ -25,10 +25,10 @@
 		<td> <%= venta.user.username %> </td>
 		<td> <%= venta.try(:client).try(:nombre_cliente) %> </td>
                 <td> <%= venta.total_venta * 1.16%> </td>
-                <td> 
-                  <%= link_to 'Borrar', venta, method: :delete, data: { confirm: 'Eliminar la venta?' }, class: "btn btn-danger btn-xs" %>
+                <td>
 		  <%= link_to 'Mostrar', sale_path(venta), {class: "btn btn-info btn-xs", remote: true} %>
-                </td>
+                  <%= link_to 'Borrar', venta, method: :delete, data: { confirm: 'Eliminar la venta?' }, class: "btn btn-danger btn-xs" %>
+		</td>
               </tr>
             <% end %>
           <% end %>
@@ -36,7 +36,7 @@
     </table>
     </div>
   </div>
-</div
-<a>
-<%= link_to sales_path do %> 
-e <%end%></a>
+</div>
+<%= link_to sales_path, {class: "btn btn-info btn-xs"} do %> 
+Volver <%end%>
+<%= render 'modal_sales' %>

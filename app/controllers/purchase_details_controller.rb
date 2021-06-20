@@ -12,13 +12,13 @@ class PurchaseDetailsController < ApplicationController
     total_medio = precio * cantidad
     total_final = total_inicial - total_medio
     @comprad.total_compra = total_final
-    existencia = existencia + cantidad
+    existencia = existencia - cantidad
     @productd.existencia_producto = existencia
     @productd.save
     @comprad.save
      @detalle.destroy
      respond_to do |format|
-       format.html { redirect_back fallback_location: proc { edit_purchase_url(@venta) }, notice: "El producto ha sido retirado de la compra" }
+       format.html { redirect_back fallback_location: proc { edit_purchase_url(@comprad) }, notice: "El producto ha sido retirado de la compra" }
       format.json { head :no_content }
       end
   end

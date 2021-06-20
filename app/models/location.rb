@@ -1,3 +1,3 @@
 class Location < ApplicationRecord
-  has_one :product
+  has_many :product, dependent: :restrict_with_error
 end

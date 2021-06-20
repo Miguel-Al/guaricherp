@@ -36,8 +36,8 @@
 	  <tr id="empleado_<%= emp.id %>" >
 	    <td><%= emp.numero_cedula %></td>
 	    <td><%= emp.nombre_apellido %></td>
-	    <td><%= emp.salario_empleado.round(2) %></td>
-	    <td><%= emp.salario_diario %></td>
+	    <td>Bs <%= emp.salario_empleado.round(2) %></td>
+	    <td>Bs <%= emp.salario_diario %></td>
 	    <td><%= emp.position.nombre_cargo %></td>
 	    <td>
 	      <%= link_to "Ver", employee_path(emp), html_options = {class: "btn btn-info btn-xs", remote: true} %>

@@ -16,7 +16,7 @@ class ReporteNominaPdf < Prawn::Document
   end
 
   def titulo
-    text "Listado de los pagos de nominas realizados entre #{@minimo} y #{@max}", size: 10, style: :bold
+    text "Resumen de nomina del periodo #{@minimo.strftime("%d-%m-%Y")} y #{@max.strftime("%d-%m-%Y")}", size: 25, style: :bold
   end
   
   def listado
@@ -28,12 +28,12 @@ class ReporteNominaPdf < Prawn::Document
   end
 
   def item_header
-    ["Empleado", "Periodo", "Pago", "Cesta", "S.S.O", "L.R.P.E", "F.A.O.V", "Total Asignados", "Total Deducciones", "Total"]
+    ["Empleado", "Periodo", "Salario Devengado", "Cesta ticket", "Total Asignaciones", "S.S.O", "L.R.P.E", "F.A.O.V", "Total Deducciones", "Total"]
   end
   
   def item_rows
     @nominas.map do |nomina|
-      [nomina.employee.nombre_apellido, nomina.periodo, nomina.salario_nomina, nomina.salario_nomina, (nomina.employee.salario_empleado * 0.04), (nomina.employee.salario_empleado * 0.005), (nomina.employee.salario_empleado * 0.01), (nomina.salario_nomina * 2), ((nomina.employee.salario_empleado * 0.04) + (nomina.employee.salario_empleado * 0.005) + (nomina.employee.salario_empleado * 0.01)), (nomina.salario_nomina * 2) - ((nomina.employee.salario_empleado * 0.04) + (nomina.employee.salario_empleado * 0.005) + (nomina.employee.salario_empleado * 0.01))]
+      [nomina.employee.nombre_apellido, nomina.periodo_simple, nomina.salario_nomina, nomina.salario_nomina, (nomina.salario_nomina * 2), (nomina.employee.salario_empleado * 0.04), (nomina.employee.salario_empleado * 0.005), (nomina.employee.salario_empleado * 0.01), ((nomina.employee.salario_empleado * 0.04) + (nomina.employee.salario_empleado * 0.005) + (nomina.employee.salario_empleado * 0.01)), (nomina.salario_nomina * 2) - ((nomina.employee.salario_empleado * 0.04) + (nomina.employee.salario_empleado * 0.005) + (nomina.employee.salario_empleado * 0.01))]
     end
   end
 
@@ -42,6 +42,7 @@ def item_table_data
 end
 
 def total_asignado
+  move_down 20
   span(310, position: :right) do
     text "Total de asignaciones: #{@asigna * 2}"
   end
@@ -49,13 +50,13 @@ end
 
 def total_deducido
   span(310, position: :right) do
-    text "Total de deducciones: #{@deduce}"
+    text "Total de deducciones: #{(@deduce).round(2)}"
   end
 end
 
 def total
   span(310, position: :right) do
-    text "Total de la nomina del periodo: #{(@asigna * 2) - (@deduce)}"
+    text "Total de la nomina del periodo: #{((@asigna * 2) - (@deduce)).round(2)}"
   end
 end
 

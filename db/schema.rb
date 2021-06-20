@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_16_214721) do
+ActiveRecord::Schema.define(version: 2021_06_19_021924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,7 +144,9 @@ ActiveRecord::Schema.define(version: 2021_06_16_214721) do
     t.bigint "supplier_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "type_payment_id"
     t.index ["supplier_id"], name: "index_purchases_on_supplier_id"
+    t.index ["type_payment_id"], name: "index_purchases_on_type_payment_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -171,7 +173,9 @@ ActiveRecord::Schema.define(version: 2021_06_16_214721) do
     t.bigint "client_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "type_payment_id"
     t.index ["client_id"], name: "index_sales_on_client_id"
+    t.index ["type_payment_id"], name: "index_sales_on_type_payment_id"
   end
 
   create_table "suppliers", force: :cascade do |t|
@@ -231,8 +235,10 @@ ActiveRecord::Schema.define(version: 2021_06_16_214721) do
   add_foreign_key "purchase_details", "products"
   add_foreign_key "purchase_details", "purchases"
   add_foreign_key "purchases", "suppliers"
+  add_foreign_key "purchases", "type_payments"
   add_foreign_key "sale_details", "products"
   add_foreign_key "sale_details", "sales"
   add_foreign_key "sales", "clients"
+  add_foreign_key "sales", "type_payments"
   add_foreign_key "users", "roles"
 end

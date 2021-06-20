@@ -30,7 +30,7 @@ end
 
 def item_rows
   @venta.sale_details.map do |detalle|
-    [detalle.product.nombre_producto, detalle.cantidad, detalle.precio_detalle_venta,  detalle.precio_detalle_venta * detalle.cantidad]
+    [detalle.product.nombre_producto, detalle.cantidad, "Bs #{detalle.precio_detalle_venta}",  "Bs #{detalle.precio_detalle_venta * detalle.cantidad}"]
   end
 end
 
@@ -38,12 +38,12 @@ def item_table_data
   [item_header, *item_rows] 
 end
 def subtotal
-  text "El subtotal de la venta es : $#{@venta.total_venta}"
+  text "El subtotal de la venta es : Bs #{@venta.total_venta}"
 end
 def iva
-  text "El 16% del iva es : $#{@venta.total_venta * 0.16}"
+  text "El 16% del iva es : Bs #{@venta.total_venta * 0.16}"
 end
 def total
-  text "El total de la venta es : $#{@venta.total_venta * 1.16}"
+  text "El total de la venta es : Bs #{@venta.total_venta * 1.16}"
 end
 end

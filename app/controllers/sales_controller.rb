@@ -1,5 +1,6 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show, :edit, :add_item, :destroy, :add_cliente]
+  before_action :set_type_payment, only: [:edit, :destroy, :update, :show]
 
    def index
     @search = Sale.search(params[:q])
@@ -9,10 +10,10 @@ class SalesController < ApplicationController
       format.js
       format.pdf do
         pdf = ReporteVentaPdf.new(@ventas)
-          send_data pdf.render, filename: "registro_de_ventas_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
+        send_data pdf.render, filename: "registro_de_ventas_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
       end
     end
-  end
+   end
 
   def search
     index
@@ -30,15 +31,24 @@ class SalesController < ApplicationController
       format.js
       format.pdf do
         pdf = FacturaVentaPdf.new(@venta)
-          send_data pdf.render, filename: "facturadeventa_#{@venta.numero_venta}_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
-        end
-          end
+        send_data pdf.render, filename: "facturadeventa_#{@venta.numero_venta}_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
+      end
+    end
   end
 
   def edit
     @productos_venta = @venta.sale_details
   end
 
+  def update
+    @venta = Sale.find(params[:id])
+    if @venta.update(sale_params)
+      redirect_to sales_path, :notice => "La venta ha sido realizada"
+    else
+      render :edit
+    end
+  end
+  
   def destroy
     ActiveRecord::Base.transaction do
     @venta.sale_details.map do |detail|
@@ -112,7 +122,16 @@ class SalesController < ApplicationController
 
   private
 
+  def sale_params
+    params.require(:sale).permit(:type_payment_id)
+  end
+  
   def set_sale
     @venta = Sale.find(params[:id])
   end
+
+  def set_type_payment
+    @tipopago = TypePayment.all
+  end
+  
 end

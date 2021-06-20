@@ -7,7 +7,11 @@ class Paycheck < ApplicationRecord
   validates :employee, presence: true, on: :update
   
   def periodo
-    "#{inicio_nomina} - #{fin_nomina}"
+    "#{inicio_nomina.strftime("%d-%m-%Y")} - #{fin_nomina.strftime("%d-%m-%Y")}"
+  end
+
+  def periodo_simple
+    "#{inicio_nomina.strftime("%d-%m")} - #{fin_nomina.strftime("%d-%m")}"
   end
 
 end

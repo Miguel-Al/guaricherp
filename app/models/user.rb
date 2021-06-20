@@ -11,6 +11,9 @@ class User < ApplicationRecord
 
   validate :validate_username
   validates :username, presence: true, uniqueness: true #esto permite que requieran poner nombre de usuario
+  validates :email, presence: true, uniqueness: true
+  validates :password, presence: true
+  validates :role, presence: true
 
   attr_writer :login 
 

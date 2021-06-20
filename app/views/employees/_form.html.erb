@@ -63,9 +63,9 @@
 <% end %>
 
 <div class="item form-group<%= @empleado.errors[:salario_empleado].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :salario, "Salario mensual del empleado: " %>
+  <%= f.label :salario, "Salario mensual del empleado(Bs): " %>
   <div class="input-group">
-    <%= f.number_field :salario_empleado, {class: "form-control", :placeholder=>"Salario acordado..."} %>
+    <%= f.number_field :salario_empleado, {class: "form-control", :placeholder=>"Salario (Bs)..."} %>
     <%if @empleado.errors[:salario_empleado].any? %>
     <p class="bg-danger"><%= @empleado.errors[:salario_empleado].to_s[/\w([^"]*)/] %></p>
     <% end %>

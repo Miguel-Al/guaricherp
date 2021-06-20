@@ -1,70 +1,84 @@
 <%= stylesheet_link_tag 'sales' %>
-<div class = "row">
-  <div class="col-md-6">
+
+<%= form_for @venta, remote: true  do |f| %>
+<div class="row">
+  <div class="col">
     <h3 class="h3 mb-2 text-gray-800">Punto de venta</h3>
-  </div>
-    <div class="col-md-6" style="text-align:right;">
-    <h2 id="importe_venta_lbl" > Subtotal de venta: $<%= @venta.total_venta %> </h2>
+    <br />
+    <div id="cliente_venta" class="nombre-cliente" >
+     <h5> Cliente: <%= @venta.client.present? ? @venta.client.try(:nombre_cliente) : "No se ha asignado" %></h5>
     </div>
-      <div class="col-md-6" style="text-align:right;">
-    <h2 id="importe_venta_lbl2" > 16% del IVA: $<%= (@venta.total_venta * 0.16).round(2) %> </h2>
-  </div>
-  <div class="col-md-6" style="text-align:right;">
-    <h2 id="importe_venta_lbl3" > Total de venta: $<%= (@venta.total_venta * 1.16).round(2) %> </h2>
-  </div>
-  <div class="col-md-5">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buscador_producto">
-      Buscar producto
-    </button>
-    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#buscador_cliente">
-      Buscar cliente
-    </button>
-    <div>  
-  <%= link_to new_client_path, { remote: true, class: "btn btn-info" }  do %>
-  <span class="fas fa-plus-square" ></span> Registrar nuevo cliente
-  <% end %>
+    <div class="input-group">
+      <%= f.collection_select(:type_payment_id, @tipopago, :id, :nombre_tipo_pago, {:prompt => 'Seleccione el tipo de pago'}, { class: "form-control", required: true })%>
     </div>
+  </div>
+  <div class="col" style="text-align:right;">
+    <h2 id="importe_venta_lbl" > Subtotal de venta: Bs <%= @venta.total_venta %> </h2>
+    <h2 id="importe_venta_lbl2" > 16% del IVA: Bs <%= (@venta.total_venta * 0.16).round(2) %> </h2>
+    <h2 id="importe_venta_lbl3" > Total de venta: Bs <%= (@venta.total_venta * 1.16).round(2) %> </h2>
   </div>
 </div>
-  <div class="col-md-7" style="text-align:right;">
-    <%= link_to 'Finalizar venta', sales_path, class: "btn btn-success" %>
-    
-    <%= link_to 'Cancelar venta', @venta, method: :delete, data: { confirm: 'Cancelar la venta?' }, class: "btn btn-danger" %>
+<br />
 
+<div class="row">
+  <div class="col">
+    <button type="button" class="btn btn-primary form-control" data-bs-toggle="modal" data-bs-target="#buscador_producto">
+      Buscar producto</button>
   </div>
-  <div id="cliente_venta" class="nombre-cliente col-md-3" > 
-   <%= @venta.client.present? ?  @venta.client.try(:nombre_cliente) : "No se ha asignado cliente" %>
+  <div class="col">
+    <button type="button" class="btn btn-info form-control" data-bs-toggle="modal" data-bs-target="#buscador_cliente">
+      Buscar cliente</button>
   </div>
+  <div class="col">
+    <%= link_to new_client_path, { remote: true, class: "btn btn-info form-control" }  do %>
+    <span class="fas fa-plus-square" ></span> Registrar nuevo cliente
+    <% end %>
+  </div>
+</div>
+<br />
+
+<div class="row">
+  <div class="col">
+    <%= link_to 'Cancelar venta', @venta, method: :delete, data: { confirm: 'Cancelar la venta?' }, class: "btn btn-danger form-control" %>
+  </div>
+  <div class="col">
+    <%= f.submit 'Finalizar venta', class: "btn btn-success form-control" %>
+  </div>
+</div>
+
+<% end %>
+
 </div>
 <br>
+
+
 <div class="card shadow mb-4">
-<div class="card-body">
-  <div class="table-responsive">
-    <table class="table table-bordered" id="tabla_ventas" width="80%" cellspacing="0">
-        <thead>
-        <tr>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="tabla_ventas" width="80%" cellspacing="0">
+	<thead>
+	  <tr>
             <th>Producto</th>
             <th>Precio unitario</th>
 	    <th>Cantidad</th>
             <th>Total</th>
-        </tr>
-        </thead>
+          </tr>
+	</thead>
         <tbody>
-            <% @productos_venta.each do |det| %>
-              <tr> 
-                <td> <%= det.product.try(:nombre_producto) %> </td>
-		<td> $ <%= det.product.try(:precio_producto) %> </td>
-                <td> <%= det.cantidad %> </td>
-                <td> $ <%= det.product.try(:precio_producto) * det.cantidad %> </td>
-		 <td><%= link_to "Remover producto", sale_sale_detail_path(@venta, det), method: :delete, data: { confirm: "Borrar producto: #{det.product.id}?"}, class: "btn btn-danger btn-xs" %></td>
-              </tr>
-            <% end %>
-        </tbody>
-    </table>
+          <% @productos_venta.each do |det| %>
+	  <tr> 
+            <td> <%= det.product.try(:nombre_producto) %> </td>
+	    <td> Bs <%= det.product.try(:precio_producto) %> </td>
+            <td> <%= det.cantidad %> </td>
+	    <td> Bs <%= det.product.try(:precio_producto) * det.cantidad %> </td>
+	    <td><%= link_to "Remover producto", sale_sale_detail_path(@venta, det), method: :delete, data: { confirm: "Borrar producto: #{det.product.id}?"}, class: "btn btn-danger btn-xs" %></td>
+	  </tr>
+          <% end %>
+	</tbody>
+      </table>
     </div>
   </div>
 </div>
-
 
 <% @model = @venta %>
 <% @tipo = 'sales' %>

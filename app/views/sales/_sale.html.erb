@@ -1,60 +1,63 @@
 <form>
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="id">ID</label>
+      <label for="id">ID:</label>
       <input type="text" readonly class="form-control-plaintext" value="<%= @venta.numero_venta %>">
     </div>
     <div class="form-group col-md-6">
-      <label for="fecha">Fecha</label>
+      <label for="fecha">Fecha:</label>
       <input type="text" readonly class="form-control-plaintext" value="<%= @venta.created_at.strftime("%d-%m-%Y") %>">
     </div>
-  </div>
     <div class="form-group col-md-6">
       <label for="vendedor">Vendedor:</label>
       <input type="text" readonly class="form-control-plaintext" value="<%= @venta.user.username %>">
     </div>
-        <div class="form-group col-md-6">
+    <div class="form-group col-md-6">
       <label for="cliente">Cliente:</label>
       <input type="text" readonly class="form-control-plaintext" value="<%= @venta.client.nombre_cliente %>">
     </div>
   </div>
-</form>
-<br>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Producto</th>
-      <th>Cantidad</th>
-      <th>Precio</th>
-      <th>Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @venta.sale_details.each do |detalle| %>
-    <tr>
-       <td><%= detalle.product.nombre_producto %></td>
-       <td><%= detalle.cantidad %></td>
-       <td>$ <%= detalle.precio_detalle_venta %></td>
-       <td>$ <%= detalle.precio_detalle_venta * detalle.cantidad %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-<div class="form-row">
-      <div class="form-group col-md-6 float-end">
-      <label for="id">Sub total de venta</label>
-      <input type="text" readonly class="form-control-plaintext" value="$ <%= @venta.total_venta %>">
-    </div>
-      <div class="form-group col-md-6 float-end">
-      <label for="id">16% del iva</label>
-      <input type="text" readonly class="form-control-plaintext" value="$ <%= @venta.total_venta * 0.16 %>">
-    </div>
-    <div class="form-group col-md-6 float-end">
-      <label for="id">Monto final de la venta</label>
-      <input type="text" readonly class="form-control-plaintext" value="$ <%= @venta.total_venta * 1.16 %>">
-    </div>
-    <div>
-      <%= link_to "Generar factura de venta", sale_path(@venta, format: :pdf), class: "btn btn-primary", target: :_blank %>
-    </div>
-</div>
+  <br>
 
+  <table class="table table-striped">
+    <thead>
+      <tr>
+	<th>Producto</th>
+	<th>Cantidad</th>
+	<th>Precio</th>
+	<th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @venta.sale_details.each do |detalle| %>
+      <tr>
+	<td><%= detalle.product.nombre_producto %></td>
+	<td><%= detalle.cantidad %></td>
+	<td>Bs <%= detalle.precio_detalle_venta %></td>
+	<td>Bs <%= detalle.precio_detalle_venta * detalle.cantidad %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <br>
+  
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="id">Sub total de venta:</label>
+      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @venta.total_venta %>">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="id">16% del IVA:</label>
+      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @venta.total_venta * 0.16 %>">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="id">Total de venta:</label>
+      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @venta.total_venta * 1.16 %>">
+    </div>
+  </div>
+  <div class="form-row">
+    <%= link_to sale_path(@venta, format: :pdf), {class: "btn btn-primary", target: :_blank} do %>
+    <span class="fas fa-file-alt" ></span> Generar factura de venta
+    <% end %>
+  </div>
+</form>

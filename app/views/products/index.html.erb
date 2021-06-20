@@ -18,7 +18,6 @@
 </div>
 <br />
 
-<%# ver si incluir para buscar por categorias %>
 <div class="d-flex align-items-center">
   <%= search_form_for @q, options = {class: "w-100 me-3"} do |f| %>
   <%= f.search_field :nombre_producto_or_codigo_producto_or_category_nombre_categoria_cont, options = {class: "form-control", placeholder: "Buscar por nombre o codigo..."} %>
@@ -52,7 +51,7 @@
 	    <% else %>
 	      <td><%= prod.existencia_producto %></td>
 	    <% end %>
-	    <td>$<%= prod.precio_producto %></td>
+	    <td>Bs <%= prod.precio_producto %></td>
 	    <td><%= prod.location.nombre_lugar %></td>
 	    <td>
 	      <%= link_to "Ver", product_path(prod), html_options = {class: "btn btn-info btn-xs", remote: true} %>

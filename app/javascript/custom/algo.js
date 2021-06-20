@@ -20,7 +20,7 @@ document.addEventListener("turbolinks:load", function() {
                 newRowContent = `<tr>
                                     <td>${nombre_producto}(${unidad})</td>
                                     <td>${existencia_producto}</td>
-                                    <td>$${precio_producto}</td>
+                                    <td>Bs ${precio_producto}</td>
                                     <td><button type="button" class="btn btn-primary" onclick="seleccionarProducto(${id_producto}, ${id_modelo}, '${tipo_modelo}')">
                                         Agregar
                                         </button>
@@ -200,7 +200,7 @@ window.seleccionarCliente = function (id_cliente, id_venta){
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
         let nombre_cliente = result.nombre_cliente;
-        $("#cliente_venta").html("Cliente: " + nombre_cliente)
+        $("#cliente_venta").html("<h5>Cliente: " + nombre_cliente + "</h5>")
       }
     }
   });
@@ -272,18 +272,20 @@ function agregarItemVenta(id_producto, id_venta){
           let importe_item = result.importe_item;
           let importe_venta = result.importe_venta;
 	  let importe_venta1 = result.importe_venta * 0.16;
+	  let importe_venta4 = parseFloat(importe_venta1).toFixed(2);
 	  let importe_venta2 = result.importe_venta * 1.16;
+	  let importe_venta3 = parseFloat(importe_venta2).toFixed(2);
           let nombre_producto = result.nombre_producto;
           let newRowContent = `<tr>
                                  <td>${nombre_producto}</td>
-                                 <td>$ ${precio_producto}</td>
+                                 <td>Bs ${precio_producto}</td>
                                  <td>${cantidad}</td>
                                  <td>$ ${importe_item}</td>`;
           
           $("#tabla_ventas tbody").append(newRowContent);
-          $("#importe_venta_lbl").text("Subtotal de venta: $" + importe_venta);
-	  $("#importe_venta_lbl2").text("16% del IVA: $" + importe_venta1);
-	  $("#importe_venta_lbl3").text("Total de venta: $" + importe_venta2);
+          $("#importe_venta_lbl").text("Subtotal de venta: Bs " + importe_venta);
+	  $("#importe_venta_lbl2").text("16% del IVA: Bs " + importe_venta1);
+	  $("#importe_venta_lbl3").text("Total de venta: Bs " + importe_venta3);
 	  location.reload();
       }
     }
@@ -316,14 +318,14 @@ function agregarItemCompra(id_producto, id_compra){
 	  let registro_compra = `<tr>
                                  <td>${producto}</td>
                                  <td>${cantidad}</td>
-                                 <td>$${precio_detalle_compra}</td>
+                                 <td>Bs ${precio_detalle_compra}</td>
                                  <td>$ ${importe_item}</td>
                               </tr>`;
           
           $("#tabla_compras tbody").append(registro_compra);
-	  $("#importe_compra_lbl").text("Subtotal de compra: $" + importe_compra);
-	  $("#importe_compra_lbl2").text("16% del IVA: $" + importe_compra1);
-	  $("#importe_compra_lbl3").text("Total de compra: $" + importe_compra2);
+	  $("#importe_compra_lbl").text("Subtotal de compra: Bs " + importe_compra);
+	  $("#importe_compra_lbl2").text("16% del IVA: Bs " + importe_compra1);
+	  $("#importe_compra_lbl3").text("Total de compra: Bs " + importe_compra2);
 	  location.reload();
       }
     }

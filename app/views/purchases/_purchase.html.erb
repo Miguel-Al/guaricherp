@@ -2,54 +2,62 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="id">ID</label>
-      <input type="text" readonly class="form-control-plaintext" value="<%= @compra.id %>">
+      <input type="text" readonly class="form-control-plaintext" value="<%= @compra.numero_compra %>">
     </div>
     <div class="form-group col-md-6">
       <label for="fecha">Fecha</label>
       <input type="text" readonly class="form-control-plaintext" value="<%= @compra.created_at.strftime("%d-%m-%Y") %>">
     </div>
-  </div>
     <div class="form-group col-md-6">
       <label for="almacenista">Almacenista:</label>
       <input type="text" readonly class="form-control-plaintext" value="<%= @compra.user.username %>">
     </div>
-        <div class="form-group col-md-6">
+    <div class="form-group col-md-6">
       <label for="proveedor">Proveedor:</label>
       <input type="text" readonly class="form-control-plaintext" value="<%= @compra.supplier.nombre_proveedor %>">
     </div>
   </div>
-</form>
-<br>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Producto</th>
-      <th>Cantidad</th>
-      <th>Precio</th>
-      <th>Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @compra.purchase_details.each do |detalle| %>
-    <tr>
-       <td><%= detalle.product.nombre_producto %></td>
-       <td><%= detalle.cantidad %></td>
-       <td>$ <%= detalle.precio_detalle_compra %></td>
-       <td>$ <%= detalle.precio_detalle_compra * detalle.cantidad %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-<div class="form-row">
-      <div class="form-group col-md-6 float-end">
+  <br>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+	<th>Producto</th>
+	<th>Cantidad</th>
+	<th>Precio</th>
+	<th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @compra.purchase_details.each do |detalle| %>
+      <tr>
+	<td><%= detalle.product.nombre_producto %></td>
+	<td><%= detalle.cantidad %></td>
+	<td>Bs <%= detalle.precio_detalle_compra %></td>
+	<td>Bs <%= detalle.precio_detalle_compra * detalle.cantidad %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <br>
+  
+  <div class="form-row">
+    <div class="form-group col-md-6">
       <label for="id">Sub total de compra</label>
-      <input type="text" readonly class="form-control-plaintext" value="$ <%= @compra.total_compra %>">
+      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @compra.total_compra %>">
     </div>
-      <div class="form-group col-md-6 float-end">
+    <div class="form-group col-md-6">
       <label for="id">16% del iva</label>
-      <input type="text" readonly class="form-control-plaintext" value="$ <%= @compra.total_compra * 0.16 %>">
+      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @compra.total_compra * 0.16 %>">
     </div>
-    <div class="form-group col-md-6 float-end">
+    <div class="form-group col-md-6">
       <label for="id">Monto final de la compra</label>
-      <input type="text" readonly class="form-control-plaintext" value="$ <%= @compra.total_compra * 1.16 %>">
+      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @compra.total_compra * 1.16 %>">
     </div>
+  </div>
+  <div class="form-row">
+    <%= link_to purchase_path(@compra, format: :pdf), {class: "btn btn-primary", target: :_blank} do %>
+    <span class="fas fa-file-alt" ></span> Generar Respaldo de documento
+    <% end %>
+  </div>
+</form>
