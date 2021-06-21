@@ -10,7 +10,8 @@
   </head>
 
   <body>
-    <header class="py-3 mb-4 border-bottom shadow">
+    <% if false %>
+        <header class="py-3 mb-4 border-bottom shadow">
       <div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
 	<div>
 	  <a href="#" class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-dark text-decoration-none">
@@ -40,20 +41,16 @@
       </div>
     </header>
 
+	<% end %>
 
     <div class="container-fluid">
       <div class="row flex-nowrap">
 	<div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
 	  <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
 	    <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-	      <span class="fs-5 d-none d-sm-inline">Menu</span>
+	      <span class="fs-5 d-none d-sm-inline">GuarichERP</span>
 	    </a>
 	    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-	      <li class="nav-item">
-		<a href="#" class="nav-link align-middle px-0">
-		  <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
-		</a>
-	      </li>
 	      <li>
 		<a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
 		  <i class="fas fa-warehouse"></i> <span class="ms-1 d-none d-sm-inline">Inventario</span> </a>
@@ -68,6 +65,16 @@
 		    <i class="fas fa-tag"></i> <span class="ms-1 d-none d-sm-inline">Categorias</span>
 		    <% end %>
 		  </li>
+		  <li>
+		    <%= link_to units_path, class: "nav-link px-0 align-middle" do %>
+		    <i class="fa fa-cube"></i> <span class="ms-1 d-none d-sm-inline">Unidades</span>
+		    <% end %>
+		  </li>
+		  <li>
+		    <%= link_to locations_path, class: "nav-link px-0 align-middle" do %>
+		    <i class="fa fa-map-marker"></i> <span class="ms-1 d-none d-sm-inline">Ubicaciones</span>
+		    <% end %>
+		  </li>
 		</ul>
 	      </li>
 	      <li>
@@ -76,7 +83,7 @@
 		<ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
 		  <li class="w-100">
 		    <%= link_to purchases_path, class: "nav-link px-0 align-middle" do %>
-		    <i class="fas fa-money-check"></i> <span class="ms-1 d-none d-sm-inline">Compras</span>
+		    <i class="fa fa-shopping-basket"></i> <span class="ms-1 d-none d-sm-inline">Compras</span>
 		    <% end %>
 		  </li>
 		  <li>
@@ -119,15 +126,44 @@
 		</ul>
 	      </li>
 	      <li>
+		<a href="#submenu5" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+		  <i class="fa fa-cog"></i> <span class="ms-1 d-none d-sm-inline">Configuracion</span> </a>
+		<ul class="collapse nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
+		  <li class="w-100">
+		  <li>
+		    <%= link_to paychecks_path, class: "nav-link px-0 align-middle" do %>
+		    <i class="fa fa-building"></i> <span class="ms-1 d-none d-sm-inline">Empresa</span>
+		    <% end %>
+		  </li>
+		  <li>
+		    <%= link_to type_payments_path, class: "nav-link px-0 align-middle" do %>
+		    <i class="fas fa-money-check"></i> <span class="ms-1 d-none d-sm-inline">Metodos de pago</span>
+		    <% end %>
+		  </li>
+		  <li>
+		    <%= link_to positions_path, class: "nav-link px-0 align-middle" do %>
+		    <i class="fa fa-th-list"></i> <span class="ms-1 d-none d-sm-inline">Cargos</span>
+		    <% end %>
+		  </li>
+		</ul>
+	      </li>
+	      <li>
 		<%= link_to rails_admin_path, class: "nav-link px-0 align-middle" do %>
 		<i class="fas fa-tools"></i> <span class="ms-1 d-none d-sm-inline">Administracion</span>
 		<% end %>
 	      </li>
+	      <li>
+		<%= link_to destroy_user_session_path, method: :delete, class: "nav-link px-0 align-middle" do %>
+		<i class="fas fa-power-off"></i> <span class="ms-1 d-none d-sm-inline">Salir</span>
+		<% end %>
+	      </li>
+	      
 	    </ul>
 	    <hr>
 	  </div>
 	</div>
 	<div class="col overflow-auto h-100">
+	  <br >
 	  <div class="bg-light border rounded-3 p-3">
 	    <% if flash[:notice] %>
 	    <div class="alert alert-info alert-dismissible fade show" role="alert">

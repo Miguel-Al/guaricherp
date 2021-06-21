@@ -1,0 +1,5 @@
+$('#modalPagos').modal('toggle');
+$('#tipodepago_<%= @tipodepago.id %>').replaceWith(
+    '<tr id="tipodepago_<%= @tipodepago.id %>" ><td><%= @tipodepago.nombre_tipo_pago %></td><td><%= link_to 'Editar', edit_type_payment_path(@tipodepago), html_options = {class: "btn btn-info btn-xs", remote: true} %> <%= link_to "Borrar", @tipodepago, remote: true, method: :delete, data: { confirm: "Borrar el metodo de pago: #{@tipodepago.nombre_tipo_pago}?"}, class: "btn btn-danger btn-xs" %></td></tr>'
+);
+$('#comienzopag').before('<div id="si" class="alert alert-info alert-dismissible fade show" role="alert"><%= flash.now[:success] = "Se ha creado el metodo de pago" %><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');

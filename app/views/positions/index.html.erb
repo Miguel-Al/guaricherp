@@ -1,0 +1,44 @@
+<h1 id="comienzocar" class="h3 mb-2 text-gray-800">Cargos de empleados</h1>
+<br />
+
+<div class="row">
+  <div class="col">
+    <%= link_to new_position_path, {remote: true, class: "btn btn-info form-control", id: "anadir-cargo-btn"}  do %>
+    <span class="fas fa-plus-square" ></span> Registrar nuevo cargo de empleado
+    <% end %>
+  </div>
+  <div class="col">
+    <%= search_form_for @q, options = {class: "w-100"} do |f| %>
+    <%= f.search_field :nombre_cargo_cont, options = {class: "form-control", placeholder: "Buscar..."} %>
+    <%= f.submit "Buscar", class: "btn btn-info form-control" %>
+    <% end %>
+  </div>
+</div>
+<br />
+
+<div class="card shadow mb-4">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table id="tablaCargos" class="table table-bordered" width="100%">
+	<thead>
+	  <tr>
+	    <th>Nombre</th>
+	    <th></th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <% @cargos.each do |car| %>
+	  <tr id="cargo_<%= car.id %>" >
+	    <td><%= car.nombre_cargo %></td>
+	    <td>
+	      <%= link_to "Editar", edit_position_path(car), html_options = {class: "btn btn-info btn-xs", remote: true} %>
+	      <%= link_to 'Borrar', car, remote: true, method: :delete, data: { confirm: "Borrar el cargo: #{car.nombre_cargo}?"}, class: "btn btn-danger btn-xs" %>
+	    </td>
+	  </tr>
+	  <% end %>
+	</tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<%= render 'modal_cargos' %>

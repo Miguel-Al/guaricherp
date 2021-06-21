@@ -116,7 +116,7 @@ class PurchasesController < ApplicationController
         end
       end
     else
-      render json: { message: "El proveedor no se puedo encontrar"}, stauts: :not_found
+      render json: { message: "El proveedor no se puedo encontrar"}, status: :not_found
     end
   end
 

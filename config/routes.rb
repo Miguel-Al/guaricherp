@@ -13,6 +13,10 @@ Rails.application.routes.draw do
 
   #Rutas para las categorias
   resources :categories
+  #Rutas para las ubicaciones
+  resources :locations
+  #Rutas para las unidades
+  resources :units
   #Rutas para los productos
   resources :products
   #Rutas para los clientes
@@ -42,6 +46,11 @@ Rails.application.routes.draw do
       match 'search' => 'paychecks#search', via: [:get, :post], as: :search
     end
   end
+
+  #Rutas para los tipo de pagos
+  resources :type_payments
+  #Rutas para los cargos
+  resources :positions
   
   #Ruta para el buscador de productos en /app/javascript
   get 'buscador_productos/:termino', to: 'products#buscador'

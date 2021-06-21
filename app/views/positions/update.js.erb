@@ -1,0 +1,5 @@
+$('#modalCargos').modal('toggle');
+$('#cargo_<%= @cargo.id %>').replaceWith(
+    '<tr id="cargo_<%= @cargo.id %>" ><td><%= @cargo.nombre_cargo %></td><td><%= link_to 'Editar', edit_position_path(@cargo), html_options = {class: "btn btn-info btn-xs", remote: true} %> <%= link_to "Borrar", @cargo, remote: true, method: :delete, data: { confirm: "Borrar el cargo: #{@cargo.nombre_cargo}?"}, class: "btn btn-danger btn-xs" %></td></tr>'
+);
+$('#comienzocar').before('<div id="si" class="alert alert-info alert-dismissible fade show" role="alert"><%= flash.now[:success] = "Se ha creado el cargo" %><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');

@@ -1,11 +1,8 @@
 class Sale < ApplicationRecord
   has_many :sale_details, dependent: :destroy
   belongs_to :client, optional: true
+  belongs_to :type_payment, optional: true
   belongs_to :user
-  #si borra una venta borro todas los detalles de la misma
-
-  #ver como implementar esto mejor
-  #validates :client_id, presence: true, on: :update
 
   default_scope {order(created_at: :desc)}
 end

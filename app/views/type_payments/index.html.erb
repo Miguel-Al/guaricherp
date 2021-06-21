@@ -1,0 +1,44 @@
+<h1 id="comienzopag" class="h3 mb-2 text-gray-800">Metodos de pago</h1>
+<br />
+
+<div class="row">
+  <div class="col">
+    <%= link_to new_type_payment_path, {remote: true, class: "btn btn-info form-control", id: "anadir-pago-btn"}  do %>
+    <span class="fas fa-plus-square" ></span> Registrar nuevo metodo de pago
+    <% end %>
+  </div>
+  <div class="col">
+    <%= search_form_for @q, options = {class: "w-100"} do |f| %>
+    <%= f.search_field :nombre_tipo_pago_cont, options = {class: "form-control", placeholder: "Buscar..."} %>
+    <%= f.submit "Buscar", class: "btn btn-info form-control" %>
+    <% end %>
+  </div>
+</div>
+<br />
+
+<div class="card shadow mb-4">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table id="tablaPagos" class="table table-bordered" width="100%">
+	<thead>
+	  <tr>
+	    <th>Nombre</th>
+	    <th></th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <% @tipodepagos.each do |pag| %>
+	  <tr id="tipodepago_<%= pag.id %>" >
+	    <td><%= pag.nombre_tipo_pago %></td>
+	    <td>
+	      <%= link_to "Editar", edit_type_payment_path(pag), html_options = {class: "btn btn-info btn-xs", remote: true} %>
+	      <%= link_to 'Borrar', pag, remote: true, method: :delete, data: { confirm: "Borrar el metodo de pago: #{pag.nombre_tipo_pago}?"}, class: "btn btn-danger btn-xs" %>
+	    </td>
+	  </tr>
+	  <% end %>
+	</tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<%= render 'modal_pagos' %>

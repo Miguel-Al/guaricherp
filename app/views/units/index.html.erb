@@ -1,0 +1,46 @@
+<h1 id="comienzouni" class="h3 mb-2 text-gray-800">Unidades/Presentaciones de productos</h1>
+<br />
+
+<div class="row">
+  <div class="col">
+    <%= link_to new_unit_path, {remote: true, class: "btn btn-info form-control", id: "anadir-unidad-btn"}  do %>
+    <span class="fas fa-plus-square" ></span> Crear nueva unidad
+    <% end %>
+  </div>
+  <div class="col">
+    <%= search_form_for @q, options = {class: "w-100"} do |f| %>
+    <%= f.search_field :nombre_unidad_cont, options = {class: "form-control", placeholder: "Buscar..."} %>
+    <%= f.submit "Buscar", class: "btn btn-info form-control" %>
+    <% end %>
+  </div>
+</div>
+<br />
+
+<div class="card shadow mb-4">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table id="tablaUnidades" class="table table-bordered" width="100%">
+	<thead>
+	  <tr>
+	    <th>Nombre</th>
+	    <th>Simbolo</th>
+	    <th></th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <% @unidades.each do |uni| %>
+	  <tr id="unidad_<%= uni.id %>" >
+	    <td><%= uni.nombre_unidad %></td>
+	    <td><%= uni.simbolo_unidad %></td>
+	    <td>
+	      <%= link_to "Editar", edit_unit_path(uni), html_options = {class: "btn btn-info btn-xs", remote: true} %>
+	      <%= link_to 'Borrar', uni, remote: true, method: :delete, data: { confirm: "Borrar la unidad: #{uni.nombre_unidad}?"}, class: "btn btn-danger btn-xs" %>
+	    </td>
+	  </tr>
+	  <% end %>
+	</tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<%= render 'modal_unidades' %>

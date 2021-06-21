@@ -1,0 +1,2 @@
+$('#lugar_<%= @lugar.id %>').fadeOut();
+$('#comienzolug').before('<div id="si" class="alert alert-info alert-dismissible fade show" role="alert"><%= flash.now[:success] = "Se ha borrado la ubicacion" %><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');

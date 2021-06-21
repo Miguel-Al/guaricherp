@@ -69,7 +69,7 @@ document.addEventListener("turbolinks:load", function() {
     let termino = $(this).val();
     let id_venta = $(this).data("venta");
     if(termino.length == 0) {
-      $("#tabla_buscador_clientes tbody").empty();
+	$("#tabla_buscador_clientes tbody").empty();
     }
     else {
       let request_url = getRootUrl() + "/buscador_clientes/" + termino;
@@ -199,8 +199,8 @@ window.seleccionarCliente = function (id_cliente, id_venta){
         $("#buscador_cliente").modal("hide");
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
-        let nombre_cliente = result.nombre_cliente;
-        $("#cliente_venta").html("<h5>Cliente: " + nombre_cliente + "</h5>")
+        let nombre = result.nombre_cliente;
+        $("#cliente_venta").html("<h5>Cliente: " + nombre + "</h5>");
       }
     }
   });
@@ -223,7 +223,7 @@ window.seleccionarEmpleado = function (id_empleado, id_nomina){
 	  let dias_nomina = result.dias_nomina;
           let primer_nombre = result.primer_nombre;
 	  let salario_nomina = result.salario_nomina;
-          $("#empleado_nomina").html("<h3>Empleado: " + primer_nombre + "</h3>")
+          $("#empleado_nomina").html("<h3>Empleado: " + primer_nombre + "</h3>");
 	  $("#importe_nomina_lbl").text("Asignacion por en base a los dias laborados: Bs" + salario_nomina);
       }
     }

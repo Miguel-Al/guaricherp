@@ -1,0 +1,16 @@
+<%= form_for @lugar, remote: true do |f| %>
+<div class="item form-group<%= @lugar.errors[:nombre_lugar].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :nombre_lugar, "Nombre de la ubicacion: " %>
+  <div class="input-group">
+    <%= f.text_field :nombre_lugar, {:class=> "form-control", :placeholder=>"Introduzca el nombre de la ubicacion...", required: true} %>
+    <%if @lugar.errors[:nombre_lugar].any? %>
+    <p class="bg-danger"><%= @lugar.errors[:nombre_lugar].to_s[/\w([^"]*)/] %></p>
+    <% end %>
+  </div>
+</div>
+<br />
+
+<div class="actions col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+  <%= f.submit @lugar.new_record? ? "Crear Ubicacion" : "Actualizar Ubicacion", :class => "btn btn-success"%>
+</div>  
+<% end %>

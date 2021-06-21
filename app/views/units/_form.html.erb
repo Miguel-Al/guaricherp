@@ -1,0 +1,25 @@
+<%= form_for @unidad, remote: true do |f| %>
+<div class="item form-group<%= @unidad.errors[:nombre_unidad].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :nombre_unidad, "Nombre de unidad: " %>
+  <div class="input-group">
+    <%= f.text_field :nombre_unidad, {:class=> "form-control", :placeholder=>"Introduzca el nombre de la unidad...", required: true} %>
+    <%if @unidad.errors[:nombre_unidad].any? %>
+    <p class="bg-danger"><%= @unidad.errors[:nombre_unidad].to_s[/\w([^"]*)/] %></p>
+    <% end %>
+  </div>
+</div>
+<div class="item form-group<%= @unidad.errors[:simbolo_unidad].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :simbolo_unidad, "Simbolo de unidad: " %>
+  <div class="input-group">
+    <%= f.text_field :simbolo_unidad, {:class=> "form-control", :placeholder=>"Introduzca el simbolo de la unidad...", required: true} %>
+    <%if @unidad.errors[:simbolo_unidad].any? %>
+    <p class="bg-danger"><%= @unidad.errors[:simbolo_unidad].to_s[/\w([^"]*)/] %></p>
+    <% end %>
+  </div>
+</div>
+<br />
+
+<div class="actions col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+  <%= f.submit @unidad.new_record? ? "Crear Unidad" : "Actualizar Unidad", :class => "btn btn-success"%>
+</div>  
+<% end %>
