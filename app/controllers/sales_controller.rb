@@ -26,11 +26,12 @@ class SalesController < ApplicationController
   end
 
   def show
+    @empresa = Company.last
     respond_to do |format|
       format.html
       format.js
       format.pdf do
-        pdf = FacturaVentaPdf.new(@venta)
+        pdf = FacturaVentaPdf.new(@venta, @empresa)
         send_data pdf.render, filename: "facturadeventa_#{@venta.numero_venta}_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
       end
     end

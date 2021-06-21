@@ -1,7 +1,8 @@
 require 'prawn/table'
 class FacturaVentaPdf < Prawn::Document
-  def initialize(venta)
+  def initialize(venta, empresa)
     super()
+    @empresa = empresa
     @venta = venta
     titulo
     listado
@@ -11,6 +12,7 @@ class FacturaVentaPdf < Prawn::Document
   end
 
   def titulo
+    text "Empresa: #{@empresa.nombre_empresa}"
     text "Cliente: #{@venta.client.nombre_cliente}"
     text "Vendedor: #{@venta.user.username}"
   end

@@ -51,6 +51,8 @@ Rails.application.routes.draw do
   resources :type_payments
   #Rutas para los cargos
   resources :positions
+  #Rutas para empresa
+  resources :companies
   
   #Ruta para el buscador de productos en /app/javascript
   get 'buscador_productos/:termino', to: 'products#buscador'

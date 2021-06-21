@@ -37,7 +37,6 @@ class CategoriesController < ApplicationController
         format.js { render :edit }
       end
     end
-    
   end
 
   def destroy
