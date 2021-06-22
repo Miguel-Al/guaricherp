@@ -27,11 +27,12 @@ class PaychecksController < ApplicationController
   end
 
   def show
+    @empresa = Company.last
     respond_to do |format|
       format.html
       format.js
       format.pdf do
-        pdf = FichaNominaPdf.new(@nomina)
+        pdf = FichaNominaPdf.new(@nomina, @empresa)
           send_data pdf.render, filename: "fichadenomina_#{@nomina.employee.nombre_apellido}_#{@nomina.inicio_nomina}_#{@nomina.fin_nomina}.pdf", type: "application/pdf", disposition: "inline"
         end
           end

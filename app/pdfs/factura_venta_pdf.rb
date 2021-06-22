@@ -1,3 +1,4 @@
+# coding: iso-8859-1
 require 'prawn/table'
 class FacturaVentaPdf < Prawn::Document
   def initialize(venta, empresa)
@@ -12,8 +13,16 @@ class FacturaVentaPdf < Prawn::Document
   end
 
   def titulo
-    text "Empresa: #{@empresa.nombre_empresa}"
-    text "Cliente: #{@venta.client.nombre_cliente}"
+    text "#{@empresa.nombre_empresa}"
+    text "#{@empresa.direccion_empresa}"
+    text "Telf: #{@empresa.telefono_empresa}"
+    text "N° de control:#{@empresa.numero_control}"
+    
+    text "Nombre o Razon social: #{@venta.client.nombre_cliente}"
+    text "RIF: #{@venta.client.rif_cliente}"
+    text "Telefono: #{@venta.client.phoneclients.first.try(:numero_cliente)}"
+    text "Direccion Fiscal: #{@venta.client.direccion_cliente}"
+
     text "Vendedor: #{@venta.user.username}"
   end
 

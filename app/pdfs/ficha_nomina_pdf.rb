@@ -1,7 +1,8 @@
 require 'prawn/table'
 class FichaNominaPdf < Prawn::Document
-  def initialize(nomina)
+  def initialize(nomina, empresa)
     super()
+    @empresa = empresa
     @nomina = nomina
     titulo
     listado
@@ -9,7 +10,8 @@ class FichaNominaPdf < Prawn::Document
   end
 end
 
-  def titulo
+def titulo
+    text "#{@empresa.nombre_empresa}"
     text "Nomina de pago del empleado #{@nomina.employee.nombre_apellido}", size: 20, style: :bold
     text "Periodo #{@nomina.inicio_nomina} - #{@nomina.fin_nomina}"
   end
