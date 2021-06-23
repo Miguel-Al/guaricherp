@@ -10,7 +10,9 @@
   <div class="col">
     <%= search_form_for @q, options = {class: "w-100"} do |f| %>
     <%= f.search_field :nombre_proveedor_or_rif_proveedor_cont, options = {class: "form-control", placeholder: "Buscar por nombre o rif..."} %>
-    <%= f.submit "Buscar", class: "btn btn-info form-control" %>
+    <%= f.button :type => "submit", class: "btn btn-info form-control" do %>
+  <span class="fas fa-search"></span> Buscar
+  <% end %>
     <% end %>
   </div>
 </div>

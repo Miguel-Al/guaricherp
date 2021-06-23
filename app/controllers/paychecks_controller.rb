@@ -64,8 +64,10 @@ class PaychecksController < ApplicationController
      dias_nomina = params[:dias_nomina].nil? ? 1 : params[:dias_nomina].to_i
      salario_empleado = (empleado.salario_empleado / 30).round(2)
      salario_nomina = salario_empleado * dias_nomina.to_d
+     salario_empleado_total = empleado.salario_empleado
     if empleado.present?
       @nomina.employee = empleado
+      @nomina.salario_empleado = salario_empleado_total
       @nomina.dias_nomina = dias_nomina
       @nomina.salario_nomina = salario_nomina
       if @nomina.valid?
@@ -87,7 +89,7 @@ class PaychecksController < ApplicationController
    private
 
    def paycheck_params
-  params.require(:paycheck).permit(:paycheck_type_id, :inicio_nomina, :fin_nomina, :dias_nomina, :horas_extra, :adelanto_nomina, :type_payment_id)
+  params.require(:paycheck).permit(:paycheck_type_id, :inicio_nomina, :fin_nomina, :dias_nomina, :salario_nomina, :salario_empleado, :adelanto_nomina, :type_payment_id, :alimento_cesta)
 end
 
   def set_paycheck

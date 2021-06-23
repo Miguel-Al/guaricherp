@@ -24,6 +24,7 @@ class FacturaVentaPdf < Prawn::Document
     text "Direccion Fiscal: #{@venta.client.direccion_cliente}"
 
     text "Vendedor: #{@venta.user.username}"
+    text "Este documento ha sido generado el dia #{DateTime.now.to_s(:db)}"
   end
 
   def listado

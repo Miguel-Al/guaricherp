@@ -1,12 +1,12 @@
 require 'prawn/table'
 class ReporteNominaPdf < Prawn::Document
   def initialize(nominas)
-    super :page_size => "A4", :page_layout => :landscape
+    super :page_size => "LEGAL", :page_layout => :landscape
     @nominas = nominas
     @minimo = nominas.minimum("inicio_nomina")
     @max = nominas.maximum("fin_nomina")
-    @asigna = (nominas.sum(:salario_nomina))
-    @deduce = (((nominas.sum(:salario_nomina) * 0.04) + (nominas.sum(:salario_nomina) * 0.005) + (nominas.sum(:salario_nomina) * 0.01)) * 2)
+    @asigna = ((nominas.sum(:salario_nomina)) + (nominas.sum(:alimento_cesta)))
+    @deduce = ((nominas.sum(:salario_empleado) * 0.04) + (nominas.sum(:salario_empleado) * 0.005) + (nominas.sum(:salario_empleado) * 0.01) + (nominas.sum(:adelanto_nomina)) )
 
     titulo
     listado
@@ -17,6 +17,7 @@ class ReporteNominaPdf < Prawn::Document
 
   def titulo
     text "Resumen de nomina del periodo #{@minimo.strftime("%d-%m-%Y")} y #{@max.strftime("%d-%m-%Y")}", size: 25, style: :bold
+    text "Este documento ha sido generado el dia #{DateTime.now.to_s(:db)}"
   end
   
   def listado
@@ -28,12 +29,12 @@ class ReporteNominaPdf < Prawn::Document
   end
 
   def item_header
-    ["Empleado", "Periodo", "Salario Devengado", "Cesta ticket", "Total Asignaciones", "S.S.O", "L.R.P.E", "F.A.O.V", "Total Deducciones", "Total"]
+    ["Empleado", "Salario \n Devengado", "Cesta \n Ticket", "Total \n Asignaciones", "S.S.O", "L.R.P.E", "F.A.O.V", "Adelanto", "Total \n Deducciones", "Total"]
   end
   
   def item_rows
     @nominas.map do |nomina|
-      [nomina.employee.nombre_apellido, nomina.periodo_simple, nomina.salario_nomina, nomina.salario_nomina, (nomina.salario_nomina * 2), (nomina.employee.salario_empleado * 0.04), (nomina.employee.salario_empleado * 0.005), (nomina.employee.salario_empleado * 0.01), ((nomina.employee.salario_empleado * 0.04) + (nomina.employee.salario_empleado * 0.005) + (nomina.employee.salario_empleado * 0.01)), (nomina.salario_nomina * 2) - ((nomina.employee.salario_empleado * 0.04) + (nomina.employee.salario_empleado * 0.005) + (nomina.employee.salario_empleado * 0.01))]
+      [nomina.employee.nombre_apellido, "Bs #{nomina.salario_nomina}", "Bs #{nomina.alimento_cesta}", "Bs #{(nomina.salario_nomina + nomina.alimento_cesta)}", "Bs #{(nomina.salario_empleado * 0.04)}", "Bs #{(nomina.salario_empleado * 0.005)}", "Bs #{(nomina.salario_empleado * 0.01)}", "Bs #{nomina.adelanto_nomina}", "Bs #{((nomina.salario_empleado * 0.04) + (nomina.salario_empleado * 0.005) + (nomina.salario_empleado * 0.01) + nomina.adelanto_nomina)}", "Bs #{(nomina.salario_nomina + nomina.alimento_cesta) - ((nomina.employee.salario_empleado * 0.04) + (nomina.employee.salario_empleado * 0.005) + (nomina.employee.salario_empleado * 0.01) + nomina.adelanto_nomina)}"]
     end
   end
 
@@ -43,21 +44,15 @@ end
 
 def total_asignado
   move_down 20
-  span(310, position: :right) do
-    text "Total de asignaciones: #{@asigna * 2}"
-  end
+  text "Total de asignaciones: Bs #{@asigna}"
 end
 
 def total_deducido
-  span(310, position: :right) do
-    text "Total de deducciones: #{(@deduce).round(2)}"
-  end
+  text "Total de deducciones: Bs #{(@deduce).round(2)}"
 end
 
 def total
-  span(310, position: :right) do
-    text "Total de la nomina del periodo: #{((@asigna * 2) - (@deduce)).round(2)}"
-  end
+  text "Total de la nomina del periodo: Bs #{((@asigna) - (@deduce)).round(2)}"
 end
 
 

@@ -11,9 +11,13 @@ class FichaNominaPdf < Prawn::Document
 end
 
 def titulo
-    text "#{@empresa.nombre_empresa}"
-    text "Nomina de pago del empleado #{@nomina.employee.nombre_apellido}", size: 20, style: :bold
-    text "Periodo #{@nomina.inicio_nomina} - #{@nomina.fin_nomina}"
+  text "#{@empresa.nombre_empresa}"
+  text "#{@empresa.rif_empresa}"
+  text "Direccion: #{@empresa.direccion_empresa}"
+  text "Telf: #{@empresa.telefono_empresa}"
+  text "Este documento ha sido generado el dia #{DateTime.now.to_s(:db)}"
+  text "Nomina de pago del empleado #{@nomina.employee.nombre_apellido}", size: 20, style: :bold
+  text "Periodo #{@nomina.inicio_nomina} - #{@nomina.fin_nomina}"
   end
 
   def listado
@@ -25,7 +29,7 @@ def titulo
       self.row_colors = ['DDDDDD', 'FFFFFF']
     end
 
-    info2 = [["Salario:", "Forma de pago:", "Tipo de Nomina:"],
+    info2 = [["Salario Mensual:", "Forma de pago:", "Tipo de Nomina:"],
              ["Bs #{@nomina.employee.salario_empleado}", @nomina.type_payment.nombre_tipo_pago, @nomina.paycheck_type.tipo_nomina_nombre]]
     table(info2) do
       self.column_widths = [275, 125, 140]
@@ -38,12 +42,12 @@ def titulo
       self.row_colors = ['DDDDDD']
     end
 
-    asignaciones2 = [["Total dias trabajados:", "#{@nomina.dias_nomina} dias", "Bs #{(@nomina.employee.salario_empleado / 30).round(2)} por dia", "Bs #{@nomina.salario_nomina}"]]
+    asignaciones2 = [["Total dias trabajados:", "#{@nomina.dias_nomina} dias", "Bs #{(@nomina.salario_empleado / 30).round(2)} por dia", "Bs #{@nomina.salario_nomina}"]]
     table(asignaciones2) do
-      self.column_widths = [150, 100, 100, 190]
+      self.column_widths = [150, 100, 145, 145]
     end
 
-    asignaciones3 = [["Cesta Ticket", "Bs valor"]]
+    asignaciones3 = [["Cesta Ticket", "Bs #{@nomina.alimento_cesta}"]]
     table(asignaciones3) do
       self.column_widths = [150, 390]
     end
@@ -68,9 +72,9 @@ def titulo
       self.row_colors = ['DDDDDD']
     end
 
-    total2 = [["Total Asignaciones:", "Bs #{@nomina.salario_nomina}"],
-              ["Total Deducciones:", "Bs #{(@nomina.employee.salario_empleado * 0.04) + (@nomina.employee.salario_empleado * 0.005) + (@nomina.employee.salario_empleado * 0.01)}"],
-              ["Total a cobrar:", "Bs #{(@nomina.salario_nomina) - ((@nomina.employee.salario_empleado * 0.04) + (@nomina.employee.salario_empleado * 0.005) + (@nomina.employee.salario_empleado * 0.01))}"]]
+    total2 = [["Total Asignaciones:", "Bs #{@nomina.salario_nomina + @nomina.alimento_cesta}"],
+              ["Total Deducciones:", "Bs #{(@nomina.employee.salario_empleado * 0.04) + (@nomina.employee.salario_empleado * 0.005) + (@nomina.employee.salario_empleado * 0.01) + (@nomina.adelanto_nomina)}"],
+              ["Total a cobrar:", "Bs #{(@nomina.salario_nomina + @nomina.alimento_cesta) - ((@nomina.employee.salario_empleado * 0.04) + (@nomina.employee.salario_empleado * 0.005) + (@nomina.employee.salario_empleado * 0.01) + (@nomina.adelanto_nomina))}"]]
     table(total2) do
       self.column_widths = [150, 390]
     end

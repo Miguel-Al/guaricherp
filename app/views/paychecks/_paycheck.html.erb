@@ -31,14 +31,14 @@
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label for="id">Salario mensual</label>
-      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @nomina.employee.salario_empleado %>">
+      <label for="id">Salario mensual del empleado en el periodo</label>
+      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @nomina.salario_empleado %>">
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="id">Sueldo por dia de trabajo</label>
-      <input type="text" readonly class="form-control-plaintext" value="Bs <%= (@nomina.employee.salario_empleado / 30).round(2) %>">
+      <input type="text" readonly class="form-control-plaintext" value="Bs <%= (@nomina.salario_empleado / 30).round(2) %>">
     </div>
   </div>
   <div class="form-row">
@@ -55,6 +55,18 @@
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
+      <label for="id">Pago de cesta ticket</label>
+      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @nomina.alimento_cesta %>">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="id">Total abonado</label>
+      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @nomina.alimento_cesta + @nomina.salario_nomina %>">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
       <label for="id">Adelanto de pago</label>
       <input type="text" readonly class="form-control-plaintext" value="Bs <%= @nomina.adelanto_nomina %>">
     </div>
@@ -62,7 +74,7 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="id">Deduccion del 4% del S.S.O</label>
-      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @nomina.employee.salario_empleado * 0.04 %>">
+      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @nomina.salario_empleado * 0.04 %>">
     </div>
   </div>
   <div class="form-row">
@@ -74,23 +86,26 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="id">Deduccion del 1% de FAOV</label>
-      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @nomina.employee.salario_empleado * 0.01 %>">
+      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @nomina.salario_empleado * 0.01 %>">
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="id">Total de devengado</label>
-      <input type="text" readonly class="form-control-plaintext" value="Bs <%= (@nomina.employee.salario_empleado * 0.04) + (@nomina.employee.salario_empleado * 0.005) + (@nomina.employee.salario_empleado * 0.01) %>">
+      <input type="text" readonly class="form-control-plaintext" value="Bs <%= (@nomina.salario_empleado * 0.04) + (@nomina.salario_empleado * 0.005) + (@nomina.salario_empleado * 0.01) + (@nomina.adelanto_nomina) %>">
     </div>
   </div>
+  <br />
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="id">Monto a cobrar:</label>
-      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @nomina.salario_nomina - ((@nomina.employee.salario_empleado * 0.04) + (@nomina.employee.salario_empleado * 0.005) + (@nomina.employee.salario_empleado * 0.01) + @nomina.adelanto_nomina) %>">
+      <input type="text" readonly class="form-control-plaintext" value="Bs <%= (@nomina.salario_nomina + @nomina.alimento_cesta) - ((@nomina.salario_empleado * 0.04) + (@nomina.salario_empleado * 0.005) + (@nomina.salario_empleado * 0.01) + (@nomina.adelanto_nomina)) %>">
     </div>
   </div>
   <div>
-    <%= link_to "Generar recibo de nomina", paycheck_path(@nomina, format: :pdf), class: "btn btn-primary", target: :_blank %>
+    <%= link_to paycheck_path(@nomina, format: :pdf), {class: "btn btn-primary", target: :_blank} do %>
+    <span class="fas fa-file-alt" ></span> Generar recibido de nomina
+    <% end %>
   </div>
 </form>
 

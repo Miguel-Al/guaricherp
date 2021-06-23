@@ -20,8 +20,10 @@
 
 <div class="d-flex align-items-center">
   <%= search_form_for @q, options = {class: "w-100 me-3"} do |f| %>
-  <%= f.search_field :nombre_producto_or_codigo_producto_or_category_nombre_categoria_cont, options = {class: "form-control", placeholder: "Buscar por nombre o codigo..."} %>
-  <%= f.submit "Buscar", class: "btn btn-info form-control" %>
+  <%= f.search_field :nombre_producto_or_codigo_producto_or_category_nombre_categoria_cont, options = {class: "form-control", placeholder: "Buscar por nombre, codigo o categoria..."} %>
+  <%= f.button :type => "submit", class: "btn btn-info form-control" do %>
+  <span class="fas fa-search"></span> Buscar
+  <% end %>
   <% end %>
 </div>
 <br />

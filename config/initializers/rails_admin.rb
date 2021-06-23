@@ -75,6 +75,12 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model 'Position' do
+    edit do
+      field :nombre_cargo
+    end
+  end
+
   config.model 'PaycheckType' do
     edit do
       field :tipo_nomina_nombre

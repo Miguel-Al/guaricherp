@@ -1,72 +1,82 @@
 <%= stylesheet_link_tag 'sales' %>
-<h3 class="h3 mb-2 text-gray-800">Nomina</h3>
-<br />
+
 <div class = "row">
-  <div class="col-md-6">
-    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#buscador_empleado">
-      Buscar empleado
-    </button>
-    <div id="empleado_nomina" class="primer-nombre col-md-10" >
+  <div class="col">
+    <h3 class="h3 mb-2 text-gray-800">Nomina</h3>
+    <br />
+    <div id="empleado_nomina" class="primer-nombre" >
       <h3><%= @nomina.employee.present? ?  @nomina.employee.try(:nombre_apellido) : "No se ha asignado empleado" %></h3>
     </div>
+    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#buscador_empleado">
+      <span class="fas fa-search"></span> Buscar empleado</button>
   </div>
-  <div class="col-md-6" style="text-align:right;">
-    <h2 id="importe_nomina_lbl" > Asignacion por en base a los dias laborados: Bs<%= @nomina.salario_nomina %> </h2>
+  <div class="col" style="text-align:right;">
+    <h2 id="importe_nomina_lbl" > Asignacion por dias laborados: <br> Bs <%= @nomina.salario_nomina %> </h2>
   </div>
-</div>
 </div>
 <br>
+
 <div class="card shadow mb-4">
-<div class="card-body">
-  <div class="table-responsive">
-
-    <%= form_for @nomina, remote: true  do |f| %>
-
-
-    <div class="item form-group<%= @nomina.errors[:type_payment].any? ? ' has-error has-feedback' : '' %>">
-      <%= f.label :tiponomina, "Tipo pago: " %>
-      <div class="input-group">
-      <%= f.collection_select(:type_payment_id, @tipopago, :id, :nombre_tipo_pago, {:prompt => 'Seleccione el tipo de pago'}, { class: "form-control", required: true })%>
-        <%if @nomina.errors[:type_payment].any? %>
-          <p class="bg-danger"><%= @nomina.errors[:type_payment].to_s[/\w([^"]*)/] %></p>
-        <% end %>
+  <div class="card-body">
+    <div class="table-responsive">
+      <%= form_for @nomina, remote: true  do |f| %>
+      <div class="item form-group<%= @nomina.errors[:type_payment].any? ? ' has-error has-feedback' : '' %>">
+	<%= f.label :tiponomina, "Tipo pago: " %>
+	<div class="input-group">
+	  <%= f.collection_select(:type_payment_id, @tipopago, :id, :nombre_tipo_pago, {:prompt => 'Seleccione el tipo de pago'}, { class: "form-control", required: true })%>
+	  <%if @nomina.errors[:type_payment].any? %>
+	  <p class="bg-danger"><%= @nomina.errors[:type_payment].to_s[/\w([^"]*)/] %></p>
+          <% end %>
+        </div>
       </div>
-    </div>
 
-    <div class="item form-group<%= @nomina.errors[:paycheck_type].any? ? ' has-error has-feedback' : '' %>">
-      <%= f.label :tiponomina, "Tipo de nomina: " %>
-      <div class="input-group">
-      <%= f.collection_select(:paycheck_type_id, @tiponomina, :id, :tipo_nomina_nombre, {:prompt => 'Seleccione el tipo de nomina'}, { class: "form-control", required: true })%>
-        <%if @nomina.errors[:paycheck_type].any? %>
+      <div class="item form-group<%= @nomina.errors[:paycheck_type].any? ? ' has-error has-feedback' : '' %>">
+        <%= f.label :tiponomina, "Tipo de nomina: " %>
+        <div class="input-group">
+          <%= f.collection_select(:paycheck_type_id, @tiponomina, :id, :tipo_nomina_nombre, {:prompt => 'Seleccione el tipo de nomina'}, { class: "form-control", required: true })%>
+          <%if @nomina.errors[:paycheck_type].any? %>
           <p class="bg-danger"><%= @nomina.errors[:paycheck_type].to_s[/\w([^"]*)/] %></p>
-        <% end %>
+	  <% end %>
+	</div>
       </div>
-    </div>
-        <div class="item form-group<%= @nomina.errors[:inicio_nomina].any? ? ' has-error has-feedback' : '' %>">
-      <%= f.label :fecha, "Fecha de inicio: " %>
-      <div class="input-group">
-        <%= f.date_field :inicio_nomina, {:class=> "form-control", :placeholder=>"Introduzca la fecha de inicio del periodo...", required: true} %> 
+
+      <div class="item form-group<%= @nomina.errors[:inicio_nomina].any? ? ' has-error has-feedback' : '' %>">
+	<%= f.label :fecha, "Fecha de inicio: " %>
+	<div class="input-group">
+	  <%= f.date_field :inicio_nomina, {:class=> "form-control", :placeholder=>"Introduzca la fecha de inicio del periodo...", required: true} %>
+	</div>
       </div>
-    </div>
-    <div class="item form-group<%= @nomina.errors[:fin_nomina].any? ? ' has-error has-feedback' : '' %>">
-      <%= f.label :fecha, "Fecha de fin: " %>
-      <div class="input-group">
-        <%= f.date_field :fin_nomina, {:class=> "form-control", :placeholder=>"Introduzca la fecha de fin del periodo...", required: true} %>       </div>
-    </div>
-    <div class="item form-group<%= @nomina.errors[:adelanto_nomina].any? ? ' has-error has-feedback' : '' %>">
-      <%= f.label :adelanto, "incluya si se hizo un adelanto de la nomina: " %>
-      <div class="input-group">
-        <%= f.number_field :adelanto_nomina, {:class=> "form-control", :placeholder=>"monto...", required: true} %>       </div>
+
+      <div class="item form-group<%= @nomina.errors[:fin_nomina].any? ? ' has-error has-feedback' : '' %>">
+	<%= f.label :fecha, "Fecha de fin: " %>
+	<div class="input-group">
+	  <%= f.date_field :fin_nomina, {:class=> "form-control", :placeholder=>"Introduzca la fecha de fin del periodo...", required: true} %>
+	</div>
+      </div>
+
+      <div class="item form-group<%= @nomina.errors[:adelanto_nomina].any? ? ' has-error has-feedback' : '' %>">
+	<%= f.label :cesta, "incluya si se incluyo cesta ticket en el periodo: " %>
+	<div class="input-group">
+	  <%= f.number_field :alimento_cesta, {:class=> "form-control", :placeholder=>"monto...", required: true} %>
+	</div>
+      </div>
+
+      <div class="item form-group<%= @nomina.errors[:adelanto_nomina].any? ? ' has-error has-feedback' : '' %>">
+	<%= f.label :adelanto, "incluya si se hizo un adelanto de la nomina: " %>
+	<div class="input-group">
+	  <%= f.number_field :adelanto_nomina, {:class=> "form-control", :placeholder=>"monto...", required: true} %>
+	</div>
+      </div>
     </div>
     <br />
-
-    <div class = "row">
-      <%= link_to 'Cancelar Nomina', @nomina, method: :delete, data: { confirm: 'Cancelar la nomina?' }, class: "btn btn-danger col-md-5" %>
-      	<%= f.submit "Registrar Nomina", class: "btn btn-success col-md-6" %>
+    <div class="row">
+      <div class="col">
+	<%= link_to 'Cancelar Nomina', @nomina, method: :delete, data: { confirm: 'Cancelar la nomina?' }, class: "btn btn-danger form-control" %>
+      </div>
+      <div class="col">
+	<%= f.submit "Registrar Nomina", class: "btn btn-success form-control" %>
 	<% end %>
-	</div>
-
-  </div>
+      </div>
     </div>
   </div>
 </div>

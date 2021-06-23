@@ -2,9 +2,9 @@
 
 <% if @proveedor.new_record? %>
 <div class="item form-group<%= @proveedor.errors[:rif_proveedor].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :rif, "Rif del Proveedor: " %>
+  <%= f.label :rif, "Numero de Rif: " %>
   <div class="input-group">
-    <%= f.text_field :rif_proveedor, {:class=> "form-control", :placeholder=>"Introduzca el numero rif..."} %>
+    <%= f.text_field :rif_proveedor, {:class=> "form-control", :placeholder=>"Introduzca el numero rif...", required: true} %>
     <%if @proveedor.errors[:rif_proveedor].any? %>
     <p class="bg-danger"><%= @proveedor.errors[:rif_proveedor].to_s[/\w([^"]*)/] %></p>
     <% end %>
@@ -12,9 +12,9 @@
 </div>
 
 <div class="item form-group<%= @proveedor.errors[:nombre_proveedor].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :nombre, "Nombre del Proveedor: " %>
+  <%= f.label :nombre, "Nombre: " %>
   <div class="input-group">
-    <%= f.text_field :nombre_proveedor, {:class=> "form-control", :placeholder=>"Introduzca el nombre..."} %>
+    <%= f.text_field :nombre_proveedor, {:class=> "form-control", :placeholder=>"Introduzca el nombre...", required: true} %>
     <%if @proveedor.errors[:nombre_proveedor].any? %>
     <p class="bg-danger"><%= @proveedor.errors[:nombre_proveedor].to_s[/\w([^"]*)/] %></p>
     <% end %>

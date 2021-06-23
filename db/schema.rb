@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_21_222124) do
+ActiveRecord::Schema.define(version: 2021_06_22_213012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,17 +35,17 @@ ActiveRecord::Schema.define(version: 2021_06_21_222124) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.string "rif_empresa"
     t.string "nombre_empresa"
-    t.string "numero_control"
     t.string "direccion_empresa"
-    t.string "telefono_empresa"
+    t.integer "telefono_empresa"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "numero_control"
   end
 
   create_table "employees", force: :cascade do |t|
-    t.string "numero_cedula"
+    t.integer "numero_cedula"
     t.string "primer_nombre"
     t.string "segundo_nombre"
     t.string "primer_apellido"
@@ -82,8 +82,9 @@ ActiveRecord::Schema.define(version: 2021_06_21_222124) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "dias_nomina"
-    t.integer "horas_extra"
+    t.decimal "alimento_cesta"
     t.decimal "adelanto_nomina"
+    t.decimal "salario_empleado"
     t.bigint "type_payment_id"
     t.index ["employee_id"], name: "index_paychecks_on_employee_id"
     t.index ["paycheck_type_id"], name: "index_paychecks_on_paycheck_type_id"
@@ -97,6 +98,14 @@ ActiveRecord::Schema.define(version: 2021_06_21_222124) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_phoneclients_on_client_id"
+  end
+
+  create_table "phoneployees", force: :cascade do |t|
+    t.bigint "employee_id"
+    t.string "numero_empleado"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_phoneployees_on_employee_id"
   end
 
   create_table "phonesuppliers", force: :cascade do |t|
@@ -143,7 +152,7 @@ ActiveRecord::Schema.define(version: 2021_06_21_222124) do
   end
 
   create_table "purchases", force: :cascade do |t|
-    t.string "numero_compra"
+    t.integer "numero_compra"
     t.decimal "total_compra"
     t.integer "user_id"
     t.bigint "supplier_id"
@@ -172,7 +181,7 @@ ActiveRecord::Schema.define(version: 2021_06_21_222124) do
   end
 
   create_table "sales", force: :cascade do |t|
-    t.string "numero_venta"
+    t.integer "numero_venta"
     t.decimal "total_venta"
     t.integer "user_id"
     t.bigint "client_id"
@@ -233,6 +242,7 @@ ActiveRecord::Schema.define(version: 2021_06_21_222124) do
   add_foreign_key "paychecks", "type_payments"
   add_foreign_key "paychecks", "users"
   add_foreign_key "phoneclients", "clients"
+  add_foreign_key "phoneployees", "employees"
   add_foreign_key "phonesuppliers", "suppliers"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "locations"

@@ -9,6 +9,7 @@ class EmployeesController < ApplicationController
 
   def new
     @empleado = Employee.new
+    @empleado.phoneployees.build
   end
 
   def edit
@@ -70,7 +71,7 @@ class EmployeesController < ApplicationController
   #cambiar esto
   private
   def employee_params
-    params.require(:employee).permit(:numero_cedula, :primer_nombre, :segundo_nombre, :primer_apellido, :segundo_apellido, :fecha_ingreso, :correo_empleado, :salario_empleado, :position_id)
+    params.require(:employee).permit(:numero_cedula, :primer_nombre, :segundo_nombre, :primer_apellido, :segundo_apellido, :fecha_ingreso, :direccion_empleado, :correo_empleado, :salario_empleado, :position_id, phoneployees_attributes: [:id, :_destroy, :numero_empleado])
   end
 
     def set_employee

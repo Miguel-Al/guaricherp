@@ -18,11 +18,13 @@
 <div class="row">
   <div class="col">
     <%= link_to new_paycheck_path, {class: "btn btn-info form-control", id: "crear-nomina-btn"}  do %>
-    <span class="fas fa-plus-square"> </span>Registrar nomina
+    <span class="fas fa-plus-square"> </span> Registrar nomina
     <% end %>
   </div>
   <div class="col">
-    <%= link_to "Generar reporte de nominas", paychecks_path(request.params.merge(format: :pdf)), class: "btn btn-primary form-control", target: :_blank %>
+    <%= link_to paychecks_path(request.params.merge(format: :pdf)), {class: "btn btn-primary form-control", target: :_blank} do %>
+    <span class="fas fa-file-alt" ></span> Generar reporte de nominas
+      <% end %>
   </div>
 </div>
 <br />

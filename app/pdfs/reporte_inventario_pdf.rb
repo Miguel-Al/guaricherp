@@ -25,7 +25,7 @@ class ReporteInventarioPdf < Prawn::Document
     [['Codigo #', 'Nombre del producto', 'Existencia actual']] +
       @productos.map do |product|
       [product.codigo_producto, product.nombre_producto, product.existencia_producto]
-    end * 20
+    end
   end
 
 end

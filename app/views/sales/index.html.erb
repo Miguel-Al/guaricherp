@@ -10,7 +10,9 @@
     <%= f.date_field :created_at_lteq, class: "form-control", placeholder: "Fecha fin..." %>
   </div>
   <div class="col">
-    <%= f.submit "Buscar", class: "btn btn-success form-control" %>
+    <%= f.button :type => "submit", class: "btn btn-success form-control" do %>
+  <span class="fas fa-search"></span> Buscar
+  <% end %>
     <% end %>
   </div>
 </div>

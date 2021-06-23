@@ -4,7 +4,7 @@
 <div class="item form-group<%= @client.errors[:type_client].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :categoria, "Categoria de cliente: " %>
   <div class="input-group">
-    <%= collection_select(:client, :type_client_id, @tipoclientes, :id, :nombre_tipo_cliente, {:prompt => 'Seleccione una categoria'}, { class: "form-control" })%>
+    <%= collection_select(:client, :type_client_id, @tipoclientes, :id, :nombre_tipo_cliente, {:prompt => 'Seleccione una categoria'}, { class: "form-control", required: true })%>
     <%if @client.errors[:type_client].any? %>
     <p class="bg-danger"><%= @client.errors[:type_client].to_s[/\w([^"]*)/] %></p>
     <% end %>
@@ -14,7 +14,7 @@
 <div class="item form-group<%= @client.errors[:rif_cliente].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :rif, "Rif o cedula del cliente: " %>
   <div class="input-group">
-    <%= f.text_field :rif_cliente, {:class=> "form-control", :placeholder=>"Introduzca el numero de rif o cedula..."} %>
+    <%= f.text_field :rif_cliente, {:class=> "form-control", :placeholder=>"Introduzca el numero de rif o cedula...", required: true} %>
     <%if @client.errors[:rif_cliente].any? %>
     <p class="bg-danger"><%= @client.errors[:rif_cliente].to_s[/\w([^"]*)/] %></p>
     <% end %>
@@ -24,7 +24,7 @@
 <div class="item form-group<%= @client.errors[:nombre_cliente].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :nombre, "Nombre del cliente: " %>
   <div class="input-group">
-    <%= f.text_field :nombre_cliente, {:class=> "form-control", :placeholder=>"Introduzca el nombre..."} %>
+    <%= f.text_field :nombre_cliente, {:class=> "form-control", :placeholder=>"Introduzca el nombre...", required: true} %>
     <%if @client.errors[:nombre_cliente].any? %>
     <p class="bg-danger"><%= @client.errors[:nombre_cliente].to_s[/\w([^"]*)/] %></p>
     <% end %>
@@ -50,7 +50,7 @@
     <% end %>
   </div>
   <%= link_to_add_fields "Agregar otro telefono", f, :phoneclients %>
-  <%if @client.errors[:descripcion_cliente].any? %>
+  <%if @client.errors[:phoneclients].any? %>
   <p class="bg-danger"><%= @client.errors[:phoneclients].to_s[/\w([^"]*)/] %></p>
   <% end %>
 </div>
