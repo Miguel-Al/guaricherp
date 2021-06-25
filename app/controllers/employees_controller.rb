@@ -1,6 +1,7 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:edit, :update, :destroy, :show]
   before_action :set_position, only: [:new, :edit, :create, :update]
+  before_action :authenticate_allowed, only: [:index]
 
   def index
     @q = Employee.ransack(params[:q])
@@ -68,7 +69,12 @@ class EmployeesController < ApplicationController
 
   end
 
-  #cambiar esto
+  protected
+  def authenticate_allowed
+    return if current_user.role_id == 1 || current_user.role_id == 2 || current_user.role_id == 3
+    redirect_to root_path
+  end
+  
   private
   def employee_params
     params.require(:employee).permit(:numero_cedula, :primer_nombre, :segundo_nombre, :primer_apellido, :segundo_apellido, :fecha_ingreso, :direccion_empleado, :correo_empleado, :salario_empleado, :position_id, phoneployees_attributes: [:id, :_destroy, :numero_empleado])

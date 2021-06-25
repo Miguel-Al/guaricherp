@@ -1,30 +1,28 @@
 <h1 class="h3 mb-2 text-gray-800">Productos</h1>
 <br />
 
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <%= link_to new_product_path, { remote: true, class: "btn btn-info form-control" }  do %>
-      <span class="fas fa-plus-square" ></span> Registrar nuevo producto
-      <% end %>
-    </div>
-    <div class="col">
-      <%# funcion para generar un reporte del inventario, en base al query %>
-      <%= link_to products_path(request.params.merge(format: :pdf)), {class: "btn btn-primary form-control", target: :_blank} do %>
-      <span class="fas fa-file-alt" ></span> Generar reporte de inventario
-      <% end %>
-    </div>
-  </div>
-</div>
-<br />
-
-<div class="d-flex align-items-center">
+<div class="row">
   <%= search_form_for @q, options = {class: "w-100 me-3"} do |f| %>
   <%= f.search_field :nombre_producto_or_codigo_producto_or_category_nombre_categoria_cont, options = {class: "form-control", placeholder: "Buscar por nombre, codigo o categoria..."} %>
   <%= f.button :type => "submit", class: "btn btn-info form-control" do %>
   <span class="fas fa-search"></span> Buscar
   <% end %>
   <% end %>
+</div>
+<br />
+
+<div class="row">
+  <div class="col">
+    <%= link_to new_product_path, { remote: true, class: "btn btn-info form-control" }  do %>
+    <span class="fas fa-plus-square" ></span> Registrar nuevo producto
+    <% end %>
+  </div>
+  <div class="col">
+    <%# funcion para generar un reporte del inventario, en base al query %>
+    <%= link_to products_path(request.params.merge(format: :pdf)), {class: "btn btn-primary form-control", target: :_blank} do %>
+    <span class="fas fa-file-alt" ></span> Generar reporte de inventario
+    <% end %>
+  </div>
 </div>
 <br />
 
@@ -49,16 +47,17 @@
 	    <td><%= prod.codigo_producto %></td>
 	    <td><%= prod.nombre_producto %></td>
 	    <% if prod.existencia_producto <= prod.min_producto %>
-	      <td class="bg-danger"><%= prod.existencia_producto %></td>
+	    <td class="bg-danger"><%= prod.existencia_producto %></td>
 	    <% else %>
-	      <td><%= prod.existencia_producto %></td>
+	    <td><%= prod.existencia_producto %></td>
 	    <% end %>
 	    <td>Bs <%= prod.precio_producto %></td>
 	    <td><%= prod.location.nombre_lugar %></td>
-	    <td>
-	      <%= link_to "Ver", product_path(prod), html_options = {class: "btn btn-info btn-xs", remote: true} %>
+	    <td><%= link_to "Ver", product_path(prod), html_options = {class: "btn btn-info btn-xs", remote: true} %>
+	    <% if current_user.role_id == 1 || current_user.role_id ==  2 %>
 	      <%= link_to "Editar", edit_product_path(prod), html_options = {class: "btn btn-info btn-xs", remote: true} %>
 	      <%= link_to "Borrar", prod, remote: true, method: :delete, data: { confirm: "Borrar el producto: #{prod.nombre_producto}?"}, class: "btn btn-danger btn-xs" %>
+	    <% end %>
 	    </td>
 	  </tr>
 	  <% end %>

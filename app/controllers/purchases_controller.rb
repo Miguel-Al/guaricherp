@@ -1,6 +1,7 @@
 class PurchasesController < ApplicationController
   before_action :set_purchase, only: [:show, :edit, :add_item, :destroy, :add_proveedor]
   before_action :set_type_payment, only: [:edit, :destroy, :update, :show]
+  before_action :authenticate_allowed, only: [:index, :edit]
 
    def index
     @search = Purchase.search(params[:q])
@@ -120,8 +121,11 @@ class PurchasesController < ApplicationController
     end
   end
 
-
-
+  protected
+  def authenticate_allowed
+    return if current_user.role_id == 1 || current_user.role_id == 2 || current_user.role_id == 5
+    redirect_to root_path
+  end
 
   private
 

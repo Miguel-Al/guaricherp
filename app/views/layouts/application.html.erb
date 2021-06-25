@@ -51,7 +51,9 @@
 	      <span class="fs-5 d-none d-sm-inline">GuarichERP</span>
 	    </a>
 	    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-	      <div>
+
+	      
+	      <% if current_user.role_id == 1 || current_user.role_id ==  2 || current_user.role_id == 5  %>
 	      <li>
 		<a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
 		  <i class="fas fa-warehouse"></i> <span class="ms-1 d-none d-sm-inline">Inventario</span> </a>
@@ -61,6 +63,7 @@
 		    <i class="fas fa-boxes"></i> <span class="ms-1 d-none d-sm-inline">Productos</span>
 		    <% end %>
 		  </li>
+		  <% if current_user.role_id == 1 || current_user.role_id ==  2 %>
 		  <li>
 		    <%= link_to categories_path, class: "nav-link px-1 align-middle" do %>
 		    <i class="fas fa-tag"></i> <span class="ms-1 d-none d-sm-inline">Categorias</span>
@@ -76,9 +79,12 @@
 		    <i class="fa fa-map-marker"></i> <span class="ms-1 d-none d-sm-inline">Ubicaciones</span>
 		    <% end %>
 		  </li>
+		  <% end %>
 		</ul>
 	      </li>
-	      </div>
+	      <% end %>
+
+	      <% if current_user.role_id == 1 || current_user.role_id ==  2 || current_user.role_id == 5  %>
 	      <li>
 		<a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
 		  <i class="fas fa-truck"></i> <span class="ms-1 d-none d-sm-inline">Suministro</span></a>
@@ -88,13 +94,18 @@
 		    <i class="fa fa-shopping-basket"></i> <span class="ms-1 d-none d-sm-inline">Compras</span>
 		    <% end %>
 		  </li>
+		  <% if current_user.role_id == 1 || current_user.role_id ==  2 %>
 		  <li>
 		    <%= link_to suppliers_path, class: "nav-link px-1 align-middle" do %>
 		    <i class="fas fa-handshake"></i> <span class="ms-1 d-none d-sm-inline">Proveedores</span>
 		    <% end %>
 		  </li>
+		  <% end %>
 		</ul>
 	      </li>
+	      <% end %>
+
+	      <% if current_user.role_id == 1 || current_user.role_id ==  2 || current_user.role_id == 4  %>
 	      <li>
 		<a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
 		  <i class="fas fa-shopping-cart"></i><span class="ms-1 d-none d-sm-inline">Ventas</span> </a>
@@ -111,6 +122,9 @@
 		  </li>
 		</ul>
 	      </li>
+	      <% end %>
+	      
+	      <% if current_user.role_id == 1 || current_user.role_id ==  2 || current_user.role_id == 3  %>
 	      <li>
 		<a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
 		  <i class="far fa-clipboard"></i> <span class="ms-1 d-none d-sm-inline">RRHH</span> </a>
@@ -127,6 +141,9 @@
 		  </li>
 		</ul>
 	      </li>
+	      <% end %>
+
+	      <% if current_user.role_id == 1 || current_user.role_id ==  2 %>
 	      <li>
 		<a href="#submenu5" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
 		  <i class="fa fa-cog"></i> <span class="ms-1 d-none d-sm-inline">Configuracion</span> </a>
@@ -149,11 +166,16 @@
 		  </li>
 		</ul>
 	      </li>
+	      <% end %>
+	      
+	      <% if current_user.role_id == 1 %>
 	      <li>
 		<%= link_to rails_admin_path, class: "nav-link px-0 align-middle" do %>
 		<i class="fas fa-tools"></i> <span class="ms-1 d-none d-sm-inline">Administracion</span>
 		<% end %>
 	      </li>
+	      <% end %>
+	      
 	      <li>
 		<%= link_to destroy_user_session_path, method: :delete, class: "nav-link px-0 align-middle" do %>
 		<i class="fas fa-power-off"></i> <span class="ms-1 d-none d-sm-inline">Salir</span>

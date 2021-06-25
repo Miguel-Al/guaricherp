@@ -1,5 +1,6 @@
 class LocationsController < ApplicationController
   before_action :set_location, only: [:edit, :update, :destroy]
+  before_action :authenticate_allowed, only: [:index]
   
   def index
     @q = Location.ransack(params[:q])
@@ -51,6 +52,12 @@ class LocationsController < ApplicationController
       end
     end
       
+  end
+
+  protected
+  def authenticate_allowed
+    return if current_user.role_id == 1 || current_user.role_id == 2
+    redirect_to root_path
   end
 
   private

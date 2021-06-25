@@ -1,5 +1,6 @@
 class PositionsController < ApplicationController
   before_action :set_position, only: [:edit, :update, :destroy]
+  before_action :authenticate_allowed, only: [:index]
   
   def index
     @q = Position.ransack(params[:q])
@@ -53,6 +54,12 @@ class PositionsController < ApplicationController
       
   end
 
+  protected
+  def authenticate_allowed
+    return if current_user.role_id == 1 || current_user.role_id == 2
+    redirect_to root_path
+  end
+   
   private
   def set_position
     @cargo = Position.find(params[:id])

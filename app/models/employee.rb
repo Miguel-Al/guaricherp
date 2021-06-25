@@ -4,7 +4,7 @@ class Employee < ApplicationRecord
   has_many :phoneployees, dependent: :destroy
   accepts_nested_attributes_for :phoneployees, allow_destroy: :true, reject_if: proc { |att| att['numero_empleado'].blank? }
 
-  validates :salario_empleado, numericality: {greater_than: 0, message: "No puede ser menor a cero"}
+  validates :salario_empleado, numericality: {greater_than: 0, message: "No puede ser 0 o menor"}
   
   validates :numero_cedula, uniqueness: { message: "Ya esta registrado" }
   validates :phoneployees, :numero_cedula, :fecha_ingreso, :direccion_empleado, :salario_empleado, presence: { message: "No puede estar vacio" }
@@ -26,5 +26,10 @@ class Employee < ApplicationRecord
   def self.buscador(termino)
     Employee.where("primer_nombre LIKE ?", "%#{termino}%")
   end
-    
+
+  ransacker :numero_cedula do
+    Arel.sql("to_char(\"#{table_name}\".\"numero_cedula\", '99999')")
+  end
+
+  
 end

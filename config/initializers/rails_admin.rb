@@ -20,11 +20,33 @@ RailsAdmin.config do |config|
 
 
   config.model 'User' do
+    list do
+      field :id do
+        filterable false
+      end
+      field :username do
+        filterable false
+      end
+      field :email do
+        filterable false
+      end
+      field :role do
+        filterable false
+        pretty_value do
+          bindings[:object].role.nombre_rol
+        end
+      end
+    end
+   
     edit do
       field :username
       field :email
       field :password
-      field :role
+      field :role_id, :enum do
+        enum do
+          Role.all.collect {|p| [p.nombre_rol, p.id]}
+      end
+      end
     end
   end
 
@@ -139,7 +161,7 @@ RailsAdmin.config do |config|
 
   ## == Gravatar integration ==
   ## To disable Gravatar integration in Navigation Bar set to false
-  # config.show_gravatar = true
+  config.show_gravatar = false
 
   config.actions do
     dashboard                     # mandatory

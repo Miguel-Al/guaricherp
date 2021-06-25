@@ -25,11 +25,13 @@
     Registrar entrada
     <%end%>
   </div>
+  <% if current_user.role_id == 1 || current_user.role_id ==  2 %>
   <div class="col">
     <%= link_to purchases_path(request.params.merge(format: :pdf)), {class: "btn btn-primary form-control", target: :_blank} do %>
     <span class="fas fa-file-alt" ></span> Generar reporte de compras
     <% end %>
   </div>
+  <% end %>
 </div>
 <br />
 
@@ -60,9 +62,11 @@
 		<td> <%= compra.try(:supplier).try(:nombre_proveedor) %> </td>
 		<td> Bs <%= compra.total_compra * 1.16%> </td>
 		<td> <%= compra.created_at.to_s(:db) %> </td>
-                <td> 
+                <td>
 		  <%= link_to 'Mostrar', purchase_path(compra), {class: "btn btn-info btn-xs", remote: true} %>
-		   <%= link_to 'Borrar', compra, method: :delete, data: { confirm: 'Eliminar la compra?' }, class: "btn btn-danger btn-xs" %>
+		  <% if current_user.role_id == 1 || current_user.role_id ==  2 %>
+		  <%= link_to 'Borrar', compra, method: :delete, data: { confirm: 'Eliminar la compra?' }, class: "btn btn-danger btn-xs" %>
+		  <% end %>
                 </td>
               </tr>
             <% end %>

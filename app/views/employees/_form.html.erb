@@ -4,7 +4,7 @@
 <div class="item form-group<%= @empleado.errors[:numero_cedula].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :cedula, "Cedula del empleado: " %>
   <div class="input-group">
-    <%= f.text_field :numero_cedula, {:class=> "form-control", :placeholder=>"Introduzca el numero de cedula...", required: true} %>
+    <%= f.number_field :numero_cedula, {:class=> "form-control", :placeholder=>"Introduzca el numero de cedula...", required: true} %>
     <%if @empleado.errors[:numero_cedula].any? %>
     <p class="bg-danger"><%= @empleado.errors[:numero_cedula].to_s[/\w([^"]*)/] %></p>
     <% end %>

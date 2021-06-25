@@ -45,4 +45,7 @@ Unit.create(nombre_unidad: "metro", simbolo_unidad: "mts")
 Unit.create(nombre_unidad: "kilogramo", simbolo_unidad: "kg")
 
 User.create(email: "admin@admin", username: "administrador", password: "000000", password_confirmation: "000000", role_id: "1")
-User.create(email: "notadmin@notadmin", username: "noadministrador", password: "111111", password_confirmation: "111111", role_id: "2")
+User.create(email: "manager@manager", username: "gerente", password: "111111", password_confirmation: "111111", role_id: "2")
+User.create(email: "rrhh@rrhh", username: "recursoshumanos", password: "222222", password_confirmation: "222222", role_id: "3")
+User.create(email: "seller@seller", username: "vendedor", password: "333333", password_confirmation: "333333", role_id: "4")
+User.create(email: "boxes@boxes", username: "almacenista", password: "444444", password_confirmation: "444444", role_id: "5")
