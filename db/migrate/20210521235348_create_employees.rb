@@ -1,7 +1,7 @@
 class CreateEmployees < ActiveRecord::Migration[6.1]
   def change
     create_table :employees do |t|
-      t.string :numero_cedula
+      t.integer :numero_cedula
       t.string :primer_nombre
       t.string :segundo_nombre
       t.string :primer_apellido

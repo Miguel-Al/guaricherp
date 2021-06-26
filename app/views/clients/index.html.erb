@@ -1,42 +1,58 @@
+<style>
+body {background-color: #E6BB6E;}
+</style>
 
-<h3 class=" mb-2 text-gray-800">Clientes</h3>
-<div>  
-  <%= link_to new_client_path, { remote: true, class: "btn btn-info" }  do %>
-    <span class="fas fa-plus-square" ></span>
-  <% end %>
+<i class="fa fa-user-circle" ></i><span class="h3 mb-2 me-2 ms-2 text-gray-800">Clientes</span><i class="fa fa-user-circle" ></i>
+
+
+<div class="row mb-3">
+	<div class="col mt-2">
+		<%= link_to new_client_path, { remote: true, class: "btn btn-info form-control" }  do %>
+		<span class="fas fa-plus-square" > Registrar nuevo cliente</span> 
+		<% end %>
+	</div>
+	<div class="col mt-2">
+		<%= search_form_for @q, options = {class: "w-100 "} do |f| %>
+		<%= f.search_field :nombre_cliente_or_rif_cliente_cont, options = {class: "form-control", placeholder: "Buscar por nombre o rif..."} %>
+		<%= f.button :type => "submit", class: "btn btn-info form-control mt-2" do %>
+		<span class="fas fa-search"> Buscar</span> 
+		<% end %>
+		<% end %>
+	</div>
 </div>
-<br />
+
+
 <div class="card shadow mb-4">
-<div class="card-body">
-    <div class="table-responsive">
-    <table class="table table-striped" id="tablaClientes" width="100%" cellspacing="0">
-        <thead>
-        <tr>
-			<th>Rif cliente</th>
-            <th>Nombre cliente</th>
-            <th>Correo cliente</th>
-            <th>Tipo cliente</th>
-			<th></th>
-        </tr>
-        </thead>
-        <tbody>
-            <% @clientes.each do |clit| %>
-            <tr id="cliente_<%= clit.id %>" >
-				<td class="align-middle text-center"><%= clit.rif_cliente %></td>
-                <td class="align-middle text-center"><%= clit.nombre_cliente %></td>
-                <td class="align-middle text-center"><%= clit.correo_cliente %></td>
-                <td class="align-middle text-center"><%= clit.type_client != nil ? clit.type_client.nombre_tipo_cliente : "No tiene tipo" %></td>
-                <td class="align-middle text-center">
-				<div class="btn-group">
-                <%= link_to "editar", edit_client_path(clit), html_options = {class: "btn btn-info btn-sm", remote: true} %>
-                <%= link_to "Borrar", clit, remote: true, method: :delete, data: { confirm: "Borrar cliente: #{clit.nombre_cliente}?"}, class: "btn btn-danger btn-sm" %>
-				</div>
-			   </td>
-            </tr>
-            <% end %>
-        </tbody>
-    </table>
-    </div>
-  </div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table table-striped" id="tablaClientes" width="100%" cellspacing="0">
+				<thead>
+					<p class="h6 fs-5"> Listado de clientes </p>
+					<tr>
+						<th class="align-middle text-center">Numero Rif</th>
+						<th class="align-middle text-center">Nombre</th>
+						<th class="align-middle text-center">Telefono</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @clientes.each do |clit| %>
+						<tr id="cliente_<%= clit.id %>" >
+							<td class="align-middle text-center"><%= clit.rif_cliente %></td>
+							<td class="align-middle text-center"><%= clit.nombre_cliente %></td>
+							<td class="align-middle text-center"><%= clit.phoneclients.first.try(:numero_cliente) %></td>
+							<td class="align-middle text-center">
+								<div class="btn-group ">
+									<%= link_to "Ver", client_path(clit), html_options = {class: "btn btn-success btn-sm", remote: true} %>
+									<%= link_to "Editar", edit_client_path(clit), html_options = {class: "btn btn-info btn-sm", remote: true} %>
+									<%= link_to "Borrar", clit, remote: true, method: :delete, data: { confirm: "Borrar cliente: #{clit.nombre_cliente}?"}, class: "btn btn-danger btn-sm" %>
+								</div>
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
 <%= render 'modal_clientes' %>

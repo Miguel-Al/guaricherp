@@ -1,59 +1,86 @@
-<%= stylesheet_link_tag 'sales' %>
+<style>
+body {background-color: #E6BB6E;}
+</style>
+<i class="fa fa-credit-card"></i>    <span class="h3 mb-2 ms-2 me-2 text-gray-800">Punto de venta</span> <i class="fa fa-credit-card"></i>
+<%= form_for @venta, remote: true  do |f| %>
+<div class="row mt-3">
+	<div class="col align-self-start">
+		<div id="cliente_venta" class="nombre-cliente" >
+		<h5> Cliente: <%= @venta.client.present? ? @venta.client.try(:nombre_cliente) : "No se ha asignado" %></h5>
+		</div>
+	</div>	
+</div>	
 <div class = "row">
-	<div class="col-md-6">
-	<h2 class="mb-2 text-gray-800 text-start">Punto de venta</h2>
-	<div id="cliente_venta" class="nombre-cliente col-md-3" > 
-	<%= @venta.client.present? ?  @venta.client.try(:nombre_cliente) : "No se ha asignado cliente" %>
+	<div class="col-md-4 ">
+		<div class="input-group">
+		<%= f.collection_select(:type_payment_id, @tipopago, :id, :nombre_tipo_pago, {:prompt => 'Seleccione el tipo de pago'}, { class: "form-control", required: true })%>
+		</div>
 	</div>
-	</div>
-	<div class="col text-end pt-1 mt-1 ">
-		<h3 id="importe_venta_lbl" > Subtotal de venta: $<%= @venta.total_venta %> </h3>
-		<h3 id="importe_venta_lbl2" > 16% del iva: $<%= @venta.total_venta * 0.16 %> </h3>
-		<h3 id="importe_venta_lbl3" > Total de venta: $<%= @venta.total_venta * 1.16 %> </h3>
-	</div>
+	
+<div class="col text-end" >
+<h2 id="importe_venta_lbl" > Subtotal de venta: Bs <%= @venta.total_venta %> </h2>
+<h2 id="importe_venta_lbl2" > 16% del IVA: Bs <%= (@venta.total_venta * 0.16).round(2) %> </h2>
+<h2 id="importe_venta_lbl3" > Total de venta: Bs <%= (@venta.total_venta * 1.16).round(2) %> </h2>
+</div>
 </div>
 
-<div class="d-flex btn-group align-middle" role="group">
-	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buscador_producto">
-	Buscar producto
-	</button>
-	<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#buscador_cliente">
-	Buscar cliente
-	</button>
+
+<div class="row mb-3">
+  <div class="col">
+    <button type="button" class="btn btn-primary form-control" data-bs-toggle="modal" data-bs-target="#buscador_producto">
+       <span class="fas fa-search"></span> Buscar producto</button>
+  </div>
+  <div class="col">
+    <button type="button" class="btn btn-info form-control" data-bs-toggle="modal" data-bs-target="#buscador_cliente">
+      <span class="fas fa-search"></span> Buscar cliente</button>
+  </div>
+  <div class="col">
+    <%= link_to new_client_path, { remote: true, class: "btn btn-info form-control" }  do %>
+    <span class="fas fa-plus-square" ></span> Registrar nuevo cliente
+    <% end %>
+  </div>
 </div>
+
+<div class="row mb-3">
+  <div class="col">
+    <%= link_to 'Cancelar venta', @venta, method: :delete, data: { confirm: 'Cancelar la venta?' }, class: "btn btn-danger form-control" %>
+  </div>
+  <div class="col">
+    <%= f.submit 'Finalizar venta', class: "btn btn-success form-control" %>
+  </div>
+</div>
+<% end %>
 
 <div class="card shadow mb-4">
-<div class="card-body">
-	<div class="table-responsive mb-4 pb-4">
-	<table class="table table-bordered" id="tabla_ventas" width="80%" cellspacing="0">
-		<thead>
-		<tr>
-			<th class="align-middle text-center">Producto</th>
-			<th class="align-middle text-center">Precio unitario</th>
-			<th class="align-middle text-center">Cantidad</th>
-			<th class="align-middle text-center">Total</th>
-		</tr>
-		</thead>
-		<tbody>
-		<% @productos_venta.each do |det| %>
-		<tr> 
-			<td class="align-middle text-center"> <%= det.product.try(:nombre_producto) %> </td>
-			<td class="align-middle text-center"> $ <%= det.product.try(:precio_producto) %> </td>
-			<td class="align-middle text-center"> <%= det.cantidad %> </td>
-			<td class="align-middle text-center"> $ <%= det.product.try(:precio_producto) * det.cantidad %> </td>
-			<td class="align-middle text-center"><%= link_to "Remover producto", sale_sale_detail_path(@venta, det), method: :delete, data: { confirm: "Borrar producto: #{det.product.id}?"}, class: "btn btn-danger btn-xs" %></td>
-		</tr>
-		<% end %>
-		</tbody>
-	</table>
-	</div>
-	<div class="btn-group position-absolute bottom-0 end-0 pt-2 mt-2 pt-2 mt-2" role="group" aria-label="Basic mixed styles example" >
-		<%= link_to 'Finalizar venta', sales_path, class: "btn btn-success" %>
-		<%= link_to 'Cancelar venta', @venta, method: :delete, data: { confirm: 'Cancelar la venta?' }, class: "btn btn-danger" %>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table table-bordered" id="tabla_ventas" width="80%" cellspacing="0">
+				<thead>
+					<tr>
+						<th class="align-middle text-center">Producto</th>
+						<th class="align-middle text-center">Precio unitario</th>
+						<th class="align-middle text-center">Cantidad</th>
+						<th class="align-middle text-center">Total</th>
+					</tr>
+				</thead>
+			<tbody>
+				<% @productos_venta.each do |det| %>
+					<tr> 
+						<td class="align-middle text-center"> <%= det.product.try(:nombre_producto) %> </td>
+						<td class="align-middle text-center"> Bs <%= det.product.try(:precio_producto) %> </td>
+						<td class="align-middle text-center"> <%= det.cantidad %> </td>
+						<td class="align-middle text-center"> Bs <%= det.product.try(:precio_producto) * det.cantidad %> </td>
+						<td class="align-middle text-center"><%= link_to "Remover producto", sale_sale_detail_path(@venta, det), method: :delete, data: { confirm: "Borrar producto: #{det.product.id}?"}, class: "btn btn-danger btn-xs" %></td>
+					</tr>
+				<% end %>
+			</tbody>
+			</table>
+		</div>
 	</div>
 </div>
+
 <% @model = @venta %>
 <% @tipo = 'sales' %>
 <%= render 'buscador_producto', model: @model, tipo: @tipo %>
 <%= render 'buscador_cliente' , venta: @venta %>
-</div>
+<%= render 'modal_clientes' %>

@@ -1,0 +1,35 @@
+<form>
+  <div class="row">
+    
+		<div class="col-md-6">
+		  <label class="form-label" for="id">Numero de cedula:</label>
+		  <input type="text" readonly class="form-control" value="<%= @empleado.numero_cedula %>"> </input>
+		</div>
+		
+		<div class="form-group  col-md-6">
+		  <label class="form-label mt-1" for="fecha">Nombre completo:</label>
+		  <input type="text" readonly class="form-control" value="<%= @empleado.nombre_completo %>"></input>
+		</div>
+  
+  
+		  <div class="form-group col-md-6">
+			<label class="form-label mt-1" for="vendedor">Fecha de ingreso:</label>
+			<input type="text" readonly class="form-control" value="<%= @empleado.fecha_ingreso.strftime("%d-%m-%Y") %>"></input>
+		  </div>
+		  
+		  <div class="form-group col-md-6">
+			<label class="form-label mt-1" for="cliente">Salario:</label>
+			<input type="text" readonly class="form-control" value="Bs <%= @empleado.salario_empleado %>"></input>
+		  </div>
+		  
+		  <div class="form-group col-md-6">
+			<label class="form-label mt-1" for="cliente">Correo:</label>
+			<input type="text" readonly class="form-control" value="<%= @empleado.correo_empleado %>"></input>
+		  </div>
+		  
+		  <div class="form-group col-md-6">
+			<label class="form-label mt-1" for="cliente">Cargo:</label>
+			<input type="text" readonly class="form-control" value="<%= @empleado.position.nombre_cargo %>"></input>
+		  </div>
+	</div>
+  </form>

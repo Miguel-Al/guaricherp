@@ -1,71 +1,62 @@
 <form>
-<div class="mb-3 row align-items-start"><!id y fecha primera filas >
-		<! contenido de la columna mas a la izquierda>
-		<label class="col-sm-2 col-form-label" for="ID">ID: </label>
-		<div class="col-sm-2">
-			<input type="text" id="ID" readonly class="form-control-plaintext" value="<%= @compra.id %>">	
+<div class="row mb-3">
+	
+		<div class="w-50 input-group col-md-4 mb-1">
+			<span class="input-group-text" id="id">ID</span>
+			<input type="text" readonly class="form-control text-end"  value="<%= @compra.numero_compra %>">
 		</div>
-		<label class=" ms-2 col-sm-2 col-form-label" for="fecha">Fecha: </label>
-		<div class="col-sm-5">
-		<input type="text" id="fecha" readonly class="form-control-plaintext" value="<%= @compra.created_at.strftime("%d-%m-%Y") %>">
+		<div class="w-50 input-group col-md-6 mb-1">
+			<span  class="input-group-text" id="fecha">Fecha</span>
+			<input type="text" readonly class="form-control" value="<%= @compra.created_at.strftime("%d-%m-%Y") %>">
 		</div>
+		
+		<div class="input-group col-md-6 mb-1">
+			<span class="input-group-text" id="almacenista">Almacenista:</span>
+			<input type="text" readonly class="form-control" value="<%= @compra.user.username %>">
+		</div>
+		<div class="input-group col-md-6">
+			<span class="input-group-text" id="proveedor">Proveedor:</span>
+			<input type="text" readonly class="form-control" value="<%= @compra.supplier.nombre_proveedor %>">
+		</div>
+	
 </div>
-<div class="mb-3 row "><! proveedor y almecenista segunda fila>
-	<! contenido de la columna mas a la izquierda>
-	<label class="col-sm-2 col-form-label" for="almacenista">Almacenista: </label>
-	<div class="col-sm-5">
-	<input type="text" id="almacenista" readonly class="form-control-plaintext ms-3" value="<%= @compra.user.username %>">
-	</div>
-	<div class="row mb-2">
-	<label class="col-sm-2 col-form-label" for="proveedor">Proveedor:</label>
-	<div class="col-sm-5">
-		<input type="text" id="proveedor" readonly class="form-control-plaintext ms-3" value="<%= @compra.supplier.nombre_proveedor %>">
-	</div>
-	</div>
-</div>
-</form>
+ 
+
 <table class="table table-striped">
-  <thead>
-    <tr>
-      <th class="align-middle text-center">Producto</th>
-      <th class="align-middle text-center">Cantidad</th>
-      <th class="align-middle text-center">Precio</th>
-      <th class="align-middle text-center">Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @compra.purchase_details.each do |detalle| %>
-    <tr>
-       <td class="align-middle text-center"><%= detalle.product.nombre_producto %></td>
-       <td class="align-middle text-center"><%= detalle.cantidad %></td>
-       <td class="align-middle text-center">$ <%= detalle.precio_detalle_compra %></td>
-       <td class="align-middle text-center">$ <%= detalle.precio_detalle_compra * detalle.cantidad %></td>
-    </tr>
-    <% end %>
-  </tbody>
+	<thead>
+		<tr>
+			<th class="align-middle text-center">Producto</th>
+			<th class="align-middle text-center">Cantidad</th>
+			<th class="align-middle text-center">Precio</th>
+			<th class="align-middle text-center">Total</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @compra.purchase_details.each do |detalle| %>
+			<tr>
+				<td class="align-middle text-center"><%= detalle.product.nombre_producto %></td>
+				<td class="align-middle text-center"><%= detalle.cantidad %></td>
+				<td class="align-middle text-center">Bs <%= detalle.precio_detalle_compra %></td>
+				<td class="align-middle text-center">Bs <%= detalle.precio_detalle_compra * detalle.cantidad %></td>
+			</tr>
+		<% end %>
+	</tbody>
 </table>
-<! montos de la compras >
-<div class="row ">
-	<div class="col-md-6 align-self-end">
-		<label class="h3"for="id">Sub total de compra</label>
-		<div class="col-sm-5">
-		<input type="text" id="id" readonly class="form-control-plaintext" value="$ <%= @compra.total_compra %>">
-		</div>
+  
+<div class="row mb-2">
+	<div class="col text-end">
+
+		<p class="h4 mb-1">Sub total de compra: BS <%= @compra.total_compra %></p>
+		<p class="h4 mb-1">16% del IVA: Bs <%= @compra.total_compra * 0.16 %></p>
+		<p class="h4 mb-1">Monto Final de la Compra: Bs <%= @compra.total_compra * 1.16 %></p>
+		
+		
 	</div>
 </div>
-<div class="row ">
-	<div class="col-md-6 align-self-end">
-		<label class="h3" for="iva">16% del iva</label>
-		<div class="col-sm-5">
-		<input type="text" id="iva" readonly class="form-control-plaintext" value="$ <%= @compra.total_compra * 0.16 %>">
-		</div>
-	</div>
-</div>
-<div class="row ">	
-    <div class="col-md-6 align-self-end">
-		<label  class="h3" for="total">Monto final de la compra</label>
-		<div class="col-sm-5">
-		<input type="text" id="total" readonly class="form-control-plaintext" value="$ <%= @compra.total_compra * 1.16 %>">
-		</div>
-	</div>
-</div>	
+  
+  <div class="form-row">
+    <%= link_to purchase_path(@compra, format: :pdf), {class: "btn btn-primary", target: :_blank} do %>
+    <span class="fas fa-file-alt" ></span> Generar Respaldo de documento
+    <% end %>
+  </div>
+</form>

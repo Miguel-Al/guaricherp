@@ -4,113 +4,190 @@
     <title>Guaricherp</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    
+    <%= csp_meta_tag %>   
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <header class="py-3 mb-4 border-bottom shadow  ">
-    <div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
-        <div>
-            <a href="#" class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-dark text-decoration-none">
-                <h4>GuarichERP</h4><i class="bi bi-bootstrap fs-2 text-dark"></i>
-            </a>
-        </div>
-		<div class="d-flex align-items-center ">
-	  <%= form_tag( '/search' , options = {class: "w-75 "}) do %>
+    <% if false %>
+        <header class="py-3 mb-4 border-bottom shadow">
+      <div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
+	<div>
+	  <a href="#" class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-dark text-decoration-none">
+	    <h4>GuarichERP</h4><i class="bi bi-bootstrap fs-2 text-dark"></i>
+	  </a>
+	</div>
+	<div class="d-flex align-items-center">
+	  <%= form_tag( '/search' , options = {class: "w-100 me-3"}) do %>
 	  <%= text_field_tag("termino", value = nil, options = {class: "form-control", placeholder: "Buscar..."}) %>
 	  <%end%>
-		</div>
-            <div class="dropdown show mt-2 pt-2 me-4 pe-4  position-absolute top-0 end-0">
-                <a class="btn dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false" arial-haspopup="tre">
-                   <i class="fas fa-user-circle"></i>
-                </a>
-                <div class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" >
-                    <a class="dropdown-item" href="#">Settings</a>
-                    <hr class="dropdown-divider">
-					<a><%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %>	Salir</a>
-					<% end %>
-                </div>
-            </div>
-
-    </div>
+	  <div class="flex-shrink-0 dropdown">
+	    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+	      <i class="fas fa-user-circle"></i>
+	    </a>
+	    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
+	      <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+	      <li>
+		<hr class="dropdown-divider">
+	      </li>
+	      <li><a><%= link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do %>
+		  Salir</a>
+		<% end %></li>
+	    </ul>
+	  </div>
+	</div>
+      </div>
     </header>
-<div class="container-fluid">
-    <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <span class="fs-5 d-none d-sm-inline">Menu</span>
-                </a>
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li>
-                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fas fa-warehouse"></i> <span class="ms-1 d-none d-sm-inline">Inventario</span> </a>
-                        <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                          <li class="w-100">
-			    <%= link_to products_path, class: "nav-link px-0 align-middle" do %>	
-                        <i class="fas fa-boxes"></i> <span class="ms-1 d-none d-sm-inline">Productos</span>
-		      <% end %>
-                            </li>
-                            <li>
-			    <%= link_to categories_path, class: "nav-link px-0 align-middle" do %>	
-                            <i class="fas fa-tag"></i> <span class="ms-1 d-none d-sm-inline">Categorias</span>
-			    <% end %>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                            <i class="fas fa-truck"></i> <span class="ms-1 d-none d-sm-inline">Suministro</span></a>
-                        <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <%= link_to suppliers_path, class: "nav-link px-0 align-middle" do %>	
-                            <i class="fas fa-handshake"></i> <span class="ms-1 d-none d-sm-inline">Proveedores</span>
-			    <% end %>
-                            </li>
-                            <li>
-			      <%= link_to purchases_path, class: "nav-link px-0 align-middle" do %>	
-                            <i class="fas fa-money-check"></i> <span class="ms-1 d-none d-sm-inline">Compras</span>
-			    <% end %>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fas fa-shopping-cart"></i><span class="ms-1 d-none d-sm-inline">Ventas</span> </a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
-                              <li class="w-100">
-				<%= link_to sales_path, class: "nav-link px-0 align-middle" do %>	
-                            <i class="fas fa-cart-plus"></i> <span class="ms-1 d-none d-sm-inline">Facturas</span>
-			    <% end %>
-                            </li>
-                              <li>
-				<%= link_to clients_path, class: "nav-link px-0 align-middle" do %>	
-                            <i class="far fa-address-card"></i> <span class="ms-1 d-none d-sm-inline">Clientes</span>
-			    <% end %>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                      <%= link_to rails_admin_path, class: "nav-link px-0 align-middle" do %>	
-                        <i class="fas fa-tools"></i> <span class="ms-1 d-none d-sm-inline">Administracion</span>
-		      <% end %>
-                    </li>
-                </ul>
-                <hr>
-            </div>
-        </div>
-        <div class="col overflow-auto h-100">
-            <div class="bg-light border rounded-3 p-3">
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
-            </div>
-    </div>
-</div>
+
+	<% end %>
+
+    <div class="container-fluid">
+      <div class="row flex-nowrap">
+	<div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+	  <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+	    <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+	      <span class="fs-5 d-none d-sm-inline">GuarichERP</span>
+	    </a>
+	    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+	      <div>
+	      <li>
+		<a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+		  <i class="fas fa-warehouse"></i> <span class="ms-1 d-none d-sm-inline">Inventario</span> </a>
+		<ul class="collapse nav fw-normal pb-1 small" id="submenu1" data-bs-parent="#menu">
+		  <li>
+		    <%= link_to products_path, class: "nav-link px-1 align-middle" do %>
+		    <i class="fas fa-boxes"></i> <span class="ms-1 d-none d-sm-inline">Productos</span>
+		    <% end %>
+		  </li>
+		  <li>
+		    <%= link_to categories_path, class: "nav-link px-1 align-middle" do %>
+		    <i class="fas fa-tag"></i> <span class="ms-1 d-none d-sm-inline">Categorias</span>
+		    <% end %>
+		  </li>
+		  <li>
+		    <%= link_to units_path, class: "nav-link px-1 align-middle" do %>
+		    <i class="fa fa-cube"></i> <span class="ms-1 d-none d-sm-inline">Unidades</span>
+		    <% end %>
+		  </li>
+		  <li>
+		    <%= link_to locations_path, class: "nav-link px-1 align-middle" do %>
+		    <i class="fa fa-map-marker"></i> <span class="ms-1 d-none d-sm-inline">Ubicaciones</span>
+		    <% end %>
+		  </li>
+		</ul>
+	      </li>
+	      </div>
+	      <li>
+		<a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+		  <i class="fas fa-truck"></i> <span class="ms-1 d-none d-sm-inline">Suministro</span></a>
+		<ul class="collapse nav flex-column ms-1 small" id="submenu2" data-bs-parent="#menu">
+		  <li>
+		    <%= link_to purchases_path, class: "nav-link px-1 align-middle" do %>
+		    <i class="fa fa-shopping-basket"></i> <span class="ms-1 d-none d-sm-inline">Compras</span>
+		    <% end %>
+		  </li>
+		  <li>
+		    <%= link_to suppliers_path, class: "nav-link px-1 align-middle" do %>
+		    <i class="fas fa-handshake"></i> <span class="ms-1 d-none d-sm-inline">Proveedores</span>
+		    <% end %>
+		  </li>
+		</ul>
+	      </li>
+	      <li>
+		<a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+		  <i class="fas fa-shopping-cart"></i><span class="ms-1 d-none d-sm-inline">Ventas</span> </a>
+		<ul class="collapse nav flex-column ms-1 small" id="submenu3" data-bs-parent="#menu">
+		  <li>
+		    <%= link_to sales_path, class: "nav-link px-1 align-middle" do %>
+		    <i class="fas fa-cart-plus"></i> <span class="ms-1 d-none d-sm-inline">Facturas</span>
+		    <% end %>
+		  </li>
+		  <li>
+		    <%= link_to clients_path, class: "nav-link px-1 align-middle" do %>
+		    <i class="far fa-address-card"></i> <span class="ms-1 d-none d-sm-inline">Clientes</span>
+		    <% end %>
+		  </li>
+		</ul>
+	      </li>
+	      <li>
+		<a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+		  <i class="far fa-clipboard"></i> <span class="ms-1 d-none d-sm-inline">RRHH</span> </a>
+		<ul class="collapse nav flex-column ms-1 small" id="submenu4" data-bs-parent="#menu">
+		  <li class="w-100">
+		    <%= link_to employees_path, class: "nav-link px-1 align-middle" do %>
+		    <i class="fas fa-users"></i> <span class="ms-1 d-none d-sm-inline">Empleados</span>
+		    <% end %>
+		  </li>
+		  <li>
+		    <%= link_to paychecks_path, class: "nav-link px-1 align-middle" do %>
+		    <i class="far fa-edit"></i> <span class="ms-1 d-none d-sm-inline">Nomina</span>
+		    <% end %>
+		  </li>
+		</ul>
+	      </li>
+	      <li>
+		<a href="#submenu5" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+		  <i class="fa fa-cog"></i> <span class="ms-1 d-none d-sm-inline">Configuracion</span> </a>
+		<ul class="collapse nav flex-column ms-1 small" id="submenu5" data-bs-parent="#menu">
+		  <li>
+		  <li>
+		    <%= link_to companies_path, class: "nav-link px-1 align-middle" do %>
+		    <i class="fa fa-building"></i> <span class="ms-1 d-none d-sm-inline">Empresa</span>
+		    <% end %>
+		  </li>
+		  <li>
+		    <%= link_to type_payments_path, class: "nav-link px-1 align-middle" do %>
+		    <i class="fas fa-money-check"></i> <span class="ms-1 d-none d-sm-inline">Metodos de pago</span>
+		    <% end %>
+		  </li>
+		  <li>
+		    <%= link_to positions_path, class: "nav-link px-1 align-middle" do %>
+		    <i class="fa fa-th-list"></i> <span class="ms-1 d-none d-sm-inline">Cargos</span>
+		    <% end %>
+		  </li>
+		</ul>
+	      </li>
+	      <li>
+		<%= link_to rails_admin_path, class: "nav-link px-0 align-middle" do %>
+		<i class="fas fa-tools"></i> <span class="ms-1 d-none d-sm-inline">Administracion</span>
+		<% end %>
+	      </li>
+	      <li>
+		<%= link_to destroy_user_session_path, method: :delete, class: "nav-link px-0 align-middle" do %>
+		<i class="fas fa-power-off"></i> <span class="ms-1 d-none d-sm-inline">Salir</span>
+		<% end %>
+	      </li>
+	      
+	    </ul>
+	    <hr>
+	  </div>
+	</div>
+	<div class="col overflow-auto h-100">
+	</br>
+	  <div class=" bg-light border rounded-3 p-3">
+	    <% if flash[:notice] %>
+	    <div class="alert alert-info alert-dismissible fade show" role="alert">
+	      <%= flash[:notice] %>
+	      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	    </div>
+	    <% elsif flash[:error] %>
+	    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+	      <%= flash[:error] %>
+	      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	    </div>
+	    <% elsif flash[:success] %>
+	    <div class="alert alert-success alert-dismissible fade show" role="alert">
+	      <%= flash[:success] %>
+	      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	    </div>
+	    <% end %>
+	    <%= yield %>
+		
+	  </div>
+	</div>
+      </div>
 
   </body>
 </html>

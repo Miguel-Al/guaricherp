@@ -1,10 +1,24 @@
 class PurchasesController < ApplicationController
   before_action :set_purchase, only: [:show, :edit, :add_item, :destroy, :add_proveedor]
+  before_action :set_type_payment, only: [:edit, :destroy, :update, :show]
 
-  def index
-    @compras = Purchase.all
+   def index
+    @search = Purchase.search(params[:q])
+    @compras = @search.result
+    respond_to do |format|
+      format.html
+      format.js
+      format.pdf do
+        pdf = ReporteCompraPdf.new(@compras)
+        send_data pdf.render, filename: "registro_de_compras_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
+      end
+    end
+   end
+
+  def search
+    index
+    render :index
   end
-
 
   def new
     @compra = current_user.purchases.create(total_compra: 0.0)
@@ -12,10 +26,27 @@ class PurchasesController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.js
+      format.pdf do
+        pdf = RegistroCompraPdf.new(@compra)
+        send_data pdf.render, filename: "registrodecompra_#{@compra.numero_compra}_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
+      end
+    end
   end
 
   def edit
     @productos_compra = @compra.purchase_details
+  end
+
+  def update
+    @compra = Purchase.find(params[:id])
+    if @compra.update(purchase_params)
+      redirect_to purchases_path, :notice => "La compra ha sido registrada"
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -43,7 +74,7 @@ class PurchasesController < ApplicationController
     @purchase_detail = @compra.purchase_details.build(product: producto, cantidad: cantidad, precio_detalle_compra: precio_detalle_compra)
     importe_antes_registro = @compra.total_compra
     importe_despues_registro = importe_antes_registro + importe_producto
-    @compra.total_compra = importe_despues_registro
+    @compra.total_compra = importe_despues_registro.round(2)
 
     existencia_antes_compra = producto.existencia_producto
 
@@ -54,7 +85,7 @@ class PurchasesController < ApplicationController
       cantidad: @purchase_detail.cantidad,
       precio_detalle_compra: @purchase_detail.precio_detalle_compra,
       importe_item: @purchase_detail.precio_detalle_compra * cantidad,
-      importe_compra: importe_despues_registro
+      importe_compra: importe_despues_registro.round(2)
     }
     
     producto.existencia_producto = producto.existencia_producto + cantidad
@@ -85,7 +116,7 @@ class PurchasesController < ApplicationController
         end
       end
     else
-      render json: { message: "El proveedor no se puedo encontrar"}, stauts: :not_found
+      render json: { message: "El proveedor no se puedo encontrar"}, status: :not_found
     end
   end
 
@@ -94,8 +125,16 @@ class PurchasesController < ApplicationController
 
   private
 
+  def purchase_params
+    params.require(:purchase).permit(:type_payment_id, :numero_compra)
+  end
+  
   def set_purchase
     @compra = Purchase.find(params[:id])
   end
 
+  def set_type_payment
+    @tipopago = TypePayment.all
+  end
+  
 end

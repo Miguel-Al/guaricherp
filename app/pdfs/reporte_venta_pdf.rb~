@@ -1,0 +1,7 @@
+require 'prawn/table'
+class ReporteInventarioPdf < Prawn::Document
+  def initialize(venta)
+    super()
+    @venta = venta
+    titulo
+  end

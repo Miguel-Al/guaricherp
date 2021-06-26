@@ -1,42 +1,57 @@
-<!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">Proveedores</h1>
-<div>  
-  <%= link_to new_supplier_path, {remote: true, class: "btn btn-info", id: "anadir-proveedor-btn"}  do %>
-    <span class="fas fa-plus-square" style=""></span>
-  <%end%>
+<style>
+body {background-color: #B6CF4A;}
+</style>
+
+<i class="fas fa-handshake"></i><span id="comienzoprov" class="h3 ms-2 me-2 mb-2 text-gray-800">Proveedores</span><i class="fas fa-handshake"></i>
+
+
+<div class="row mt-3 mb-2">
+	<div class="col">
+		<%= link_to new_supplier_path, {remote: true, class: "btn btn-info form-control", id: "anadir-proveedor-btn"}  do %>
+		<span class="fas fa-plus-square" > Registrar nuevo proveedor</span>
+		<% end %>
+	</div>
+	<div class="col">
+		<%= search_form_for @q, options = {class: "w-100"} do |f| %>
+		<%= f.search_field :nombre_proveedor_or_rif_proveedor_cont, options = {class: "form-control", placeholder: "Buscar por nombre o rif..."} %>
+		<%= f.button :type => "submit", class: "btn btn-info form-control mt-1" do %>
+		<span class="fas fa-search">  Buscar</span>
+		<% end %>
+		<% end %>
+	</div>
 </div>
-<br />
+
 <div class="card shadow mb-4">
-<div class="card-body">
-    <div class="table-responsive">
-    <table class="table table-striped" id="tablaProveedores" width="100%" cellspacing="0">
-        <thead>
-        <tr>
-            <th>Numero rif</th>
-            <th>Nombre</th>
-            <th>Correo</th>
-			<th>Descripcion</th>
-	    <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @proveedores.each do |prov| %>
-        <tr id="proveedor_<%= prov.id %>" >
-            <td class="align-middle text-center"><%= prov.rif_proveedor %></td>
-            <td class="align-middle text-center"><%= prov.nombre_proveedor %></td>
-            <td class="align-middle text-center"><%= prov.correo_proveedor %></td>
-			<td class="align-middle text-center"><%= prov.descripcion_proveedor %></td>
-            <td class="align-middle text-center" >
-			<div class="btn-group ">
-            <%= link_to "editar", edit_supplier_path(prov), html_options = {class: "btn btn-info btn-sm", remote: true} %>
-            <%= link_to 'Borrar', prov, remote: true, method: :delete, data: { confirm: "Borrar proveedor: #{prov.nombre_proveedor}?"}, class: "btn btn-danger btn-sm" %>
-			</div>
-		   </td>
-        </tr>
-        <% end %>
-        </tbody>
-    </table>
-    </div>
-  </div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table table-striped" id="tablaProveedores" width="100%" cellspacing="0">
+				<thead>
+					<p class="fs-3"> Listado de Proveedores </p>
+					<tr>
+						<th class="align-middle text-center">Numero Rif</th>
+						<th class="align-middle text-center">Nombre</th>
+						<th class="align-middle text-center">Telefono</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @proveedores.each do |prov| %>
+						<tr id="proveedor_<%= prov.id %>" >
+							<td class="align-middle text-center"><%= prov.rif_proveedor %></td>
+							<td class="align-middle text-center"><%= prov.nombre_proveedor %></td>
+							<td class="align-middle text-center"><%= prov.phonesuppliers.first.try(:numero_proveedor) %></td>
+							<td class="align-middle text-center">
+								<div class="btn-group ">	
+									<%= link_to "Ver", supplier_path(prov), html_options = {class: "btn btn-success btn-sm", remote: true} %>
+									<%= link_to "Editar", edit_supplier_path(prov), html_options = {class: "btn btn-info btn-sm", remote: true} %>
+									<%= link_to 'Borrar', prov, remote: true, method: :delete, data: { confirm: "Borrar el proveedor: #{prov.nombre_proveedor}?"}, class: "btn btn-danger btn-sm" %>
+								</div>
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
 <%= render 'modal_proveedores' %>

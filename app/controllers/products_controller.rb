@@ -1,13 +1,20 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:edit, :update, :destroy, :show]
-  before_action :set_categories, only: [:new, :edit, :create]
-  before_action :set_units, only: [:new, :edit, :create]
-  before_action :set_locations, only: [:new, :edit, :create]
+  before_action :set_categories, only: [:new, :edit, :update, :create]
+  before_action :set_units, only: [:new, :edit, :update, :create]
+  before_action :set_locations, only: [:new, :edit, :update, :create]
   
   def index
-    @productos = Product.all
+    @q = Product.ransack(params[:q])
+    @productos = @q.result
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = ReporteInventarioPdf.new(@productos)
+        send_data pdf.render, filename: "estadodeinventario_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
+      end
+    end
   end
-
 
   def new
     @product = Product.new
@@ -45,65 +52,63 @@ class ProductsController < ApplicationController
     end
   end
 
-    def destroy
+  def destroy
     @product.destroy
     respond_to do |format|
       format.json { head :no_content }
       format.js
     end
-    end
+  end
 
-    def buscador
-      @resultados = Product.buscador(params[:termino]).map do |producto|
-        {
-          id: producto.id,
-          nombre_producto: producto.nombre_producto,
-          precio_producto: producto.precio_producto,
-          existencia_producto: producto.existencia_producto
-        }
-      end
-
-      respond_to do |format|
-        format.json { render :json => @resultados }
-      end
-      
+  def buscador
+    @resultados = Product.buscador(params[:termino]).map do |producto|
+      {
+        id: producto.id,
+        nombre_producto: producto.nombre_producto,
+        precio_producto: producto.precio_producto,
+        existencia_producto: producto.existencia_producto,
+        unidad: producto.unit.simbolo_unidad
+      }
     end
-
-    def buscadorcompra
-      @resultados = Product.buscador(params[:termino]).map do |producto|
-        {
-          id: producto.id,
-          nombre_producto: producto.nombre_producto,
-          existencia_producto: producto.existencia_producto
-        }
-      end
-
-      respond_to do |format|
-        format.json { render :json => @resultados }
-      end
-      
+    respond_to do |format|
+      format.json { render :json => @resultados }
     end
+  end
 
-    private
-    def product_params
-      params.require(:product).permit(:codigo_producto, :nombre_producto, :existencia_producto, :descripcion_producto, :precio_producto, :min_producto, :max_producto, :condicion_producto, :category_id, :unit_id, :location_id)
+  def buscadorcompra
+    @resultados = Product.buscador(params[:termino]).map do |producto|
+      {
+        id: producto.id,
+        nombre_producto: producto.nombre_producto,
+        existencia_producto: producto.existencia_producto,
+        unidad: producto.unit.simbolo_unidad
+      }
     end
+    respond_to do |format|
+      format.json { render :json => @resultados }
+    end
+  end
 
-    def set_product
-      @product = Product.find(params[:id])
-    end
-    
-    def set_categories
-      @categorias = Category.all
-    end
-    
-    def set_units
-      @unidades = Unit.all
-    end
+  private
 
-    def set_locations
-      @locaciones = Location.all
-    end
+  def product_params
+    params.require(:product).permit(:codigo_producto, :nombre_producto, :existencia_producto, :descripcion_producto, :precio_producto, :min_producto, :max_producto, :condicion_producto, :category_id, :unit_id, :location_id)
+  end
 
+  def set_product
+    @product = Product.find(params[:id])
+  end
+
+  def set_categories
+    @categorias = Category.all
+  end
+
+  def set_units
+    @unidades = Unit.all
+  end
+
+  def set_locations
+    @locaciones = Location.all
+  end
     
 end

@@ -1,0 +1,45 @@
+<style>
+body {background-color: #ffe259;}
+</style>
+<% if @empresa == nil %>
+<i class="fa fa-building"></i><span class="h3 ms-2 me-2 mb-2 text-gray-800"> Datos de la empresa </span><i class="fa fa-building"></i>
+
+<div class="row">
+  <%= link_to new_company_path, {remote: true, class: "btn btn-info form-control", id: "anadir-empresa-btn"}  do %>
+  <span class="fas fa-plus-square" ></span> Insertar datos de la empresa
+  <% end %>
+</div>
+
+<% else %>
+<i class="fa fa-building"></i><span class="h1 ms-2 me-2 mb-2 text-gray-800"> Datos de la empresa </span><i class="fa fa-building"></i>
+
+<form>
+	<div class="row">
+		<div class="col-md-6">
+			<p class="h3">Nombre: <%= @empresa.nombre_empresa %></p>
+		</div>
+		<div class="col-md-6">
+		  <p class="h3">Numero de Rif: <%= @empresa.rif_empresa %></p>
+		</div>
+	</div>
+
+  
+  <div class="row">
+  <div class="col-md-6">
+    <p class="h3">Direccion: <%= @empresa.direccion_empresa %></p>
+  </div>
+	<div class="row">
+		<div class="col-md-6">
+		<p class="h3">Telefono: - <%= @empresa.telefono_empresa %></p>
+		</div>
+		<div class="col-md-6">
+		<p class="h3">Numero de control: - <%= @empresa.numero_control %></p>
+		
+		</div>
+	</div>
+  <div class="row">
+  <%= link_to "Editar datos", edit_company_path(@empresa), html_options = {class: "btn btn-info btn-xs", remote: true} %>
+  </div>
+</form>
+<%end%>
+<%= render 'modal_empresa' %>

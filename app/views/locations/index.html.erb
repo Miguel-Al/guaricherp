@@ -1,0 +1,51 @@
+<style>
+body {background-color: #7B72D9;}
+</style>
+<i class="fa fa-binoculars"></i><span id="comienzolug" class="h3 ms-2 me-2 mb-2 text-gray-800">Ubicaciones de almacen</span><i class="fa fa-binoculars"></i>
+
+
+<div class="row mt-3 mb-2">
+  <div class="col">
+    <%= link_to new_location_path, {remote: true, class: "btn btn-info form-control", id: "anadir-lugar-btn"}  do %>
+    <span class="fas fa-plus-square" > Crear nueva ubicacion</span>
+    <% end %>
+  </div>
+  <div class="col">
+    <%= search_form_for @q, options = {class: "w-100"} do |f| %>
+    <%= f.search_field :nombre_lugar_cont, options = {class: "form-control", placeholder: "Buscar..."} %>
+    <%= f.button :type => "submit", class: "btn btn-info form-control mt-2" do %>
+    <span class="fas fa-search"> Buscar</span>
+    <% end %>
+    <% end %>
+  </div>
+</div>
+
+
+<div class="card shadow mb-4">
+	<div class="card-body">
+		<div class="table-responsive">
+			<table id="tablaLugares" class="table table-striped" width="100%">
+				<thead>
+					<tr>
+						<th class="align-middle text-center">Nombre</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				<% @lugares.each do |lug| %>
+				<tr id="lugar_<%= lug.id %>" >
+					<td class="align-middle text-center"><%= lug.nombre_lugar %></td>
+					<td class="align-middle text-center">
+					<div class="btn-group ">
+						<%= link_to "Editar", edit_location_path(lug), html_options = {class: "btn btn-info btn-xs", remote: true} %>
+						<%= link_to 'Borrar', lug, remote: true, method: :delete, data: { confirm: "Borrar la ubicacion: #{lug.nombre_lugar}?"}, class: "btn btn-danger btn-xs" %>
+					</div>
+					</td>
+				</tr>
+				<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<%= render 'modal_ubicacion' %>

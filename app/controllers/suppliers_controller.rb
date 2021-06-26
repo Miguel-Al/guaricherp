@@ -1,15 +1,20 @@
 class SuppliersController < ApplicationController
-  before_action :set_supplier, only: [:edit, :update, :destroy]
+  before_action :set_supplier, only: [:edit, :update, :destroy, :show]
 
   def index
-    @proveedores = Supplier.all
+    @q = Supplier.ransack(params[:q])
+    @proveedores = @q.result
   end
 
   def new
     @proveedor = Supplier.new
+    @proveedor.phonesuppliers.build
   end
 
   def edit
+  end
+
+  def show
   end
 
   def create
@@ -67,6 +72,6 @@ class SuppliersController < ApplicationController
   end
 
   def supplier_params
-    params.require(:supplier).permit(:rif_proveedor, :nombre_proveedor, :correo_proveedor, :descripcion_proveedor)
+    params.require(:supplier).permit(:rif_proveedor, :nombre_proveedor, :correo_proveedor, :direccion_proveedor, :descripcion_proveedor, phonesuppliers_attributes: [:id, :_destroy, :numero_proveedor])
   end  
 end

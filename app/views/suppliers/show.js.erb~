@@ -1,0 +1,5 @@
+$('#modal-productos-title').html("Detalles del producto");
+ 
+$('.modal-body-productos').html('<%= j render("form_vista") %>');
+ 
+$('#modalProductos').modal("show");

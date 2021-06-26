@@ -2,7 +2,8 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: [:edit, :update, :destroy]
   
   def index
-    @categorias = Category.all
+    @q = Category.ransack(params[:q])
+    @categorias = @q.result
   end
 
   def new
@@ -36,14 +37,17 @@ class CategoriesController < ApplicationController
         format.js { render :edit }
       end
     end
-    
   end
 
   def destroy
-    @categoria.destroy
     respond_to do |format|
-      format.json { head :no_content }
-      format.js
+      if @categoria.destroy
+        format.json { head :no_content }
+        format.js
+      else
+        flash[:error] = "No se ha podido borrar la categoria"
+        format.html { redirect_to categories_path }
+      end
     end
       
   end

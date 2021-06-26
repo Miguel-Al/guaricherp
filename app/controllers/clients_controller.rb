@@ -1,13 +1,15 @@
 class ClientsController < ApplicationController
-  before_action :set_client, only: [:edit, :update, :destroy]
-  before_action :set_type_clients, only: [:new, :edit, :create]
+  before_action :set_client, only: [:edit, :update, :destroy, :show]
+  before_action :set_type_clients, only: [:new, :edit, :create, :update]
 
   def index
-    @clientes = Client.all
+    @q = Client.ransack(params[:q])
+    @clientes = @q.result
   end
 
   def new
     @client = Client.new
+    @client.phoneclients.build
   end
 
   def edit
@@ -63,7 +65,7 @@ class ClientsController < ApplicationController
 
   private
     def client_params
-      params.require(:client).permit(:rif_cliente, :nombre_cliente, :correo_cliente, :descripcion_cliente, :type_client_id)
+      params.require(:client).permit(:rif_cliente, :nombre_cliente, :correo_cliente, :direccion_cliente, :descripcion_cliente, :type_client_id, phoneclients_attributes: [:id, :_destroy, :numero_cliente])
     end
 
     def set_client

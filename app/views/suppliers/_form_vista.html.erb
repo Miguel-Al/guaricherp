@@ -1,0 +1,39 @@
+<form>
+	<div class="row">
+		
+		
+		<div class="col-md-6">
+		<label class="form-label" for="id">Numero de Rif:</label>
+		<input type="text" readonly class="form-control" value="<%= @proveedor.rif_proveedor %>"> </input>
+		</div>
+
+		<div class="form-group col-md-6">
+		<label class="form-label" for="fecha">Nombre:</label>
+		<input type="text" readonly class="form-control" value="<%= @proveedor.nombre_proveedor %>"></input>
+		</div>
+		
+		
+		<div class="form-group col-md-6">
+		<label class="form-label" for="fecha">Direccion:</label>
+		<input type="text" readonly class="form-control" value="<%= @proveedor.direccion_proveedor %>"></input>
+		</div>
+		
+		<div class="form-group col-md-6">
+		<label class="form-label" for="proveedor">Telefonos:</label>
+		<% @proveedor.phonesuppliers.each do |tel| %>
+		<input type="text" readonly class="form-control mb-2 mt-1" value="- <%= tel.numero_proveedor %>">
+		<% end %>
+		</div>
+		
+		<div class="form-group col-md-6">
+		<label class="form-label" for="vendedor">Correo Electronico:</label>
+		<input type="text" readonly class="form-control" value="<%= @proveedor.correo_proveedor %>"></input>
+		</div>
+		
+		<div class="form-group col">
+		<label class="form-label" for="cliente">Descripcion:</label>
+		<textarea  readonly class="form-control" ><%= @proveedor.descripcion_proveedor %></textarea>
+		</div>
+		
+	</div>
+</form>

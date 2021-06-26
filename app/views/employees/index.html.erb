@@ -1,0 +1,60 @@
+<style>
+body {background-color: #FC8E6D;}
+</style>
+<i class="fa fa-user-circle"></i><span class="h3  me-2 ms-2 mb-2 text-gray-800">Empleados</span><i class="fa fa-user-circle"></i>
+
+<div class="row mb-3">
+	<div class="col mt-2">
+		<%= link_to new_employee_path, { remote: true, class: "btn btn-info form-control" }  do %>
+		<span class="fas fa-plus-square" > Registrar nuevo empleado</span>
+		<% end %>
+	</div>
+	<div class="col mt-2">
+		<%= search_form_for @q, options = {class: "w-100"} do |f| %>
+		<%= f.search_field :numero_cedula_or_primer_nombre_or_primer_apellido_cont, options = {class: "form-control", placeholder: "Buscar por cedula, nombre o apellido..."} %>
+		<%= f.button :type => "submit", class: "btn btn-info form-control mt-2" do %>
+		<span class="fas fa-search"> Buscar</span> 
+		<% end %>
+		<% end %>
+	</div>
+</div>
+
+ 
+<div class="card shadow mb-4">
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table table-striped" id="tablaEmpleados" width="100%" cellspacing="0">
+				<thead>
+					<p class="h6 fs-5"> Listado de empleados </p>
+					<tr>
+						<th class="align-middle text-center">Cedula</th>
+						<th class="align-middle text-center">Nombre y apellido</th>
+						<th class="align-middle text-center">Sueldo(Mes)</th>
+						<th class="align-middle text-center">Sueldo(Dia)</th>
+						<th class="align-middle text-center">Cargo</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @empleados.each do |emp| %>
+						<tr id="empleado_<%= emp.id %>" >
+							<td class="align-middle text-center"><%= emp.numero_cedula %></td>
+							<td class="align-middle text-center"><%= emp.nombre_apellido %></td>
+							<td class="align-middle text-center">Bs <%= emp.salario_empleado.round(2) %></td>
+							<td class="align-middle text-center">Bs <%= emp.salario_diario %></td>
+							<td class="align-middle text-center"><%= emp.position.nombre_cargo %></td>
+							<td class="align-middle text-center">
+								<div class="btn-group ">
+									<%= link_to "Ver", employee_path(emp), html_options = {class: "btn btn-success btn-sm", remote: true} %>
+									<%= link_to "Editar", edit_employee_path(emp), html_options = {class: "btn btn-info btn-sm", remote: true} %>
+									<%= link_to 'Borrar', emp, remote: true, method: :delete, data: { confirm: "Borrar al empleado: #{emp.nombre_apellido}?"}, class: "btn btn-danger btn-sm" %>
+								</div>	
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<%= render 'modal_empleados' %>

@@ -1,0 +1,2 @@
+$('#tipodepago_<%= @tipodepago.id %>').fadeOut();
+$('#comienzopag').before('<div id="si" class="alert alert-info alert-dismissible fade show" role="alert"><%= flash.now[:success] = "Se ha borrado el metodo de pago" %><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');

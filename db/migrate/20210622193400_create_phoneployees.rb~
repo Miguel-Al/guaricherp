@@ -1,0 +1,8 @@
+class CreatePhoneployees < ActiveRecord::Migration[6.1]
+  def change
+    create_table :phoneployees do |t|
+
+      t.timestamps
+    end
+  end
+end

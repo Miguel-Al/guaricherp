@@ -15,11 +15,12 @@ document.addEventListener("turbolinks:load", function() {
                 let nombre_producto = data[x].nombre_producto;
                   let existencia_producto = data[x].existencia_producto;
 		  let precio_producto = data[x].precio_producto;
+		  let unidad = data[x].unidad;
                 let id_producto = data[x].id;
                 newRowContent = `<tr>
-                                    <td>${nombre_producto}</td>
+                                    <td>${nombre_producto}(${unidad})</td>
                                     <td>${existencia_producto}</td>
-                                    <td>$${precio_producto}</td>
+                                    <td>Bs ${precio_producto}</td>
                                     <td><button type="button" class="btn btn-primary" onclick="seleccionarProducto(${id_producto}, ${id_modelo}, '${tipo_modelo}')">
                                         Agregar
                                         </button>
@@ -47,9 +48,10 @@ document.addEventListener("turbolinks:load", function() {
               for(x in data){
                 let nombre_producto = data[x].nombre_producto;
                   let existencia_producto = data[x].existencia_producto;
+		  let unidad = data[x].unidad;
                 let id_producto = data[x].id;
                 newRowContent = `<tr>
-                                    <td>${nombre_producto}</td>
+                                    <td>${nombre_producto}(${unidad})</td>
                                     <td>${existencia_producto}</td>
                                     <td><button type="button" class="btn btn-primary" onclick="seleccionarProducto(${id_producto}, ${id_modelo}, '${tipo_modelo}')">
                                         Agregar
@@ -67,7 +69,7 @@ document.addEventListener("turbolinks:load", function() {
     let termino = $(this).val();
     let id_venta = $(this).data("venta");
     if(termino.length == 0) {
-      $("#tabla_buscador_clientes tbody").empty();
+	$("#tabla_buscador_clientes tbody").empty();
     }
     else {
       let request_url = getRootUrl() + "/buscador_clientes/" + termino;
@@ -130,7 +132,46 @@ document.addEventListener("turbolinks:load", function() {
       });
     }
     });
-    
+
+
+
+    $("#buscador_empleados").keyup(function(event){
+    let termino = $(this).val();
+    let id_nomina = $(this).data("nomina");
+    if(termino.length == 0) {
+      $("#tabla_buscador_empleados tbody").empty();
+    }
+    else {
+      let request_url = getRootUrl() + "/buscador_empleados/" + termino;
+      $.get(request_url, function(data, status){
+        if(data.length > 0){
+          $("#tabla_buscador_empleados tbody").empty();
+          for(x in data){
+            let primer_nombre = data[x].primer_nombre;
+              let id_empleado = data[x].id;
+	      let salario1 = data[x].salario;
+	      let salario2 =  salario1 / 30;
+	      let salario3 = parseFloat(salario2).toFixed(2);
+            let rowContent = `
+               <tr>
+                 <td>${primer_nombre}(Bs ${salario3} por dia)</td>
+                 <td>
+                     <button 
+                       class = "btn btn-primary"
+                       onclick="seleccionarEmpleado(${id_empleado}, ${id_nomina})"
+                       >
+                         Agregar
+                     </button>
+                 </td>
+               </tr>
+            `;
+            $("#tabla_buscador_empleados tbody").append(rowContent);
+          }
+        }
+      });
+    }
+    });
+ 
     
 });
 
@@ -158,8 +199,33 @@ window.seleccionarCliente = function (id_cliente, id_venta){
         $("#buscador_cliente").modal("hide");
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
-        let nombre_cliente = result.nombre_cliente;
-        $("#cliente_venta").html("Cliente: " + nombre_cliente)
+        let nombre = result.nombre_cliente;
+        $("#cliente_venta").html("<h5>Cliente: " + nombre + "</h5>");
+      }
+    }
+  });
+}
+
+window.seleccionarEmpleado = function (id_empleado, id_nomina){
+  let cantidad_inicial = $('#dias_nomina').val();
+  let request_url = getRootUrl() + "/add_empleado_nomina/";
+    let info = { empleado_id: id_empleado, id: id_nomina, dias_nomina: cantidad_inicial };
+  $.ajax({
+    url: request_url,
+    type: 'POST',
+    data: JSON.stringify(info),
+    contentType: 'application/json; charset=utf-8',
+    success: function(result){
+      if(result != null) {
+        $("#buscador_empleado").modal("hide");
+        $('body').removeClass('modal-open');
+          $('.modal-backdrop').remove();
+	  let dias_nomina = result.dias_nomina;
+          let primer_nombre = result.primer_nombre;
+	  let salario_nomina = result.salario_nomina;
+          $("#empleado_nomina").html("<h3>Empleado: " + primer_nombre + "</h3>");
+	  $("#importe_nomina_lbl").text("Asignacion por en base a los dias laborados: Bs" + salario_nomina);
+	  location.reload();
       }
     }
   });
@@ -207,18 +273,20 @@ function agregarItemVenta(id_producto, id_venta){
           let importe_item = result.importe_item;
           let importe_venta = result.importe_venta;
 	  let importe_venta1 = result.importe_venta * 0.16;
+	  let importe_venta4 = parseFloat(importe_venta1).toFixed(2);
 	  let importe_venta2 = result.importe_venta * 1.16;
+	  let importe_venta3 = parseFloat(importe_venta2).toFixed(2);
           let nombre_producto = result.nombre_producto;
           let newRowContent = `<tr>
                                  <td>${nombre_producto}</td>
-                                 <td>$ ${precio_producto}</td>
+                                 <td>Bs ${precio_producto}</td>
                                  <td>${cantidad}</td>
                                  <td>$ ${importe_item}</td>`;
           
           $("#tabla_ventas tbody").append(newRowContent);
-          $("#importe_venta_lbl").text("Subtotal de venta: $" + importe_venta);
-	  $("#importe_venta_lbl2").text("16% del IVA: $" + importe_venta1);
-	  $("#importe_venta_lbl3").text("Total de venta: $" + importe_venta2);
+          $("#importe_venta_lbl").text("Subtotal de venta: Bs " + importe_venta);
+	  $("#importe_venta_lbl2").text("16% del IVA: Bs " + importe_venta1);
+	  $("#importe_venta_lbl3").text("Total de venta: Bs " + importe_venta3);
 	  location.reload();
       }
     }
@@ -251,14 +319,14 @@ function agregarItemCompra(id_producto, id_compra){
 	  let registro_compra = `<tr>
                                  <td>${producto}</td>
                                  <td>${cantidad}</td>
-                                 <td>$${precio_detalle_compra}</td>
+                                 <td>Bs ${precio_detalle_compra}</td>
                                  <td>$ ${importe_item}</td>
                               </tr>`;
           
           $("#tabla_compras tbody").append(registro_compra);
-	  $("#importe_compra_lbl").text("Subtotal de compra: $" + importe_compra);
-	  $("#importe_compra_lbl2").text("16% del IVA: $" + importe_compra1);
-	  $("#importe_compra_lbl3").text("Total de compra: $" + importe_compra2);
+	  $("#importe_compra_lbl").text("Subtotal de compra: Bs " + importe_compra);
+	  $("#importe_compra_lbl2").text("16% del IVA: Bs " + importe_compra1);
+	  $("#importe_compra_lbl3").text("Total de compra: Bs " + importe_compra2);
 	  location.reload();
       }
     }

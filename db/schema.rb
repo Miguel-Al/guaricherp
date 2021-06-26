@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_29_073203) do
+ActiveRecord::Schema.define(version: 2021_06_22_213012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,16 +30,22 @@ ActiveRecord::Schema.define(version: 2021_05_29_073203) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "type_client_id"
+    t.string "direccion_cliente"
     t.index ["type_client_id"], name: "index_clients_on_type_client_id"
   end
 
   create_table "companies", force: :cascade do |t|
+    t.string "rif_empresa"
+    t.string "nombre_empresa"
+    t.string "direccion_empresa"
+    t.integer "telefono_empresa"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "numero_control"
   end
 
   create_table "employees", force: :cascade do |t|
-    t.string "numero_cedula"
+    t.integer "numero_cedula"
     t.string "primer_nombre"
     t.string "segundo_nombre"
     t.string "primer_apellido"
@@ -48,10 +54,70 @@ ActiveRecord::Schema.define(version: 2021_05_29_073203) do
     t.string "correo_empleado"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "position_id"
+    t.decimal "salario_empleado"
+    t.string "direccion_empleado"
+    t.index ["position_id"], name: "index_employees_on_position_id"
   end
 
   create_table "locations", force: :cascade do |t|
     t.string "nombre_lugar"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "paycheck_types", force: :cascade do |t|
+    t.string "tipo_nomina_nombre"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "paychecks", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "employee_id"
+    t.bigint "paycheck_type_id"
+    t.decimal "salario_nomina"
+    t.date "inicio_nomina"
+    t.date "fin_nomina"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "dias_nomina"
+    t.decimal "alimento_cesta"
+    t.decimal "adelanto_nomina"
+    t.decimal "salario_empleado"
+    t.bigint "type_payment_id"
+    t.index ["employee_id"], name: "index_paychecks_on_employee_id"
+    t.index ["paycheck_type_id"], name: "index_paychecks_on_paycheck_type_id"
+    t.index ["type_payment_id"], name: "index_paychecks_on_type_payment_id"
+    t.index ["user_id"], name: "index_paychecks_on_user_id"
+  end
+
+  create_table "phoneclients", force: :cascade do |t|
+    t.bigint "client_id"
+    t.string "numero_cliente"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_phoneclients_on_client_id"
+  end
+
+  create_table "phoneployees", force: :cascade do |t|
+    t.bigint "employee_id"
+    t.string "numero_empleado"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_phoneployees_on_employee_id"
+  end
+
+  create_table "phonesuppliers", force: :cascade do |t|
+    t.bigint "supplier_id"
+    t.string "numero_proveedor"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["supplier_id"], name: "index_phonesuppliers_on_supplier_id"
+  end
+
+  create_table "positions", force: :cascade do |t|
+    t.string "nombre_cargo"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -63,7 +129,6 @@ ActiveRecord::Schema.define(version: 2021_05_29_073203) do
     t.string "descripcion_producto"
     t.decimal "precio_producto"
     t.integer "min_producto"
-    t.integer "max_producto"
     t.boolean "condicion_producto"
     t.bigint "category_id", null: false
     t.bigint "unit_id", null: false
@@ -87,13 +152,15 @@ ActiveRecord::Schema.define(version: 2021_05_29_073203) do
   end
 
   create_table "purchases", force: :cascade do |t|
-    t.string "numero_compra"
+    t.integer "numero_compra"
     t.decimal "total_compra"
     t.integer "user_id"
     t.bigint "supplier_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "type_payment_id"
     t.index ["supplier_id"], name: "index_purchases_on_supplier_id"
+    t.index ["type_payment_id"], name: "index_purchases_on_type_payment_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -114,13 +181,15 @@ ActiveRecord::Schema.define(version: 2021_05_29_073203) do
   end
 
   create_table "sales", force: :cascade do |t|
-    t.string "numero_venta"
+    t.integer "numero_venta"
     t.decimal "total_venta"
     t.integer "user_id"
     t.bigint "client_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "type_payment_id"
     t.index ["client_id"], name: "index_sales_on_client_id"
+    t.index ["type_payment_id"], name: "index_sales_on_type_payment_id"
   end
 
   create_table "suppliers", force: :cascade do |t|
@@ -130,6 +199,7 @@ ActiveRecord::Schema.define(version: 2021_05_29_073203) do
     t.string "descripcion_proveedor"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "direccion_proveedor"
   end
 
   create_table "type_clients", force: :cascade do |t|
@@ -167,14 +237,23 @@ ActiveRecord::Schema.define(version: 2021_05_29_073203) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "paychecks", "employees"
+  add_foreign_key "paychecks", "paycheck_types"
+  add_foreign_key "paychecks", "type_payments"
+  add_foreign_key "paychecks", "users"
+  add_foreign_key "phoneclients", "clients"
+  add_foreign_key "phoneployees", "employees"
+  add_foreign_key "phonesuppliers", "suppliers"
   add_foreign_key "products", "categories"
   add_foreign_key "products", "locations"
   add_foreign_key "products", "units"
   add_foreign_key "purchase_details", "products"
   add_foreign_key "purchase_details", "purchases"
   add_foreign_key "purchases", "suppliers"
+  add_foreign_key "purchases", "type_payments"
   add_foreign_key "sale_details", "products"
   add_foreign_key "sale_details", "sales"
   add_foreign_key "sales", "clients"
+  add_foreign_key "sales", "type_payments"
   add_foreign_key "users", "roles"
 end

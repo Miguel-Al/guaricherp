@@ -1,0 +1,5 @@
+$('#modalLugares').modal('toggle');
+$('#lugar_<%= @lugar.id %>').replaceWith(
+    '<tr id="lugar_<%= @lugar.id %>" ><td class="align-middle text-center"><%= @lugar.nombre_lugar %></td><td class="align-middle text-center"><div class="btn-group "><%= link_to 'Editar', edit_location_path(@lugar), html_options = {class: "btn btn-info btn-xs", remote: true} %> <%= link_to "Borrar", @lugar, remote: true, method: :delete, data: { confirm: "Borrar la ubicacion: #{@lugar.nombre_lugar}?"}, class: "btn btn-danger btn-xs" %></div></td></tr>'
+);
+$('#comienzolug').before('<div id="si" class="alert alert-info alert-dismissible fade show" role="alert"><%= flash.now[:success] = "Se ha actualizado la ubicacion" %><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
