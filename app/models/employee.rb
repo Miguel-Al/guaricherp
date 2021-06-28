@@ -28,7 +28,7 @@ class Employee < ApplicationRecord
   end
 
   ransacker :numero_cedula do
-    Arel.sql("to_char(\"#{table_name}\".\"numero_cedula\", '99999')")
+    Arel.sql("to_char(\"#{table_name}\".\"numero_cedula\", '999999999')")
   end
 
   
