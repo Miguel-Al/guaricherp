@@ -6,7 +6,6 @@ class Paycheck < ApplicationRecord
 
   validates :employee, presence: true, on: :update
   
-  
   def periodo
     "#{inicio_nomina} - #{fin_nomina}"
   end
@@ -15,4 +14,5 @@ class Paycheck < ApplicationRecord
     "#{inicio_nomina} - #{fin_nomina}"
   end
 
+  default_scope {order(created_at: :desc)}
 end

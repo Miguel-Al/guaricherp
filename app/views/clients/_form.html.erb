@@ -45,7 +45,7 @@
 <div class="item form-group<%= @client.errors[:phoneclients].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :"Numeros de telefono" %>
   <%= f.fields_for :phoneclients do |foro| %>
-  <div class="input-group" >
+  <div>
     <%= render partial: 'phoneclient_fields', locals: {f: foro} %>
     <% end %>
   </div>

@@ -4,7 +4,7 @@
   <div class="input-group">
     <%= f.text_field :rif_empresa, {:class=> "form-control", :placeholder=>"Introduzca el Rif de la empresa...", required: true} %>
     <%if @empresa.errors[:rif_empresa].any? %>
-    <p class="bg-danger"><%= @empresa.errors[:rif_empresa].to_s[/\w([^"]*)/] %></p>
+    <p class="input-group-text text-danger align-middle"><%= @empresa.errors[:rif_empresa].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
@@ -14,7 +14,7 @@
   <div class="input-group">
     <%= f.text_field :nombre_empresa, {:class=> "form-control", :placeholder=>"Introduzca el nombre de la empresa...", required: true} %>
     <%if @empresa.errors[:nombre_empresa].any? %>
-    <p class="bg-danger"><%= @empresa.errors[:nombre_empresa].to_s[/\w([^"]*)/] %></p>
+    <p class="input-group-text text-danger align-middle"><%= @empresa.errors[:nombre_empresa].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
@@ -24,7 +24,7 @@
   <div class="input-group">
     <%= f.text_field :direccion_empresa, {:class=> "form-control", :placeholder=>"Introduzca la direccion de la empresa...", required: true} %>
     <%if @empresa.errors[:direccion_empresa].any? %>
-    <p class="bg-danger"><%= @empresa.errors[:direccion_empresa].to_s[/\w([^"]*)/] %></p>
+    <p class="input-group-text text-danger align-middle"><%= @empresa.errors[:direccion_empresa].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
@@ -34,7 +34,7 @@
   <div class="input-group">
     <%= f.text_field :telefono_empresa, {:class=> "form-control", :placeholder=>"Introduzca el telefono de la empresa...", required: true} %>
     <%if @empresa.errors[:telefono_empresa].any? %>
-    <p class="bg-danger"><%= @empresa.errors[:telefono_empresa].to_s[/\w([^"]*)/] %></p>
+    <p class="input-group-text text-danger align-middle"><%= @empresa.errors[:telefono_empresa].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
@@ -44,7 +44,7 @@
   <div class="input-group">
     <%= f.text_field :numero_control, {:class=> "form-control", :placeholder=>"Introduzca el numero de control...", required: true} %>
     <%if @empresa.errors[:numero_control].any? %>
-    <p class="bg-danger"><%= @empresa.errors[:numero_control].to_s[/\w([^"]*)/] %></p>
+    <p class="input-group-text text-danger align-middle"><%= @empresa.errors[:numero_control].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>

@@ -33,9 +33,9 @@
 </div>
 
 <div class="item form-group<%= @proveedor.errors[:phonesuppliers].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :"Numeros de telefono" %>
+  <%= f.label :"Numeros de telefono:" %>
   <%= f.fields_for :phonesuppliers do |foro| %>
-  <div class="input-group" >
+  <div >
     <%= render partial: 'phonesupplier_fields', locals: {f: foro} %>
     <% end %>
   </div>
@@ -57,7 +57,7 @@
 </div>
 
 <div class="item form-group<%= @proveedor.errors[:descripcion_proveedor].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :descripcion, "descripcion del Proveedor: " %>
+  <%= f.label :descripcion, "Descripcion del Proveedor: " %>
   <div class="input-group">
     <%= f.text_area :descripcion_proveedor, {:class=> "form-control"} %>
     <%if @proveedor.errors[:descripcion_proveedor].any? %>

@@ -46,7 +46,7 @@ class PaychecksController < ApplicationController
   def update
     @nomina = Paycheck.find(params[:id])
     if @nomina.update(paycheck_params)
-      redirect_to paychecks_path, :notice => "si"
+      redirect_to paychecks_path, :notice => "Se ha registrado la nomina exitosamente"
     else
       render :edit
     end

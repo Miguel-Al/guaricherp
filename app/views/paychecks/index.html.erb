@@ -1,7 +1,14 @@
-<h1 class="h3 mb-2 text-gray-800">Nominas de pago</h1>
+<style>
+  body {background-color: #646e83;}
+</style>
+
+<div id="comienzonom" class="text-center">
+  <span class="h2 text-gray-800"><i class="far fa-edit"></i> Nominas de pago <i class="far fa-edit"></i></span>
+</div>
+<br />
 
 <%= search_form_for @search, url: search_paychecks_path, html: {method: :post} do |f| %>
-<div class="row">
+<div class="row mb-3">
   <div class="col">
     <%= f.date_field :inicio_nomina_gteq, class: "form-control", placeholder: "Fecha de inicio..." %>
   </div>
@@ -9,20 +16,21 @@
     <%= f.date_field :fin_nomina_lteq, class: "form-control", placeholder: "Fecha fin..." %>
   </div>
   <div class="col">
-    <%= f.submit "Buscar", class: "btn btn-success form-control" %>
+    <%= f.button :type => "submit", class: "btn btn-success form-control" do %>
+    <span class="fas fa-search"></span> Buscar
+    <% end %>
     <% end %>
   </div>
 </div>
-<br />
 
 <div class="row">
   <div class="col">
-    <%= link_to new_paycheck_path, {class: "btn btn-info form-control", id: "crear-nomina-btn"}  do %>
+    <%= link_to new_paycheck_path, {class: "btn btn-primary form-control", id: "crear-nomina-btn"}  do %>
     <span class="fas fa-plus-square"> </span> Registrar nomina
     <% end %>
   </div>
   <div class="col">
-    <%= link_to paychecks_path(request.params.merge(format: :pdf)), {class: "btn btn-primary form-control", target: :_blank} do %>
+    <%= link_to paychecks_path(request.params.merge(format: :pdf)), {class: "btn btn-outline-dark form-control", target: :_blank} do %>
     <span class="fas fa-file-alt" ></span> Generar reporte de nominas
       <% end %>
   </div>
@@ -32,39 +40,41 @@
 <div class="card shadow mb-4">
   <div class="card-body">
     <div class="table-responsive">
-      <table class="table table-bordered" id="tabla_nominas" width="60%" cellspacing="0">
+      <table class="table table-striped" id="tabla_nominas" width="100%" cellspacing="0">
 	<thead>
           <tr>
-	    <th>Id</th>
-	    <th>Periodo</th>
-	    <th>Encargado</th>
-	    <th>Empleado</th>
-	    <th>Fecha Elaboracion</th>
+	    <th class="align-middle text-center">Id</th>
+	    <th class="align-middle text-center">Periodo</th>
+	    <th class="align-middle text-center">Encargado</th>
+	    <th class="align-middle text-center">Empleado</th>
+	    <th class="align-middle text-center">Fecha Elaboracion</th>
 	    <th></th>
 	  </tr>
 	</thead>
 	<tbody>
 	  <% if @nominas.empty? %>
-          <tr>
-	    <td> No hay nominas </td><td></td><td></td> 
-          </tr>
+	  <tr>
+	    <td> No hay nominas </td><td></td><td></td>
+	  </tr>
           <% else %>
-            <% @nominas.each do |pay| %>
-              <tr> 
-                <td> <%= pay.id %> </td>
-		<td> <%= pay.try(:periodo) %> </td>
-		<td> <%= pay.user.username %> </td>
-		<td> <%= pay.try(:employee).try(:primer_nombre) %> </td>
-		<td> <%= pay.created_at.to_s(:db) %> </td>
-                <td> 
-		  <%= link_to 'Mostrar', paycheck_path(pay), {class: "btn btn-info btn-xs", remote: true} %>
-		  <%= link_to 'Borrar', pay, method: :delete, data: { confirm: 'Eliminar la nomina?' }, class: "btn btn-danger btn-xs" %>
-                </td>
-              </tr>
-              <% end %>
-          <% end %>
-        </tbody>
-    </table>
+          <% @nominas.each do |pay| %>
+	  <tr> 
+            <td class="align-middle text-center"> <%= pay.id %> </td>
+	    <td class="align-middle text-center"> <%= pay.try(:periodo) %> </td>
+	    <td class="align-middle text-center"> <%= pay.user.username %> </td>
+	    <td class="align-middle text-center"> <%= pay.try(:employee).try(:primer_nombre) %> </td>
+	    <td class="align-middle text-center"> <%= pay.created_at.to_s(:db) %> </td>
+	    <td class="align-middle text-center">
+	      <div class="btn-group ">
+		<%= link_to 'Mostrar', paycheck_path(pay), {class: "btn btn-outline-secondary btn-sm", remote: true} %>
+		<%= link_to 'Borrar', pay, method: :delete, data: { confirm: 'Eliminar la nomina?' }, class: "btn btn-danger btn-sm" %>
+	      </div>
+	    </td>
+	  </tr>
+	  <% end %>
+	  <% end %>
+	</tbody>
+      </table>
     </div>
   </div>
 </div>

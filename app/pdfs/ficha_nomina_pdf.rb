@@ -15,13 +15,14 @@ def titulo
   text "#{@empresa.rif_empresa}"
   text "Direccion: #{@empresa.direccion_empresa}"
   text "Telf: #{@empresa.telefono_empresa}"
-  text "Este documento ha sido generado el dia #{DateTime.now.to_s(:db)}"
+  move_down 5
   text "Nomina de pago del empleado #{@nomina.employee.nombre_apellido}", size: 20, style: :bold
-  text "Periodo #{@nomina.inicio_nomina} - #{@nomina.fin_nomina}"
+  text "Periodo #{@nomina.inicio_nomina} - #{@nomina.fin_nomina}", size: 15, style: :bold
+  text "Este documento ha sido generado el dia #{DateTime.now.to_s(:db)}"
   end
 
   def listado
-    move_down 20
+    move_down 15
     info = [["Empleado:", "Cedula:", "Cargo" ],
             ["#{@nomina.employee.primer_nombre} #{@nomina.employee.primer_apellido}", @nomina.employee.numero_cedula, @nomina.employee.position.nombre_cargo ]]
     table(info) do

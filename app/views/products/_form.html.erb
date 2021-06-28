@@ -5,7 +5,7 @@
   <div class="input-group">
     <%= f.text_field :codigo_producto, {:class=> "form-control", :placeholder=>"Introduzca el codigo de producto...", required: true} %>
     <%if @product.errors[:codigo_producto].any? %>
-    <p class="bg-danger"><%= @product.errors[:codigo_producto].to_s[/\w([^"]*)/] %></p>
+    <p class="input-group-text text-danger align-middle "><%= @product.errors[:codigo_producto].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
@@ -13,8 +13,9 @@
 <div class="item form-group<%= @product.errors[:nombre_producto].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :nombre, "Nombre del producto: " %>
   <div class="input-group">
-    <%= f.text_field :nombre_producto, {:class=> "form-control", :placeholder=>"Introduzca el nombre del producto...", required: true} %>        <%if @product.errors[:nombre_producto].any? %>
-      <p class="bg-danger"><%= @product.errors[:nombre_producto].to_s[/\w([^"]*)/] %></p>
+    <%= f.text_field :nombre_producto, {:class=> "form-control", :placeholder=>"Introduzca el nombre del producto...", required: true} %>
+    <%if @product.errors[:nombre_producto].any? %>
+    <p class="input-group-text text-danger align-middle"><%= @product.errors[:nombre_producto].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
@@ -24,7 +25,7 @@
   <div class="input-group">
     <%= collection_select(:product, :category_id, @categorias, :id, :nombre_categoria, {:prompt => 'Seleccione categoria'}, { class: "form-control", required: true})%>
     <%if @product.errors[:category].any? %>
-    <p class="bg-danger"><%= @product.errors[:category].to_s[/\w([^"]*)/] %></p>
+    <p class="input-group-text text-danger align-middle"><%= @product.errors[:category].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
@@ -34,7 +35,7 @@
   <div class="input-group">
     <%= collection_select(:product, :unit_id, @unidades, :id, :nombre_unidad, {:prompt => 'Seleccione unidad'}, { class: "form-control", required: true })%>
     <%if @product.errors[:unit].any? %>
-    <p class="bg-danger"><%= @product.errors[:unit].to_s[/\w([^"]*)/] %></p>
+    <p class="input-group-text text-danger align-middle"><%= @product.errors[:unit].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
@@ -44,7 +45,7 @@
   <div class="input-group">
     <%= collection_select(:product, :location_id, @locaciones, :id, :nombre_lugar, {:prompt => 'Seleccione un lugar'}, { class: "form-control", required: true })%>
     <%if @product.errors[:location].any? %>
-    <p class="bg-danger"><%= @product.errors[:location].to_s[/\w([^"]*)/] %></p>
+    <p class="input-group-text text-danger align-middle"><%= @product.errors[:location].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
@@ -54,7 +55,7 @@
   <div class="input-group">
     <%= f.number_field :precio_producto, {class: "form-control", :placeholder=>"Precio del producto (Bs)", required: true} %>
     <%if @product.errors[:precio_producto].any? %>
-      <p class="bg-danger"><%= @product.errors[:precio_producto].to_s[/\w([^"]*)/] %></p>
+      <p class="input-group-text text-danger align-middle"><%= @product.errors[:precio_producto].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
@@ -65,7 +66,7 @@
   <div class="input-group">
     <%= f.number_field :existencia_producto, {class: "form-control", :placeholder=>"Stock inicial", required: true} %>
     <%if @product.errors[:existencia_producto].any? %>
-    <p class="bg-danger"><%= @product.errors[:existencia_producto].to_s[/\w([^"]*)/] %></p>
+    <p class="input-group-text text-danger align-middle"><%= @product.errors[:existencia_producto].to_s[/\w([^"]*)/] %></p>
     <% end %> 
  </div>
 </div>
@@ -76,7 +77,7 @@
   <div class="input-group">
     <%= f.number_field :min_producto, {class: "form-control", :placeholder=>"Stock minimo", required: true} %>
     <%if @product.errors[:min_producto].any? %>
-    <p class="bg-danger"><%= @product.errors[:min_producto].to_s[/\w([^"]*)/] %></p>
+    <p class="input-group-text text-danger align-middle"><%= @product.errors[:min_producto].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
@@ -86,13 +87,12 @@
   <div class="input-group">
     <%= f.text_area :descripcion_producto, {class: "form-control", :placeholder=>"Introduzca la descripcion del producto..."} %>
     <%if @product.errors[:descripcion_producto].any? %>
-    <p class="bg-danger"><%= @product.errors[:descripcion_producto].to_s[/\w([^"]*)/] %></p>
+    <p class="input-group-text text-danger align-middle"><%= @product.errors[:descripcion_producto].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
-<br />
 
-<div class="actions col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+<div class="actions mt-2 pt-2">
   <%= f.submit @product.new_record? ? "Crear Producto" : "Actualizar Producto", :class => "btn btn-success"%>
 </div>
 

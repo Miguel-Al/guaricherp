@@ -1,8 +1,14 @@
-<h1 class="h3 mb-2 text-gray-800">Compras</h1>
+<style>
+  body {background-color: #ccc5c5;}
+</style>
+
+<div id="comienzocom" class="text-center">
+  <span class="h2 text-gray-800"><i class="fa fa-shopping-basket"></i> Compras <i class="fa fa-shopping-basket"></i></span>
+</div>
 <br />
 
 <%= search_form_for @search, url: search_purchases_path, html: { method: :post} do |f| %>
-<div class="row">
+<div class="row mb-3">
   <div class="col">
     <%= f.text_field :created_at_gteq, class: "form-control", placeholder: "Fecha de inicio..." %>
   </div>
@@ -13,21 +19,20 @@
     <%= f.button :type => "submit", class: "btn btn-success form-control" do %>
   <span class="fas fa-search"></span> Buscar
   <% end %>
-  </div>
   <% end %>
+  </div>
 </div>
-<br />
 
 <div class="row">
   <div class="col">
-    <%= link_to new_purchase_path, {class: "btn btn-info form-control", id: "registrar-entrada-btn"}  do %>
+    <%= link_to new_purchase_path, {class: "btn btn-primary form-control", id: "registrar-entrada-btn"}  do %>
     <span class="fas fa-plus-square"> </span>
     Registrar entrada
     <%end%>
   </div>
   <% if current_user.role_id == 1 || current_user.role_id ==  2 %>
   <div class="col">
-    <%= link_to purchases_path(request.params.merge(format: :pdf)), {class: "btn btn-primary form-control", target: :_blank} do %>
+    <%= link_to purchases_path(request.params.merge(format: :pdf)), {class: "btn btn-outline-dark form-control", target: :_blank} do %>
     <span class="fas fa-file-alt" ></span> Generar reporte de compras
     <% end %>
   </div>
@@ -36,44 +41,46 @@
 <br />
 
 <div class="card shadow mb-4">
-<div class="card-body">
+  <div class="card-body">
     <div class="table-responsive">
-    <table class="table table-bordered" id="tabla_compras" width="60%" cellspacing="0">
-        <thead>
-        <tr>
-          <th>Id</th>
-	  <th>Almacenista</th>
-	  <th>Proveedor</th>
-	  <th>Total</th>
-	  <th>Fecha y hora</th>
-          <th></th>
-        </tr>
+      <table class="table table-striped" id="tabla_compras" width="60%" cellspacing="0">
+	<thead>
+          <tr>
+	    <th class="align-middle text-center">ID</th>
+	    <th class="align-middle text-center">Encargado</th>
+	    <th class="align-middle text-center">Proveedor</th>
+	    <th class="align-middle text-center">Total</th>
+	    <th class="align-middle text-center">Fecha y hora</th>
+            <th></th>
+	  </tr>
         </thead>
-        <tbody>
-          <% if @compras.empty? %>
-          <tr> 
-            <td> No hay compras </td><td></td><td></td> 
+	<tbody>
+	  <% if @compras.empty? %>
+          <tr>
+	    <td> No hay compras </td><td></td><td></td> 
           </tr>
-          <% else %>
-            <% @compras.each do |compra| %>
-              <tr> 
-                <td> <%= compra.try(:numero_compra) %> </td>
-		<td> <%= compra.user.username %> </td>
-		<td> <%= compra.try(:supplier).try(:nombre_proveedor) %> </td>
-		<td> Bs <%= compra.total_compra * 1.16%> </td>
-		<td> <%= compra.created_at.to_s(:db) %> </td>
-                <td>
-		  <%= link_to 'Mostrar', purchase_path(compra), {class: "btn btn-info btn-xs", remote: true} %>
-		  <% if current_user.role_id == 1 || current_user.role_id ==  2 %>
-		  <%= link_to 'Borrar', compra, method: :delete, data: { confirm: 'Eliminar la compra?' }, class: "btn btn-danger btn-xs" %>
-		  <% end %>
-                </td>
-              </tr>
-            <% end %>
+	  <% else %>
+          <% @compras.each do |compra| %>
+	  <tr> 
+            <td class="align-middle text-center"> <%= compra.try(:numero_compra) %> </td>
+	    <td class="align-middle text-center"> <%= compra.user.username %> </td>
+	    <td class="align-middle text-center"> <%= compra.try(:supplier).try(:nombre_proveedor) %> </td>
+	    <td class="align-middle text-center"> Bs <%= compra.total_compra * 1.16%> </td>
+	    <td class="align-middle text-center"> <%= compra.created_at.to_s(:db) %> </td>
+	    <td class="align-middle text-center">
+	      <div class="btn-group ">
+		<%= link_to 'Mostrar', purchase_path(compra), {class: "btn btn-outline-secondary btn-sm", remote: true} %>
+		<% if current_user.role_id == 1 || current_user.role_id ==  2 %>
+		<%= link_to 'Borrar', compra, method: :delete, data: { confirm: 'Eliminar la compra?' }, class: "btn btn-danger btn-sm" %>
+		<% end %>
+	      </div>
+	    </td>
+	  </tr>
+	  <% end %>
           <% end %>
-        </tbody>
-    </table>
+	</tbody>
+      </table>
     </div>
   </div>
-</div
+</div>
 <%= render 'modal_purchases' %>

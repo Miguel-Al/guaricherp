@@ -15,7 +15,7 @@ class PositionsController < ApplicationController
   end
 
   def create
-    @cargo = Position.new(category_params)
+    @cargo = Position.new(position_params)
 
     respond_to do |format|
       if @cargo.save
@@ -30,7 +30,7 @@ class PositionsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @cargo.update(category_params)
+      if @cargo.update(position_params)
         format.json { head :no_content }
         format.js
       else

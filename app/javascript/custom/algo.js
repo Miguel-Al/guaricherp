@@ -224,8 +224,7 @@ window.seleccionarEmpleado = function (id_empleado, id_nomina){
           let primer_nombre = result.primer_nombre;
 	  let salario_nomina = result.salario_nomina;
           $("#empleado_nomina").html("<h3>Empleado: " + primer_nombre + "</h3>");
-	  $("#importe_nomina_lbl").text("Asignacion por en base a los dias laborados: Bs" + salario_nomina);
-	  location.reload();
+	  $("#importe_nomina_lbl").html("Asignacion por dias laborados:<br> Bs " + salario_nomina);
       }
     }
   });

@@ -1,63 +1,55 @@
 <form>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="id">ID:</label>
-      <input type="text" readonly class="form-control-plaintext" value="<%= @venta.numero_venta %>">
+  <div class="row">
+    <div class="input-group mb-2">
+      <label class="input-group-text" for="id">Numero de venta:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="id" value="<%= @venta.numero_venta %>">
     </div>
-    <div class="form-group col-md-6">
-      <label for="fecha">Fecha:</label>
-      <input type="text" readonly class="form-control-plaintext" value="<%= @venta.created_at.strftime("%d-%m-%Y") %>">
+    <div class="input-group mb-2">
+      <label class="input-group-text" for="fecha">Fecha:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="fecha" value="<%= @venta.created_at.strftime("%d-%m-%Y") %>">
     </div>
-    <div class="form-group col-md-6">
-      <label for="vendedor">Vendedor:</label>
-      <input type="text" readonly class="form-control-plaintext" value="<%= @venta.user.username %>">
+    <div class="input-group mb-2">
+      <label class="input-group-text" for="vendedor">Vendedor:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="vendedor" value="<%= @venta.user.username %>">
     </div>
-    <div class="form-group col-md-6">
-      <label for="cliente">Cliente:</label>
-      <input type="text" readonly class="form-control-plaintext" value="<%= @venta.client.nombre_cliente %>">
+    <div class="input-group mb-2">
+      <label class="input-group-text" for="cliente">Cliente:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="cliente" value="<%= @venta.client.nombre_cliente %>">
     </div>
   </div>
-  <br>
 
   <table class="table table-striped">
     <thead>
       <tr>
-	<th>Producto</th>
-	<th>Cantidad</th>
-	<th>Precio</th>
-	<th>Total</th>
+	<th class="align-middle text-center">Producto</th>
+	<th class="align-middle text-center">Cantidad</th>
+	<th class="align-middle text-center">Precio</th>
+	<th class="align-middle text-center">Total</th>
       </tr>
     </thead>
     <tbody>
       <% @venta.sale_details.each do |detalle| %>
       <tr>
-	<td><%= detalle.product.nombre_producto %></td>
-	<td><%= detalle.cantidad %></td>
-	<td>Bs <%= detalle.precio_detalle_venta %></td>
-	<td>Bs <%= detalle.precio_detalle_venta * detalle.cantidad %></td>
+	<td class="align-middle text-center"><%= detalle.product.nombre_producto %></td>
+	<td class="align-middle text-center"><%= detalle.cantidad %></td>
+	<td class="align-middle text-center">Bs <%= detalle.precio_detalle_venta %></td>
+	<td class="align-middle text-center">Bs <%= detalle.precio_detalle_venta * detalle.cantidad %></td>
       </tr>
       <% end %>
     </tbody>
   </table>
-  <br>
   
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="id">Sub total de venta:</label>
-      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @venta.total_venta %>">
+  <div class="row mb-1">
+    <div class="col text-end">
+      <p class="h4 mb-1">Sub total de venta: Bs <%= @venta.total_venta %></p>
+      <p class="h4 mb-1">16% del IVA: Bs  <%= @venta.total_venta * 0.16 %></p>
+      <p class="h4 mb-1">Total de venta: Bs <%= @venta.total_venta * 1.16 %></p>
+      <br>
     </div>
-    <div class="form-group col-md-6">
-      <label for="id">16% del IVA:</label>
-      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @venta.total_venta * 0.16 %>">
+    <div class="text-center">
+      <%= link_to sale_path(@venta, format: :pdf), {class: "btn btn-outline-primary form-control", target: :_blank} do %>
+      <span class="fas fa-file-alt" ></span> Generar factura de venta
+      <% end %>
     </div>
-    <div class="form-group col-md-6">
-      <label for="id">Total de venta:</label>
-      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @venta.total_venta * 1.16 %>">
-    </div>
-  </div>
-  <div class="form-row">
-    <%= link_to sale_path(@venta, format: :pdf), {class: "btn btn-primary", target: :_blank} do %>
-    <span class="fas fa-file-alt" ></span> Generar factura de venta
-    <% end %>
   </div>
 </form>

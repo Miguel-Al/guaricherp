@@ -1,38 +1,38 @@
 <form>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="id">Numero de cedula:</label>
-      <input type="text" readonly class="form-control-plaintext" value="<%= @empleado.numero_cedula %>"> </input>
+  <div class="row">
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="id">Numero de cedula:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="id" value="<%= @employee.numero_cedula %>"></input>
     </div>
-    <div class="form-group col-md-6">
-      <label for="fecha">Nombre completo:</label>
-      <input type="text" readonly class="form-control-plaintext" value="<%= @empleado.nombre_completo %>"></input>
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="nombre">Nombre completo:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="nombre" value="<%= @employee.nombre_completo %>"></input>
     </div>
-  </div>
-  <div class="form-group col-md-6">
-    <label for="vendedor">Fecha de ingreso:</label>
-    <input type="text" readonly class="form-control-plaintext" value="<%= @empleado.fecha_ingreso.strftime("%d-%m-%Y") %>"></input>
-  </div>
-  <div class="form-group col-md-6">
-    <label for="cliente">Cargo:</label>
-    <input type="text" readonly class="form-control-plaintext" value="<%= @empleado.position.nombre_cargo %>"></input>
-  </div>
-  <div class="form-group col-md-6">
-    <label for="cliente">Salario:</label>
-    <input type="text" readonly class="form-control-plaintext" value="Bs <%= @empleado.salario_empleado %>"></input>
-  </div>
-      <div class="form-group col-md-6">
-      <label for="fecha">Direccion</label>
-      <input type="text" readonly class="form-control-plaintext" value="<%= @empleado.direccion_empleado %>">
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="fecha">Fecha de ingreso:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="fecha" value="<%= @employee.fecha_ingreso.strftime("%d-%m-%Y") %>"></input>
     </div>
-    <div class="form-group col-md-6">
-      <label for="empleado">Telefonos:</label>
-      <% @empleado.phoneployees.each do |tel| %>
-      <input type="text" readonly class="form-control-plaintext" value="- <%= tel.numero_empleado %>">
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="cargo">Cargo:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="cargo" value="<%= @employee.position.nombre_cargo %>"></input>
+    </div>
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="salario">Salario:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="salario" value="Bs <%= @employee.salario_empleado %>"></input>
+    </div>
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="direccion">Direccion:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="direccion" value="<%= @employee.direccion_empleado %>"></input>
+    </div>
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="telefono">Telefonos:</label>
+      <% @employee.phoneployees.each do |tel| %>
+      <input type="text" readonly class="form-control text-center" aria-describedby="telefono" value="<%= tel.numero_empleado %>"></input>
       <% end %>
     </div>
-  <div class="form-group col-md-6">
-    <label for="empleado">Correo:</label>
-    <input type="text" readonly class="form-control-plaintext" value="<%= @empleado.correo_empleado %>"></input>
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="correo">Correo:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="correo" value="<%= @employee.correo_empleado %>"></input>
+    </div>
   </div>
 </form>

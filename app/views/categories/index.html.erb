@@ -1,42 +1,49 @@
-<h1 id="comienzo" class="h3 mb-2 text-gray-800">Categorias de Productos</h1>
+<style>
+  body {background-color: #7B72D9;}
+</style>
+
+<div id="comienzo" class="text-center">
+  <span class="h2 text-gray-800"><i class="fa fa-tag"></i> Categorias de Productos <i class="fa fa-tag"></i></span>
+</div>
 <br />
 
-<div class="row">
+<div class="row mb-3">
   <div class="col">
-    <%= link_to new_category_path, {remote: true, class: "btn btn-info form-control", id: "anadir-categoria-btn"}  do %>
+    <%= link_to new_category_path, {remote: true, class: "btn btn-primary form-control", id: "anadir-categoria-btn"}  do %>
     <span class="fas fa-plus-square" ></span> Crear nueva categoria
     <% end %>
   </div>
   <div class="col">
     <%= search_form_for @q, options = {class: "w-100"} do |f| %>
     <%= f.search_field :nombre_categoria_cont, options = {class: "form-control", placeholder: "Buscar..."} %>
-    <%= f.button :type => "submit", class: "btn btn-info form-control" do %>
+    <%= f.button :type => "submit", class: "btn btn-success form-control mt-1" do %>
     <span class="fas fa-search"></span> Buscar
     <% end %>
     <% end %>
   </div>
 </div>
-<br />
 
 <div class="card shadow mb-4">
   <div class="card-body">
     <div class="table-responsive">
-      <table id="tablaCategorias" class="table table-bordered" width="100%">
+      <table id="tablaCategorias" class="table table-striped" width="100%">
 	<thead>
 	  <tr>
-	    <th>Nombre</th>
-	    <th>Descripcion</th>
+	    <th class="align-middle text-center">Nombre</th>
+	    <th class="align-middle text-center">Descripcion</th>
 	    <th></th>
 	  </tr>
 	</thead>
 	<tbody>
 	  <% @categorias.each do |cat| %>
 	  <tr id="categoria_<%= cat.id %>" >
-	    <td><%= cat.nombre_categoria %></td>
-	    <td><%= cat.descripcion_categoria %></td>
-	    <td>
-	      <%= link_to "Editar", edit_category_path(cat), html_options = {class: "btn btn-info btn-xs", remote: true} %>
-	      <%= link_to 'Borrar', cat, remote: true, method: :delete, data: { confirm: "Borrar la categoria: #{cat.nombre_categoria}?"}, class: "btn btn-danger btn-xs" %>
+	    <td class="align-middle text-center"><%= cat.nombre_categoria %></td>
+	    <td class="align-middle text-center"><%= cat.descripcion_categoria %></td>
+	    <td class="align-middle text-center">
+	      <div class="btn-group ">
+		<%= link_to "Editar", edit_category_path(cat), html_options = {class: "btn btn-secondary btn-sm", remote: true} %>
+		<%= link_to 'Borrar', cat, remote: true, method: :delete, data: { confirm: "Borrar la categoria: #{cat.nombre_categoria}?"}, class: "btn btn-danger btn-sm" %>
+	      </div>
 	    </td>
 	  </tr>
 	  <% end %>

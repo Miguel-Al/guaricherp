@@ -7,7 +7,7 @@ class Employee < ApplicationRecord
   validates :salario_empleado, numericality: {greater_than: 0, message: "No puede ser 0 o menor"}
   
   validates :numero_cedula, uniqueness: { message: "Ya esta registrado" }
-  validates :phoneployees, :numero_cedula, :fecha_ingreso, :direccion_empleado, :salario_empleado, presence: { message: "No puede estar vacio" }
+  validates :position_id, :phoneployees, :numero_cedula, :fecha_ingreso, :direccion_empleado, :salario_empleado, presence: { message: "No puede estar vacio" }
   validates :primer_nombre, :segundo_nombre, :primer_apellido, :segundo_apellido, presence: { message: "No puede estar vacio" }, format: { with: /\A[a-zA-Z]+\z/, message: "Solo se permiten letras" }
   validates_format_of :correo_empleado, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: "No es un formato valido", allow_blank: true
   

@@ -1,40 +1,40 @@
 <form>
-     <div class="form-row">
-       <div class="form-group col-md-6">
-	 <label for="id">Codigo:</label>
-	 <input type="text" readonly class="form-control-plaintext" value="<%= @product.codigo_producto %>"> </input>
-       </div>
-       <div class="form-group col-md-6">
-	 <label for="fecha">Nombre:</label>
-	 <input type="text" readonly class="form-control-plaintext" value="<%= @product.nombre_producto %>"></input>
-       </div>
-       <div class="form-group col-md-6">
-	 <label for="cliente">Categoria:</label>
-	 <input type="text" readonly class="form-control-plaintext" value="<%= @product.category.nombre_categoria %>"></input>
-       </div>
-       <div class="form-group col-md-6">
-	 <label for="cliente">Unidad:</label>
-	 <input type="text" readonly class="form-control-plaintext" value="<%= @product.unit.nombre_unidad %>">
-       </div>
-       <div class="form-group col-md-6">
-	 <label for="cliente">Localizacion en almacen:</label>
-	 <input type="text" readonly class="form-control-plaintext" value="<%= @product.location.nombre_lugar %>">
-       </div>
-       <div class="form-group col-md-6">
-	 <label for="cliente">Precio:</label>
-	 <input type="text" readonly class="form-control-plaintext" value="Bs <%= @product.precio_producto %>"></input>
-       </div>
-       <div class="form-group col-md-6">
-	 <label for="cliente">Existencia actual:</label>
-	 <input type="text" readonly class="form-control-plaintext" value="<%= @product.existencia_producto %>"></input>
-       </div>
-       <div class="form-group col-md-6">
-	 <label for="cliente">Existencia minima permitida:</label>
-	 <input type="text" readonly class="form-control-plaintext" value="<%= @product.min_producto %>"></input>
-       </div>
-       <div class="form-group col-md-6">
-	 <label for="vendedor">Descripcion:</label>
-	 <input type="text" readonly class="form-control-plaintext" value="<%= @product.descripcion_producto %>"></input>
-       </div>
-     </div>
+  <div class="row">
+    <div class="input-group mb-3">
+      <span class="input-group-text" for="id">Codigo:</span>
+      <input type="text" readonly class="form-control" aria-describedby="id" value="<%= @product.codigo_producto %>"></input>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label" for="nombre">Nombre:</label>
+      <input type="text" readonly class="form-control" value="<%= @product.nombre_producto %>"></input>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label" for="categoria">Categoria:</label>
+      <input type="text" readonly class="form-control" value="<%= @product.category.nombre_categoria %>"></input>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label mt-1" for="unidad">Unidad:</label>
+      <input type="text" readonly class="form-control" value="<%= @product.unit.nombre_unidad %>">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label mt-1" for="ubicacion">Localizacion en almacen:</label>
+      <input type="text" readonly class="form-control" value="<%= @product.location.nombre_lugar %>">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label mt-1" for="precio">Precio (Bs):</label>
+      <input type="text" readonly class="form-control" value="<%= @product.precio_producto %>"></input>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label mt-1" for="existencia">Existencia actual:</label>
+      <input type="text" readonly class="form-control" value="<%= @product.existencia_producto %>"></input>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label mt-1" for="minimo">Existencia minima permitida:</label>
+      <input type="text" readonly class="form-control" value="<%= @product.min_producto %>"></input>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label mt-1" for="descripcion">Descripcion:</label>
+      <input type="text" readonly class="form-control" value="<%= @product.descripcion_producto %>"></input>
+    </div>
+  </div>
 </form>

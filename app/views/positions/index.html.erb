@@ -1,40 +1,47 @@
-<h1 id="comienzocar" class="h3 mb-2 text-gray-800">Cargos de empleados</h1>
+<style>
+  body {background-color: #608d98;}
+</style>
+
+<div id="comienzocar" class="text-center">
+    <span class="h2 text-gray-800"><i class="fa fa-th-list"></i> Cargos de empleados <i class="fa fa-th-list"></i></span> 
+</div>
 <br />
 
-<div class="row">
+<div class="row mb-3">
   <div class="col">
-    <%= link_to new_position_path, {remote: true, class: "btn btn-info form-control", id: "anadir-cargo-btn"}  do %>
-    <span class="fas fa-plus-square" ></span> Registrar nuevo cargo de empleado
+    <%= link_to new_position_path, {remote: true, class: "btn btn-primary form-control", id: "anadir-cargo-btn"}  do %>
+    <span class="fas fa-plus-square" ></span> Registrar cargo de empleado
     <% end %>
   </div>
   <div class="col">
     <%= search_form_for @q, options = {class: "w-100"} do |f| %>
     <%= f.search_field :nombre_cargo_cont, options = {class: "form-control", placeholder: "Buscar..."} %>
-    <%= f.button :type => "submit", class: "btn btn-info form-control" do %>
+    <%= f.button :type => "submit", class: "btn btn-success form-control mt-1" do %>
   <span class="fas fa-search"></span> Buscar
   <% end %>
     <% end %>
   </div>
 </div>
-<br />
 
 <div class="card shadow mb-4">
   <div class="card-body">
     <div class="table-responsive">
-      <table id="tablaCargos" class="table table-bordered" width="100%">
+      <table id="tablaCargos" class="table table-striped" width="100%">
 	<thead>
 	  <tr>
-	    <th>Nombre</th>
+	    <th class="align-middle text-center">Cargo</th>
 	    <th></th>
 	  </tr>
 	</thead>
 	<tbody>
 	  <% @cargos.each do |car| %>
 	  <tr id="cargo_<%= car.id %>" >
-	    <td><%= car.nombre_cargo %></td>
-	    <td>
-	      <%= link_to "Editar", edit_position_path(car), html_options = {class: "btn btn-info btn-xs", remote: true} %>
-	      <%= link_to 'Borrar', car, remote: true, method: :delete, data: { confirm: "Borrar el cargo: #{car.nombre_cargo}?"}, class: "btn btn-danger btn-xs" %>
+	    <td class="align-middle text-center"><%= car.nombre_cargo %></td>
+	    <td class="align-middle text-center">
+	      <div class="btn-group ">
+		<%= link_to "Editar", edit_position_path(car), html_options = {class: "btn btn-secondary btn-sm", remote: true} %>
+		<%= link_to 'Borrar', car, remote: true, method: :delete, data: { confirm: "Borrar el cargo: #{car.nombre_cargo}?"}, class: "btn btn-danger btn-sm" %>
+	      </div>
 	    </td>
 	  </tr>
 	  <% end %>

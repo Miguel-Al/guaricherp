@@ -1,6 +1,6 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:edit, :update, :destroy, :show]
-  before_action :set_position, only: [:new, :edit, :create, :update]
+  before_action :set_positions, only: [:new, :edit, :update, :create]
   before_action :authenticate_allowed, only: [:index]
 
   def index
@@ -9,18 +9,18 @@ class EmployeesController < ApplicationController
   end
 
   def new
-    @empleado = Employee.new
-    @empleado.phoneployees.build
+    @employee = Employee.new
+    @employee.phoneployees.build
   end
 
   def edit
   end
 
   def create
-    @empleado = Employee.new(employee_params)
+    @employee = Employee.new(employee_params)
 
     respond_to do |format|
-      if @empleado.save
+      if @employee.save
         format.json { head :no_content }
         format.js
       else
@@ -29,13 +29,10 @@ class EmployeesController < ApplicationController
       end
     end
   end
-
-  def show
-  end
   
   def update
     respond_to do |format|
-      if @empleado.update(employee_params)
+      if @employee.update(employee_params)
         format.json { head :no_content }
         format.js
       else
@@ -46,10 +43,14 @@ class EmployeesController < ApplicationController
   end
 
   def destroy
-    @empleado.destroy
     respond_to do |format|
-      format.json { head :no_content }
-      format.js
+      if @employee.destroy
+        format.json { head :no_content }
+        format.js
+      else
+        flash[:error] = "No se ha podido borrar el empleado"
+        format.html { redirect_to employees_path }
+      end
     end
   end
 
@@ -74,17 +75,18 @@ class EmployeesController < ApplicationController
     return if current_user.role_id == 1 || current_user.role_id == 2 || current_user.role_id == 3
     redirect_to root_path
   end
-  
+
   private
   def employee_params
     params.require(:employee).permit(:numero_cedula, :primer_nombre, :segundo_nombre, :primer_apellido, :segundo_apellido, :fecha_ingreso, :direccion_empleado, :correo_empleado, :salario_empleado, :position_id, phoneployees_attributes: [:id, :_destroy, :numero_empleado])
   end
 
-    def set_employee
-      @empleado = Employee.find(params[:id])
-    end
+  def set_employee
+    @employee = Employee.find(params[:id])
+  end
 
-    def set_position
-      @cargos = Position.all
-    end
+  def set_positions
+    @cargos = Position.all
+  end
+  
 end

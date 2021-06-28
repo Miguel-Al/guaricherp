@@ -1,40 +1,56 @@
+<style>
+  body {background-color: #608d98;}
+</style>
+
 <% if @empresa == nil %>
-<h1 id="comienzopresa" class="h3 mb-2 text-gray-800">Datos de la empresa</h1>
-<br />
-<div class="row">
-  <%= link_to new_company_path, {remote: true, class: "btn btn-info form-control", id: "anadir-empresa-btn"}  do %>
+<div id="comienzopresa" class="text-center">
+  <span class="h1 text-gray-800"><i class="fa fa-building"></i> Datos de la empresa <i class="fa fa-building"></i></span>
+  <br />
+</div>
+<br>
+
+<div class="d-grid gap-4 mx-auto">
+  <%= link_to new_company_path, {remote: true, class: "btn btn-primary form-control", id: "anadir-empresa-btn"}  do %>
   <span class="fas fa-plus-square" ></span> Insertar datos de la empresa
   <% end %>
 </div>
 
 <% else %>
-<h1 id="comienzopresa" class="h3 mb-2 text-gray-800">Datos de la empresa</h1>
-<br />
+<div id="comienzopresa" class="text-center">
+  <span class="h1 text-gray-800"><i class="fa fa-building"></i> Datos de la empresa <i class="fa fa-building"></i></span>
+  <br />
+</div>
+<br>
+
 <form>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="id">Numero de Rif</label>
-      <input type="text" readonly class="form-control-plaintext" value="<%= @empresa.rif_empresa %>">
+  <div class="form-control">
+    <br>
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="idrif">Numero de Rif:</label>
+      <input type="text" readonly class="form-control" aria-describedby="idrif" value="<%= @empresa.rif_empresa %>"></input>
     </div>
-    <div class="form-group col-md-6">
-      <label for="fecha">Nombre</label>
-      <input type="text" readonly class="form-control-plaintext" value="<%= @empresa.nombre_empresa %>">
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="nombrepresa">Nombre:</label>
+      <input type="text" readonly class="form-control" aria-describedby="nombrepresa" value="<%= @empresa.nombre_empresa %>"></input>
+    </div>
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="dirpresa">Direccion:</label>
+      <input type="text" readonly class="form-control" aria-describedby="dirpresa" value="<%= @empresa.direccion_empresa %>"></input>
+    </div>
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="telpresa">Telefono:</label>
+      <input type="text" readonly class="form-control" aria-describedby="telpresa" value="<%= @empresa.telefono_empresa %>"></input>
+    </div>
+    <div class="input-group mb-3">
+      <label class="input-group-text" for="numerocontrol">Numero de control:</label>
+      <input type="text" readonly class="form-control" aria-describedby="numerocontrol" value="<%= @empresa.numero_control %>"></input>
     </div>
   </div>
-  <div class="form-group col-md-6">
-    <label for="vendedor">Direccion:</label>
-    <input type="text" readonly class="form-control-plaintext" value="<%= @empresa.direccion_empresa %>">
-  </div>
-  <div class="form-group col-md-6">
-    <label for="cliente">Telefono:</label>
-    <input type="text" readonly class="form-control-plaintext" value="<%= @empresa.telefono_empresa %>">
-  </div>
-  <div class="form-group col-md-6">
-    <label for="cliente">Numero de control:</label>
-    <input type="text" readonly class="form-control-plaintext" value="- <%= @empresa.numero_control %>">
-  </div>
-  <div class="row">
-  <%= link_to "Editar datos", edit_company_path(@empresa), html_options = {class: "btn btn-info btn-xs", remote: true} %>
+  <br>
+  <div class="d-grid gap-4 mx-auto">
+    <%= link_to edit_company_path(@empresa), {class: "btn btn-primary btn-xs form-control", remote: true} do %>
+    <span class="fas fa-pencil-alt"></span> Editar datos
+    <% end %>
   </div>
 </form>
 <%end%>

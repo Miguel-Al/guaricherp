@@ -17,10 +17,12 @@ class ReporteNominaPdf < Prawn::Document
 
   def titulo
     text "Resumen de nomina del periodo #{@minimo.strftime("%d-%m-%Y")} y #{@max.strftime("%d-%m-%Y")}", size: 25, style: :bold
+    move_down 5
     text "Este documento ha sido generado el dia #{DateTime.now.to_s(:db)}"
   end
   
   def listado
+    move_down 10
     table(item_table_data, :cell_style => {:border_color => "FFFFFF"}) do
       row(0).font_style = :bold
       self.header = true
@@ -44,15 +46,15 @@ end
 
 def total_asignado
   move_down 20
-  text "Total de asignaciones: Bs #{@asigna}"
+  text "Total de asignaciones: Bs #{@asigna}", size: 15, style: :bold
 end
 
 def total_deducido
-  text "Total de deducciones: Bs #{(@deduce).round(2)}"
+  text "Total de deducciones: Bs #{(@deduce).round(2)}", size: 15, style: :bold
 end
 
 def total
-  text "Total de la nomina del periodo: Bs #{((@asigna) - (@deduce)).round(2)}"
+  text "Total de la nomina del periodo: Bs #{((@asigna) - (@deduce)).round(2)}", size: 15, style: :bold
 end
 
 

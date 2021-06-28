@@ -1,14 +1,18 @@
+<style>
+  body {background-color: #ccc5c5;}
+</style>
 <%= stylesheet_link_tag 'sales' %>
 
 <%= form_for @compra, remote: true  do |f| %>
 <div class = "row">
   <div class="col">
-    <h3 class="h3 mb-2 text-gray-800">Registro de compra</h3>
+    <h2 class="mb-2 text-gray-800">Registro de compra</h2>
     <br />
-    <div id="proveedor-compra" class="nombre-proveedor" >
-      <h5> Proveedor: <%= @compra.supplier.present? ?  @compra.supplier.try(:nombre_proveedor) : "No se ha asignado" %></h5>
+    <div id="proveedor-compra" class="nombre-proveedor mb-2" >
+      <h4> Proveedor: <%= @compra.supplier.present? ?  @compra.supplier.try(:nombre_proveedor) : "No se ha asignado" %></h4>
     </div>
-    <div class="input-group">
+    <div class="mb-2">
+      <%= f.label :pago, "Metodo de pago: " %>
       <%= f.collection_select(:type_payment_id, @tipopago, :id, :nombre_tipo_pago, {:prompt => 'Seleccione el tipo de pago'}, { class: "form-control", required: true })%>
     </div>
   </div>
@@ -20,7 +24,7 @@
 </div>
 
 <div class="item form-group<%= @compra.errors[:numero_compra].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :adelanto, "Numero de compra: " %>
+  <%= f.label :numero, "Numero de compra: " %>
   <div class="input-group">
     <%= f.number_field :numero_compra, {:class=> "form-control", :placeholder=>"Numero de compra...", required: true} %>       </div>
 </div>
@@ -29,26 +33,28 @@
 <div class="row">
   <div class="col">
     <button type="button" class="btn btn-primary form-control" data-bs-toggle="modal" data-bs-target="#buscador_productocompra">
-      Buscar producto </button>
+      <span class="fas fa-search"></span> Buscar producto</button>
   </div>
   <div class="col">
-    <button type="button" class="btn btn-info form-control" data-bs-toggle="modal" data-bs-target="#buscador_proveedor">
-      Buscar proveedor</button>
+    <button type="button" class="btn btn-outline-secondary form-control" data-bs-toggle="modal" data-bs-target="#buscador_proveedor">
+      <span class="fas fa-search"></span> Buscar proveedor</button>
   </div>
 </div>
 <br>
 
 <div class="row">
   <div class="col">
-    <%= link_to 'Cancelar registro', @compra, method: :delete, data: { confirm: 'Cancelar la registro?' }, class: "btn btn-danger form-control" %>
+    <%= link_to @compra, method: :delete, data: { confirm: 'Cancelar la registro?' }, class: "btn btn-danger form-control" do %>
+    <span class="fas fa-window-close"></span> Cancelar registro
+  <% end %>
   </div>
   <div class="col">
-    <%= f.submit 'Finalizar registro', class: "btn btn-success form-control" %>
+    <%= f.button :type => "submit", class: "btn btn-success form-control" do %>
+  <span class="fa fa-check"></span> Finalizar registro
+  <% end %>
   </div>
 </div>
 <% end %>
-
-</div>
 <br />
 
 <div class="card shadow mb-4">

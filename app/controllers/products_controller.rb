@@ -6,12 +6,13 @@ class ProductsController < ApplicationController
   before_action :authenticate_allowed, only: [:index]
   
   def index
+    @empresa = Company.last
     @q = Product.ransack(params[:q])
     @productos = @q.result
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = ReporteInventarioPdf.new(@productos)
+        pdf = ReporteInventarioPdf.new(@productos, @empresa)
         send_data pdf.render, filename: "estadodeinventario_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
       end
     end

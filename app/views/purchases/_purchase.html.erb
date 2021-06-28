@@ -1,63 +1,55 @@
 <form>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="id">ID</label>
-      <input type="text" readonly class="form-control-plaintext" value="<%= @compra.numero_compra %>">
+  <div class="row">
+    <div class="input-group mb-2">
+      <label class="input-group-text" for="id">Numero de compra:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="id" value="<%= @compra.numero_compra %>">
     </div>
-    <div class="form-group col-md-6">
-      <label for="fecha">Fecha</label>
-      <input type="text" readonly class="form-control-plaintext" value="<%= @compra.created_at.strftime("%d-%m-%Y") %>">
+    <div class="input-group mb-2">
+      <label class="input-group-text" for="fecha">Fecha:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="fecha" value="<%= @compra.created_at.strftime("%d-%m-%Y") %>">
     </div>
-    <div class="form-group col-md-6">
-      <label for="almacenista">Almacenista:</label>
-      <input type="text" readonly class="form-control-plaintext" value="<%= @compra.user.username %>">
+    <div class="input-group mb-2">
+      <label class="input-group-text" for="almacenista">Encargado:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="almacenista" value="<%= @compra.user.username %>">
     </div>
-    <div class="form-group col-md-6">
-      <label for="proveedor">Proveedor:</label>
-      <input type="text" readonly class="form-control-plaintext" value="<%= @compra.supplier.nombre_proveedor %>">
+    <div class="input-group mb-2">
+      <label class="input-group-text" for="proveedor">Proveedor:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="proveedor" value="<%= @compra.supplier.nombre_proveedor %>">
     </div>
   </div>
-  <br>
 
   <table class="table table-striped">
     <thead>
       <tr>
-	<th>Producto</th>
-	<th>Cantidad</th>
-	<th>Precio</th>
-	<th>Total</th>
+	<th class="align-middle text-center">Producto</th>
+	<th class="align-middle text-center">Cantidad</th>
+	<th class="align-middle text-center">Precio</th>
+	<th class="align-middle text-center">Total</th>
       </tr>
     </thead>
     <tbody>
       <% @compra.purchase_details.each do |detalle| %>
       <tr>
-	<td><%= detalle.product.nombre_producto %></td>
-	<td><%= detalle.cantidad %></td>
-	<td>Bs <%= detalle.precio_detalle_compra %></td>
-	<td>Bs <%= detalle.precio_detalle_compra * detalle.cantidad %></td>
+	<td class="align-middle text-center"><%= detalle.product.nombre_producto %></td>
+	<td class="align-middle text-center"><%= detalle.cantidad %></td>
+	<td class="align-middle text-center">Bs <%= detalle.precio_detalle_compra %></td>
+	<td class="align-middle text-center">Bs <%= detalle.precio_detalle_compra * detalle.cantidad %></td>
       </tr>
       <% end %>
     </tbody>
   </table>
-  <br>
   
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="id">Sub total de compra</label>
-      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @compra.total_compra %>">
+  <div class="row mb-1">
+    <div class="col text-end">
+      <p class="h4 mb-1">Sub total de compra: Bs <%= @compra.total_compra %></p>
+      <p class="h4 mb-1">16% del IVA: Bs <%= @compra.total_compra * 0.16 %></p>
+      <p class="h4 mb-1">Total de compra: Bs <%= @compra.total_compra * 1.16 %></p>
+      <br>
     </div>
-    <div class="form-group col-md-6">
-      <label for="id">16% del iva</label>
-      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @compra.total_compra * 0.16 %>">
+    <div class="text-center">
+      <%= link_to purchase_path(@compra, format: :pdf), {class: "btn btn-outline-primary form-control", target: :_blank} do %>
+      <span class="fas fa-file-alt" ></span> Generar Respaldo de documento
+      <% end %>
     </div>
-    <div class="form-group col-md-6">
-      <label for="id">Monto final de la compra</label>
-      <input type="text" readonly class="form-control-plaintext" value="Bs <%= @compra.total_compra * 1.16 %>">
-    </div>
-  </div>
-  <div class="form-row">
-    <%= link_to purchase_path(@compra, format: :pdf), {class: "btn btn-primary", target: :_blank} do %>
-    <span class="fas fa-file-alt" ></span> Generar Respaldo de documento
-    <% end %>
   </div>
 </form>

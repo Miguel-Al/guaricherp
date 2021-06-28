@@ -10,7 +10,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body style="background:#063f72; background:linear-gradient(to right,#063f72, #5d97cb)">
     <% if notice %>
     <div id="notice_wrapper">
       <p class="notice"><%= notice %></p>
@@ -22,8 +22,8 @@
     <% end %>
     <div class="container">
       <div class="row">
-	<div class="col-md-4 offset-md-4">
-	  <div class="login-form bg-light mt-4 p-4">
+	<div class="col-md-4 offset-md-4 w-85">
+	  <div class="align-items-stretch bg-white mt-4 rounded mt-4 p-4">
 	    <%= yield %>
 	    <br>
 	  </div>

@@ -1,12 +1,15 @@
+<style>
+  body {background-color: #96bca4;}
+</style>
 <%= stylesheet_link_tag 'sales' %>
 
 <%= form_for @venta, remote: true  do |f| %>
 <div class="row">
   <div class="col">
-    <h3 class="h3 mb-2 text-gray-800">Punto de venta</h3>
+    <h2 class="mb-2 text-gray-800">Punto de venta</h2>
     <br />
     <div id="cliente_venta" class="nombre-cliente" >
-     <h5> Cliente: <%= @venta.client.present? ? @venta.client.try(:nombre_cliente) : "No se ha asignado" %></h5>
+     <h4> Cliente: <%= @venta.client.present? ? @venta.client.try(:nombre_cliente) : "No se ha asignado" %></h4>
     </div>
     <div class="input-group">
       <%= f.collection_select(:type_payment_id, @tipopago, :id, :nombre_tipo_pago, {:prompt => 'Seleccione el tipo de pago'}, { class: "form-control", required: true })%>
@@ -26,11 +29,11 @@
        <span class="fas fa-search"></span> Buscar producto</button>
   </div>
   <div class="col">
-    <button type="button" class="btn btn-info form-control" data-bs-toggle="modal" data-bs-target="#buscador_cliente">
+    <button type="button" class="btn btn-outline-secondary form-control" data-bs-toggle="modal" data-bs-target="#buscador_cliente">
       <span class="fas fa-search"></span> Buscar cliente</button>
   </div>
   <div class="col">
-    <%= link_to new_client_path, { remote: true, class: "btn btn-info form-control" }  do %>
+    <%= link_to new_client_path, { remote: true, class: "btn btn-outline-primary form-control" }  do %>
     <span class="fas fa-plus-square" ></span> Registrar nuevo cliente
     <% end %>
   </div>
@@ -39,18 +42,18 @@
 
 <div class="row">
   <div class="col">
-    <%= link_to 'Cancelar venta', @venta, method: :delete, data: { confirm: 'Cancelar la venta?' }, class: "btn btn-danger form-control" %>
+    <%= link_to @venta, method: :delete, data: { confirm: 'Cancelar la venta?' }, class: "btn btn-danger form-control" do %>
+    <span class="fas fa-window-close"></span> Cancelar venta
+    <% end %>
   </div>
   <div class="col">
-    <%= f.submit 'Finalizar venta', class: "btn btn-success form-control" %>
+    <%= f.button :type => "submit", class: "btn btn-success form-control" do %>
+    <span class="fa fa-check"></span> Finalizar venta
+    <% end %>
   </div>
 </div>
-
 <% end %>
-
-</div>
 <br>
-
 
 <div class="card shadow mb-4">
   <div class="card-body">

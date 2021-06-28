@@ -1,23 +1,28 @@
 require 'prawn/table'
 class ReporteInventarioPdf < Prawn::Document
-  def initialize(productos)
+  def initialize(productos, empresa)
     super()
+    @empresa = empresa
     @productos = productos
     titulo
     listado
   end
 
   def titulo
-    text "Listado Del inventario #{DateTime.now.to_s(:db)}", size: 15, style: :bold
+    text "#{@empresa.nombre_empresa}", size: 20, style: :bold, align: :center
+    move_down 10
+    text "Listado del inventario fecha: #{Date.today.to_s(:db)}", size: 20, style: :bold
+    text "Este documento ha sido generado a las #{Time.now.to_s(:time)}", size: 10
   end
 
   
- def listado
+  def listado
+    move_down 15
     table product_rows do
       row(0).font_style = :bold
       self.header = true
       self.row_colors = ['DDDDDD', 'FFFFFF']
-      self.column_widths = [80, 260, 200]
+      self.column_widths = [120, 280, 140]
     end
   end
 
