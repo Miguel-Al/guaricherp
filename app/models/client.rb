@@ -4,7 +4,8 @@ class Client < ApplicationRecord
   has_many :phoneclients, dependent: :destroy
   accepts_nested_attributes_for :phoneclients, allow_destroy: :true, reject_if: proc { |att| att['numero_cliente'].blank? }
 
-  validates :rif_cliente, :direccion_cliente, :nombre_cliente, uniqueness: { message: "Ya esta registrado" }
+  validates :rif_cliente, uniqueness: {scope: :type_client_id, message: "Ya esta registrado"} 
+  validates :direccion_cliente, :nombre_cliente, uniqueness: { message: "Ya esta registrado" }
   
   validates :type_client_id, :phoneclients, :rif_cliente, :direccion_cliente, :nombre_cliente, presence: { message: "No puede estar vacio" }
   validates_format_of :correo_cliente, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: "No es un formato valido", allow_blank: true

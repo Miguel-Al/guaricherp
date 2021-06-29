@@ -52,27 +52,27 @@
 	    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
 	      <% if current_user.role_id == 1 || current_user.role_id ==  2 || current_user.role_id == 5  %>
 	      <li>
-		<a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-		  <i class="fas fa-warehouse"></i> <span class="ms-1 d-none d-sm-inline">Inventario</span> </a>
-		<ul class="collapse nav fw-normal pb-1 small" id="submenu1" data-bs-parent="#menu">
+		<a href="#submenu1" data-bs-toggle="collapse" class="text-white nav-link px-0 align-middle">
+		  <i class="fas fa-warehouse"></i> <span class="ms-1 d-none d-sm-inline">Inventario</span></a>
+		<ul class="collapse nav flex-column ms-1 small" id="submenu1" data-bs-parent="#menu">
 		  <li>
-		    <%= link_to products_path, class: "nav-link px-1 align-middle" do %>
+		    <%= link_to products_path, class: "text-white nav-link px-2 align-middle" do %>
 		    <i class="fas fa-boxes"></i> <span class="ms-1 d-none d-sm-inline">Productos</span>
 		    <% end %>
 		  </li>
 		  <% if current_user.role_id == 1 || current_user.role_id ==  2 %>
 		  <li>
-		    <%= link_to categories_path, class: "nav-link px-1 align-middle" do %>
+		    <%= link_to categories_path, class: "text-white nav-link px-2 align-middle" do %>
 		    <i class="fas fa-tag"></i> <span class="ms-1 d-none d-sm-inline">Categorias</span>
 		    <% end %>
 		  </li>
 		  <li>
-		    <%= link_to units_path, class: "nav-link px-1 align-middle" do %>
+		    <%= link_to units_path, class: "text-white nav-link px-2 align-middle align-middle" do %>
 		    <i class="fa fa-cube"></i> <span class="ms-1 d-none d-sm-inline">Unidades</span>
 		    <% end %>
 		  </li>
 		  <li>
-		    <%= link_to locations_path, class: "nav-link px-1 align-middle" do %>
+		    <%= link_to locations_path, class: "text-white nav-link px-2 align-middle" do %>
 		    <i class="fa fa-map-marker"></i> <span class="ms-1 d-none d-sm-inline">Ubicaciones</span>
 		    <% end %>
 		  </li>
@@ -83,17 +83,17 @@
 
 	      <% if current_user.role_id == 1 || current_user.role_id ==  2 || current_user.role_id == 5  %>
 	      <li>
-		<a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+		<a href="#submenu2" data-bs-toggle="collapse" class="text-white nav-link px-0 align-middle">
 		  <i class="fas fa-truck"></i> <span class="ms-1 d-none d-sm-inline">Suministro</span></a>
 		<ul class="collapse nav flex-column ms-1 small" id="submenu2" data-bs-parent="#menu">
 		  <li>
-		    <%= link_to purchases_path, class: "nav-link px-1 align-middle" do %>
+		    <%= link_to purchases_path, class: "text-white nav-link px-2 align-middle" do %>
 		    <i class="fa fa-shopping-basket"></i> <span class="ms-1 d-none d-sm-inline">Compras</span>
 		    <% end %>
 		  </li>
 		  <% if current_user.role_id == 1 || current_user.role_id ==  2 %>
 		  <li>
-		    <%= link_to suppliers_path, class: "nav-link px-1 align-middle" do %>
+		    <%= link_to suppliers_path, class: "text-white nav-link px-2 align-middle" do %>
 		    <i class="fas fa-handshake"></i> <span class="ms-1 d-none d-sm-inline">Proveedores</span>
 		    <% end %>
 		  </li>
@@ -104,16 +104,16 @@
 
 	      <% if current_user.role_id == 1 || current_user.role_id ==  2 || current_user.role_id == 4  %>
 	      <li>
-		<a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+		<a href="#submenu3" data-bs-toggle="collapse" class="text-white nav-link px-0 align-middle">
 		  <i class="fas fa-shopping-cart"></i><span class="ms-1 d-none d-sm-inline">Ventas</span> </a>
 		<ul class="collapse nav flex-column ms-1 small" id="submenu3" data-bs-parent="#menu">
 		  <li>
-		    <%= link_to sales_path, class: "nav-link px-1 align-middle" do %>
+		    <%= link_to sales_path, class: "text-white nav-link px-2 align-middle" do %>
 		    <i class="fas fa-cart-plus"></i> <span class="ms-1 d-none d-sm-inline">Facturas</span>
 		    <% end %>
 		  </li>
 		  <li>
-		    <%= link_to clients_path, class: "nav-link px-1 align-middle" do %>
+		    <%= link_to clients_path, class: "text-white nav-link px-2 align-middle" do %>
 		    <i class="far fa-address-card"></i> <span class="ms-1 d-none d-sm-inline">Clientes</span>
 		    <% end %>
 		  </li>
@@ -123,16 +123,16 @@
 	      
 	      <% if current_user.role_id == 1 || current_user.role_id ==  2 || current_user.role_id == 3  %>
 	      <li>
-		<a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+		<a href="#submenu4" data-bs-toggle="collapse" class="text-white nav-link px-0 align-middle">
 		  <i class="far fa-clipboard"></i> <span class="ms-1 d-none d-sm-inline">RRHH</span> </a>
 		<ul class="collapse nav flex-column ms-1 small" id="submenu4" data-bs-parent="#menu">
 		  <li class="w-100">
-		    <%= link_to employees_path, class: "nav-link px-1 align-middle" do %>
+		    <%= link_to employees_path, class: "text-white nav-link px-2 align-middle" do %>
 		    <i class="fas fa-users"></i> <span class="ms-1 d-none d-sm-inline">Empleados</span>
 		    <% end %>
 		  </li>
 		  <li>
-		    <%= link_to paychecks_path, class: "nav-link px-1 align-middle" do %>
+		    <%= link_to paychecks_path, class: "text-white nav-link px-2 align-middle" do %>
 		    <i class="far fa-edit"></i> <span class="ms-1 d-none d-sm-inline">Nomina</span>
 		    <% end %>
 		  </li>
@@ -142,22 +142,21 @@
 
 	      <% if current_user.role_id == 1 || current_user.role_id ==  2 %>
 	      <li>
-		<a href="#submenu5" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+		<a href="#submenu5" data-bs-toggle="collapse" class="text-white nav-link px-0 align-middle">
 		  <i class="fa fa-cog"></i> <span class="ms-1 d-none d-sm-inline">Configuracion</span> </a>
 		<ul class="collapse nav flex-column ms-1 small" id="submenu5" data-bs-parent="#menu">
 		  <li>
-		  <li>
-		    <%= link_to companies_path, class: "nav-link px-1 align-middle" do %>
+		    <%= link_to companies_path, class: "text-white nav-link px-2 align-middle" do %>
 		    <i class="fa fa-building"></i> <span class="ms-1 d-none d-sm-inline">Empresa</span>
 		    <% end %>
 		  </li>
 		  <li>
-		    <%= link_to type_payments_path, class: "nav-link px-1 align-middle" do %>
+		    <%= link_to type_payments_path, class: "text-white nav-link px-2 align-middle" do %>
 		    <i class="fas fa-money-check"></i> <span class="ms-1 d-none d-sm-inline">Metodos de pago</span>
 		    <% end %>
 		  </li>
 		  <li>
-		    <%= link_to positions_path, class: "nav-link px-1 align-middle" do %>
+		    <%= link_to positions_path, class: "text-white nav-link px-2 align-middle" do %>
 		    <i class="fa fa-th-list"></i> <span class="ms-1 d-none d-sm-inline">Cargos</span>
 		    <% end %>
 		  </li>
@@ -167,20 +166,18 @@
 	      
 	      <% if current_user.role_id == 1 %>
 	      <li>
-		<%= link_to rails_admin_path, class: "nav-link px-0 align-middle" do %>
+		<%= link_to rails_admin_path, class: "text-white nav-link px-0 align-middle" do %>
 		<i class="fas fa-tools"></i> <span class="ms-1 d-none d-sm-inline">Administracion</span>
 		<% end %>
 	      </li>
 	      <% end %>
-	      
+
 	      <li>
-		<%= link_to destroy_user_session_path, method: :delete, class: "nav-link px-0 align-middle" do %>
+		<%= link_to destroy_user_session_path, method: :delete, class: "text-white nav-link px-0 align-middle" do %>
 		<i class="fas fa-power-off"></i> <span class="ms-1 d-none d-sm-inline">Salir</span>
 		<% end %>
 	      </li>
-	      
 	    </ul>
-	    <hr>
 	  </div>
 	</div>
 	<div class="col overflow-auto h-100">
@@ -206,6 +203,6 @@
 	  </div>
 	</div>
       </div>
-
+    </div>
   </body>
 </html>
