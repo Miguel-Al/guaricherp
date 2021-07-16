@@ -7,21 +7,44 @@
 </div>
 <br />
 
-<%= search_form_for @search, url: search_sales_path, html: {method: :post} do |f| %>
-<div class="row mb-3">
-  <div class="col">
-    <%= f.date_field :created_at_gteq, class: "form-control", placeholder: "Fecha de inicio..." %>
-  </div>
-  <div class="col">
-    <%= f.date_field :created_at_lteq, class: "form-control", placeholder: "Fecha fin..." %>
-  </div>
-  <div class="col">
-    <%= f.button :type => "submit", class: "btn btn-success form-control" do %>
-  <span class="fas fa-search"></span> Buscar
-  <% end %>
-  <% end %>
+<div class="container" id="buscadoresventa">
+  <p>
+  <button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#buscarfechaventa" aria-expanded="true" aria-controls="buscarfecha"> Buscador de fecha </button>
+  <button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#buscarnumeroventa" aria-expanded="false" aria-controls="buscarnumero"> Buscador por numero </button>
+  </p>
+  
+    <div class="collapse" id="buscarfechaventa" data-bs-parent="#buscadoresventa">
+      <%= search_form_for @search, url: search_sales_path, html: {method: :post} do |f| %>
+      <div class="row mb-3">
+	<div class="col">
+	  <%= f.date_field :created_at_gteq, class: "form-control", placeholder: "Fecha de inicio..." %>
+	</div>
+	<div class="col">
+	  <%= f.date_field :created_at_lteq, class: "form-control", placeholder: "Fecha fin..." %>
+	</div>
+	<div class="col">
+	  <%= f.button :type => "submit", class: "btn btn-success form-control" do %>
+	  <span class="fas fa-search"></span> Buscar
+	  <% end %>
+	  <% end %>
+	</div>
+      </div>
+    </div>
+    <div class="collapse" id="buscarnumeroventa" data-bs-parent="#buscadoresventa">
+      <%= search_form_for @search, url: search_sales_path, html: {method: :post} do |f| %>
+      <div class="row mb-3">
+	<div class="col">
+	  <%= f.number_field :numero_venta_eq, class: "form-control", placeholder: "Numero de factura..." %>
+	</div>
+	<div class="col">
+	  <%= f.button :type => "submit", class: "btn btn-success form-control" do %>
+	  <span class="fas fa-search"></span> Buscar
+	  <% end %>
+	  <% end %>
+    </div>
   </div>
 </div>
+
 
 <div class="row">
   <div class="col">

@@ -1,6 +1,6 @@
 class PaychecksController < ApplicationController
   before_action :set_paycheck, only: [:edit, :destroy, :show, :add_empleado, :update]
-  before_action :set_paycheck_type, only: [:edit, :destroy, :update, :show]
+  before_action :set_paycheck_type, only: [:edit, :destroy, :update, :show, :index, :search]
   before_action :set_type_payment, only: [:edit, :destroy, :update, :show]
   before_action :authenticate_allowed, only: [:index, :edit]
 

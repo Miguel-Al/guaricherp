@@ -7,73 +7,56 @@
     <%= csp_meta_tag %>   
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
     <style>
       body {
-    position: relative;
-    overflow-x: hidden;
-    background-color: #CFD8DC;
-}
-body,
-html { height: 100%;}
-.nav .open > a, 
-.nav .open > a:hover, 
-.nav .open > a:focus {background-color: transparent;}
-
-/*-------------------------------*/
-/*           Wrappers            */
-/*-------------------------------*/
-
-#wrapper {
-    padding-left: 0;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-
-#wrapper.toggled {
-    padding-left: 220px;
-}
-
-#sidebar-wrapper {
-    z-index: 1000;
-    left: 220px;
-    width: 0;
-    height: 100%;
-    margin-left: -220px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    background: #1a1a1a;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-
-#sidebar-wrapper::-webkit-scrollbar {
-  display: none;
-}
-
-#wrapper.toggled #sidebar-wrapper {
-    width: 220px;
-}
-
-#page-content-wrapper {
-    width: 100%;
-    padding-top: 70px;
-}
-
-#wrapper.toggled #page-content-wrapper {
-    position: absolute;
-    margin-right: -220px;
-}
-
-/*-------------------------------*/
-/*     Sidebar nav styles        */
-/*-------------------------------*/
-.navbar {
-  padding: 0;
-}
+	  position: relative;
+	  overflow-x: hidden;
+	  background-color: #CFD8DC;}
+      body,
+      html { height: 100%;}
+      .nav .open > a,
+      .nav .open > a:hover,
+      .nav .open > a:focus {background-color: transparent;}
+      /*-------------------------------*/
+      /*           Wrappers            */
+      /*-------------------------------*/
+      #wrapper {
+	  padding-left: 0;
+	  -webkit-transition: all 0.5s ease;
+	  -moz-transition: all 0.5s ease;
+	  -o-transition: all 0.5s ease;
+	  transition: all 0.5s ease;}
+      #wrapper.toggled {
+	  padding-left: 220px;}
+      #sidebar-wrapper {
+	  z-index: 1000;
+	  left: 220px;
+	  width: 0;
+	  height: 100%;
+	  margin-left: -220px;
+	  overflow-y: auto;
+	  overflow-x: hidden;
+	  background: #1a1a1a;
+	  -webkit-transition: all 0.5s ease;
+	  -moz-transition: all 0.5s ease;
+	  -o-transition: all 0.5s ease;
+	  transition: all 0.5s ease;}
+      #sidebar-wrapper::-webkit-scrollbar {
+	  display: none;}
+      #wrapper.toggled #sidebar-wrapper {
+	  width: 220px;}
+      #page-content-wrapper {
+	  width: 100%;
+	  padding-top: 70px;}
+      #wrapper.toggled #page-content-wrapper {
+	  position: absolute;
+	  margin-right: -220px;}
+      /*-------------------------------*/
+      /*     Sidebar nav styles        */
+      /*-------------------------------*/
+      .navbar {
+	  padding: 0;}
 
 .sidebar-nav {
     position: absolute;
@@ -106,24 +89,52 @@ html { height: 100%;}
             transition: width .2s ease-in;
 
 }
-.sidebar-nav li:first-child a {
+/*
+.sidebar-nav li:nth-child a {
     color: #fff;
     background-color: #1a1a1a;
 }
+*/
+
+.sidebar-nav li li:nth-of-type(5n+1):before {
+    background-color: #6e6e6e;   
+}
+.sidebar-nav li li:nth-of-type(5n+2):before {
+    background-color: #6e6e6e;   
+}
+.sidebar-nav li li:nth-of-type(5n+3):before {
+    background-color: #6e6e6e;   
+}
+.sidebar-nav li li:nth-of-type(5n+4):before {
+    background-color: #6e6e6e;   
+}
+.sidebar-nav li li:nth-of-type(5n+5):before {
+    background-color: #6e6e6e;   
+}
+
 .sidebar-nav li:nth-child(5n+1):before {
-    background-color: #ec1b5a;   
+    background-color: #7B72D9;
 }
 .sidebar-nav li:nth-child(5n+2):before {
-    background-color: #79aefe;   
+    background-color: #7B72D9;
 }
 .sidebar-nav li:nth-child(5n+3):before {
-    background-color: #314190;   
+    background-color: #ccc5c5;
 }
 .sidebar-nav li:nth-child(5n+4):before {
-    background-color: #279636;   
+    background-color: #96bca4;   
 }
 .sidebar-nav li:nth-child(5n+5):before {
-    background-color: #7d5d81;   
+    background-color: #646e83;   
+}
+.sidebar-nav li:nth-child(5n+6):before {
+    background-color: #608d98;   
+}
+.sidebar-nav li:nth-child(5n+7):before {
+    background-color: #608d98;   
+}
+.sidebar-nav li:nth-child(5n+8):before {
+    background-color: #d91443;   
 }
 
 .sidebar-nav li:hover:before,
@@ -337,8 +348,8 @@ html { height: 100%;}
 </style>
   </head>
 
-<div id="wrapper">
-   <div class="overlay"></div>    
+  <div id="wrapper">
+    <div class="overlay"></div>    
         <!-- Sidebar -->
     <nav class="navbar navbar-inverse fixed-top" id="sidebar-wrapper" role="navigation">
      <ul class="nav sidebar-nav">
@@ -346,7 +357,7 @@ html { height: 100%;}
        <div class="sidebar-brand">
          <a href="/"><%= image_tag("logo2.png", :class => "w-75 align-items-center") %></a></div></div>
        	      <% if current_user.role_id == 1 || current_user.role_id ==  2 || current_user.role_id == 5  %>
-        <li class="dropdown">
+        <li id="submenu1" class="dropdown">
        <a href="#submenu1" class="dropdown-toggle" data-bs-toggle="dropdown" class="text-white nav-link align-middle"><i class="fas fa-warehouse"></i> <span class="ms-1 d-none d-sm-inline">Inventario</span><span class="caret"></span></a>
      <ul class="dropdown-menu animated fadeInLeft" role="menu">
        <li><%= link_to products_path, class: "text-white nav-link align-middle" do %>
@@ -367,7 +378,7 @@ html { height: 100%;}
 	</li>
 	<% end %>
 	  <% if current_user.role_id == 1 || current_user.role_id ==  2 || current_user.role_id == 5  %>
-	 <li class="dropdown">
+	 <li id="submenu2" class="dropdown">
        <a href="#submenu2" class="dropdown-toggle"  data-bs-toggle="dropdown"><i class="fas fa-truck"></i> <span class="ms-1 d-none d-sm-inline">Suministro</span> <span class="caret"></span></a>
      <ul class="dropdown-menu animated fadeInLeft" role="menu">
        <li><%= link_to purchases_path, class: "text-white nav-link align-middle" do %>
@@ -383,7 +394,7 @@ html { height: 100%;}
 	 <% end %>
 	 
 	 <% if current_user.role_id == 1 || current_user.role_id ==  2 || current_user.role_id == 4  %>
-	  <li class="dropdown">
+	  <li  id="submenu3" class="dropdown">
        <a href="#submenu3" class="dropdown-toggle"  data-bs-toggle="dropdown"> <i class="fas fa-shopping-cart"></i><span class="ms-1 d-none d-sm-inline">Ventas</span> <span class="caret"></span></a>
      <ul class="dropdown-menu animated fadeInLeft" role="menu">
        <li><%= link_to sales_path, class: "text-white nav-link align-middle" do %>
@@ -399,7 +410,7 @@ html { height: 100%;}
 	  <% end %>
 
 	  <% if current_user.role_id == 1 || current_user.role_id ==  2 || current_user.role_id == 3  %>
-	   <li class="dropdown">
+	   <li id="submenu4" class="dropdown">
        <a href="#submenu4" class="dropdown-toggle"  data-bs-toggle="dropdown"><i class="far fa-clipboard"></i> <span class="ms-1 d-none d-sm-inline">RRHH</span> <span class="caret"></span></a>
      <ul class="dropdown-menu animated fadeInLeft" role="menu">
        <li><%= link_to employees_path, class: "text-white nav-link align-middle" do %>
@@ -412,7 +423,7 @@ html { height: 100%;}
 	   </li>
 	   <% end %>
 	   <% if current_user.role_id == 1 || current_user.role_id ==  2 %>
-	    <li class="dropdown">
+	    <li id="submenu5" class="dropdown">
        <a href="#submenu5" class="dropdown-toggle"  data-bs-toggle="dropdown"><i class="fa fa-cog"></i> <span class="ms-1 d-none d-sm-inline">Configuracion</span> <span class="caret"></span></a>
      <ul class="dropdown-menu animated fadeInLeft" role="menu">
        <li><%= link_to companies_path, class: "text-white nav-link align-middle" do %>
@@ -433,7 +444,7 @@ html { height: 100%;}
 		<% end %>
 	      </li>
 	      <% end %>
-       <li><%= link_to destroy_user_session_path, method: :delete, class: "text-white nav-link align-middle" do %>
+       <li id="menufin"><%= link_to destroy_user_session_path, method: :delete, class: "text-white nav-link align-middle" do %>
 	 <i class="fas fa-power-off"></i> <span class="ms-1 d-none d-sm-inline">Salir</span>
 	 <% end %>
        </li>
