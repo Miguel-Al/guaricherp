@@ -9,10 +9,10 @@ en:
     failure:
       already_authenticated: "You are already signed in."
       inactive: "Your account is not activated yet."
-      invalid: "Los datos de Usuario o la clave son invalidos."
+      invalid: "Los datos son invalidos."
       locked: "Your account is locked."
       last_attempt: "You have one more attempt before your account is locked."
-      not_found_in_database: "%{authentication_keys} or password."
+      not_found_in_database: "No hay usuario con estas credenciales."
       timeout: "Your session expired. Please sign in again to continue."
       unauthenticated: "Se deben ingresar datos para poder acceder al sistema."
       unconfirmed: "You have to confirm your email address before continuing."
@@ -46,7 +46,7 @@ en:
       updated: "Your account has been updated successfully."
       updated_but_not_signed_in: "Your account has been updated successfully, but since your password was changed, you need to sign in again."
     sessions:
-      signed_in: "Se Ha ingresado exitosamente."
+      signed_in: "Se ha ingresado exitosamente."
       signed_out: "Se ha salido exitosamente."
       already_signed_out: "Signed out successfully."
     unlocks:

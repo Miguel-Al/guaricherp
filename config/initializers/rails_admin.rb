@@ -513,7 +513,7 @@ RailsAdmin.config do |config|
   end
 
   config.model 'Purchase' do
-    label 'Venta'
+    label 'Compra'
     list do
       field :id do
         filterable false

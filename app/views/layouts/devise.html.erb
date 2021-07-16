@@ -8,28 +8,53 @@
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <style>
+      body {
+          padding: 0;
+	  margin: 0;
+          height: 100vh;
+      }
+      .form-control {
+	  line-height: 2;
+      }
+      .bg-custom {
+	  background-color: #5d97cb;
+      }
+      #notice_wrapper {
+	  position: absolute;
+	  top: 0;
+	  width: 50%;
+	  z-index: 999;
+      }
+      @media(max-width: 932px) {
+	  .display-none {
+	      display: none !important;
+          }
+      }
+    </style>
   </head>
 
-  <body style="background:#063f72; background:linear-gradient(to right,#063f72, #5d97cb)">
+  <body>
     <% if notice %>
     <div id="notice_wrapper">
-      <p class="notice"><%= notice %></p>
+      <p class="alert alert-primary"><%= notice %></p>
     </div>
     <% elsif alert %>
     <div id="notice_wrapper">
-      <p class="alert"><%= alert %></p>
+      <p class="alert alert-primary"><%= alert %></p>
     </div>
     <% end %>
-    <div class="container">
-      <div class="row">
-	<div class="col-md-4 offset-md-4 w-85">
-	  <div class="align-items-stretch bg-white mt-4 rounded mt-4 p-4">
-	    <%= yield %>
-	    <br>
-	  </div>
-	</div>
+
+<body>
+    <div class="row m-0 h-100">
+      <div class="col p-0 text-center d-flex justify-content-center align-items-center display-none">
+	 <%= image_tag("login.png", :class => "w-100") %>
+        </div>
+      <div class="col p-0 bg-custom d-flex justify-content-center align-items-center flex-column w-100">
+          <%= yield %>
       </div>
     </div>
+    
 
     <script>
       $(document).ready(function() {
