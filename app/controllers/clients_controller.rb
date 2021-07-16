@@ -1,6 +1,7 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:edit, :update, :destroy, :show]
   before_action :set_type_clients, only: [:new, :edit, :create, :update]
+  before_action :authenticate_allowed, only: [:index]
 
   def index
     @q = Client.ransack(params[:q])
@@ -63,6 +64,12 @@ class ClientsController < ApplicationController
 
   end
 
+  protected
+  def authenticate_allowed
+    return if current_user.role_id == 1 || current_user.role_id == 2
+    redirect_to root_path
+  end
+  
   private
     def client_params
       params.require(:client).permit(:rif_cliente, :nombre_cliente, :correo_cliente, :direccion_cliente, :descripcion_cliente, :type_client_id, phoneclients_attributes: [:id, :_destroy, :numero_cliente])

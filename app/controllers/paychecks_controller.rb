@@ -2,6 +2,7 @@ class PaychecksController < ApplicationController
   before_action :set_paycheck, only: [:edit, :destroy, :show, :add_empleado, :update]
   before_action :set_paycheck_type, only: [:edit, :destroy, :update, :show]
   before_action :set_type_payment, only: [:edit, :destroy, :update, :show]
+  before_action :authenticate_allowed, only: [:index, :edit]
 
   def index
     @search = Paycheck.search(params[:q])
@@ -45,7 +46,7 @@ class PaychecksController < ApplicationController
   def update
     @nomina = Paycheck.find(params[:id])
     if @nomina.update(paycheck_params)
-      redirect_to paychecks_path, :notice => "si"
+      redirect_to paychecks_path, :notice => "Se ha registrado la nomina exitosamente"
     else
       render :edit
     end
@@ -85,23 +86,29 @@ class PaychecksController < ApplicationController
     end
   end
 
+
+   protected
+   def authenticate_allowed
+    return if current_user.role_id == 1 || current_user.role_id == 2 || current_user.role_id == 3
+    redirect_to root_path
+   end
   
    private
 
    def paycheck_params
-  params.require(:paycheck).permit(:paycheck_type_id, :inicio_nomina, :fin_nomina, :dias_nomina, :salario_nomina, :salario_empleado, :adelanto_nomina, :type_payment_id, :alimento_cesta)
-end
+     params.require(:paycheck).permit(:paycheck_type_id, :inicio_nomina, :fin_nomina, :dias_nomina, :salario_nomina, :salario_empleado, :adelanto_nomina, :type_payment_id, :alimento_cesta)
+   end
 
-  def set_paycheck
-    @nomina = Paycheck.find(params[:id])
-  end
+   def set_paycheck
+     @nomina = Paycheck.find(params[:id])
+   end
 
-  def set_paycheck_type
-    @tiponomina = PaycheckType.all
-  end
+   def set_paycheck_type
+     @tiponomina = PaycheckType.all
+   end
 
-  def set_type_payment
-    @tipopago = TypePayment.all
-  end
+   def set_type_payment
+     @tipopago = TypePayment.all
+   end
 
 end

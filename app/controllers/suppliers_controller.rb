@@ -1,6 +1,7 @@
 class SuppliersController < ApplicationController
   before_action :set_supplier, only: [:edit, :update, :destroy, :show]
-
+  before_action :authenticate_allowed, only: [:index]
+    
   def index
     @q = Supplier.ransack(params[:q])
     @proveedores = @q.result
@@ -65,7 +66,13 @@ class SuppliersController < ApplicationController
 
   end
 
-  private
+   protected
+   def authenticate_allowed
+     return if current_user.role_id == 1 || current_user.role_id == 2
+     redirect_to root_path
+   end
+
+   private
 
   def set_supplier
     @proveedor = Supplier.find(params[:id])

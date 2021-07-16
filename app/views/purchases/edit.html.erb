@@ -1,86 +1,88 @@
 <style>
-body {background-color: #B6CF4A;}
+  body {background-color: #ccc5c5;}
 </style>
-<i class="fa fa-shopping-basket"></i> <span class="h3 ms-2 me-2 mb-2 text-gray-800">Registro de compra</span><i class="fa fa-shopping-basket"></i>
+<%= stylesheet_link_tag 'sales' %>
+
 <%= form_for @compra, remote: true  do |f| %>
-<div class = "row mt-3">
-	<div class="col align-self-start">
-		<div id="proveedor-compra" class="nombre-proveedor" >
-		<h5> Proveedor: <%= @compra.supplier.present? ?  @compra.supplier.try(:nombre_proveedor) : "No se ha asignado" %></h5>
-		</div>
-	</div>
-</div>
-
 <div class = "row">
-	<div class="col-md-4 ">
-		<div class="input-group">
-		<%= f.collection_select(:type_payment_id, @tipopago, :id, :nombre_tipo_pago, {:prompt => 'Seleccione el tipo de pago'}, { class: "form-control", required: true })%>
-		</div>
-		<div class="form-group<%= @compra.errors[:numero_compra].any? ? ' has-error has-feedback' : '' %>">
-		<%= f.label :adelanto, "Numero de compra: " %>
-		<div class="input-group">
-		<%= f.number_field :numero_compra, {:class=> "form-control", :placeholder=>"Numero de compra...", required: true} %>       </div>
-		</div>
-	</div>
-	<div class="col text-end" >
-	<h2 id="importe_compra_lbl" > Subtotal de compra: Bs <%= @compra.total_compra %> </h2>
-	<h2 id="importe_compra_lbl2" > 16% del IVA: Bs <%= @compra.total_compra * 0.16 %> </h2>
-	<h2 id="importe_compra_lbl3" > Total de compra: Bs <%= @compra.total_compra * 1.16 %> </h2>
-	</div>
+  <div class="col">
+    <h2 class="mb-2 text-gray-800">Registro de compra</h2>
+    <br />
+    <div id="proveedor-compra" class="nombre-proveedor mb-2" >
+      <h4> Proveedor: <%= @compra.supplier.present? ?  @compra.supplier.try(:nombre_proveedor) : "No se ha asignado" %></h4>
+    </div>
+    <div class="mb-2">
+      <%= f.label :pago, "Metodo de pago: " %>
+      <%= f.collection_select(:type_payment_id, @tipopago, :id, :nombre_tipo_pago, {:prompt => 'Seleccione el tipo de pago'}, { class: "form-control", required: true })%>
+    </div>
+  </div>
+  <div class="col" style="text-align:right;">
+    <h2 id="importe_compra_lbl" > Subtotal de compra: Bs <%= @compra.total_compra %> </h2>
+    <h2 id="importe_compra_lbl2" > 16% del IVA: Bs <%= @compra.total_compra * 0.16 %> </h2>
+    <h2 id="importe_compra_lbl3" > Total de compra: Bs <%= @compra.total_compra * 1.16 %> </h2>
+  </div>
 </div>
 
+<div class="item form-group<%= @compra.errors[:numero_compra].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :numero, "Numero de compra: " %>
+  <div class="input-group">
+    <%= f.number_field :numero_compra, {:class=> "form-control", :placeholder=>"Numero de compra...", required: true} %>       </div>
+</div>
+<br />
 
-
-
-<div class="row mb-3">
+<div class="row">
   <div class="col">
     <button type="button" class="btn btn-primary form-control" data-bs-toggle="modal" data-bs-target="#buscador_productocompra">
-      Buscar producto </button>
+      <span class="fas fa-search"></span> Buscar producto</button>
   </div>
   <div class="col">
-    <button type="button" class="btn btn-info form-control" data-bs-toggle="modal" data-bs-target="#buscador_proveedor">
-      Buscar proveedor</button>
+    <button type="button" class="btn btn-outline-secondary form-control" data-bs-toggle="modal" data-bs-target="#buscador_proveedor">
+      <span class="fas fa-search"></span> Buscar proveedor</button>
   </div>
 </div>
+<br>
 
-<div class="row mb-3">
-	<div class="col">
-	<%= link_to 'Cancelar registro', @compra, method: :delete, data: { confirm: 'Cancelar la registro?' }, class: "btn btn-danger form-control" %>
-	</div>
-	<div class="col">
-	<%= f.submit 'Finalizar registro', class: "btn btn-success form-control" %>
-	</div>
+<div class="row">
+  <div class="col">
+    <%= link_to @compra, method: :delete, data: { confirm: 'Cancelar la registro?' }, class: "btn btn-danger form-control" do %>
+    <span class="fas fa-window-close"></span> Cancelar registro
+  <% end %>
+  </div>
+  <div class="col">
+    <%= f.button :type => "submit", class: "btn btn-success form-control" do %>
+  <span class="fa fa-check"></span> Finalizar registro
+  <% end %>
+  </div>
 </div>
 <% end %>
-
+<br />
 
 <div class="card shadow mb-4">
-	<div class="card-body">
-		<div class="table-responsive">
-			<table class="table table-striped" id="tabla_compras" width="80%" cellspacing="0">
-				<thead>
-					<tr>
-						<th class="align-middle text-center">Producto</th>
-						<th class="align-middle text-center">Cantidad</th>
-						<th class="align-middle text-center">Precio</th>
-						<th class="align-middle text-center">Total</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<% @productos_compra.each do |det| %>
-					<tr>
-						<td class="align-middle text-center"> <%= det.product.try(:nombre_producto) %> </td>
-						<td class="align-middle text-center"> <%= det.cantidad %> </td>
-						<td class="align-middle text-center"> Bs <%= det.precio_detalle_compra %> </td>
-						<td class="align-middle text-center"> Bs <%= det.precio_detalle_compra * det.cantidad %> </td>
-						<td class="align-middle text-center"><%= link_to "Remover producto", purchase_purchase_detail_path(@compra, det), method: :delete, data: { confirm: "Borrar producto: #{det.product.id}?"}, class: "btn btn-danger btn-xs" %></td>
-					</tr>
-					<% end %>
-				</tbody>
-			</table>
-		</div>
-	</div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="tabla_compras" width="80%" cellspacing="0">
+        <thead>
+          <tr>
+	    <th>Producto</th>
+	    <th>Cantidad</th>
+	    <th>Precio</th>
+	    <th>Total</th>
+          </tr>
+	</thead>
+        <tbody>
+	  <% @productos_compra.each do |det| %>
+          <tr>
+	    <td> <%= det.product.try(:nombre_producto) %> </td>
+	    <td> <%= det.cantidad %> </td>
+	    <td> Bs <%= det.precio_detalle_compra %> </td>
+	    <td> Bs <%= det.precio_detalle_compra * det.cantidad %> </td>
+	    <td><%= link_to "Remover producto", purchase_purchase_detail_path(@compra, det), method: :delete, data: { confirm: "Borrar producto: #{det.product.id}?"}, class: "btn btn-danger btn-xs" %></td>
+          </tr>
+	  <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 
 <% @model = @compra %>

@@ -14,4 +14,5 @@ class Paycheck < ApplicationRecord
     "#{inicio_nomina} - #{fin_nomina}"
   end
 
+  default_scope {order(created_at: :desc)}
 end

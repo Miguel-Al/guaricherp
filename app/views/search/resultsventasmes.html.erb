@@ -1,52 +1,50 @@
 <style>
-body {background-color: #E6BB6E;}
+  body {background-color: #96bca4;}
 </style>
-<i class="fa fa-credit-card"></i><h1 class="h3 me-2 ms-2 mb-2 text-gray-800">Ventas de este mes</h1><i class="fa fa-credit-card"></i>
+
+<div class="text-center">
+  <h1 class="text-gray-800">Ventas de este mes</h1>
+</div>
 
 <div class="card shadow mb-4">
-<div class="card-body">
+  <div class="card-body">
     <div class="table-responsive">
-    <table class="table table-striped" id="tabla_ventas" width="60%" cellspacing="0">
-        <thead>
-        <tr>
-			<th class="align-middle text-center">Id</th>
-			<th class="align-middle text-center">Vendedor</th>
-			<th class="align-middle text-center">Cliente</th>
-			<th class="align-middle text-center">Total</th>
-			<th></th>
-        </tr>
-        </thead>
-        <tbody>
+      <table class="table table-striped" id="tabla_ventas" width="100%" cellspacing="0">
+	<thead>
+	  <tr>
+            <th class="align-middle text-center">Id</th>
+	    <th class="align-middle text-center">Vendedor</th>
+	    <th class="align-middle text-center">Cliente</th>
+	    <th class="align-middle text-center">Total</th>
+	    <th></th>
+	  </tr>
+	</thead>
+	<tbody>
           <% if @ventas.empty? %>
-          <tr> 
-				<td class="text-danger fs-3"> No hay ventas </td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td> 
+	  <tr> 
+            <td> No hay ventas </td><td></td><td></td> 
           </tr>
-			<% else %>
-			<% @ventas.each do |venta| %>
-			<tr> 
-				<td class="align-middle text-center"> <%= venta.id %> </td>
-				<td class="align-middle text-center"> <%= venta.user.username %> </td>
-				<td class="align-middle text-center"> <%= venta.try(:client).try(:nombre_cliente) %> </td>
-				<td class="align-middle text-center"> <%= venta.total_venta * 1.16%> </td>
-				<td class="align-middle text-center">
-				<div class="btn-group ">
-					<%= link_to 'Mostrar', sale_path(venta), {class: "btn btn-info btn-xs", remote: true} %>
-					<%= link_to 'Borrar', venta, method: :delete, data: { confirm: 'Eliminar la venta?' }, class: "btn btn-danger btn-xs" %>
-				</div>
-				</td>
-			</tr>
-			<% end %>
-          <% end %>
-        </tbody>
-    </table>
+          <% else %>
+	  <% @ventas.each do |venta| %>
+	  <tr> 
+            <td class="align-middle text-center"> <%= venta.id %> </td>
+	    <td class="align-middle text-center"> <%= venta.user.username %> </td>
+	    <td class="align-middle text-center"> <%= venta.try(:client).try(:nombre_cliente) %> </td>
+	    <td class="align-middle text-center"> Bs <%= venta.total_venta * 1.16%> </td>
+            <td class="align-middle text-center">
+	      <div class="btn-group ">
+		<%= link_to 'Mostrar', sale_path(venta), {class: "btn btn-outline-secondary btn-sm", remote: true} %>
+		<%= link_to 'Borrar', venta, method: :delete, data: { confirm: 'Eliminar la venta?' }, class: "btn btn-danger btn-sm" %>
+	      </div>
+	    </td>
+	  </tr>
+	  <% end %>
+	  <% end %>
+	</tbody>
+      </table>
     </div>
   </div>
 </div>
-<%= link_to sales_path, {class: "btn btn-info btn-xs"} do %> 
+<%= link_to sales_path, {class: "btn btn-dark btn-xs"} do %> 
 Volver <%end%>
 <%= render 'modal_sales' %>

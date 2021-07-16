@@ -1,5 +1,5 @@
 $('#modalPagos').modal('toggle');
 $('#tablaPagos').append(
-    '<tr id="tipodepago_<%= @tipodepago.id %>" ><td class="align-middle text-center"><%= @tipodepago.nombre_tipo_pago %></td><td class="align-middle text-center"><div class="btn-group "><%= link_to 'Editar', edit_type_payment_path(@tipodepago), html_options = {class: "btn btn-info btn-xs", remote: true} %> <%= link_to "Borrar", @tipodepago, remote: true, method: :delete, data: { confirm: "Borrar el metodo de pago: #{@tipodepago.nombre_tipo_pago}?"}, class: "btn btn-danger btn-xs" %></div></td></tr>'
+    '<tr id="tipodepago_<%= @tipodepago.id %>" ><td class="align-middle text-center"><%= @tipodepago.nombre_tipo_pago %></td><td class="align-middle text-center"><div class="btn-group"><%= link_to 'Editar', edit_type_payment_path(@tipodepago), html_options = {class: "btn btn-secondary btn-sm", remote: true} %> <%= link_to "Borrar", @tipodepago, remote: true, method: :delete, data: { confirm: "Borrar el metodo de pago: #{@tipodepago.nombre_tipo_pago}?"}, class: "btn btn-danger btn-sm" %></div></td></tr>'
 );
 $('#comienzopag').before('<div id="si" class="alert alert-info alert-dismissible fade show" role="alert"><%= flash.now[:success] = "Se ha creado el metodo de pago" %><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');

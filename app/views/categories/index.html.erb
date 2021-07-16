@@ -1,52 +1,55 @@
 <style>
-body {background-color: #7B72D9;}
+  body {background-color: #DB37D8;}
 </style>
-<i class="fa fa-tag me-2"></i> <span class="h3 mb-2 text-gray-800">Categorias de Productos</span><i class="ms-2 fa fa-tag "></i>
 
+<div id="comienzo" class="text-center">
+  <span class="h2 text-gray-800"><i class="fa fa-tag"></i> Categorias de Productos <i class="fa fa-tag"></i></span>
+</div>
+<br />
 
 <div class="row mb-3">
-	<div class="col mt-2">
-		<%= link_to new_category_path, {remote: true, class: "btn btn-info form-control", id: "anadir-categoria-btn"}  do %>
-		<span class="fas fa-plus-square" > Crear nueva categoria</span> 
-		<% end %>
-	</div>
-	<div class="col mt-2">
-		<%= search_form_for @q, options = {class: "w-100"} do |f| %>
-		<%= f.search_field :nombre_categoria_cont, options = {class: "form-control", placeholder: "Buscar..."} %>
-		<%= f.button :type => "submit", class: "btn btn-info form-control mt-2" do %>
-		<span class="fas fa-search"> Buscar</span> 
-		<% end %>
-		<% end %>
-	</div>
+  <div class="col">
+    <%= link_to new_category_path, {remote: true, class: "btn btn-primary form-control", id: "anadir-categoria-btn"}  do %>
+    <span class="fas fa-plus-square" ></span> Crear nueva categoria
+    <% end %>
+  </div>
+  <div class="col">
+    <%= search_form_for @q, options = {class: "w-100"} do |f| %>
+    <%= f.search_field :nombre_categoria_cont, options = {class: "form-control", placeholder: "Buscar..."} %>
+    <%= f.button :type => "submit", class: "btn btn-success form-control mt-1" do %>
+    <span class="fas fa-search"></span> Buscar
+    <% end %>
+    <% end %>
+  </div>
 </div>
 
 <div class="card shadow mb-4">
-	<div class="card-body">
-		<div class="table-responsive">
-			<table id="tablaCategorias" class="table table-striped" width="100%">
-				<thead>
-					<tr>
-						<th class="align-middle text-center">Nombre</th>
-						<th class="align-middle text-center">Descripcion</th>
-						<th></th>
-					</tr>
-				</thead>
-			<tbody>
-				<% @categorias.each do |cat| %>
-					<tr id="categoria_<%= cat.id %>" >
-						<td class="align-middle text-center"><%= cat.nombre_categoria %></td>
-						<td class="text-sm-start"><%= cat.descripcion_categoria %></td>
-						<td class="align-middle text-center" >
-						<div class="btn-group ">
-						<%= link_to "Editar", edit_category_path(cat), html_options = {class: "btn btn-info btn-sm", remote: true} %>
-						<%= link_to 'Borrar', cat, remote: true, method: :delete, data: { confirm: "Borrar la categoria: #{cat.nombre_categoria}?"}, class: "btn btn-danger btn-sm" %>
-						</td>
-						</div>
-					</tr>
-				<% end %>
-			</tbody>
-			</table>
-		</div>
-	</div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table id="tablaCategorias" class="table table-striped" width="100%">
+	<thead>
+	  <tr>
+	    <th class="align-middle text-center">Nombre</th>
+	    <th class="align-middle text-center">Descripcion</th>
+	    <th></th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <% @categorias.each do |cat| %>
+	  <tr id="categoria_<%= cat.id %>" >
+	    <td class="align-middle text-center"><%= cat.nombre_categoria %></td>
+	    <td class="align-middle text-center"><%= cat.descripcion_categoria %></td>
+	    <td class="align-middle text-center">
+	      <div class="btn-group ">
+		<%= link_to "Editar", edit_category_path(cat), html_options = {class: "btn btn-secondary btn-sm", remote: true} %>
+		<%= link_to 'Borrar', cat, remote: true, method: :delete, data: { confirm: "Borrar la categoria: #{cat.nombre_categoria}?"}, class: "btn btn-danger btn-sm" %>
+	      </div>
+	    </td>
+	  </tr>
+	  <% end %>
+	</tbody>
+      </table>
+    </div>
+  </div>
 </div>
 <%= render 'modal_categorias' %>

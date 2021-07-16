@@ -1,6 +1,7 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show, :edit, :add_item, :destroy, :add_cliente]
   before_action :set_type_payment, only: [:edit, :destroy, :update, :show]
+  before_action :authenticate_allowed, only: [:index, :edit]
 
    def index
     @search = Sale.search(params[:q])
@@ -121,6 +122,12 @@ class SalesController < ApplicationController
     end
   end
 
+  protected
+  def authenticate_allowed
+    return if current_user.role_id == 1 || current_user.role_id == 2 || current_user.role_id == 4
+    redirect_to root_path
+  end
+  
   private
 
   def sale_params

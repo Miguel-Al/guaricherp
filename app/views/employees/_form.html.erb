@@ -1,123 +1,123 @@
-<%= form_for @empleado, remote: true  do |f| %>
+<%= form_for @employee, remote: true  do |f| %>
 
-<% if @empleado.new_record? %>
-<div class="item form-group<%= @empleado.errors[:numero_cedula].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :cedula, "Cedula del empleado: ", class:"form-label mb-2 mt-1"  %>
+<% if @employee.new_record? %>
+<div class="item form-group<%= @employee.errors[:numero_cedula].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :cedula, "Cedula del empleado: " %>
   <div class="input-group">
-    <%= f.text_field :numero_cedula, {:class=> "form-control", :placeholder=>"Introduzca el numero de cedula...", required: true} %>
-    <%if @empleado.errors[:numero_cedula].any? %>
-    <p class="input-group-text text-danger align-middle"><%= @empleado.errors[:numero_cedula].to_s[/\w([^"]*)/] %></p>
+    <%= f.number_field :numero_cedula, {:class=> "form-control", :placeholder=>"Introduzca el numero de cedula...", required: true} %>
+    <%if @employee.errors[:numero_cedula].any? %>
+    <p class="bg-danger"><%= @employee.errors[:numero_cedula].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
 
-<div class="item form-group<%= @empleado.errors[:primer_nombre].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :nombre, "Primer nombre: ", class:"form-label mb-2 mt-1"  %>
+<div class="item form-group<%= @employee.errors[:primer_nombre].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :nombre, "Primer nombre: " %>
   <div class="input-group">
     <%= f.text_field :primer_nombre, {:class=> "form-control", :placeholder=>"Introduzca el primer nombre...", required: true} %>
-    <%if @empleado.errors[:primer_nombre].any? %>
-    <p class="input-group-text text-danger align-middle"><%= @empleado.errors[:primer_nombre].to_s[/\w([^"]*)/] %></p>
+    <%if @employee.errors[:primer_nombre].any? %>
+    <p class="bg-danger"><%= @employee.errors[:primer_nombre].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
 
-<div class="item form-group<%= @empleado.errors[:segundo_nombre].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :nombre, "Segundo nombre: ", class:"form-label mb-2 mt-1"  %>
+<div class="item form-group<%= @employee.errors[:segundo_nombre].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :nombre, "Segundo nombre: " %>
   <div class="input-group">
     <%= f.text_field :segundo_nombre, {:class=> "form-control", :placeholder=>"Introduzca el segundo nombre...", required: true} %>
-    <%if @empleado.errors[:segundo_nombre].any? %>
-    <p class="input-group-text text-danger align-middle"><%= @empleado.errors[:segundo_nombre].to_s[/\w([^"]*)/] %></p>
+    <%if @employee.errors[:segundo_nombre].any? %>
+    <p class="bg-danger"><%= @employee.errors[:segundo_nombre].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
 
-<div class="item form-group<%= @empleado.errors[:primer_apellido].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :apellido, "Primer apellido: ", class:"form-label mb-2 mt-1"  %>
+<div class="item form-group<%= @employee.errors[:primer_apellido].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :apellido, "Primer apellido: " %>
   <div class="input-group">
     <%= f.text_field :primer_apellido, {:class=> "form-control", :placeholder=>"Introduzca el primer apellido...", required: true} %>
-    <%if @empleado.errors[:primer_apellido].any? %>
-    <p class="input-group-text text-danger align-middle"><%= @empleado.errors[:primer_apellido].to_s[/\w([^"]*)/] %></p>
+    <%if @employee.errors[:primer_apellido].any? %>
+    <p class="bg-danger"><%= @employee.errors[:primer_apellido].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
 
-<div class="item form-group<%= @empleado.errors[:segundo_apellido].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :apellido, "Segundo apellido: ", class:"form-label mb-2 mt-1"  %>
+<div class="item form-group<%= @employee.errors[:segundo_apellido].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :apellido, "Segundo apellido: " %>
   <div class="input-group">
     <%= f.text_field :segundo_apellido, {:class=> "form-control", :placeholder=>"Introduzca el segundo apellido...", required: true} %>
-    <%if @empleado.errors[:segundo_apellido].any? %>
-    <p class="input-group-text text-danger align-middle"><%= @empleado.errors[:segundo_apellido].to_s[/\w([^"]*)/] %></p>
+    <%if @employee.errors[:segundo_apellido].any? %>
+    <p class="bg-danger"><%= @employee.errors[:segundo_apellido].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
 
-<div class="item form-group<%= @empleado.errors[:direccion_empleado].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :descripcion, "Direccion del empleado: ", class:"form-label mb-2 mt-1"  %>
+<div class="item form-group<%= @employee.errors[:direccion_empleado].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :descripcion, "Direccion del empleado: " %>
   <div class="input-group">
     <%= f.text_field :direccion_empleado, {:class=> "form-control", :placeholder=>"Introduzca la direccion del empleado...", required: true} %>
-    <%if @empleado.errors[:direccion_empleado].any? %>
-    <p class="input-group-text text-danger align-middle"><%= @empleado.errors[:direccion_empleado].to_s[/\w([^"]*)/] %></p>
+    <%if @employee.errors[:direccion_empleado].any? %>
+    <p class="bg-danger"><%= @employee.errors[:direccion_empleado].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
 
-<div class="item form-group<%= @empleado.errors[:fecha_ingreso].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :fecha, "Fecha que ingreso el empleado: ", class:"form-label mb-2 mt-1"  %>
+<div class="item form-group<%= @employee.errors[:fecha_ingreso].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :fecha, "Fecha que ingreso el empleado: " %>
   <div class="input-group">
     <%= f.date_field :fecha_ingreso, {class: "form-control", :placeholder=>"fecha de ingreso...", required: true} %>
-    <%if @empleado.errors[:fecha_ingreso].any? %>
-    <p class="input-group-text text-danger align-middle"><%= @empleado.errors[:fecha_ingreso].to_s[/\w([^"]*)/] %></p>
+    <%if @employee.errors[:fecha_ingreso].any? %>
+    <p class="bg-danger"><%= @employee.errors[:fecha_ingreso].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
 <% end %>
 
-<div class="item form-group<%= @empleado.errors[:salario_empleado].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :salario, "Salario mensual del empleado(Bs): ", class:"form-label mb-2 mt-1"  %>
+<div class="item form-group<%= @employee.errors[:salario_empleado].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :salario, "Salario mensual del empleado(Bs): " %>
   <div class="input-group">
     <%= f.number_field :salario_empleado, {class: "form-control", :placeholder=>"Salario (Bs)...", required: true} %>
-    <%if @empleado.errors[:salario_empleado].any? %>
-    <p class="input-group-text text-danger align-middle"><%= @empleado.errors[:salario_empleado].to_s[/\w([^"]*)/] %></p>
+    <%if @employee.errors[:salario_empleado].any? %>
+    <p class="bg-danger"><%= @employee.errors[:salario_empleado].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
 
-<div class="item form-group<%= @empleado.errors[:position].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :position, "Cargo: ", class:"form-label mb-2 mt-1"  %>
+<div class="item form-group<%= @employee.errors[:position].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :categoria, "Cargo del empleado: " %>
   <div class="input-group">
-    <%= collection_select(:employee, :position_id, @cargos, :id, :nombre_cargo, {:prompt => 'Seleccione cargo'}, { class: "form-control", required: true })%>
-    <%if @empleado.errors[:position].any? %>
-    <p class="input-group-text text-danger align-middle"><%= @empleado.errors[:position].to_s[/\w([^"]*)/] %></p>
+    <%= collection_select(:employee, :position_id, @cargos, :id, :nombre_cargo, {:prompt => 'Seleccione una categoria'}, { class: "form-control", required: true })%>
+    <%if @employee.errors[:position].any? %>
+    <p class="bg-danger"><%= @employee.errors[:position].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
 
-<div class="item form-group<%= @empleado.errors[:phoneployees].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :"Numeros de telefono", class:"form-label mb-2 mt-1"  %>
+<div class="item form-group<%= @employee.errors[:phoneployees].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :"Numeros de telefono:" %>
   <%= f.fields_for :phoneployees do |foro| %>
-  <div class="input-group" >
+  <div>
     <%= render partial: 'phoneployee_fields', locals: {f: foro} %>
     <% end %>
   </div>
   <%= link_to_add_fields "Agregar otro telefono", f, :phoneployees %>
-  <%if @empleado.errors[:phoneployees].any? %>
-  <p class="input-group-text text-danger align-middle"><%= @empleado.errors[:phoneployees].to_s[/\w([^"]*)/] %></p>
+  <%if @employee.errors[:phoneployees].any? %>
+  <p class="bg-danger"><%= @employee.errors[:phoneployees].to_s[/\w([^"]*)/] %></p>
   <% end %>
 </div>
 
-<div class="item form-group<%= @empleado.errors[:correo_empleado].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :correo, "Correo del empleado: ", class:"form-label mb-2 mt-1"  %>
+<div class="item form-group<%= @employee.errors[:correo_empleado].any? ? ' has-error has-feedback' : '' %>">
+  <%= f.label :correo, "Correo del empleado: " %>
   <div class="input-group">
     <%= f.text_field :correo_empleado, {class: "form-control", :placeholder=>"Correo del empleado..."} %>
-    <%if @empleado.errors[:correo_empleado].any? %>
-    <p class="input-group-text text-danger align-middle"><%= @empleado.errors[:correo_empleado].to_s[/\w([^"]*)/] %></p>
+    <%if @employee.errors[:correo_empleado].any? %>
+    <p class="bg-danger"><%= @employee.errors[:correo_empleado].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
+<br />
 
-
-<div class="mt-3 pt-3">
-  <%= f.submit @empleado.new_record? ? "Registrar empleado" : "Actualizar empleado", :class => "btn btn-success"%>
+<div class="actions col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+  <%= f.submit @employee.new_record? ? "Registrar empleado" : "Actualizar empleado", :class => "btn btn-success"%>
 </div>
 
 <% end %>

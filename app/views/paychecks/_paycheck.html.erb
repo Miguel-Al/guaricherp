@@ -1,96 +1,79 @@
 <form>
-	
-		<div class="row mb-3">
-
-			<div class="w-50 input-group col-md-4 mb-1">
-			<label class="input-group-text" for="id">ID</label>
-			<input type="text" readonly class="form-control text-end" value="<%= @nomina.id %>">
-			</div>
-
-
-
-			<div class="w-50 input-group col-md-4 mb-1">
-			<label class="input-group-text" for="id">Encargado</label>
-			<input type="text" readonly class="form-control" value="<%= @nomina.user.username %>">
-			</div>
-
-
-
-			<div class="w-50 input-group col-md-4 mb-1">
-			<label class="input-group-text" for="id">Tipo de nomina</label>
-			<input type="text" readonly class="form-control" value="<%= @nomina.paycheck_type.tipo_nomina_nombre %>">
-			</div>
-
-
-
-			<div class="w-50 input-group col-md-4 mb-1">
-			<label class="input-group-text" for="id">Periodo</label>
-			<textarea  readonly class="form-control" ><%= @nomina.periodo %></textarea>
-			</div>
-
-
-			<div class="w-50 input-group mt-2 col-md-4 mb-1">
-			<label class="input-group-text" for="id">Empleado</label>
-			<input type="text" readonly class="form-control" value="<%= @nomina.employee.nombre_apellido %>">
-			</div>
-
-			<div class="w-50  mt-2 input-group col-md-4 mb-1">
-			<label class="form-label" for="id">Salario mensual: </label>
-			<input type="text" readonly class="input-group-text" value="<%= @nomina.salario_empleado %> Bs">
-			</div>
-			</div>
-
-			<! fin del membrete>
-
-			<div class="table-responsive">
-				<table class="table table-bordered">
-					<thead class="table-dark">
-						<tr>
-							<th class="align-middle text-center">Dias laborados</th>
-							<th class="align-middle text-center">Sueldo por dia de trabajo</th>
-							<th class="align-middle text-center">Pago de cesta ticket</th>
-							<th class="align-middle text-center">Total por dias Trabajados</th>
-							<th class="align-middle text-center">Total abonado</th>
-						</tr>
-					</thead>
-					<tbody class="table-light">
-						<tr>
-							<td class="align-middle text-center"><%= @nomina.dias_nomina %></td>
-							<td class="align-middle text-center">Bs <%= (@nomina.salario_empleado / 30).round(2) %></td>
-							<td class="align-middle text-center">Bs <%= @nomina.alimento_cesta %></td>
-							<td class="align-middle text-center">Bs <%= @nomina.salario_nomina %></td>
-							<td class="align-middle text-center">Bs <%= @nomina.alimento_cesta + @nomina.salario_nomina %></td>
-						</tr>
-					</tbody>
-					<thead class="table-dark">
-						<tr>
-							<th class="align-middle text-center">Adelanto de pago</th>
-							<th class="align-middle text-center">deduciones del 4% del S.S.O</th>
-							<th class="align-middle text-center">Deduccion del 0,5% de regimen prestacional de empleo</th>
-							<th class="align-middle text-center">Deduccion del 1% de FAOV</th>
-							<th class="align-middle text-center">Total de denengado</th>
-						</tr>
-					</thead>
-					<tbody class="table-light">
-						<tr>
-							<td class="align-middle text-center">Bs <%= @nomina.adelanto_nomina %></td>
-							<td class="align-middle text-center">Bs <%= @nomina.salario_empleado * 0.04 %></td>
-							<td class="align-middle text-center">Bs <%= @nomina.employee.salario_empleado * 0.005 %></td>
-							<td class="align-middle text-center">Bs <%= @nomina.salario_empleado * 0.01 %></td>
-							<td class="align-middle text-center">Bs <%= (@nomina.salario_empleado * 0.04) + (@nomina.salario_empleado * 0.005) + (@nomina.salario_empleado * 0.01) + (@nomina.adelanto_nomina) %></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>   
-			<div class="row mb-2 mt-2">
-				<div class="col text-start">
-					<p class="h4 mb-2">Monto a cobrar: Bs <%= (@nomina.salario_nomina + @nomina.alimento_cesta) - ((@nomina.salario_empleado * 0.04) + (@nomina.salario_empleado * 0.005) + (@nomina.salario_empleado * 0.01) + (@nomina.adelanto_nomina)) %></p>
-				</div>
-			</div>
-			<div>
-			<%= link_to paycheck_path(@nomina, format: :pdf), {class: "btn btn-primary", target: :_blank} do %>
-			<span class="fas fa-file-alt" ></span> Generar recibido de nomina
-			<% end %>
-		</div>
-	
+  <div class="row">
+    <div class="input-group mb-2">
+      <label class="input-group-text" for="id">ID:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="id" value="<%= @nomina.id %>">
+    </div>
+    <div class="input-group mb-2">
+      <label class="input-group-text" for="usuario">Encargado:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="usuario" value="<%= @nomina.user.username %>">
+    </div>
+    <div class="input-group mb-2">
+    <label class="input-group-text" for="tipnomina">Tipo de nomina:</label>
+    <input type="text" readonly class="form-control text-center" aria-describedby="tipnomina" value="<%= @nomina.paycheck_type.tipo_nomina_nombre %>">
+  </div>
+  <div class="input-group mb-2">
+    <label class="input-group-text" for="periodo">Periodo:</label>
+    <input type="text" readonly class="form-control text-center" aria-describedby="periodo" value="<%= @nomina.periodo %>">
+  </div>
+  <div class="input-group mb-2">
+    <label class="input-group-text" for="empleado">Empleado:</label>
+    <input type="text" readonly class="form-control text-center" aria-describedby="empleado" value="<%= @nomina.employee.nombre_apellido %>">
+  </div>
+  <div class="input-group mb-2">
+    <label class="input-group-text" for="salariomes">Salario mensual del empleado:</label>
+    <input type="text" readonly class="form-control text-center" aria-describedby="salariomes" value="Bs <%= @nomina.salario_empleado %>">
+  </div>
+  <div class="w-75 input-group mb-2">
+    <label class="input-group-text" for="sueldodia">Sueldo diario:</label>
+    <input type="text" readonly class="form-control text-center" aria-describedby="sueldodia" value="Bs <%= (@nomina.salario_empleado / 30).round(2) %>">
+  </div>
+  <div class="w-25 input-group mb-2">
+    <label class="input-group-text" for="dialabor">Dias:</label>
+    <input type="text" readonly class="form-control text-center" aria-describedby="dialabor" value="<%= @nomina.dias_nomina %>">
+  </div>
+  <div class="input-group mb-2">
+    <label class="input-group-text" for="totaldias">Total por dias Trabajados:</label>
+    <input type="text" readonly class="form-control text-center" aria-describedby="totaldias" value="Bs <%= @nomina.salario_nomina %>">
+  </div>
+  <div class="input-group mb-2">
+    <label class="input-group-text" for="cesta">Pago de cesta ticket:</label>
+    <input type="text" readonly class="form-control text-center" aria-describedby="cesta" value="Bs <%= @nomina.alimento_cesta %>">
+  </div>
+  <div class="input-group mb-2">
+    <label class="input-group-text" for="abonado">Total abonado:</label>
+    <input type="text" readonly class="form-control text-center" aria-describedby="abonado" value="Bs <%= @nomina.alimento_cesta + @nomina.salario_nomina %>">
+  </div>
+  <div class="input-group mb-2">
+    <label class="input-group-text" for="adelanto">Adelanto de pago:</label>
+    <input type="text" readonly class="form-control text-center" aria-describedby="adelanto" value="Bs <%= @nomina.adelanto_nomina %>">
+  </div>
+  <div class="input-group mb-2">
+    <label class="input-group-text" for="sso">S.S.O (4%)</label>
+    <input type="text" readonly class="form-control text-center" aria-describedby="sso" value="Bs <%= @nomina.salario_empleado * 0.04 %>">    </div>
+  </div>
+  <div class="input-group mb-2">
+    <label class="input-group-text" for="lrpe">Regimen Prestacional de Empleo (0,5%)</label>
+    <input type="text" readonly class="form-control text-center" aria-describedby="lrpe" value="Bs <%= @nomina.employee.salario_empleado * 0.005 %>">
+  </div>
+  <div class="input-group mb-2">
+    <label class="input-group-text" for="faov">F.A.O.V (1%)</label>
+    <input type="text" readonly class="form-control text-center" aria-describedby="faov" value="Bs <%= @nomina.salario_empleado * 0.01 %>">
+  </div>
+  <div class="input-group mb-2">
+    <label class="input-group-text" for="devengado">Total de devengado:</label>
+    <input type="text" readonly class="form-control text-center" aria-describedby="devengado" value="Bs <%= (@nomina.salario_empleado * 0.04) + (@nomina.salario_empleado * 0.005) + (@nomina.salario_empleado * 0.01) + (@nomina.adelanto_nomina) %>">
+  </div>
+  <div class="row mb-2">
+    <div class="col text-center">
+      <p class="h4 mb-2">Monto a cobrar: Bs <%= (@nomina.salario_nomina + @nomina.alimento_cesta) - ((@nomina.salario_empleado * 0.04) + (@nomina.salario_empleado * 0.005) + (@nomina.salario_empleado * 0.01) + (@nomina.adelanto_nomina)) %></p>
+    </div>
+  </div>
+  <div class="text-center">
+    <%= link_to paycheck_path(@nomina, format: :pdf), {class: "btn btn-outline-primary form-control", target: :_blank} do %>
+    <span class="fas fa-file-alt" ></span> Generar recibido de nomina
+    <% end %>
+  </div>
 </form>
+
+  

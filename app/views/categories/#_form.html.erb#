@@ -1,4 +1,5 @@
 <%= form_for @categoria, remote: true do |f| %>
+
 <div class="item form-group<%= @categoria.errors[:nombre_categoria].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :nombre_categoria, "Nombre de la Categoria: " %>
   <div class="input-group">

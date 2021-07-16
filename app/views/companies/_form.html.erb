@@ -1,6 +1,6 @@
 <%= form_for @empresa, remote: true do |f| %>
 <div class="item form-group<%= @empresa.errors[:rif_empresa].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :rif_empresa, "Rif de la empresa: ", class:"form-label" %>
+  <%= f.label :rif_empresa, "Rif de la empresa: " %>
   <div class="input-group">
     <%= f.text_field :rif_empresa, {:class=> "form-control", :placeholder=>"Introduzca el Rif de la empresa...", required: true} %>
     <%if @empresa.errors[:rif_empresa].any? %>
@@ -10,7 +10,7 @@
 </div>
 
 <div class="item form-group<%= @empresa.errors[:nombre_empresa].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :nombre_empresa, "Nombre de la empresa: ", class:"form-label" %>
+  <%= f.label :nombre_empresa, "Nombre de la empresa: " %>
   <div class="input-group">
     <%= f.text_field :nombre_empresa, {:class=> "form-control", :placeholder=>"Introduzca el nombre de la empresa...", required: true} %>
     <%if @empresa.errors[:nombre_empresa].any? %>
@@ -20,7 +20,7 @@
 </div>
 
 <div class="item form-group<%= @empresa.errors[:direccion_empresa].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :direccion_empresa, "Direccion de la empresa: ", class:"form-label" %>
+  <%= f.label :direccion_empresa, "Direccion de la empresa: " %>
   <div class="input-group">
     <%= f.text_field :direccion_empresa, {:class=> "form-control", :placeholder=>"Introduzca la direccion de la empresa...", required: true} %>
     <%if @empresa.errors[:direccion_empresa].any? %>
@@ -30,7 +30,7 @@
 </div>
 
 <div class="item form-group<%= @empresa.errors[:telefono_empresa].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :telefono_empresa, "Telefono de la empresa: ", class:"form-label" %>
+  <%= f.label :telefono_empresa, "Telefono de la empresa: " %>
   <div class="input-group">
     <%= f.text_field :telefono_empresa, {:class=> "form-control", :placeholder=>"Introduzca el telefono de la empresa...", required: true} %>
     <%if @empresa.errors[:telefono_empresa].any? %>
@@ -40,7 +40,7 @@
 </div>
 
 <div class="item form-group<%= @empresa.errors[:numero_control].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :numero_control, "Numero de control: ", class:"form-label" %>
+  <%= f.label :numero_control, "Numero de control: " %>
   <div class="input-group">
     <%= f.text_field :numero_control, {:class=> "form-control", :placeholder=>"Introduzca el numero de control...", required: true} %>
     <%if @empresa.errors[:numero_control].any? %>
@@ -49,8 +49,8 @@
   </div>
 </div>
 
-
-<div class="mt-3 pt-3">
+<br />
+<div class="actions col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
   <%= f.submit @empresa.new_record? ? "Registrar Datos" : "Actualizar Datos", :class => "btn btn-success"%>
 </div>  
 <% end %>

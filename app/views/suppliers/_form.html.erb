@@ -2,71 +2,72 @@
 
 <% if @proveedor.new_record? %>
 <div class="item form-group<%= @proveedor.errors[:rif_proveedor].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :rif, "Numero de Rif: ", class:"form-label" %>
+  <%= f.label :rif, "Numero de Rif: " %>
   <div class="input-group">
     <%= f.text_field :rif_proveedor, {:class=> "form-control", :placeholder=>"Introduzca el numero rif...", required: true} %>
     <%if @proveedor.errors[:rif_proveedor].any? %>
-    <p class="input-group-text text-danger align-middle "><%= @proveedor.errors[:rif_proveedor].to_s[/\w([^"]*)/] %></p>
+    <p class="bg-danger"><%= @proveedor.errors[:rif_proveedor].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
 
 <div class="item form-group<%= @proveedor.errors[:nombre_proveedor].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :nombre, "Nombre: ", class:"form-label" %>
+  <%= f.label :nombre, "Nombre: " %>
   <div class="input-group">
     <%= f.text_field :nombre_proveedor, {:class=> "form-control", :placeholder=>"Introduzca el nombre...", required: true} %>
     <%if @proveedor.errors[:nombre_proveedor].any? %>
-    <p class="input-group-text text-danger align-middle "><%= @proveedor.errors[:nombre_proveedor].to_s[/\w([^"]*)/] %></p>
+    <p class="bg-danger"><%= @proveedor.errors[:nombre_proveedor].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
 <% end %>
 
 <div class="item form-group<%= @proveedor.errors[:direccion_proveedor].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :direccion, "Direccion del proveedor: ", class:"form-label" %>
+  <%= f.label :direccion, "Direccion del proveedor: " %>
   <div class="input-group">
     <%= f.text_field :direccion_proveedor, {:class=> "form-control", :placeholder=>"Introduzca la direccion del proveedor...", required: true} %>
     <%if @proveedor.errors[:direccion_proveedor].any? %>
-    <p class="input-group-text text-danger align-middle "><%= @proveedor.errors[:direccion_proveedor].to_s[/\w([^"]*)/] %></p>
+    <p class="bg-danger"><%= @proveedor.errors[:direccion_proveedor].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
 
 <div class="item form-group<%= @proveedor.errors[:phonesuppliers].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :"Numeros de telefono", class:"form-label" %>
+  <%= f.label :"Numeros de telefono:" %>
   <%= f.fields_for :phonesuppliers do |foro| %>
-  <div class="input-group" >
+  <div >
     <%= render partial: 'phonesupplier_fields', locals: {f: foro} %>
     <% end %>
   </div>
   <%= link_to_add_fields "Agregar otro telefono", f, :phonesuppliers %>
   <%if @proveedor.errors[:phonesuppliers].any? %>
-  <p class="input-group-text text-danger align-middle "><%= @proveedor.errors[:phonesuppliers].to_s[/\w([^"]*)/] %></p>
+  <p class="bg-danger"><%= @proveedor.errors[:phonesuppliers].to_s[/\w([^"]*)/] %></p>
   <% end %>
 </div>
 
 
 <div class="item form-group<%= @proveedor.errors[:correo_proveedor].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :correo, "Correo del proveedor: ", class:"form-label" %>
+  <%= f.label :correo, "Correo del proveedor: " %>
   <div class="input-group">
     <%= f.text_field :correo_proveedor, {class: "form-control", :placeholder=>"Introduzca un Correo..."} %>
     <%if @proveedor.errors[:correo_proveedor].any? %>
-    <p class="input-group-text text-danger align-middle "><%= @proveedor.errors[:correo_proveedor].to_s[/\w([^"]*)/] %></p>
+    <p class="bg-danger"><%= @proveedor.errors[:correo_proveedor].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
 
 <div class="item form-group<%= @proveedor.errors[:descripcion_proveedor].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :descripcion, "descripcion del Proveedor: ", class:"form-label" %>
+  <%= f.label :descripcion, "Descripcion del Proveedor: " %>
   <div class="input-group">
     <%= f.text_area :descripcion_proveedor, {:class=> "form-control"} %>
     <%if @proveedor.errors[:descripcion_proveedor].any? %>
-    <p class="input-group-text text-danger align-middle "><%= @proveedor.errors[:descripcion_proveedor].to_s[/\w([^"]*)/] %></p>
+    <p class="bg-danger"><%= @proveedor.errors[:descripcion_proveedor].to_s[/\w([^"]*)/] %></p>
     <% end %>
   </div>
 </div>
+<br />
 
-<div class="mt-3 mb-3">
+<div class="actions col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
   <%= f.submit @proveedor.new_record? ? "Crear Proveedor" : "Actualizar Proveedor", :class => "btn btn-success"%>
 </div>
 <% end %>

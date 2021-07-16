@@ -1,67 +1,55 @@
 <form>
-
-  <div class="row mb-3">
-  
-    <div class="w-50 input-group col-md-4 mb-1">
-      <label class="input-group-text" for="id">ID:</label>
-      <input type="text" readonly class="form-control text-end" value="<%= @venta.numero_venta %>">
+  <div class="row">
+    <div class="input-group mb-2">
+      <label class="input-group-text" for="id">Numero de venta:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="id" value="<%= @venta.numero_venta %>">
     </div>
-	
-    <div class="w-50 input-group col-md-4 mb-1">
+    <div class="input-group mb-2">
       <label class="input-group-text" for="fecha">Fecha:</label>
-      <input type="text" readonly class="form-control text-center" value="<%= @venta.created_at.strftime("%d-%m-%Y") %>">
+      <input type="text" readonly class="form-control text-center" aria-describedby="fecha" value="<%= @venta.created_at.strftime("%d-%m-%Y") %>">
     </div>
-	
-    <div class="w-50 input-group col-md-4 mb-1">
-      <label class="input-group-text"" for="vendedor">Vendedor:</label>
-      <input type="text" readonly class="form-control" value="<%= @venta.user.username %>">
+    <div class="input-group mb-2">
+      <label class="input-group-text" for="vendedor">Vendedor:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="vendedor" value="<%= @venta.user.username %>">
     </div>
-	
-    <div class="w-50 input-group col-md-4 mb-1">
-      <label  class="input-group-text" for="cliente">Cliente:</label>
-      <input type="text" readonly class="form-control" value="<%= @venta.client.nombre_cliente %>">
+    <div class="input-group mb-2">
+      <label class="input-group-text" for="cliente">Cliente:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="cliente" value="<%= @venta.client.nombre_cliente %>">
     </div>
-	
   </div>
- 
 
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th class="align-middle text-center">Producto</th>
-			<th class="align-middle text-center">Cantidad</th>
-			<th class="align-middle text-center">Precio</th>
-			<th class="align-middle text-center">Total</th>
-		</tr>
-	</thead>
-	<tbody>
-		<% @venta.sale_details.each do |detalle| %>
-			<tr>
-				<td class="align-middle text-center"><%= detalle.product.nombre_producto %></td>
-				<td class="align-middle text-center"><%= detalle.cantidad %></td>
-				<td class="align-middle text-center">Bs <%= detalle.precio_detalle_venta %></td>
-				<td class="align-middle text-center">Bs <%= detalle.precio_detalle_venta * detalle.cantidad %></td>
-			</tr>
-		<% end %>
-	</tbody>
-</table>
-
+  <table class="table table-striped">
+    <thead>
+      <tr>
+	<th class="align-middle text-center">Producto</th>
+	<th class="align-middle text-center">Cantidad</th>
+	<th class="align-middle text-center">Precio</th>
+	<th class="align-middle text-center">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @venta.sale_details.each do |detalle| %>
+      <tr>
+	<td class="align-middle text-center"><%= detalle.product.nombre_producto %></td>
+	<td class="align-middle text-center"><%= detalle.cantidad %></td>
+	<td class="align-middle text-center">Bs <%= detalle.precio_detalle_venta %></td>
+	<td class="align-middle text-center">Bs <%= detalle.precio_detalle_venta * detalle.cantidad %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
   
-<div class="row mb-2">
-
-	<div class="col text-end">
-	
-		<p class="h4 mb-1">Sub total de venta: BS <%= @venta.total_venta %></p>
-		<p class="h4 mb-1">16% del IVA: Bs  <%= @venta.total_venta * 0.16 %></p>
-		<p class="h4 mb-1">Monto Final de la venta: Bs <%= @venta.total_venta * 1.16 %></p>	
-	</div>
-
-</div>
-  
-  <div class="form-row">
-    <%= link_to sale_path(@venta, format: :pdf), {class: "btn btn-primary", target: :_blank} do %>
-    <span class="fas fa-file-alt" ></span> Generar factura de venta
-    <% end %>
+  <div class="row mb-1">
+    <div class="col text-end">
+      <p class="h4 mb-1">Sub total de venta: Bs <%= @venta.total_venta %></p>
+      <p class="h4 mb-1">16% del IVA: Bs  <%= @venta.total_venta * 0.16 %></p>
+      <p class="h4 mb-1">Total de venta: Bs <%= @venta.total_venta * 1.16 %></p>
+      <br>
+    </div>
+    <div class="text-center">
+      <%= link_to sale_path(@venta, format: :pdf), {class: "btn btn-outline-primary form-control", target: :_blank} do %>
+      <span class="fas fa-file-alt" ></span> Generar factura de venta
+      <% end %>
+    </div>
   </div>
-  
 </form>

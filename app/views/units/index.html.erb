@@ -1,53 +1,55 @@
 <style>
-body {background-color: #7B72D9;}
+  body {background-color: #DB37D8;}
 </style>
-<i class="fa fa-cube mb-2"></i><span class="h3 ms-2 me-2 mb-2 text-gray-800">Unidades/Presentaciones de productos</span><i class="fa fa-cube mb-2"></i>
 
-<div class="row mt-3 mb-2">
+<div id="comienzouni" class="text-center">
+  <span class="h2 text-gray-800"><i class="fa fa-cube mb-2"></i> Unidades/Presentaciones de producto <i class="fa fa-cube"></i></span>
+</div>
+<br />
+
+<div class="row mb-3">
   <div class="col">
-    <%= link_to new_unit_path, {remote: true, class: "btn btn-info form-control", id: "anadir-unidad-btn"}  do %>
-    <span class="fas fa-plus-square" > Crear nueva unidad</span> 
+    <%= link_to new_unit_path, {remote: true, class: "btn btn-primary form-control", id: "anadir-unidad-btn"}  do %>
+    <span class="fas fa-plus-square" ></span> Crear nueva unidad
     <% end %>
   </div>
   <div class="col">
     <%= search_form_for @q, options = {class: "w-100"} do |f| %>
     <%= f.search_field :nombre_unidad_cont, options = {class: "form-control", placeholder: "Buscar..."} %>
-    <%= f.button :type => "submit", class: "btn btn-info form-control mt-2" do %>
-    <span class="fas fa-search">  Buscar</span>
+    <%= f.button :type => "submit", class: "btn btn-success form-control mt-1" do %>
+    <span class="fas fa-search"></span> Buscar
     <% end %>
     <% end %>
   </div>
 </div>
 
-
 <div class="card shadow mb-4">
-	<div class="card-body">
-		<div class="table-responsive">
-			<table id="tablaUnidades" class="table table-striped" width="100%">
-				<thead>
-				<tr>
-					<th class="align-middle text-center">Nombre</th>
-					<th class="align-middle text-center">Simbolo</th>
-					<th></th>
-				</tr>
-				</thead>
-				<tbody>
-					<% @unidades.each do |uni| %>
-						<tr id="unidad_<%= uni.id %>" >
-							<td class="align-middle text-center"><%= uni.nombre_unidad %></td>
-							<td class="align-middle text-center"><%= uni.simbolo_unidad %></td>
-							<td class="align-middle text-center">
-							<div class="btn-group ">
-								<%= link_to "Editar", edit_unit_path(uni), html_options = {class: "btn btn-info btn-xs", remote: true} %>
-								<%= link_to 'Borrar', uni, remote: true, method: :delete, data: { confirm: "Borrar la unidad: #{uni.nombre_unidad}?"}, class: "btn btn-danger btn-xs" %>
-							</div>
-							</td>
-						</tr>
-					<% end %>
-				</tbody>
-			</table>
-		</div>
-	</div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table id="tablaUnidades" class="table table-striped" width="100%">
+	<thead>
+	  <tr>
+	    <th class="align-middle text-center">Nombre</th>
+	    <th class="align-middle text-center">Simbolo</th>
+	    <th></th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <% @unidades.each do |uni| %>
+	  <tr id="unidad_<%= uni.id %>" >
+	    <td class="align-middle text-center"><%= uni.nombre_unidad %></td>
+	    <td class="align-middle text-center"><%= uni.simbolo_unidad %></td>
+	    <td class="align-middle text-center">
+	      <div class="btn-group ">
+		<%= link_to "Editar", edit_unit_path(uni), html_options = {class: "btn btn-secondary btn-sm", remote: true} %>
+		<%= link_to 'Borrar', uni, remote: true, method: :delete, data: { confirm: "Borrar la unidad: #{uni.nombre_unidad}?"}, class: "btn btn-danger btn-sm" %>
+	      </div>
+	    </td>
+	  </tr>
+	  <% end %>
+	</tbody>
+      </table>
+    </div>
+  </div>
 </div>
-
 <%= render 'modal_unidades' %>
