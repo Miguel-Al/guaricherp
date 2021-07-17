@@ -53,6 +53,7 @@ class ClientsController < ApplicationController
   def buscador
     @resultados = Client.buscador(params[:termino]).map do |cliente|
       {
+        rif_cliente: cliente.rif_cliente,
         id: cliente.id,
         nombre_cliente: cliente.nombre_cliente
       }

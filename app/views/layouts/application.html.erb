@@ -345,6 +345,7 @@
     background-color: rgba(250,250,250,.8);
     z-index: 1;
 }
+
 </style>
   </head>
 
@@ -461,8 +462,26 @@
             </button>
             <div class="container">
                 <div class="row">
-                    <div class="bg-light border rounded-3 p-3" style="margin: auto">
-                        <%= yield %>
+                  <div class="bg-light border rounded-3 p-3" style="margin: auto">
+		    <div id="notice_wrapper">
+	    <% if flash[:notice] %>
+	    <div class="alert alert-info alert-dismissible fade show" role="alert">
+	      <%= flash[:notice] %>
+	      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	    </div>
+	    <% elsif flash[:error] %>
+	    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+	      <%= flash[:error] %>
+	      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	    </div>
+	    <% elsif flash[:success] %>
+	    <div class="alert alert-success alert-dismissible fade show" role="alert">
+	      <%= flash[:success] %>
+	      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	    </div>
+	    <% end %>
+	    </div>
+		    <%= yield %>
 		    </div>
                 </div>
             </div>
@@ -500,7 +519,14 @@
   $('[data-toggle="offcanvas"]').click(function () {
         $('#wrapper').toggleClass('toggled');
   });  
-});
+  });
+        $(document).ready(function() {
+	  setTimeout(function(){
+	      $('#notice_wrapper').fadeOut("slow", function(){
+		  $(this).remove();
+	      });
+	  }, 3500);
+      });
 </script>
 
 

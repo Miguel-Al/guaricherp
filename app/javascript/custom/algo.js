@@ -12,12 +12,14 @@ document.addEventListener("turbolinks:load", function() {
           if(data.length > 0)  {
               $("#tabla_buscador tbody").empty();
               for(x in data){
+		  let codigo_producto = data[x].codigo_producto;
                 let nombre_producto = data[x].nombre_producto;
                   let existencia_producto = data[x].existencia_producto;
 		  let precio_producto = data[x].precio_producto;
 		  let unidad = data[x].unidad;
                 let id_producto = data[x].id;
                 newRowContent = `<tr>
+                                    <td>${codigo_producto}</td>
                                     <td>${nombre_producto}(${unidad})</td>
                                     <td>${existencia_producto}</td>
                                     <td>Bs ${precio_producto}</td>
@@ -46,11 +48,13 @@ document.addEventListener("turbolinks:load", function() {
           if(data.length > 0)  {
               $("#tabla_buscadorcompra tbody").empty();
               for(x in data){
+		  let codigo_producto = data[x].codigo_producto;
                 let nombre_producto = data[x].nombre_producto;
                   let existencia_producto = data[x].existencia_producto;
 		  let unidad = data[x].unidad;
                 let id_producto = data[x].id;
                 newRowContent = `<tr>
+                                    <td>${codigo_producto}</td>
                                     <td>${nombre_producto}(${unidad})</td>
                                     <td>${existencia_producto}</td>
                                     <td><button type="button" class="btn btn-primary" onclick="seleccionarProducto(${id_producto}, ${id_modelo}, '${tipo_modelo}')">
@@ -76,11 +80,13 @@ document.addEventListener("turbolinks:load", function() {
       $.get(request_url, function(data, status){
         if(data.length > 0){
           $("#tabla_buscador_clientes tbody").empty();
-          for(x in data){
+            for(x in data){
+	    let rif = data[x].rif_cliente;
             let nombre = data[x].nombre_cliente;
             let id_cliente = data[x].id;
             let rowContent = `
                <tr>
+                 <td>${rif}</td>
                  <td>${nombre}</td>
                  <td>
                      <button 
@@ -110,11 +116,13 @@ document.addEventListener("turbolinks:load", function() {
       $.get(request_url, function(data, status){
         if(data.length > 0){
           $("#tabla_buscador_proveedores tbody").empty();
-          for(x in data){
+            for(x in data){
+	    let numero_rif = data[x].numero_rif;
             let nombre = data[x].nombre_proveedor;
             let id_proveedor = data[x].id;
             let rowContent = `
                <tr>
+                 <td>${numero_rif}</td>
                  <td>${nombre}</td>
                  <td>
                      <button 
@@ -146,7 +154,8 @@ document.addEventListener("turbolinks:load", function() {
       $.get(request_url, function(data, status){
         if(data.length > 0){
           $("#tabla_buscador_empleados tbody").empty();
-          for(x in data){
+            for(x in data){
+		let cedula_empleado = data[x].cedula_empleado;
             let primer_nombre = data[x].primer_nombre;
               let id_empleado = data[x].id;
 	      let salario1 = data[x].salario;
@@ -154,6 +163,7 @@ document.addEventListener("turbolinks:load", function() {
 	      let salario3 = parseFloat(salario2).toFixed(2);
             let rowContent = `
                <tr>
+                 <td>${cedula_empleado}</td>
                  <td>${primer_nombre}(Bs ${salario3} por dia)</td>
                  <td>
                      <button 

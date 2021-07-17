@@ -66,6 +66,7 @@ class ProductsController < ApplicationController
     @resultados = Product.buscador(params[:termino]).map do |producto|
       {
         id: producto.id,
+        codigo_producto: producto.codigo_producto,
         nombre_producto: producto.nombre_producto,
         precio_producto: producto.precio_producto,
         existencia_producto: producto.existencia_producto,
@@ -81,6 +82,7 @@ class ProductsController < ApplicationController
     @resultados = Product.buscador(params[:termino]).map do |producto|
       {
         id: producto.id,
+        codigo_producto: producto.codigo_producto,
         nombre_producto: producto.nombre_producto,
         existencia_producto: producto.existencia_producto,
         unidad: producto.unit.simbolo_unidad
