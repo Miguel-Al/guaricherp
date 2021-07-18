@@ -47,7 +47,7 @@
     <% end %>
   </div>
   <div class="col">
-    <%= f.button :type => "submit", class: "btn btn-success form-control" do %>
+    <%= f.button :type => "submit", class: "btn btn-success form-control", disabled: (!@venta.client || @venta.total_venta == 0) do %>
     <span class="fa fa-check"></span> Finalizar venta
     <% end %>
   </div>

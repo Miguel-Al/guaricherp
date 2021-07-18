@@ -40,6 +40,7 @@ class SalesController < ApplicationController
 
   def edit
     @productos_venta = @venta.sale_details
+    session[:type_payment_id] = @user.id
   end
 
   def update

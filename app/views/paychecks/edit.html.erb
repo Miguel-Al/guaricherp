@@ -59,14 +59,14 @@
 <div class="item form-group<%= @nomina.errors[:alimento_cesta].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :cesta, "incluya si se incluyo cesta ticket en el periodo: " %>
   <div class="input-group">
-    <%= f.number_field :alimento_cesta, {:class=> "form-control", :placeholder=>"monto...", required: true} %>
+    <%= f.number_field :alimento_cesta, {:class=> "form-control", min: 0, :placeholder=>"monto...", required: true} %>
   </div>
 </div>
 
 <div class="item form-group<%= @nomina.errors[:adelanto_nomina].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :adelanto, "incluya si se hizo un adelanto de la nomina: " %>
   <div class="input-group">
-    <%= f.number_field :adelanto_nomina, {:class=> "form-control", :placeholder=>"monto...", required: true} %>
+    <%= f.number_field :adelanto_nomina, {:class=> "form-control", :placeholder=>"monto...", min: 0, required: true} %>
   </div>
 </div>
 <br />

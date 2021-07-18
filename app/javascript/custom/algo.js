@@ -23,6 +23,7 @@ document.addEventListener("turbolinks:load", function() {
                                     <td>${nombre_producto}(${unidad})</td>
                                     <td>${existencia_producto}</td>
                                     <td>Bs ${precio_producto}</td>
+                                    <td><input type="number" step="1" min="1" max="${existencia_producto}" class="form-control" id="cantidad_producto" placeholder="Ingresa la cantidad a vender..." value="1"></td>
                                     <td><button type="button" class="btn btn-primary" onclick="seleccionarProducto(${id_producto}, ${id_modelo}, '${tipo_modelo}')">
                                         Agregar
                                         </button>
@@ -210,7 +211,8 @@ window.seleccionarCliente = function (id_cliente, id_venta){
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
         let nombre = result.nombre_cliente;
-        $("#cliente_venta").html("<h5>Cliente: " + nombre + "</h5>");
+          $("#cliente_venta").html("<h5>Cliente: " + nombre + "</h5>");
+	  location.reload();
       }
     }
   });

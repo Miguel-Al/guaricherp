@@ -53,7 +53,7 @@
 <div class="item form-group<%= @product.errors[:precio_producto].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :precio, "Precio del producto (Bs): " %>
   <div class="input-group">
-    <%= f.number_field :precio_producto, {class: "form-control", :placeholder=>"Precio del producto (Bs)", required: true} %>
+    <%= f.number_field :precio_producto, {class: "form-control", step: 1, min: 1, value: 1, :placeholder=>"Precio del producto (Bs)", required: true} %>
     <%if @product.errors[:precio_producto].any? %>
       <p class="input-group-text text-danger align-middle"><%= @product.errors[:precio_producto].to_s[/\w([^"]*)/] %></p>
     <% end %>
@@ -64,7 +64,7 @@
 <div class="item form-group<%= @product.errors[:existencia_producto].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :existencia, "Stock inicial: " %>
   <div class="input-group">
-    <%= f.number_field :existencia_producto, {class: "form-control", :placeholder=>"Stock inicial", required: true} %>
+    <%= f.number_field :existencia_producto, {class: "form-control", step: 1, min: 1, value: 1, :placeholder=>"Stock inicial", required: true} %>
     <%if @product.errors[:existencia_producto].any? %>
     <p class="input-group-text text-danger align-middle"><%= @product.errors[:existencia_producto].to_s[/\w([^"]*)/] %></p>
     <% end %> 
@@ -75,7 +75,7 @@
 <div class="item form-group<%= @product.errors[:min_producto].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :min, "Minimo de Stock: " %>
   <div class="input-group">
-    <%= f.number_field :min_producto, {class: "form-control", :placeholder=>"Stock minimo", required: true} %>
+    <%= f.number_field :min_producto, {class: "form-control", step: 1, min: 1, value: 1, :placeholder=>"Stock minimo", required: true} %>
     <%if @product.errors[:min_producto].any? %>
     <p class="input-group-text text-danger align-middle"><%= @product.errors[:min_producto].to_s[/\w([^"]*)/] %></p>
     <% end %>
