@@ -211,7 +211,7 @@ window.seleccionarCliente = function (id_cliente, id_venta){
         $('body').removeClass('modal-open');
         $('.modal-backdrop').remove();
         let nombre = result.nombre_cliente;
-          $("#cliente_venta").html("<h5>Cliente: " + nombre + "</h5>");
+          $("#cliente_venta").html("<h4>Cliente: " + nombre + "</h4>");
 	  location.reload();
       }
     }
@@ -292,7 +292,8 @@ function agregarItemVenta(id_producto, id_venta){
                                  <td>${nombre_producto}</td>
                                  <td>Bs ${precio_producto}</td>
                                  <td>${cantidad}</td>
-                                 <td>$ ${importe_item}</td>`;
+                                 <td>$ ${importe_item}</td>
+                                 <td></td>`;
           
           $("#tabla_ventas tbody").append(newRowContent);
           $("#importe_venta_lbl").text("Subtotal de venta: Bs " + importe_venta);
