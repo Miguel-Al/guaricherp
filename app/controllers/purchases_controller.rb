@@ -5,7 +5,7 @@ class PurchasesController < ApplicationController
 
    def index
     @search = Purchase.search(params[:q])
-    @compras = @search.result
+    @compras = @search.result.where.not(total_compra: 0.0).where.not(supplier_id: nil)
     respond_to do |format|
       format.html
       format.js

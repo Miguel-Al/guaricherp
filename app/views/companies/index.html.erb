@@ -1,5 +1,7 @@
 <style>
   body {background-color: #608d98;}
+  .btn-info {color: #fff;}
+  .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open>.dropdown-toggle.btn-info {color: #fff; background-color: #00b3db; border-color: #00b3db;}
 </style>
 
 <% if @empresa == nil %>
@@ -48,8 +50,8 @@
   </div>
   <br>
   <div class="d-grid gap-4 mx-auto">
-    <%= link_to edit_company_path(@empresa), {class: "btn btn-primary btn-xs form-control", remote: true} do %>
-    <span class="fas fa-pencil-alt"></span> Editar datos
+    <%= link_to edit_company_path(@empresa), {class: "btn btn-info btn-xs", remote: true} do %>
+    <span class="fas fa-pencil-alt"></span> Editar Datos
     <% end %>
   </div>
 </form>

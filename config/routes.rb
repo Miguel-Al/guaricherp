@@ -1,10 +1,11 @@
+# coding: iso-8859-1
 Rails.application.routes.draw do
   #Necesario para acceder a rails admin
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   #####################################
 
   #Necesario para gema devise
-  devise_for :users
+  devise_for :users, :path => '', :path_names => { :sign_in => "login", :sign_out => "logout"}
   ###########################
 
   #Ruta root
@@ -12,7 +13,7 @@ Rails.application.routes.draw do
   #####################
 
   #Rutas para las categorias
-  resources :categories
+  resources :categories, :path => 'categorias'
   #Rutas para las ubicaciones
   resources :locations
   #Rutas para las unidades
@@ -24,7 +25,7 @@ Rails.application.routes.draw do
   #Rutas de los proveedores
   resources :suppliers
   #Rutas para ventas
-  resources :sales do
+  resources :sales, :path => 'ventas', :path_names => { :new => "venta", :edit => "venta"} do
     resources :sale_details
     collection do
       match 'search' => 'sales#search', via: [:get, :post], as: :search

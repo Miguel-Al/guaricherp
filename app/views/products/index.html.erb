@@ -1,5 +1,7 @@
 <style>
   body {background-color: #7B72D9;}
+  .btn-info {color: #fff;}
+  .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open>.dropdown-toggle.btn-info {color: #fff; background-color: #00b3db; border-color: #00b3db;}
 </style>
 
 <div id="comienzoprod" class="text-center">
@@ -8,22 +10,24 @@
 <br />
 
 <div class="row mb-3">
-  <%= search_form_for @q, options = {class: "w-100"} do |f| %>
-  <%= f.search_field :nombre_producto_or_codigo_producto_or_category_nombre_categoria_cont, options = {class: "form-control", placeholder: "Buscar por nombre, codigo o categoria..."} %>
-  <%= f.button :type => "submit", class: "btn btn-success form-control mt-1" do %>
-  <span class="fas fa-search"></span> Buscar
-  <% end %>
-  <% end %>
-</div>
-
-<div class="row">
   <% if current_user.role_id == 1 || current_user.role_id ==  2 %>
   <div class="col">
-    <%= link_to new_product_path, { remote: true, class: "btn btn-primary form-control" }  do %>
-    <span class="fas fa-plus-square" ></span> Registrar nuevo producto
+    <%= link_to new_product_path, {remote: true, class: "btn btn-success form-control", id: "anadir-categoria-btn"}  do %>
+    <span class="fas fa-plus-square" ></span> Nuevo Producto
     <% end %>
   </div>
   <% end %>
+  <div class="col">
+    <%= search_form_for @q, options = {class: "input-group"} do |f| %>
+    <%= f.search_field :nombre_producto_or_codigo_producto_or_category_nombre_categoria_cont, options = {class: "form-control", placeholder: "Buscar por nombre, codigo o categoria..."} %>
+    <%= f.button :type => "submit", class: "btn btn-primary" do %>
+    <span class="fas fa-search"></span> Buscar
+    <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
   <div class="col">
     <%# funcion para generar un reporte del inventario, en base al query %>
     <%= link_to products_path(request.params.merge(format: :pdf)), {class: "btn btn-outline-dark form-control", target: :_blank} do %>
@@ -31,21 +35,23 @@
     <% end %>
   </div>
 </div>
-<br />
+<br>
 
 <div class="card shadow mb-4">
   <div class="card-body">
+    <div class="col">
+      <%= paginate @productos %>
+    </div>
     <div class="table-responsive">
-      <table class="table table-striped" id="tablaProductos" width="100%" cellspacing="0">
-	<thead>
-	  <p class="fw-bold"> Listado de productos </p>
+      <table class="table table-hover table-bordered" id="tablaProductos" width="100%" cellspacing="0">
+	<thead class="table-dark">
 	  <tr>
-	    <th class="align-middle text-center"><%= sort_link @q, :codigo_producto, "Codigo" %></th>
-            <th class="align-middle text-center">Nombre</th>
-            <th class="align-middle text-center">Existencias</th>
-            <th class="align-middle text-center">Precio</th>
+	    <th class="align-middle text-center"><%= sort_link @q, :codigo_producto, "Codigo",{ default_order: :desc }, { class: "link-light" }%></th>
+            <th class="align-middle text-center"><%= sort_link @q, :nombre_producto, "Nombre",{ default_order: :desc }, { class: "link-light" }%></th>
+            <th class="align-middle text-center"><%= sort_link @q, :existencia_producto, "Existencia",{ default_order: :desc }, { class: "link-light" }%></th>
+            <th class="align-middle text-center"><%= sort_link @q, :precio_producto, "Precio",{ default_order: :desc }, { class: "link-light" }%></th>
 	    <th class="align-middle text-center">Ubicacion</th>
-	    <th></th>
+	    <th class="align-middle text-center">Acciones</th>
 	  </tr>
 	</thead>
 	<tbody>
@@ -62,10 +68,10 @@
 	    <td class="align-middle text-center"><%= prod.location.nombre_lugar %></td>
 	    <td class="align-middle text-center">
 	      <div class="btn-group ">
-		<%= link_to "Ver", product_path(prod), html_options = {class: "btn btn-outline-secondary btn-sm", remote: true} %>
+		<%= link_to ('<i class="fas fa-info-circle"> </i>').html_safe, product_path(prod), html_options = {class: "btn btn-info btn-sm", remote: true} %>
 		<% if current_user.role_id == 1 || current_user.role_id ==  2 %>
-		<%= link_to "Editar", edit_product_path(prod), html_options = {class: "btn btn-secondary btn-sm", remote: true} %>
-		<%= link_to "Borrar", prod, remote: true, method: :delete, data: { confirm: "Borrar el producto: #{prod.nombre_producto}?"}, class: "btn btn-danger btn-sm" %>
+		<%= link_to ('<i class="far fa-edit"> </i>').html_safe, edit_product_path(prod), html_options = {class: "btn btn-secondary btn-sm", remote: true} %>
+		<%= link_to ('<i class="fas fa-window-close"> </i>').html_safe, prod, remote: true, method: :delete, data: { confirm: "Borrar el producto: #{prod.nombre_producto}?"}, class: "btn btn-danger btn-sm" %>
 		<% end %>
 	      </div>
 	    </td>

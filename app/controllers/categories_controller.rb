@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   
   def index
     @q = Category.ransack(params[:q])
-    @categorias = @q.result
+    @categorias = @q.result().page(params[:page]).per(1)
   end
 
   def new

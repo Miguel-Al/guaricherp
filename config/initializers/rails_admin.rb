@@ -482,7 +482,7 @@ RailsAdmin.config do |config|
       field :cliente do
         filterable false
         pretty_value do
-          bindings[:object].client.nombre_cliente
+          bindings[:object].try(:client).try(:nombre_cliente)
         end
       end
       field :fecha do
@@ -530,7 +530,7 @@ RailsAdmin.config do |config|
       field :proveedor do
         filterable false
         pretty_value do
-          bindings[:object].supplier.nombre_proveedor
+          bindings[:object].try(:supplier).try(:nombre_proveedor)
         end
       end
       field :fecha do
@@ -575,13 +575,13 @@ RailsAdmin.config do |config|
       field :empleado do
         filterable false
         pretty_value do
-          bindings[:object].employee.nombre_apellido
+          bindings[:object].try(:employee).try(:nombre_apellido)
         end
       end
       field :tipo_de_nomina do
         filterable false
         pretty_value do
-          bindings[:object].paycheck_type.tipo_nomina_nombre
+          bindings[:object].try(:paycheck_type).try(:tipo_nomina_nombre)
         end
       end
       field :periodo do

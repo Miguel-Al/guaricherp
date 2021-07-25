@@ -22,14 +22,14 @@ class ReporteInventarioPdf < Prawn::Document
       row(0).font_style = :bold
       self.header = true
       self.row_colors = ['DDDDDD', 'FFFFFF']
-      self.column_widths = [120, 280, 140]
+      self.column_widths = [100, 260, 100, 80]
     end
   end
 
   def product_rows
-    [['Codigo #', 'Nombre del producto', 'Existencia actual']] +
+    [['Codigo #', 'Nombre del producto', 'Existencia actual', 'Lugar en almacen']] +
       @productos.map do |product|
-      [product.codigo_producto, product.nombre_producto, product.existencia_producto]
+      [product.codigo_producto, product.nombre_producto, product.existencia_producto, product.location.nombre_lugar]
     end
   end
 

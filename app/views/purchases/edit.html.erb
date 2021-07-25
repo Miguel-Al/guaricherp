@@ -67,6 +67,7 @@
 	    <th>Cantidad</th>
 	    <th>Precio</th>
 	    <th>Total</th>
+	    <th>Accion</th>
           </tr>
 	</thead>
         <tbody>
@@ -76,7 +77,7 @@
 	    <td> <%= det.cantidad %> </td>
 	    <td> Bs <%= det.precio_detalle_compra %> </td>
 	    <td> Bs <%= det.precio_detalle_compra * det.cantidad %> </td>
-	    <td><%= link_to "Remover producto", purchase_purchase_detail_path(@compra, det), method: :delete, data: { confirm: "Borrar producto: #{det.product.id}?"}, class: "btn btn-danger btn-xs" %></td>
+	    <td><%= link_to ('<i class="fas fa-window-close"> </i>').html_safe, purchase_purchase_detail_path(@compra, det), method: :delete, data: { confirm: "Borrar producto: #{det.product.id}?"}, class: "btn btn-danger btn-xs" %></td>
           </tr>
 	  <% end %>
         </tbody>

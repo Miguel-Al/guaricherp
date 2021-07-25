@@ -1,35 +1,17 @@
 <style>
   body {background-color: #646e83;}
+  .btn-info {color: #fff;}
+  .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open>.dropdown-toggle.btn-info {color: #fff; background-color: #00b3db; border-color: #00b3db;}
 </style>
 
 <div id="comienzonom" class="text-center">
   <span class="h1 text-gray-800"><i class="far fa-edit"></i> Nominas de pago <i class="far fa-edit"></i></span>
 </div>
 <br />
-<br />
-
-<%= search_form_for @search, url: search_paychecks_path, html: {method: :post} do |f| %>
-<div class="row mb-3">
-  <div class="col">
-    <%= f.collection_select(:paycheck_type_id_eq, @tiponomina, :id, :tipo_nomina_nombre, {:include_blank => 'Seleccione el tipo de nomina'}, { class: "form-control"}) %>
-  </div>
-  <div class="col">
-    <%= f.date_field :inicio_nomina_gteq, class: "form-control", placeholder: "Fecha de inicio..." %>
-  </div>
-  <div class="col">
-    <%= f.date_field :fin_nomina_lteq, class: "form-control", placeholder: "Fecha fin..." %>
-  </div>
-  <div class="col">
-    <%= f.button :type => "submit", class: "btn btn-success form-control" do %>
-    <span class="fas fa-search"></span> Buscar
-    <% end %>
-    <% end %>
-  </div>
-</div>
 
 <div class="row">
   <div class="col">
-    <%= link_to new_paycheck_path, {class: "btn btn-primary form-control", id: "crear-nomina-btn"}  do %>
+    <%= link_to new_paycheck_path, {class: "btn btn-success form-control", id: "crear-nomina-btn"}  do %>
     <span class="fas fa-plus-square"> </span> Registrar nomina
     <% end %>
   </div>
@@ -39,20 +21,34 @@
       <% end %>
   </div>
 </div>
-<br />
+
+<div class="row mt-2">
+  <%= search_form_for @search, url: search_paychecks_path, html: {method: :post, class: "input-group"} do |f| %>
+  <%= f.collection_select(:paycheck_type_id_eq, @tiponomina, :id, :tipo_nomina_nombre, {:include_blank => 'Seleccione el tipo de nomina'}, { class: "form-control"}) %>
+  <%= f.date_field :inicio_nomina_gteq, class: "form-control", placeholder: "Fecha de inicio..." %>
+  <%= f.date_field :fin_nomina_lteq, class: "form-control", placeholder: "Fecha fin..." %>
+  <%= f.button :type => "submit", class: "btn btn-success" do %>
+  <span class="fas fa-search"></span> Buscar
+  <% end %>
+  <% end %>
+</div>
+<br>
 
 <div class="card shadow mb-4">
   <div class="card-body">
+    <div class="col">
+      <%= paginate @nominas %>
+    </div>
     <div class="table-responsive">
-      <table class="table table-striped" id="tabla_nominas" width="100%" cellspacing="0">
-	<thead>
+      <table class="table table-hover table-bordered" id="tabla_nominas" width="100%" cellspacing="0">
+	<thead class="table-dark">
           <tr>
-	    <th class="align-middle text-center">Id</th>
+	    <th class="align-middle text-center"><%= sort_link @search, :id, "N#",{ default_order: :desc }, { class: "link-light" }%></th>
+	    <th class="align-middle text-center"><%= sort_link @search, :paycheck_type_tipo_nomina_nombre, "Tipo",{ default_order: :desc }, { class: "link-light" }%></th>
+	    <th class="align-middle text-center"><%= sort_link @search, :primer_nombre, "Empleado",{ default_order: :desc }, { class: "link-light" }%></th>
+	    <th class="align-middle text-center"><%= sort_link @search, :user_username, "Encargado",{ default_order: :desc }, { class: "link-light" }%></th>
 	    <th class="align-middle text-center">Periodo</th>
-	    <th class="align-middle text-center">Encargado</th>
-	    <th class="align-middle text-center">Empleado</th>
-	    <th class="align-middle text-center">Fecha Elaboracion</th>
-	    <th></th>
+	    <th class="align-middle text-center">Acciones</th>
 	  </tr>
 	</thead>
 	<tbody>
@@ -64,14 +60,14 @@
           <% @nominas.each do |pay| %>
 	  <tr> 
             <td class="align-middle text-center"> <%= pay.id %> </td>
-	    <td class="align-middle text-center"> <%= pay.try(:periodo) %> </td>
-	    <td class="align-middle text-center"> <%= pay.user.username %> </td>
+	    <td class="align-middle text-center"> <%= pay.paycheck_type.tipo_nomina_nombre %> </td>
 	    <td class="align-middle text-center"> <%= pay.try(:employee).try(:primer_nombre) %> </td>
-	    <td class="align-middle text-center"> <%= pay.created_at.to_s(:db) %> </td>
+	    <td class="align-middle text-center"> <%= pay.user.username %> </td>
+	    <td class="align-middle text-center"> <%= pay.try(:periodo) %> </td>
 	    <td class="align-middle text-center">
 	      <div class="btn-group ">
-		<%= link_to 'Mostrar', paycheck_path(pay), {class: "btn btn-outline-secondary btn-sm", remote: true} %>
-		<%= link_to 'Borrar', pay, method: :delete, data: { confirm: 'Eliminar la nomina?' }, class: "btn btn-danger btn-sm" %>
+		<%= link_to ('<i class="fas fa-info-circle"> </i>').html_safe, paycheck_path(pay), {class: "btn btn-info btn-sm", remote: true} %>
+		<%= link_to ('<i class="fas fa-window-close"> </i>').html_safe, pay, method: :delete, data: { confirm: 'Eliminar la nomina?' }, class: "btn btn-danger btn-sm" %>
 	      </div>
 	    </td>
 	  </tr>

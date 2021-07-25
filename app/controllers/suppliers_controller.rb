@@ -4,7 +4,7 @@ class SuppliersController < ApplicationController
     
   def index
     @q = Supplier.ransack(params[:q])
-    @proveedores = @q.result
+    @proveedores = @q.result().page(params[:page]).per(1)
   end
 
   def new

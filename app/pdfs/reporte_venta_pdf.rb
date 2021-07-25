@@ -1,8 +1,8 @@
 require 'prawn/table'
 class ReporteVentaPdf < Prawn::Document
-  def initialize(ventas)
+  def initialize(ventasdocu)
     super :page_size => "A4", :page_layout => :landscape
-    @ventas = ventas
+    @ventas = ventasdocu
     titulo
     listado
     total

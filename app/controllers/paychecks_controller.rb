@@ -6,12 +6,14 @@ class PaychecksController < ApplicationController
 
   def index
     @search = Paycheck.search(params[:q])
-    @nominas = @search.result
+    @nominas = @search.result.where.not(paycheck_type_id: nil).where.not(employee_id: nil)
+    @nominasdocu = @search.result.where.not(paycheck_type_id: nil).where.not(employee_id: nil)
+    @nominas = @nominas.order('created_at DESC').page(params[:page]).per(1)
     respond_to do |format|
       format.html
       format.js
       format.pdf do
-        pdf = ReporteNominaPdf.new(@nominas)
+        pdf = ReporteNominaPdf.new(@nominasdocu)
           send_data pdf.render, filename: "registro_de_nominas_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
       end
     end

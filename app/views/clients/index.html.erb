@@ -9,14 +9,14 @@
 
 <div class="row mb-3">
   <div class="col">
-    <%= link_to new_client_path, { remote: true, class: "btn btn-primary form-control", id: "anadir-cliente-btn" }  do %>
-    <span class="fas fa-plus-square" ></span> Registrar nuevo cliente
+    <%= link_to new_client_path, { remote: true, class: "btn btn-success form-control", id: "anadir-cliente-btn" }  do %>
+    <span class="fas fa-plus-square" ></span> Registrar cliente
     <% end %>
   </div>
   <div class="col">
-    <%= search_form_for @q, options = {class: "w-100"} do |f| %>
+    <%= search_form_for @q, options = {class: "input-group"} do |f| %>
     <%= f.search_field :nombre_cliente_or_rif_cliente_cont, options = {class: "form-control", placeholder: "Buscar por nombre o rif..."} %>
-    <%= f.button :type => "submit", class: "btn btn-success form-control mt-1" do %>
+    <%= f.button :type => "submit", class: "btn btn-primary" do %>
   <span class="fas fa-search"></span> Buscar
   <% end %>
   <% end %>
@@ -26,14 +26,14 @@
 <div class="card shadow mb-4">
   <div class="card-body">
     <div class="table-responsive">
-      <table class="table table-striped" id="tablaClientes" width="100%" cellspacing="0">
-	<thead>
+      <table class="table table-hover table-bordered" id="tablaClientes" width="100%" cellspacing="0">
+	<thead class="table-dark">
 	  <p class="fw-bold"> Listado de clientes </p>
 	  <tr>
-	    <th class="align-middle text-center">Numero Rif</th>
-	    <th class="align-middle text-center">Nombre</th>
+	    <th class="align-middle text-center"><%= sort_link @q, :rif_cliente, "RIF/Cedula",{ default_order: :desc }, { class: "link-light" }%></th>
+	    <th class="align-middle text-center"><%= sort_link @q, :nombre_cliente, "Nombre",{ default_order: :desc }, { class: "link-light" }%></th>
             <th class="align-middle text-center">Telefono</th>
-	    <th></th>
+	    <th class="align-middle text-center">Acciones</th>
 	  </tr>
 	</thead>
 	<tbody>

@@ -6,7 +6,7 @@
     </div>
     <div class="input-group mb-2">
       <label class="input-group-text" for="fecha">Fecha:</label>
-      <input type="text" readonly class="form-control text-center" aria-describedby="fecha" value="<%= @compra.created_at.strftime("%d-%m-%Y") %>">
+      <input type="text" readonly class="form-control text-center" aria-describedby="fecha" value="<%= @compra.created_at.to_s(:db)%>">
     </div>
     <div class="input-group mb-2">
       <label class="input-group-text" for="almacenista">Encargado:</label>

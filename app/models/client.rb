@@ -12,7 +12,7 @@ class Client < ApplicationRecord
   default_scope {order(rif_cliente: :asc)}
   
   def self.buscador(termino)
-    Client.where("nombre_cliente LIKE ?", "%#{termino}%")
+    Client.where("nombre_cliente LIKE ?", "%#{termino}%").or(Client.where("rif_cliente LIKE ?", "%#{termino}%"))
   end
 
 end

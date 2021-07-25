@@ -11,11 +11,11 @@ class Product < ApplicationRecord
   validates :precio_producto, :existencia_producto, :min_producto, numericality: {greater_than: 0, message: "No puede ser menor a cero"}
   
   def self.buscador(termino)
-    Product.where("nombre_producto LIKE ?", "%#{termino}%")
+    Product.where("nombre_producto LIKE ?", "%#{termino}%").or(Product.where("codigo_producto LIKE ?", "%#{termino}%"))
   end
 
   def self.buscadorcompra(termino)
-    Product.where("nombre_producto LIKE ?", "%#{termino}%")
+    Product.where("nombre_producto LIKE ?", "%#{termino}%").or(Product.where("codigo_producto LIKE ?", "%#{termino}%"))
   end
 
   default_scope {order(codigo_producto: :asc)}

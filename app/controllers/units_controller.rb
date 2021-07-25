@@ -4,7 +4,7 @@ class UnitsController < ApplicationController
 
   def index
     @q = Unit.ransack(params[:q])
-    @unidades = @q.result
+    @unidades = @q.result().page(params[:page]).per(1)
   end
 
   def new

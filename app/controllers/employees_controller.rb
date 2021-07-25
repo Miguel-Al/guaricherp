@@ -5,7 +5,7 @@ class EmployeesController < ApplicationController
 
   def index
     @q = Employee.ransack(params[:q])
-    @empleados = @q.result
+    @empleados = @q.result().page(params[:page]).per(1)
   end
 
   def new

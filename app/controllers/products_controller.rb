@@ -8,11 +8,12 @@ class ProductsController < ApplicationController
   def index
     @empresa = Company.last
     @q = Product.ransack(params[:q])
-    @productos = @q.result
+    @productos = @q.result().page(params[:page]).per(1)
+    @todoproducto = Product.all
     respond_to do |format|
       format.html
       format.pdf do
-        pdf = ReporteInventarioPdf.new(@productos, @empresa)
+        pdf = ReporteInventarioPdf.new(@todoproducto, @empresa)
         send_data pdf.render, filename: "estadodeinventario_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
       end
     end

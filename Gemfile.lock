@@ -267,6 +267,7 @@ DEPENDENCIES
   capybara (>= 3.26)
   devise
   jbuilder (~> 2.7)
+  kaminari
   pg (~> 1.1)
   prawn
   prawn-table

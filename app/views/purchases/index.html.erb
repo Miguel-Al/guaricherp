@@ -1,5 +1,7 @@
 <style>
   body {background-color: #ccc5c5;}
+    .btn-info {color: #fff;}
+  .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open>.dropdown-toggle.btn-info {color: #fff; background-color: #00b3db; border-color: #00b3db;}
 </style>
 
 <div id="comienzocom" class="text-center">
@@ -7,73 +9,68 @@
 </div>
 <br />
 
-<div class="container" id="buscadorescompra">
-  <p>
-  <button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#buscarfechacompra" aria-expanded="true" aria-controls="buscarfecha"> Buscador por fecha </button>
-  <button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#buscarnumerocompra" aria-expanded="false" aria-controls="buscarnumero"> Buscador por numero </button>
-  </p>
-  
-    <div class="collapse" id="buscarfechacompra" data-bs-parent="#buscadorescompra">
-      <%= search_form_for @search, url: search_purchases_path, html: {method: :post} do |f| %>
-      <div class="row mb-3">
-	<div class="col">
-	  <%= f.date_field :created_at_gteq, class: "form-control", placeholder: "Fecha de inicio..." %>
+<div class="row">
+  <div class="col">
+    <%= link_to new_purchase_path, {class: "btn btn-success form-control", id: "registrar-entrada-btn"}  do %>
+    <span class="fas fa-plus-square"> </span>
+    Registrar Compra
+    <%end%>
+  </div>
+  <div class="col">
+    <div class="container" id="buscadorescompra">
+      <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+	<button class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#buscarfechacompra" aria-expanded="true" aria-controls="buscarfecha"> Buscar por Fecha </button>
+	<button class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#buscarnumerocompra" aria-expanded="false" aria-controls="buscarnumero"> Buscar por Numero </button>
+      </div>
+      <div class="collapse mt-2" id="buscarfechacompra" data-bs-parent="#buscadorescompra">
+	<div class="row">
+	  <%= search_form_for @search, url: search_purchases_path, html: {method: :post, class: "input-group"} do |f| %>
+	    <%= f.date_field :created_at_gteq, class: "form-control", placeholder: "Fecha de Inicio..." %>
+	    <%= f.date_field :created_at_lteq, class: "form-control", placeholder: "Fecha Fin..." %>
+	    <%= f.button :type => "submit", class: "btn btn-primary" do %>
+	    <span class="fas fa-search"></span> Buscar
+	    <% end %>
+	    <% end %>
 	</div>
-	<div class="col">
-	  <%= f.date_field :created_at_lteq, class: "form-control", placeholder: "Fecha fin..." %>
-	</div>
-	<div class="col">
-	  <%= f.button :type => "submit", class: "btn btn-success form-control" do %>
+      </div>
+      <div class="collapse mt-2" id="buscarnumerocompra" data-bs-parent="#buscadorescompra">
+	<div class="row">
+	  <%= search_form_for @search, url: search_sales_path, html: {method: :post, class: "input-group"} do |f| %>
+	  <%= f.number_field :numero_compra_eq, class: "form-control", placeholder: "Numero de Factura..." %>
+	  <%= f.button :type => "submit", class: "btn btn-primary" do %>
 	  <span class="fas fa-search"></span> Buscar
 	  <% end %>
 	  <% end %>
 	</div>
       </div>
     </div>
-    <div class="collapse" id="buscarnumerocompra" data-bs-parent="#buscadorescompra">
-      <%= search_form_for @search, url: search_sales_path, html: {method: :post} do |f| %>
-      <div class="row mb-3">
-	<div class="col">
-	  <%= f.number_field :numero_compra_eq, class: "form-control", placeholder: "Numero de factura..." %>
-	</div>
-	<div class="col">
-	  <%= f.button :type => "submit", class: "btn btn-success form-control" do %>
-	  <span class="fas fa-search"></span> Buscar
-	  <% end %>
-	  <% end %>
-    </div>
   </div>
+  <br>
 </div>
+<br>
 
+<% if current_user.role_id == 1 || current_user.role_id ==  2 %>
 <div class="row">
   <div class="col">
-    <%= link_to new_purchase_path, {class: "btn btn-primary form-control", id: "registrar-entrada-btn"}  do %>
-    <span class="fas fa-plus-square"> </span>
-    Registrar entrada
-    <%end%>
-  </div>
-  <% if current_user.role_id == 1 || current_user.role_id ==  2 %>
-  <div class="col">
     <%= link_to purchases_path(request.params.merge(format: :pdf)), {class: "btn btn-outline-dark form-control", target: :_blank} do %>
-    <span class="fas fa-file-alt" ></span> Generar reporte de compras
+    <span class="fas fa-file-alt" ></span> Generar Reporte de Compras
     <% end %>
   </div>
   <% end %>
 </div>
-<br />
 
 <div class="card shadow mb-4">
   <div class="card-body">
     <div class="table-responsive">
-      <table class="table table-striped" id="tabla_compras" width="60%" cellspacing="0">
-	<thead>
+      <table class="table table-hover table-bordered" id="tabla_compras" width="60%" cellspacing="0">
+	<thead class="table-dark">
           <tr>
-	    <th class="align-middle text-center">ID</th>
-	    <th class="align-middle text-center">Encargado</th>
-	    <th class="align-middle text-center">Proveedor</th>
+	    <th class="align-middle text-center"><%= sort_link @search, :numero_compra, "N# Factura",{ default_order: :desc }, { class: "link-light" }%></th>
+	    <th class="align-middle text-center"><%= sort_link @search, :user_username, "Encargado",{ default_order: :desc }, { class: "link-light" }%></th>
+	    <th class="align-middle text-center"><%= sort_link @search, :supplier_nombre_proveedor, "Proveedor",{ default_order: :desc }, { class: "link-light" }%></th>
+	    <th class="align-middle text-center"><%= sort_link @search, :created_at, "Fecha",{ default_order: :desc }, { class: "link-light" }%></th>
 	    <th class="align-middle text-center">Total</th>
-	    <th class="align-middle text-center">Fecha y hora</th>
-            <th></th>
+            <th class="align-middle text-center">Acciones</th>
 	  </tr>
         </thead>
 	<tbody>
@@ -87,13 +84,13 @@
             <td class="align-middle text-center"> <%= compra.try(:numero_compra) %> </td>
 	    <td class="align-middle text-center"> <%= compra.user.username %> </td>
 	    <td class="align-middle text-center"> <%= compra.try(:supplier).try(:nombre_proveedor) %> </td>
+	    <td class="align-middle text-center"> <%= compra.created_at.strftime("%d-%m-%Y") %> </td>
 	    <td class="align-middle text-center"> Bs <%= compra.total_compra * 1.16%> </td>
-	    <td class="align-middle text-center"> <%= compra.created_at.to_s(:db) %> </td>
 	    <td class="align-middle text-center">
 	      <div class="btn-group ">
-		<%= link_to 'Mostrar', purchase_path(compra), {class: "btn btn-outline-secondary btn-sm", remote: true} %>
+		<%= link_to ('<i class="fas fa-info-circle"> </i>').html_safe, purchase_path(compra), {class: "btn btn-info btn-sm", remote: true} %>
 		<% if current_user.role_id == 1 || current_user.role_id ==  2 %>
-		<%= link_to 'Borrar', compra, method: :delete, data: { confirm: 'Eliminar la compra?' }, class: "btn btn-danger btn-sm" %>
+		<%= link_to ('<i class="fas fa-window-close"> </i>').html_safe, compra, method: :delete, data: { confirm: 'Eliminar la compra?' }, class: "btn btn-danger btn-sm" %>
 		<% end %>
 	      </div>
 	    </td>
