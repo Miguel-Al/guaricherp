@@ -1,8 +1,9 @@
 <%= form_for @tipodepago, remote: true do |f| %>
 <div class="item form-group<%= @tipodepago.errors[:nombre_tipo_pago].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :nombre_pago, "Nombre del metodo de pago: " %>
-  <div class="input-group">
-    <%= f.text_field :nombre_tipo_pago, {:class=> "form-control", :placeholder=>"Introduzca el nombre del metodo de pago...", required: true} %>
+  <%= f.label :nombre_pago, "Nombre del Metodo de Pago: " %>
+  <div class="input-group flex-nowrap">
+    <span class="input-group-text" id="addon-wrapping"><i class="fas fa-money-check"></i></span>
+    <%= f.text_field :nombre_tipo_pago, {:class=> "form-control", :placeholder=>"Introduzca el Nombre del Metodo de Pago...", required: true} %>
     <%if @tipodepago.errors[:nombre_tipo_pago].any? %>
     <p class="bg-danger"><%= @tipodepago.errors[:nombre_tipo_pago].to_s[/\w([^"]*)/] %></p>
     <% end %>

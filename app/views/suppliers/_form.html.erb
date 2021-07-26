@@ -3,7 +3,8 @@
 <% if @proveedor.new_record? %>
 <div class="item form-group<%= @proveedor.errors[:rif_proveedor].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :rif, "Numero de Rif: " %>
-  <div class="input-group">
+  <div class="input-group flex-nowrap">
+    <span class="input-group-text fw-bold" id="addon-wrapping">N:</span>
     <%= f.text_field :rif_proveedor, {:class=> "form-control", :placeholder=>"Introduzca el numero rif...", required: true} %>
     <%if @proveedor.errors[:rif_proveedor].any? %>
     <p class="bg-danger"><%= @proveedor.errors[:rif_proveedor].to_s[/\w([^"]*)/] %></p>
@@ -13,7 +14,8 @@
 
 <div class="item form-group<%= @proveedor.errors[:nombre_proveedor].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :nombre, "Nombre: " %>
-  <div class="input-group">
+  <div class="input-group flex-nowrap">
+    <span class="input-group-text" id="addon-wrapping"><i class="fa fa-user"></i></span>
     <%= f.text_field :nombre_proveedor, {:class=> "form-control", :placeholder=>"Introduzca el nombre...", required: true} %>
     <%if @proveedor.errors[:nombre_proveedor].any? %>
     <p class="bg-danger"><%= @proveedor.errors[:nombre_proveedor].to_s[/\w([^"]*)/] %></p>
@@ -24,7 +26,8 @@
 
 <div class="item form-group<%= @proveedor.errors[:direccion_proveedor].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :direccion, "Direccion del proveedor: " %>
-  <div class="input-group">
+  <div class="input-group flex-nowrap">
+    <span class="input-group-text" id="addon-wrapping"><i class="fa fa-home"></i></span>
     <%= f.text_field :direccion_proveedor, {:class=> "form-control", :placeholder=>"Introduzca la direccion del proveedor...", required: true} %>
     <%if @proveedor.errors[:direccion_proveedor].any? %>
     <p class="bg-danger"><%= @proveedor.errors[:direccion_proveedor].to_s[/\w([^"]*)/] %></p>
@@ -48,7 +51,8 @@
 
 <div class="item form-group<%= @proveedor.errors[:correo_proveedor].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :correo, "Correo del proveedor: " %>
-  <div class="input-group">
+  <div class="input-group flex-nowrap">
+    <span class="input-group-text" id="addon-wrapping">@</span>
     <%= f.text_field :correo_proveedor, {class: "form-control", :placeholder=>"Introduzca un Correo..."} %>
     <%if @proveedor.errors[:correo_proveedor].any? %>
     <p class="bg-danger"><%= @proveedor.errors[:correo_proveedor].to_s[/\w([^"]*)/] %></p>
@@ -58,7 +62,8 @@
 
 <div class="item form-group<%= @proveedor.errors[:descripcion_proveedor].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :descripcion, "Descripcion del Proveedor: " %>
-  <div class="input-group">
+  <div class="input-group flex-nowrap">
+    <span class="input-group-text" id="addon-wrapping"><i class="fa fa-tag"></i></span>
     <%= f.text_area :descripcion_proveedor, {:class=> "form-control"} %>
     <%if @proveedor.errors[:descripcion_proveedor].any? %>
     <p class="bg-danger"><%= @proveedor.errors[:descripcion_proveedor].to_s[/\w([^"]*)/] %></p>

@@ -5,7 +5,7 @@
 </style>
 
 <div id="comienzocom" class="text-center">
-  <span class="h2 text-gray-800"><i class="fa fa-shopping-basket"></i> Compras <i class="fa fa-shopping-basket"></i></span>
+  <span class="h1 text-gray-800"><i class="fa fa-shopping-basket"></i> Compras <i class="fa fa-shopping-basket"></i></span>
 </div>
 <br />
 
@@ -19,13 +19,13 @@
   <div class="col">
     <div class="container" id="buscadorescompra">
       <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-	<button class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#buscarfechacompra" aria-expanded="true" aria-controls="buscarfecha"> Buscar por Fecha </button>
-	<button class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#buscarnumerocompra" aria-expanded="false" aria-controls="buscarnumero"> Buscar por Numero </button>
+	<button class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#buscarfechacompra" aria-expanded="true" aria-controls="buscarfecha"><i class="fa fa-calendar"></i> Buscar por Fecha </button>
+	<button class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#buscarnumerocompra" aria-expanded="false" aria-controls="buscarnumero"><span class="fw-bold">#</span> Buscar por Numero </button>
       </div>
       <div class="collapse mt-2" id="buscarfechacompra" data-bs-parent="#buscadorescompra">
 	<div class="row">
 	  <%= search_form_for @search, url: search_purchases_path, html: {method: :post, class: "input-group"} do |f| %>
-	    <%= f.date_field :created_at_gteq, class: "form-control", placeholder: "Fecha de Inicio..." %>
+	    <%= f.date_field :created_at_gteq, class: "form-control", placeholder: "Fecha Inicio..." %>
 	    <%= f.date_field :created_at_lteq, class: "form-control", placeholder: "Fecha Fin..." %>
 	    <%= f.button :type => "submit", class: "btn btn-primary" do %>
 	    <span class="fas fa-search"></span> Buscar

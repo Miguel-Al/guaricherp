@@ -1,2 +1,3 @@
 $('#proveedor_<%= @proveedor.id %>').fadeOut();
-$('#comienzoprov').before('<div id="si" class="alert alert-info alert-dismissible fade show" role="alert"><%= flash.now[:success] = "Se ha borrado el proveedor" %><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+$('#comienzoprov').after('<div id="si" class="alert alert-info alert-dismissible fade show mt-2" role="alert"><%= flash.now[:success] = "Se ha Borrado el Proveedor" %><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+$(".alert").first().hide().slideDown(500).delay(4000).slideUp(500, function () {$(this).remove();});

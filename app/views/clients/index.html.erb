@@ -1,13 +1,14 @@
 <style>
   body {background-color: #96bca4;}
+  .btn-info {color: #fff;}
+  .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open>.dropdown-toggle.btn-info {color: #fff; background-color: #00b3db; border-color: #00b3db;}
 </style>
 
 <div id="comienzoclit" class="text-center">
-    <span class="h2 text-gray-800"><i class="far fa-address-card"></i> Clientes <i class="far fa-address-card"></i></span> 
+    <span class="h1 text-gray-800"><i class="far fa-address-card"></i> Clientes <i class="far fa-address-card"></i></span> 
 </div>
-<br />
 
-<div class="row mb-3">
+<div class="row mt-3">
   <div class="col">
     <%= link_to new_client_path, { remote: true, class: "btn btn-success form-control", id: "anadir-cliente-btn" }  do %>
     <span class="fas fa-plus-square" ></span> Registrar cliente
@@ -22,13 +23,13 @@
   <% end %>
   </div>
 </div>
+<br>
 
 <div class="card shadow mb-4">
   <div class="card-body">
     <div class="table-responsive">
       <table class="table table-hover table-bordered" id="tablaClientes" width="100%" cellspacing="0">
 	<thead class="table-dark">
-	  <p class="fw-bold"> Listado de clientes </p>
 	  <tr>
 	    <th class="align-middle text-center"><%= sort_link @q, :rif_cliente, "RIF/Cedula",{ default_order: :desc }, { class: "link-light" }%></th>
 	    <th class="align-middle text-center"><%= sort_link @q, :nombre_cliente, "Nombre",{ default_order: :desc }, { class: "link-light" }%></th>
@@ -44,9 +45,9 @@
 	    <td class="align-middle text-center"><%= clit.phoneclients.first.try(:numero_cliente) %></td>
 	    <td class="align-middle text-center">
 	      <div class="btn-group ">
-		<%= link_to "Ver", client_path(clit), html_options = {class: "btn btn-outline-secondary btn-sm", remote: true} %>
-		<%= link_to "Editar", edit_client_path(clit), html_options = {class: "btn btn-secondary btn-sm", remote: true} %>
-		<%= link_to "Borrar", clit, remote: true, method: :delete, data: { confirm: "Borrar cliente: #{clit.nombre_cliente}?"}, class: "btn btn-danger btn-sm" %>
+		<%= link_to ('<i class="fas fa-info-circle"> </i>').html_safe, client_path(clit), html_options = {class: "btn btn-info btn-sm", remote: true} %>
+		<%= link_to ('<i class="far fa-edit"> </i>').html_safe, edit_client_path(clit), html_options = {class: "btn btn-secondary btn-sm", remote: true} %>
+		<%= link_to ('<i class="fas fa-window-close"> </i>').html_safe, clit, remote: true, method: :delete, data: { confirm: "Borrar cliente: #{clit.nombre_cliente}?"}, class: "btn btn-danger btn-sm" %>
 	      </div>
 	    </td>
 	  </tr>

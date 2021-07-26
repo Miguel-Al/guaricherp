@@ -1,7 +1,8 @@
 <%= form_for @empresa, remote: true do |f| %>
 <div class="item form-group<%= @empresa.errors[:rif_empresa].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :rif_empresa, "Rif de la empresa: " %>
-  <div class="input-group">
+  <div class="input-group flex-nowrap">
+    <span class="input-group-text fw-bold" id="addon-wrapping">N:</span>
     <%= f.text_field :rif_empresa, {:class=> "form-control", :placeholder=>"Introduzca el Rif de la empresa...", required: true} %>
     <%if @empresa.errors[:rif_empresa].any? %>
     <p class="input-group-text text-danger align-middle"><%= @empresa.errors[:rif_empresa].to_s[/\w([^"]*)/] %></p>
@@ -11,7 +12,8 @@
 
 <div class="item form-group<%= @empresa.errors[:nombre_empresa].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :nombre_empresa, "Nombre de la empresa: " %>
-  <div class="input-group">
+  <div class="input-group flex-nowrap">
+    <span class="input-group-text" id="addon-wrapping"><i class="fa fa-marker"></i></span>
     <%= f.text_field :nombre_empresa, {:class=> "form-control", :placeholder=>"Introduzca el nombre de la empresa...", required: true} %>
     <%if @empresa.errors[:nombre_empresa].any? %>
     <p class="input-group-text text-danger align-middle"><%= @empresa.errors[:nombre_empresa].to_s[/\w([^"]*)/] %></p>
@@ -21,7 +23,8 @@
 
 <div class="item form-group<%= @empresa.errors[:direccion_empresa].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :direccion_empresa, "Direccion de la empresa: " %>
-  <div class="input-group">
+  <div class="input-group flex-nowrap">
+    <span class="input-group-text" id="addon-wrapping"><i class="fa fa-home"></i></span>
     <%= f.text_field :direccion_empresa, {:class=> "form-control", :placeholder=>"Introduzca la direccion de la empresa...", required: true} %>
     <%if @empresa.errors[:direccion_empresa].any? %>
     <p class="input-group-text text-danger align-middle"><%= @empresa.errors[:direccion_empresa].to_s[/\w([^"]*)/] %></p>
@@ -31,7 +34,8 @@
 
 <div class="item form-group<%= @empresa.errors[:telefono_empresa].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :telefono_empresa, "Telefono de la empresa: " %>
-  <div class="input-group">
+  <div class="input-group flex-nowrap">
+    <span class="input-group-text" id="addon-wrapping"><i class="fa fa-phone"></i></span>
     <%= f.text_field :telefono_empresa, {:class=> "form-control", :placeholder=>"Introduzca el telefono de la empresa...", required: true} %>
     <%if @empresa.errors[:telefono_empresa].any? %>
     <p class="input-group-text text-danger align-middle"><%= @empresa.errors[:telefono_empresa].to_s[/\w([^"]*)/] %></p>
@@ -41,7 +45,8 @@
 
 <div class="item form-group<%= @empresa.errors[:numero_control].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :numero_control, "Numero de control: " %>
-  <div class="input-group">
+  <div class="input-group flex-nowrap">
+    <span class="input-group-text fw-bold" id="addon-wrapping">N:</span>
     <%= f.text_field :numero_control, {:class=> "form-control", :placeholder=>"Introduzca el numero de control...", required: true} %>
     <%if @empresa.errors[:numero_control].any? %>
     <p class="input-group-text text-danger align-middle"><%= @empresa.errors[:numero_control].to_s[/\w([^"]*)/] %></p>

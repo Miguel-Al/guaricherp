@@ -5,7 +5,7 @@
 </style>
 
 <div id="comienzonom" class="text-center">
-  <span class="h1 text-gray-800"><i class="far fa-edit"></i> Nominas de pago <i class="far fa-edit"></i></span>
+  <span class="h1 text-gray-800"><i class="far fa-edit"></i> Nominas de Pago <i class="far fa-edit"></i></span>
 </div>
 <br />
 
@@ -17,15 +17,15 @@
   </div>
   <div class="col">
     <%= link_to paychecks_path(request.params.merge(format: :pdf)), {class: "btn btn-outline-dark form-control", target: :_blank} do %>
-    <span class="fas fa-file-alt" ></span> Generar reporte de nominas
+    <span class="fas fa-file-alt" ></span> Generar Reporte de Nominas
       <% end %>
   </div>
 </div>
 
 <div class="row mt-2">
   <%= search_form_for @search, url: search_paychecks_path, html: {method: :post, class: "input-group"} do |f| %>
-  <%= f.collection_select(:paycheck_type_id_eq, @tiponomina, :id, :tipo_nomina_nombre, {:include_blank => 'Seleccione el tipo de nomina'}, { class: "form-control"}) %>
-  <%= f.date_field :inicio_nomina_gteq, class: "form-control", placeholder: "Fecha de inicio..." %>
+  <%= f.collection_select(:paycheck_type_id_eq, @tiponomina, :id, :tipo_nomina_nombre, {:include_blank => 'Seleccione el Tipo de Nomina'}, { class: "form-control"}) %>
+  <%= f.date_field :inicio_nomina_gteq, class: "form-control", placeholder: "Fecha inicio..." %>
   <%= f.date_field :fin_nomina_lteq, class: "form-control", placeholder: "Fecha fin..." %>
   <%= f.button :type => "submit", class: "btn btn-success" do %>
   <span class="fas fa-search"></span> Buscar

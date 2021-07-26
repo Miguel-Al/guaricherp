@@ -1,12 +1,11 @@
 <div class="row mb-1">
-  <div class="col">
+  <div class="input-group flex-nowrap">
     <%# no poner aqui required field %>
+    <span class="input-group-text" id="addon-wrapping"><i class="fa fa-phone"></i></span>
     <%= f.text_field :numero_cliente, {class: "form-control", :placeholder=>"Numero telefonico..." }%>
-  </div>
-  <div class="col">
     <%= f.hidden_field :_destroy %>
-      <%= link_to "#", class: "btn btn-danger form-control remove_fields" do %>
-	Quitar
-      <%end%>
+    <%= link_to "#", class: "btn btn-danger remove_fields" do %>
+    Quitar
+    <%end%>
   </div>
 </div>

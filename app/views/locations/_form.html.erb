@@ -1,7 +1,8 @@
 <%= form_for @lugar, remote: true do |f| %>
 <div class="item form-group<%= @lugar.errors[:nombre_lugar].any? ? ' has-error has-feedback' : '' %>">
   <%= f.label :nombre_lugar, "Nombre de la ubicacion: " %>
-  <div class="input-group">
+  <div class="input-group flex-nowrap">
+    <span class="input-group-text" id="addon-wrapping"><i class="fa fa-map-marker"></i></span>
     <%= f.text_field :nombre_lugar, {:class=> "form-control", :placeholder=>"Introduzca el nombre de la ubicacion...", required: true} %>
     <%if @lugar.errors[:nombre_lugar].any? %>
     <p class="bg-danger"><%= @lugar.errors[:nombre_lugar].to_s[/\w([^"]*)/] %></p>

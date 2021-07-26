@@ -43,16 +43,18 @@
 </div>
 
 <div class="item form-group<%= @nomina.errors[:inicio_nomina].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :fecha, "Fecha de inicio: " %>
-  <div class="input-group">
+  <%= f.label :fecha, "Fecha Inicio: " %>
+  <div class="input-group flex-nowrap">
+    <span class="input-group-text" id="addon-wrapping"><i class="fa fa-calendar"></i></span>
     <%= f.date_field :inicio_nomina, {:class=> "form-control", :placeholder=>"Introduzca la fecha de inicio del periodo...", required: true} %>
   </div>
 </div>
 
 <div class="item form-group<%= @nomina.errors[:fin_nomina].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :fecha, "Fecha de fin: " %>
-  <div class="input-group">
-    <%= f.date_field :fin_nomina, {:class=> "form-control", :placeholder=>"Introduzca la fecha de fin del periodo...", required: true} %>
+  <%= f.label :fecha, "Fecha Fin: " %>
+  <div class="input-group flex-nowrap">
+    <span class="input-group-text" id="addon-wrapping"><i class="fa fa-calendar"></i></span>
+    <%= f.date_field :fin_nomina, {:class=> "form-control", :placeholder=>"Introduzca la Fecha de fin del periodo...", required: true} %>
   </div>
 </div>
 

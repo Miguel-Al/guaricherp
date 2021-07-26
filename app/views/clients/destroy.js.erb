@@ -1,2 +1,3 @@
 $('#cliente_<%= @client.id %>').fadeOut();
-$('#comienzoclit').before('<div id="si" class="alert alert-info alert-dismissible fade show" role="alert"><%= flash.now[:info] = "Se ha borrado el cliente" %><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+$('#comienzoclit').after('<div id="si" class="alert alert-info alert-dismissible fade show mt-2" role="alert"><%= flash.now[:info] = "Se ha Borrado el Cliente" %><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+$(".alert").first().hide().slideDown(500).delay(4000).slideUp(500, function () {$(this).remove();});
