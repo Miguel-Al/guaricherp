@@ -25,8 +25,8 @@
 
 <div class="card shadow mb-4">
   <div class="card-body">
-    <div class="col">
-      <%= paginate @cargos %>
+    <div class="col mx-auto">
+      <%= paginate @cargos, window: 0 %>
     </div>
     <div class="table-responsive">
       <table id="tablaCargos" class="table table-hover table-bordered" width="100%">

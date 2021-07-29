@@ -3,10 +3,11 @@
 </style>
 <%= stylesheet_link_tag 'sales' %>
 
+
 <%= form_for @compra, remote: true  do |f| %>
-<div class = "row">
+<div class="row">
   <div class="col">
-    <h2 class="mb-2 text-gray-800">Registro de compra</h2>
+    <h1 class="mb-2 text-gray-800">Registro de Compra</h1>
     <br />
     <div id="proveedor-compra" class="nombre-proveedor mb-2" >
       <h4> Proveedor: <%= @compra.supplier.present? ?  @compra.supplier.try(:nombre_proveedor) : "No se ha asignado" %></h4>

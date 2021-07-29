@@ -1,30 +1,40 @@
 <form>
   <div class="row">
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="id">Numero de Rif:</label>
+    <div class="input-group flex-nowrap">
+      <label class="input-group-text fw-bold" for="id">RIF:</label>
       <input type="text" readonly class="form-control text-center" aria-describedby="id" value="J-<%= @proveedor.rif_proveedor %>"></input>
     </div>
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="nombre">Nombre:</label>
+  </div>
+  <div class="row mt-3">
+    <div class="input-group flex-nowrap">
+      <label class="input-group-text fw-bold" for="nombre">Nombre:</label>
       <input type="text" readonly class="form-control text-center" aria-describedby="nombre" value="<%= @proveedor.nombre_proveedor %>"></input>
     </div>
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="direccion">Direccion:</label>
+  </div>
+  <div class="row mt-3">
+    <div class="input-group flex-nowrap">
+      <label class="input-group-text fw-bold" for="direccion">Direccion:</label>
       <input type="text" readonly class="form-control text-center" aria-describedby="direccion" value="<%= @proveedor.direccion_proveedor %>"></input>
     </div>
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="telprov">Telefonos:</label>
+  </div>
+  <div class="row mt-3">
+    <div class="input-group flex-nowrap">
+      <label class="input-group-text fw-bold" for="telprov">Telefonos:</label>
       <% @proveedor.phonesuppliers.each do |tel| %>
       <input type="text" readonly class="form-control text-center" aria-describedby="telprov" value="<%= tel.numero_proveedor %>">
       <% end %>
     </div>
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="correoprov">Correo Electronico:</label>
+  </div>
+  <div class="row mt-3">
+    <div class="input-group flex-nowrap">
+      <label class="input-group-text fw-bold" for="correoprov">Correo Electronico:</label>
       <input type="text" readonly class="form-control text-center" aria-describedby="correoprov" value="<%= @proveedor.correo_proveedor %>"></input>
     </div>
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="desprov">Descripcion:</label>
-      <input type="text" readonly class="form-control text-center" aria-describedby="desprov" value="<%= @proveedor.descripcion_proveedor %>"></input>
+  </div>
+  <div class="row mt-3">
+    <div class="input-group flex-nowrap">
+      <label class="input-group-text fw-bold" for="desprov">Descripcion:</label>
+      <textarea type="text" readonly class="form-control text-center" aria-describedby="desprov" value="<%= @proveedor.descripcion_proveedor %>"></textarea>
     </div>
   </div>
 </form>

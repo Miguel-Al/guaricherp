@@ -25,29 +25,27 @@
 <br>
 
 <form>
-  <div class="form-control">
     <br>
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="idrif">Numero de Rif:</label>
-      <input type="text" readonly class="form-control" aria-describedby="idrif" value="<%= @empresa.rif_empresa %>"></input>
+    <div class="input-group input-group-lg">
+      <label class="input-group-text fw-bold" for="idrif">RIF:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="idrif" value="J-<%= @empresa.rif_empresa %>"></input>
     </div>
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="nombrepresa">Nombre:</label>
-      <input type="text" readonly class="form-control" aria-describedby="nombrepresa" value="<%= @empresa.nombre_empresa %>"></input>
+    <div class="input-group input-group-lg mt-3">
+      <label class="input-group-text fw-bold" for="nombrepresa">Nombre:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="nombrepresa" value="<%= @empresa.nombre_empresa %>"></input>
     </div>
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="dirpresa">Direccion:</label>
-      <input type="text" readonly class="form-control" aria-describedby="dirpresa" value="<%= @empresa.direccion_empresa %>"></input>
+    <div class="input-group input-group-lg mt-3">
+      <label class="input-group-text fw-bold" for="dirpresa">Direccion:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="dirpresa" value="<%= @empresa.direccion_empresa %>"></input>
     </div>
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="telpresa">Telefono:</label>
-      <input type="text" readonly class="form-control" aria-describedby="telpresa" value="<%= @empresa.telefono_empresa %>"></input>
+    <div class="input-group input-group-lg mt-3">
+      <label class="input-group-text fw-bold" for="telpresa">Telefono:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="telpresa" value="<%= @empresa.telefono_empresa %>"></input>
     </div>
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="numerocontrol">Numero de control:</label>
-      <input type="text" readonly class="form-control" aria-describedby="numerocontrol" value="<%= @empresa.numero_control %>"></input>
+    <div class="input-group input-group-lg mt-3">
+      <label class="input-group-text fw-bold" for="numerocontrol">N# de Control:</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="numerocontrol" value="<%= @empresa.numero_control %>"></input>
     </div>
-  </div>
   <br>
   <div class="d-grid gap-4 mx-auto">
     <%= link_to edit_company_path(@empresa), {class: "btn btn-secondary btn-xs", remote: true} do %>

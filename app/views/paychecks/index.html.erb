@@ -9,6 +9,25 @@
 </div>
 <br />
 
+<div id="notice_wrapper">
+  <% if flash[:notice] %>
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <%= flash[:notice] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <% elsif flash[:error] %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%= flash[:error] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <% elsif flash[:success] %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= flash[:success] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <% end %>
+</div>
+
 <div class="row">
   <div class="col">
     <%= link_to new_paycheck_path, {class: "btn btn-success form-control", id: "crear-nomina-btn"}  do %>
@@ -22,7 +41,7 @@
   </div>
 </div>
 
-<div class="row mt-2">
+<div class="row mt-3">
   <%= search_form_for @search, url: search_paychecks_path, html: {method: :post, class: "input-group"} do |f| %>
   <%= f.collection_select(:paycheck_type_id_eq, @tiponomina, :id, :tipo_nomina_nombre, {:include_blank => 'Seleccione el Tipo de Nomina'}, { class: "form-control"}) %>
   <%= f.date_field :inicio_nomina_gteq, class: "form-control", placeholder: "Fecha inicio..." %>

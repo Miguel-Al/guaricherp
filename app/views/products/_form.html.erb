@@ -1,7 +1,7 @@
 <%= form_for @product, remote: true  do |f| %>
 
 <div class="item form-group<%= @product.errors[:codigo_producto].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :codigo, "Codigo del producto: " %>
+  <%= f.label :codigo, "Codigo: " %>
   <div class="input-group flex-nowrap">
     <span class="input-group-text fw-bold" id="addon-wrapping">#</span>
     <%= f.text_field :codigo_producto, {:class=> "form-control", :placeholder=>"Introduzca el codigo de producto...", required: true} %>
@@ -12,7 +12,7 @@
 </div>
 
 <div class="item form-group<%= @product.errors[:nombre_producto].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :nombre, "Nombre del producto: " %>
+  <%= f.label :nombre, "Nombre: " %>
   <div class="input-group flex-nowrap">
     <span class="input-group-text" id="addon-wrapping"><i class="fa fa-marker"></i></span>
     <%= f.text_field :nombre_producto, {:class=> "form-control", :placeholder=>"Introduzca el nombre del producto...", required: true} %>
@@ -56,7 +56,7 @@
 </div>
 
 <div class="item form-group<%= @product.errors[:precio_producto].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :precio, "Precio del producto (Bs): " %>
+  <%= f.label :precio, "Precio (Bs): " %>
   <div class="input-group flex-nowrap">
     <span class="input-group-text" id="addon-wrapping"><i class="fa fa-money-bill-alt"></i></span>
     <%= f.number_field :precio_producto, {class: "form-control", step: 1, min: 1, value: 1, :placeholder=>"Precio del producto (Bs)", required: true} %>
@@ -91,7 +91,7 @@
 </div>
 
 <div class="item form-group<%= @product.errors[:descripcion_producto].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :descripcion, "Descripcion del producto: " %>
+  <%= f.label :descripcion, "Descripcion: " %>
   <div class="input-group flex-nowrap">
     <span class="input-group-text" id="addon-wrapping"><i class="fa fa-tag"></i></span>
     <%= f.text_area :descripcion_producto, {class: "form-control", :placeholder=>"Introduzca la descripcion del producto..."} %>

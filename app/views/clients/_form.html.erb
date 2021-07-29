@@ -2,8 +2,9 @@
 
 <% if @client.new_record? %>
 <div class="item form-group<%= @client.errors[:type_client].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :categoria, "Categoria de cliente: " %>
-  <div class="input-group">
+  <%= f.label :categoria, "Categoria: " %>
+  <div class="input-group flex-nowrap">
+    <span class="input-group-text fw-bold" id="addon-wrapping"><i class="fa fa-list-alt"></i></span>
     <%= collection_select(:client, :type_client_id, @tipoclientes, :id, :nombre_tipo_cliente, {:prompt => 'Seleccione una categoria'}, { class: "form-control", required: true })%>
     <%if @client.errors[:type_client].any? %>
     <p class="bg-danger"><%= @client.errors[:type_client].to_s[/\w([^"]*)/] %></p>
@@ -12,7 +13,7 @@
 </div>
 
 <div class="item form-group<%= @client.errors[:rif_cliente].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :rif, "Rif o cedula del cliente: " %>
+  <%= f.label :rif, "RIF/Cedula: " %>
   <div class="input-group flex-nowrap">
     <span class="input-group-text fw-bold" id="addon-wrapping">N:</span>
     <%= f.text_field :rif_cliente, {:class=> "form-control", :placeholder=>"Introduzca el numero de rif o cedula...", required: true} %>
@@ -23,7 +24,7 @@
 </div>
 
 <div class="item form-group<%= @client.errors[:nombre_cliente].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :nombre, "Nombre del cliente: " %>
+  <%= f.label :nombre, "Nombre: " %>
   <div class="input-group flex-nowrap">
     <span class="input-group-text" id="addon-wrapping"><i class="fa fa-user"></i></span>
     <%= f.text_field :nombre_cliente, {:class=> "form-control", :placeholder=>"Introduzca el nombre...", required: true} %>
@@ -35,7 +36,7 @@
 <% end %>
 
 <div class="item form-group<%= @client.errors[:direccion_cliente].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :descripcion, "Direccion del cliente: " %>
+  <%= f.label :descripcion, "Direccion: " %>
   <div class="input-group flex-nowrap">
     <span class="input-group-text" id="addon-wrapping"><i class="fa fa-home"></i></span>
     <%= f.text_field :direccion_cliente, {:class=> "form-control", :placeholder=>"Introduzca la direccion del cliente..", required: true} %>
@@ -59,9 +60,9 @@
 </div>
 
 <div class="item form-group<%= @client.errors[:correo_cliente].any? ? ' has-error has-feedback' : '' %> mt-2">
-  <%= f.label :correo, "Correo del cliente: " %>
+  <%= f.label :correo, "Correo: " %>
   <div class="input-group flex-nowrap">
-    <span class="input-group-text" id="addon-wrapping">@</span>
+    <span class="input-group-text fw-bold" id="addon-wrapping">@</span>
     <%= f.text_field :correo_cliente, {class: "form-control", :placeholder=>"Introduzca el correo del cliente..."} %>
     <%if @client.errors[:correo_cliente].any? %>
     <p class="bg-danger"><%= @client.errors[:correo_cliente].to_s[/\w([^"]*)/] %></p>
@@ -70,7 +71,7 @@
 </div>
 
 <div class="item form-group<%= @client.errors[:descripcion_cliente].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :descripcion, "Descripcion del cliente: " %>
+  <%= f.label :descripcion, "Descripcion: " %>
   <div class="input-group flex-nowrap">
     <span class="input-group-text" id="addon-wrapping"><i class="fa fa-tag"></i></span>
     <%= f.text_area :descripcion_cliente, {:class=> "form-control", :placeholder=>"Introduzca la descripcion del cliente.."} %>

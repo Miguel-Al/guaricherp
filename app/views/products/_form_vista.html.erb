@@ -1,40 +1,61 @@
 <form>
   <div class="row">
-    <div class="input-group mb-3">
-      <span class="input-group-text" for="id">Codigo:</span>
-      <input type="text" readonly class="form-control" aria-describedby="id" value="<%= @product.codigo_producto %>"></input>
+    <div class="input-group flex-nowrap">
+      <span class="input-group-text fw-bold" for="id">Codigo:</span>
+      <input type="text" readonly class="form-control text-center" aria-describedby="id" value="<%= @product.codigo_producto %>"></input>
     </div>
-    <div class="col-md-6">
-      <label class="form-label" for="nombre">Nombre:</label>
-      <input type="text" readonly class="form-control" value="<%= @product.nombre_producto %>"></input>
+  </div>
+  <div class="row mt-3">
+    <div class="input-group flex-nowrap">
+      <span class="input-group-text fw-bold" for="id">Nombre:</span>
+      <input type="text" readonly class="form-control text-center" aria-describedby="id" value="<%= @product.nombre_producto %>"></input>
     </div>
-    <div class="col-md-6">
-      <label class="form-label" for="categoria">Categoria:</label>
-      <input type="text" readonly class="form-control" value="<%= @product.category.nombre_categoria %>"></input>
+  </div>
+  <div class="row mt-3">
+    <div class="col">
+      <div class="input-group flex-nowrap">
+	<span class="input-group-text fw-bold" for="id">Categoria:</span>
+	<input type="text" readonly class="form-control text-center" aria-describedby="id" value="<%= @product.category.nombre_categoria %>"></input>
+      </div>
     </div>
-    <div class="col-md-6">
-      <label class="form-label mt-1" for="unidad">Unidad:</label>
-      <input type="text" readonly class="form-control" value="<%= @product.unit.nombre_unidad %>">
+    <div class="col">
+      <div class="input-group flex-nowrap">
+	<span class="input-group-text fw-bold" for="id">Unidad:</span>
+	<input type="text" readonly class="form-control text-center" value="<%= @product.unit.nombre_unidad %>">
+      </div>
     </div>
-    <div class="col-md-6">
-      <label class="form-label mt-1" for="ubicacion">Localizacion en almacen:</label>
-      <input type="text" readonly class="form-control" value="<%= @product.location.nombre_lugar %>">
+  </div>
+  <div class="row mt-3">
+    <div class="input-group flex-nowrap">
+      <span class="input-group-text fw-bold" for="id">Localizacion en almacen:</span>
+      <input type="text" readonly class="form-control text-center" value="<%= @product.location.nombre_lugar %>">
     </div>
-    <div class="col-md-6">
-      <label class="form-label mt-1" for="precio">Precio (Bs):</label>
-      <input type="text" readonly class="form-control" value="<%= @product.precio_producto %>"></input>
+  </div>
+  <div class="row mt-3">
+    <div class="input-group flex-nowrap">
+      <span class="input-group-text fw-bold" for="id">Precio (Bs):</span>
+      <input type="text" readonly class="form-control text-center" value="<%= @product.precio_producto %>">
     </div>
-    <div class="col-md-6">
-      <label class="form-label mt-1" for="existencia">Existencia actual:</label>
-      <input type="text" readonly class="form-control" value="<%= @product.existencia_producto %>"></input>
+  </div>
+  <div class="row mt-3 container">
+    <label class="form-label fw-bold text-center" for="existencia">Existencias</label>
+    <div class="col">
+      <div class="input-group flex-nowrap">
+	<span class="input-group-text fw-bold" for="id">Minima:</span>
+	<input type="text" readonly class="form-control text-center" value="<%= @product.min_producto %>"></input>
+      </div>
     </div>
-    <div class="col-md-6">
-      <label class="form-label mt-1" for="minimo">Existencia minima permitida:</label>
-      <input type="text" readonly class="form-control" value="<%= @product.min_producto %>"></input>
+    <div class="col">
+      <div class="input-group flex-nowrap">
+	<span class="input-group-text fw-bold" for="id">Actual:</span>
+	<input type="text" readonly class="form-control text-center" value="<%= @product.existencia_producto %>"></input>
+      </div>
     </div>
-    <div class="col-md-6">
-      <label class="form-label mt-1" for="descripcion">Descripcion:</label>
-      <input type="text" readonly class="form-control" value="<%= @product.descripcion_producto %>"></input>
+  </div>
+  <div class="row mt-3">
+    <div class="input-group flex-nowrap">
+      <span class="input-group-text fw-bold" for="id">Descripcion:</span>
+      <textarea type="text" readonly class="form-control text-center"><%= @product.descripcion_producto %></textarea>
     </div>
   </div>
 </form>

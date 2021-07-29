@@ -2,7 +2,7 @@
 
 <% if @employee.new_record? %>
 <div class="item form-group<%= @employee.errors[:numero_cedula].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :cedula, "Cedula del empleado: " %>
+  <%= f.label :cedula, "Cedula: " %>
   <div class="input-group flex-nowrap">
     <span class="input-group-text fw-bold" id="addon-wrapping">N:</span>
     <%= f.number_field :numero_cedula, {:class=> "form-control", :placeholder=>"Introduzca el numero de cedula...", required: true} %>
@@ -57,7 +57,7 @@
 </div>
 
 <div class="item form-group<%= @employee.errors[:direccion_empleado].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :descripcion, "Direccion del empleado: " %>
+  <%= f.label :descripcion, "Direccion: " %>
   <div class="input-group flex-nowrap">
     <span class="input-group-text" id="addon-wrapping"><i class="fa fa-home"></i></span>
     <%= f.text_field :direccion_empleado, {:class=> "form-control", :placeholder=>"Introduzca la direccion del empleado...", required: true} %>
@@ -68,7 +68,7 @@
 </div>
 
 <div class="item form-group<%= @employee.errors[:fecha_ingreso].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :fecha, "Fecha que ingreso el empleado: " %>
+  <%= f.label :fecha, "Fecha de ingreso: " %>
   <div class="input-group flex-nowrap">
     <span class="input-group-text" id="addon-wrapping"><i class="fa fa-calendar"></i></span>
     <%= f.date_field :fecha_ingreso, {class: "form-control", :placeholder=>"fecha de ingreso...", required: true} %>
@@ -80,8 +80,9 @@
 <% end %>
 
 <div class="item form-group<%= @employee.errors[:salario_empleado].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :salario, "Salario mensual del empleado(Bs): " %>
-  <div class="input-group">
+  <%= f.label :salario, "Salario mensual (Bs): " %>
+  <div class="input-group flex-nowrap">
+    <span class="input-group-text" id="addon-wrapping"><i class="fa fa-money-bill-wave"></i></span>
     <%= f.number_field :salario_empleado, {class: "form-control", :placeholder=>"Salario (Bs)...", required: true} %>
     <%if @employee.errors[:salario_empleado].any? %>
     <p class="bg-danger"><%= @employee.errors[:salario_empleado].to_s[/\w([^"]*)/] %></p>
@@ -90,8 +91,9 @@
 </div>
 
 <div class="item form-group<%= @employee.errors[:position].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :categoria, "Cargo del empleado: " %>
-  <div class="input-group">
+  <%= f.label :categoria, "Cargo: " %>
+  <div class="input-group flex-nowrap">
+    <span class="input-group-text" id="addon-wrapping"><i class="fa fa-poll-h"></i></span>
     <%= collection_select(:employee, :position_id, @cargos, :id, :nombre_cargo, {:prompt => 'Seleccione una categoria'}, { class: "form-control", required: true })%>
     <%if @employee.errors[:position].any? %>
     <p class="bg-danger"><%= @employee.errors[:position].to_s[/\w([^"]*)/] %></p>
@@ -113,7 +115,7 @@
 </div>
 
 <div class="item form-group<%= @employee.errors[:correo_empleado].any? ? ' has-error has-feedback' : '' %> mt-2">
-  <%= f.label :correo, "Correo del empleado: " %>
+  <%= f.label :correo, "Correo: " %>
   <div class="input-group flex-nowrap">
     <span class="input-group-text fw-bold" id="addon-wrapping">@</span>
     <%= f.text_field :correo_empleado, {class: "form-control", :placeholder=>"Correo del empleado..."} %>
@@ -125,7 +127,7 @@
 <br />
 
 <div class="actions col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-  <%= f.submit @employee.new_record? ? "Registrar empleado" : "Actualizar empleado", :class => "btn btn-success"%>
+  <%= f.submit @employee.new_record? ? "Registrar Empleado" : "Actualizar Empleado", :class => "btn btn-success"%>
 </div>
 
 <% end %>

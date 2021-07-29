@@ -9,43 +9,64 @@
 </div>
 <br />
 
-<div class="row">
-  <div class="col">
-    <%= link_to new_purchase_path, {class: "btn btn-success form-control", id: "registrar-entrada-btn"}  do %>
-    <span class="fas fa-plus-square"> </span>
-    Registrar Compra
-    <%end%>
+<div id="notice_wrapper">
+  <% if flash[:notice] %>
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <%= flash[:notice] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
-  <div class="col">
-    <div class="container" id="buscadorescompra">
+  <% elsif flash[:error] %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%= flash[:error] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <% elsif flash[:success] %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= flash[:success] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <% end %>
+</div>
+
+
+<div id="buscadorescompra">
+  <div class="row">
+    <div class="col">
+      <%= link_to new_purchase_path, {class: "btn btn-success form-control", id: "registrar-entrada-btn"}  do %>
+      <span class="fas fa-plus-square"> </span>
+      Registrar Compra
+      <%end%>
+    </div>
+    <div class="col">
       <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
 	<button class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#buscarfechacompra" aria-expanded="true" aria-controls="buscarfecha"><i class="fa fa-calendar"></i> Buscar por Fecha </button>
 	<button class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#buscarnumerocompra" aria-expanded="false" aria-controls="buscarnumero"><span class="fw-bold">#</span> Buscar por Numero </button>
       </div>
-      <div class="collapse mt-2" id="buscarfechacompra" data-bs-parent="#buscadorescompra">
-	<div class="row">
-	  <%= search_form_for @search, url: search_purchases_path, html: {method: :post, class: "input-group"} do |f| %>
-	    <%= f.date_field :created_at_gteq, class: "form-control", placeholder: "Fecha Inicio..." %>
-	    <%= f.date_field :created_at_lteq, class: "form-control", placeholder: "Fecha Fin..." %>
-	    <%= f.button :type => "submit", class: "btn btn-primary" do %>
-	    <span class="fas fa-search"></span> Buscar
-	    <% end %>
-	    <% end %>
-	</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="collapse mt-3" id="buscarfechacompra" data-bs-parent="#buscadorescompra">
+      <div class="row">
+	<%= search_form_for @search, url: search_purchases_path, html: {method: :post, class: "input-group"} do |f| %>
+	<%= f.date_field :created_at_gteq, class: "form-control", placeholder: "Fecha Inicio..." %>
+	<%= f.date_field :created_at_lteq, class: "form-control", placeholder: "Fecha Fin..." %>
+	<%= f.button :type => "submit", class: "btn btn-primary" do %>
+	<span class="fas fa-search"></span> Buscar
+	<% end %>
+	<% end %>
       </div>
-      <div class="collapse mt-2" id="buscarnumerocompra" data-bs-parent="#buscadorescompra">
-	<div class="row">
-	  <%= search_form_for @search, url: search_sales_path, html: {method: :post, class: "input-group"} do |f| %>
-	  <%= f.number_field :numero_compra_eq, class: "form-control", placeholder: "Numero de Factura..." %>
-	  <%= f.button :type => "submit", class: "btn btn-primary" do %>
-	  <span class="fas fa-search"></span> Buscar
-	  <% end %>
-	  <% end %>
-	</div>
+    </div>
+    <div class="collapse mt-3" id="buscarnumerocompra" data-bs-parent="#buscadorescompra">
+      <div class="row">
+	<%= search_form_for @search, url: search_sales_path, html: {method: :post, class: "input-group"} do |f| %>
+	<%= f.number_field :numero_compra_eq, class: "form-control", placeholder: "Numero de Factura..." %>
+	<%= f.button :type => "submit", class: "btn btn-primary" do %>
+	<span class="fas fa-search"></span> Buscar
+	<% end %>
+	<% end %>
       </div>
     </div>
   </div>
-  <br>
 </div>
 <br>
 
@@ -58,6 +79,7 @@
   </div>
   <% end %>
 </div>
+<br>
 
 <div class="card shadow mb-4">
   <div class="card-body">

@@ -1,37 +1,51 @@
 <form>
   <div class="row">
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="id">Numero de cedula:</label>
+    <div class="input-group flex-nowrap">
+      <label class="input-group-text fw-bold" for="id">Cedula:</label>
       <input type="text" readonly class="form-control text-center" aria-describedby="id" value="<%= @employee.numero_cedula %>"></input>
     </div>
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="nombre">Nombre completo:</label>
+  </div>
+  <div class="row mt-3">
+    <div class="input-group flex-nowrap">
+      <label class="input-group-text fw-bold" for="nombre">Nombre completo:</label>
       <input type="text" readonly class="form-control text-center" aria-describedby="nombre" value="<%= @employee.nombre_completo %>"></input>
     </div>
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="fecha">Fecha de ingreso:</label>
+  </div>
+  <div class="row mt-3">
+    <div class="input-group flex-nowrap">
+      <label class="input-group-text fw-bold" for="fecha">Fecha de ingreso:</label>
       <input type="text" readonly class="form-control text-center" aria-describedby="fecha" value="<%= @employee.fecha_ingreso.strftime("%d-%m-%Y") %>"></input>
     </div>
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="cargo">Cargo:</label>
+  </div>
+  <div class="row mt-3">
+    <div class="input-group flex-nowrap">
+      <label class="input-group-text fw-bold" for="cargo">Cargo:</label>
       <input type="text" readonly class="form-control text-center" aria-describedby="cargo" value="<%= @employee.position.nombre_cargo %>"></input>
     </div>
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="salario">Salario:</label>
-      <input type="text" readonly class="form-control text-center" aria-describedby="salario" value="Bs <%= @employee.salario_empleado %>"></input>
+  </div>
+  <div class="row mt-3">
+    <div class="input-group flex-nowrap">
+      <label class="input-group-text fw-bold" for="salario">Salario (Bs):</label>
+      <input type="text" readonly class="form-control text-center" aria-describedby="salario" value="<%= @employee.salario_empleado %>"></input>
     </div>
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="direccion">Direccion:</label>
+  </div>
+  <div class="row mt-3">
+    <div class="input-group flex-nowrap">
+      <label class="input-group-text fw-bold" for="direccion">Direccion:</label>
       <input type="text" readonly class="form-control text-center" aria-describedby="direccion" value="<%= @employee.direccion_empleado %>"></input>
     </div>
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="telefono">Telefonos:</label>
+  </div>
+  <div class="row mt-3">
+    <div class="input-group flex-nowrap">
+      <label class="input-group-text fw-bold" for="telefono">Telefonos:</label>
       <% @employee.phoneployees.each do |tel| %>
       <input type="text" readonly class="form-control text-center" aria-describedby="telefono" value="<%= tel.numero_empleado %>"></input>
       <% end %>
     </div>
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="correo">Correo:</label>
+  </div>
+  <div class="row mt-3">
+    <div class="input-group flex-nowrap">
+      <label class="input-group-text fw-bold" for="correo">Correo:</label>
       <input type="text" readonly class="form-control text-center" aria-describedby="correo" value="<%= @employee.correo_empleado %>"></input>
     </div>
   </div>

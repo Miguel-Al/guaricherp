@@ -359,20 +359,20 @@
          <a href="/"><%= image_tag("logo2.png", :class => "w-75 align-items-center") %></a></div></div>
        	      <% if current_user.role_id == 1 || current_user.role_id ==  2 || current_user.role_id == 5  %>
         <li id="submenu1" class="dropdown">
-       <a href="#submenu1" class="dropdown-toggle" data-bs-toggle="dropdown" class="text-white nav-link align-middle"><i class="fas fa-warehouse"></i> <span class="ms-1 d-none d-sm-inline">Inventario</span><span class="caret"></span></a>
+       <a href="#submenu1" class="dropdown-toggle" data-bs-toggle="dropdown" class="text-white nav-link align-middle"><i class="fas fa-warehouse"></i> <span class="ms-1 text">Inventario</span><span class="caret"></span></a>
      <ul class="dropdown-menu animated fadeInLeft" role="menu">
        <li><%= link_to products_path, class: "text-white nav-link align-middle" do %>
-	 <i class="fas fa-boxes"></i> <span class="ms-1 d-none d-sm-inline">Productos</span>
+	 <i class="fas fa-boxes"></i> <span class="ms-1 text">Productos</span>
 	 <% end %></li>
        <% if current_user.role_id == 1 || current_user.role_id ==  2 %>
        <li><%= link_to categories_path, class: "text-white nav-link align-middle" do %>
-	 <i class="fas fa-tag"></i> <span class="ms-1 d-none d-sm-inline">Categorias</span>
+	 <i class="fas fa-tag"></i> <span class="ms-1 text">Categorias</span>
 	 <% end %></li>
        <li> <%= link_to units_path, class: "text-white nav-link align-middle align-middle" do %>
-	 <i class="fa fa-cube"></i> <span class="ms-1 d-none d-sm-inline">Unidades</span>
+	 <i class="fa fa-cube"></i> <span class="ms-1 text">Unidades</span>
 	 <% end %></li>
        <li> <%= link_to locations_path, class: "text-white nav-link align-middle" do %>
-	 <i class="fa fa-map-marker"></i> <span class="ms-1 d-none d-sm-inline">Ubicaciones</span>
+	 <i class="fa fa-map-marker"></i> <span class="ms-1 text">Ubicaciones</span>
 	 <% end %></li>
        <% end %>
      </ul>
@@ -380,14 +380,14 @@
 	<% end %>
 	  <% if current_user.role_id == 1 || current_user.role_id ==  2 || current_user.role_id == 5  %>
 	 <li id="submenu2" class="dropdown">
-       <a href="#submenu2" class="dropdown-toggle"  data-bs-toggle="dropdown"><i class="fas fa-truck"></i> <span class="ms-1 d-none d-sm-inline">Suministro</span> <span class="caret"></span></a>
+       <a href="#submenu2" class="dropdown-toggle"  data-bs-toggle="dropdown"><i class="fas fa-truck"></i> <span class="ms-1 text">Suministro</span> <span class="caret"></span></a>
      <ul class="dropdown-menu animated fadeInLeft" role="menu">
        <li><%= link_to purchases_path, class: "text-white nav-link align-middle" do %>
-	 <i class="fa fa-shopping-basket"></i> <span class="ms-1 d-none d-sm-inline">Compras</span>
+	 <i class="fa fa-shopping-basket"></i> <span class="ms-1 text">Compras</span>
 	 <% end %></li>
        <% if current_user.role_id == 1 || current_user.role_id ==  2 %>
        <li> <%= link_to suppliers_path, class: "text-white nav-link align-middle" do %>
-	 <i class="fas fa-handshake"></i> <span class="ms-1 d-none d-sm-inline">Proveedores</span>
+	 <i class="fas fa-handshake"></i> <span class="ms-1 text">Proveedores</span>
 	 <% end %></li>
        <% end %>
       </ul>
@@ -396,14 +396,14 @@
 	 
 	 <% if current_user.role_id == 1 || current_user.role_id ==  2 || current_user.role_id == 4  %>
 	  <li  id="submenu3" class="dropdown">
-       <a href="#submenu3" class="dropdown-toggle"  data-bs-toggle="dropdown"> <i class="fas fa-shopping-cart"></i><span class="ms-1 d-none d-sm-inline">Ventas</span> <span class="caret"></span></a>
+       <a href="#submenu3" class="dropdown-toggle"  data-bs-toggle="dropdown"> <i class="fas fa-shopping-cart"></i><span class="ms-1 text">Ventas</span> <span class="caret"></span></a>
      <ul class="dropdown-menu animated fadeInLeft" role="menu">
        <li><%= link_to sales_path, class: "text-white nav-link align-middle" do %>
-	 <i class="fas fa-cart-plus"></i> <span class="ms-1 d-none d-sm-inline">Facturas</span>
+	 <i class="fas fa-cart-plus"></i> <span class="ms-1 text">Facturas</span>
 	 <% end %></li>
        	 <% if current_user.role_id == 1 || current_user.role_id ==  2 %>
        <li><%= link_to clients_path, class: "text-white nav-link align-middle" do %>
-	 <i class="far fa-address-card"></i> <span class="ms-1 d-none d-sm-inline">Clientes</span>
+	 <i class="far fa-address-card"></i> <span class="ms-1 text">Clientes</span>
 	 <% end %></li>
        <% end %>
       </ul>
@@ -412,41 +412,41 @@
 
 	  <% if current_user.role_id == 1 || current_user.role_id ==  2 || current_user.role_id == 3  %>
 	   <li id="submenu4" class="dropdown">
-       <a href="#submenu4" class="dropdown-toggle"  data-bs-toggle="dropdown"><i class="far fa-clipboard"></i> <span class="ms-1 d-none d-sm-inline">RRHH</span> <span class="caret"></span></a>
+       <a href="#submenu4" class="dropdown-toggle"  data-bs-toggle="dropdown"><i class="far fa-clipboard"></i> <span class="ms-1 text">RRHH</span> <span class="caret"></span></a>
        <ul class="dropdown-menu animated fadeInLeft" role="menu">
 	 <li><%= link_to paychecks_path, class: "text-white nav-link align-middle" do %>
-	 <i class="fa fa-file-invoice"></i> <span class="ms-1 d-none d-sm-inline">Nomina</span>
+	 <i class="fa fa-file-invoice"></i> <span class="ms-1 text">Nomina</span>
 	 <% end %></li>
        <li><%= link_to employees_path, class: "text-white nav-link align-middle" do %>
-	 <i class="fas fa-users"></i> <span class="ms-1 d-none d-sm-inline">Empleados</span>
+	 <i class="fas fa-users"></i> <span class="ms-1 text">Empleados</span>
 	 <% end %></li>
       </ul>
 	   </li>
 	   <% end %>
 	   <% if current_user.role_id == 1 || current_user.role_id ==  2 %>
 	    <li id="submenu5" class="dropdown">
-       <a href="#submenu5" class="dropdown-toggle"  data-bs-toggle="dropdown"><i class="fa fa-cog"></i> <span class="ms-1 d-none d-sm-inline">Configuracion</span> <span class="caret"></span></a>
+       <a href="#submenu5" class="dropdown-toggle"  data-bs-toggle="dropdown"><i class="fa fa-cog"></i> <span class="ms-1 text">Configuracion</span> <span class="caret"></span></a>
      <ul class="dropdown-menu animated fadeInLeft" role="menu">
        <li><%= link_to companies_path, class: "text-white nav-link align-middle" do %>
-	 <i class="fa fa-building"></i> <span class="ms-1 d-none d-sm-inline">Empresa</span>
+	 <i class="fa fa-building"></i> <span class="ms-1 text">Empresa</span>
 	 <% end %></li>
        <li><%= link_to type_payments_path, class: "text-white nav-link align-middle" do %>
-	 <i class="fas fa-money-check"></i> <span class="ms-1 d-none d-sm-inline">Metodos de pago</span>
+	 <i class="fas fa-money-check"></i> <span class="ms-1 text">Metodos de pago</span>
 	 <% end %></li>
        <li><%= link_to positions_path, class: "text-white nav-link align-middle" do %>
-	 <i class="fa fa-th-list"></i> <span class="ms-1 d-none d-sm-inline">Cargos</span>
+	 <i class="fa fa-th-list"></i> <span class="ms-1 text">Cargos</span>
 	 <% end %></li>
       </ul>
 	    </li>
 	    <% end %>
        	      <% if current_user.role_id == 1 %>
 	      <li><%= link_to rails_admin_path, class: "text-white nav-link align-middle" do %>
-		<i class="fas fa-tools"></i> <span class="ms-1 d-none d-sm-inline">Administracion</span>
+		<i class="fas fa-tools"></i> <span class="ms-1 text">Administracion</span>
 		<% end %>
 	      </li>
 	      <% end %>
        <li id="menufin"><%= link_to destroy_user_session_path, method: :delete, class: "text-white nav-link align-middle" do %>
-	 <i class="fas fa-power-off"></i> <span class="ms-1 d-none d-sm-inline">Salir</span>
+	 <i class="fas fa-power-off"></i> <span class="ms-1 text">Salir</span>
 	 <% end %>
        </li>
       </ul>
@@ -462,30 +462,12 @@
             </button>
             <div class="container">
                 <div class="row">
-                  <div class="bg-light border rounded-3 p-3" style="margin: auto">
-		    <div id="notice_wrapper">
-	    <% if flash[:notice] %>
-	    <div class="alert alert-info alert-dismissible fade show" role="alert">
-	      <%= flash[:notice] %>
-	      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-	    </div>
-	    <% elsif flash[:error] %>
-	    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-	      <%= flash[:error] %>
-	      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-	    </div>
-	    <% elsif flash[:success] %>
-	    <div class="alert alert-success alert-dismissible fade show" role="alert">
-	      <%= flash[:success] %>
-	      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-	    </div>
-	    <% end %>
-	    </div>
+                  <div class="bg-light rounded-3 p-3" style="margin: auto">
 		    <%= yield %>
-		    </div>
-                </div>
-            </div>
-        </div>
+		  </div>
+		</div>
+	    </div>
+	</div>
         <!-- /#page-content-wrapper -->
 
     </div>
@@ -520,12 +502,8 @@
         $('#wrapper').toggleClass('toggled');
   });  
   });
-        $(document).ready(function() {
-	  setTimeout(function(){
-	      $('#notice_wrapper').fadeOut("slow", function(){
-		  $(this).remove();
-	      });
-	  }, 3500);
+  $(document).ready(function() {
+      $("#notice_wrapper").delay(4000).slideUp(500, function () {$(this).remove();});
       });
 </script>
 

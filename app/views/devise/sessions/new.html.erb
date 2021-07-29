@@ -29,12 +29,12 @@
 <%= image_tag("logo1.png", :class => "justify-content-center align-items-center mb-5") %>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "w-75"}) do |f| %>
   <div class="mb-2">
-    <%= f.label :login, class:"form-label" %><br />
+    <%= f.label :login, class:"form-label fw-bold" %><br />
     <%= f.text_field :login, autofocus: true, class: "form-control d-grid w-100", placeholder: "Usuario...", required: true%>
   </div>
 
   <div class="mb-2">
-    <%= f.label :Clave, class:"form-label" %><br />
+    <%= f.label :Clave, class:"form-label fw-bold" %><br />
     <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "Clave...", required: true%>
   </div>
 <br>

@@ -1,6 +1,6 @@
 <%= form_for @categoria, remote: true do |f| %>
 <div class="item form-group<%= @categoria.errors[:nombre_categoria].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :nombre_categoria, "Nombre de la Categoria: " %>
+  <%= f.label :nombre_categoria, "Nombre: " %>
   <div class="input-group flex-nowrap">
     <span class="input-group-text" id="addon-wrapping"><i class="fa fa-tag"></i></span>
     <%= f.text_field :nombre_categoria, {:class=> "form-control", :placeholder=>"Introduzca el nombre de la categoria...", required: true} %>
@@ -11,7 +11,7 @@
 </div>
 
 <div class="item form-group<%= @categoria.errors[:descripcion_categoria].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :descripcion, "Descripcion de la categoria: " %>
+  <%= f.label :descripcion, "Descripcion: " %>
   <div class="input-group flex-nowrap">
     <span class="input-group-text" id="addon-wrapping"><i class="fa fa-tag"></i></span>
     <%= f.text_area :descripcion_categoria, {class: "form-control", :placeholder=>"Introduzca la descripcion de la categoria..."} %>

@@ -1,6 +1,6 @@
 <%= form_for @cargo, remote: true do |f| %>
 <div class="item form-group<%= @cargo.errors[:nombre_cargo].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :nombre_pago, "Nombre del Cargo: " %>
+  <%= f.label :nombre_pago, "Nombre: " %>
   <div class="input-group flex-nowrap">
     <span class="input-group-text" id="addon-wrapping"><i class="fa fa-th-list"></i></span>
     <%= f.text_field :nombre_cargo, {:class=> "form-control", :placeholder=>"Introduzca el Nombre del Cargo...", required: true} %>
