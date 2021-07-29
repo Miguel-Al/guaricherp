@@ -56,7 +56,15 @@
       </div>
     </div>
     
-
+    <script>
+      $(document).ready(function() {
+	  setTimeout(function(){
+	      $('#notice_wrapper').fadeOut("slow", function(){
+		  $(this).remove();
+	      });
+	  }, 3500);
+      });
+    </script>
 
   </body>
 </html>

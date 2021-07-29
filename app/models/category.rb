@@ -1,6 +1,7 @@
 class Category < ApplicationRecord
   has_many :products, dependent: :restrict_with_error
-
+  has_paper_trail
+  
   before_validation { |category| category.nombre_categoria = category.nombre_categoria.downcase }
 
   validates :nombre_categoria, uniqueness: { message: "Ya esta registrado" }
