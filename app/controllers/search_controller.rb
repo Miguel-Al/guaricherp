@@ -10,10 +10,11 @@ class SearchController < ApplicationController
   end
   #con los gets prawn funciona bien, con los POST no
   def resultsventasmes
+    @q = Sale.ransack(params[:q])
     date = Date.today
     start_date = date.at_beginning_of_month
     end_date = date.at_end_of_month
-    @ventas= Sale.where(:created_at => start_date..end_date)
+    @ventas = @q.result.where(:created_at => start_date..end_date)
   end
   def resultsventassemana
     date = Date.today

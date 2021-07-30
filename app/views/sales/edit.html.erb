@@ -4,65 +4,66 @@
 <%= stylesheet_link_tag 'sales' %>
 
 <%= form_for @venta, remote: true  do |f| %>
+
+<h1 class="mb-2 text-gray-800">Punto de Venta</h1>
+<br>
+
 <div class="row">
   <div class="col">
-    <h2 class="mb-2 text-gray-800">Punto de venta</h2>
-    <br />
-    <div id="cliente_venta" class="nombre-cliente" >
-     <h4> Cliente: <%= @venta.client.present? ? @venta.client.try(:nombre_cliente) : "No se ha asignado" %></h4>
-    </div>
-    <div class="input-group">
+    <div class="container">
+      <div id="cliente_venta" class="nombre-cliente" >
+	<h4> Cliente: <%= @venta.client.present? ? @venta.client.try(:nombre_cliente) : "No se ha asignado" %></h4>
+      </div>
+      <div class="row mt-3">
+	<div class="btn-group" role="group">
+	  <button type="button" class="btn btn-primary form-control" data-bs-toggle="modal" data-bs-target="#buscador_cliente">
+	    <span class="fas fa-search"></span> Buscar Cliente</button>
+	  <%= link_to new_client_path, { remote: true, class: "btn btn-outline-primary form-control" }  do %>
+	  <span class="fas fa-plus-square" ></span> Registrar Cliente
+	  <% end %>
+	</div>
+      </div>
+      <div class="input-group mt-3">
       <%= f.collection_select(:type_payment_id, @tipopago, :id, :nombre_tipo_pago, {:prompt => 'Seleccione el tipo de pago'}, { class: "form-control", required: true })%>
+      </div>
     </div>
   </div>
   <div class="col" style="text-align:right;">
-    <h2 id="importe_venta_lbl" > Subtotal de venta: Bs <%= @venta.total_venta %> </h2>
-    <h2 id="importe_venta_lbl2" > 16% del IVA: Bs <%= (@venta.total_venta * 0.16).round(2) %> </h2>
-    <h2 id="importe_venta_lbl3" > Total de venta: Bs <%= (@venta.total_venta * 1.16).round(2) %> </h2>
+    <div class="container">
+      <h2 id="importe_venta_lbl" > Subtotal de venta: Bs <%= @venta.total_venta %> </h2>
+      <h2 id="importe_venta_lbl2" > 16% del IVA: Bs <%= (@venta.total_venta * 0.16).round(2) %> </h2>
+      <h2 id="importe_venta_lbl3" > Total de venta: Bs <%= (@venta.total_venta * 1.16).round(2) %> </h2>
+    </div>
   </div>
 </div>
 <br />
 
-<div class="row">
-  <div class="col">
-    <button type="button" class="btn btn-primary form-control" data-bs-toggle="modal" data-bs-target="#buscador_producto">
-       <span class="fas fa-search"></span> Buscar producto</button>
+<div class="container">
+  <button type="button" class="btn btn-primary btn-lg form-control" data-bs-toggle="modal" data-bs-target="#buscador_producto">
+    <span class="fas fa-search"></span> Buscar Producto</button>
+  <div class="row mt-3">
+    <div class="btn-group" role="group">
+      <%= link_to @venta, method: :delete, data: { confirm: 'Cancelar la venta?' }, class: "btn btn-danger form-control" do %>
+      <span class="fas fa-window-close"></span> Cancelar venta
+      <% end %>
+      <%= f.button :type => "submit", class: "btn btn-success form-control", disabled: (!@venta.client || @venta.total_venta == 0) do %>
+      <span class="fa fa-check"></span> Finalizar venta
+      <% end %>
+    </div>
   </div>
-  <div class="col">
-    <button type="button" class="btn btn-outline-secondary form-control" data-bs-toggle="modal" data-bs-target="#buscador_cliente">
-      <span class="fas fa-search"></span> Buscar cliente</button>
-  </div>
-  <div class="col">
-    <%= link_to new_client_path, { remote: true, class: "btn btn-outline-primary form-control" }  do %>
-    <span class="fas fa-plus-square" ></span> Registrar nuevo cliente
-    <% end %>
-  </div>
+  <% end %>
 </div>
-<br />
 
-<div class="row">
-  <div class="col">
-    <%= link_to @venta, method: :delete, data: { confirm: 'Cancelar la venta?' }, class: "btn btn-danger form-control" do %>
-    <span class="fas fa-window-close"></span> Cancelar venta
-    <% end %>
-  </div>
-  <div class="col">
-    <%= f.button :type => "submit", class: "btn btn-success form-control", disabled: (!@venta.client || @venta.total_venta == 0) do %>
-    <span class="fa fa-check"></span> Finalizar venta
-    <% end %>
-  </div>
-</div>
-<% end %>
 <br>
 
 <div class="card shadow mb-4">
   <div class="card-body">
     <div class="table-responsive">
-      <table class="table table-bordered" id="tabla_ventas" width="80%" cellspacing="0">
-	<thead>
+      <table class="table table-striped" id="tabla_ventas" width="80%" cellspacing="0">
+	<thead class="table-dark">
 	  <tr>
             <th>Producto</th>
-            <th>Precio unitario</th>
+            <th>Precio</th>
 	    <th>Cantidad</th>
             <th>Total</th>
 	    <th>Accion</th>

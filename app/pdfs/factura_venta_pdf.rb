@@ -13,19 +13,19 @@ class FacturaVentaPdf < Prawn::Document
   end
 
   def titulo
-    text "#{@empresa.nombre_empresa}", size: 20, style: :bold
-    text "Direccion: #{@empresa.direccion_empresa}", size: 10, style: :bold
-    text "Telf: #{@empresa.telefono_empresa}", size: 10, style: :bold
-    text_box "N° de venta: #{@venta.numero_venta}", at: [390, 700]
-    text_box "N° de control:#{@empresa.numero_control}", at: [390, 685]
-    move_down 5
-    text "Nombre o Razon social: #{@venta.client.nombre_cliente}", size: 12, style: :bold
+    text "#{@empresa.nombre_empresa.upcase}", size: 20, style: :bold
+    text "Direccion: #{@empresa.direccion_empresa.upcase}", size: 12, style: :bold
+    text "Telf: #{@empresa.telefono_empresa}", size: 12, style: :bold
+    text_box "N° de venta: #{@venta.numero_venta}", at: [380, 715]
+    text_box "N° de control:#{@empresa.numero_control}", at: [380, 700]
+    move_down 10
+    text "Nombre o Razon social: #{@venta.client.nombre_cliente.upcase}", size: 15, style: :bold
     text "RIF: #{@venta.client.rif_cliente}", size: 12, style: :bold
-    text "Direccion Fiscal: #{@venta.client.direccion_cliente}", size: 12, style: :bold
-    text "Telefono: #{@venta.client.phoneclients.first.try(:numero_cliente)}", size: 12, style: :bold
-    move_down 2
-    text "Vendedor: #{@venta.user.username}", size: 10, style: :bold
-    text "Fecha: #{@venta.created_at.strftime("%d-%m-%Y")}", size: 10, style: :bold
+    text "Direccion Fiscal: #{@venta.client.direccion_cliente.upcase}", size: 15, style: :bold
+    text "Telefono: #{@venta.client.phoneclients.first.try(:numero_cliente)}", size: 15, style: :bold
+    move_down 5
+    text "Vendedor: #{@venta.user.username.upcase}", size: 12, style: :bold
+    text "Fecha: #{@venta.created_at.strftime("%d-%m-%Y")}", size: 12, style: :bold
   end
 
   def listado
@@ -36,6 +36,7 @@ class FacturaVentaPdf < Prawn::Document
       self.row_colors = ['DDDDDD', 'FFFFFF']
       self.column_widths = [200, 80, 200, 60]
     end
+     move_down 20
   end
 
   def item_header
@@ -53,12 +54,12 @@ def item_table_data
 end
 def subtotal
   move_down 10
-  text "El subtotal de la venta es : Bs #{@venta.total_venta}", size: 15, style: :bold, align: :right
+  text "El subtotal de venta: Bs #{@venta.total_venta}", size: 15, style: :bold, align: :right
 end
 def iva
-  text "El 16% del iva es : Bs #{@venta.total_venta * 0.16}", size: 15, style: :bold, align: :right
+  text "El 16% del IVA : Bs #{@venta.total_venta * 0.16}", size: 15, style: :bold, align: :right
 end
 def total
-  text "El total de la venta es : Bs #{@venta.total_venta * 1.16}", size: 15, style: :bold, align: :right
+  text "El total de venta: Bs #{@venta.total_venta * 1.16}", size: 15, style: :bold, align: :right
 end
 end

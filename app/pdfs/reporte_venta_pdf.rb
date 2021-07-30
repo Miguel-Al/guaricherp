@@ -1,7 +1,7 @@
 require 'prawn/table'
 class ReporteVentaPdf < Prawn::Document
   def initialize(ventasdocu)
-    super :page_size => "A4", :page_layout => :landscape
+    super :page_size => "LEGAL", :page_layout => :landscape
     @ventas = ventasdocu
     titulo
     listado
@@ -24,7 +24,7 @@ class ReporteVentaPdf < Prawn::Document
   end
 
   def item_header
-  ["#N de venta", "Fecha", "Cliente", "Base Imponible", "Total pagado"]
+  ["#N de venta", "Fecha", "Cliente", "Base Imponible", "Total"]
 end
 
 def item_rows

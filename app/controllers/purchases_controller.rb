@@ -27,11 +27,12 @@ class PurchasesController < ApplicationController
   end
 
   def show
+    @empresa = Company.last
     respond_to do |format|
       format.html
       format.js
       format.pdf do
-        pdf = RegistroCompraPdf.new(@compra)
+        pdf = RegistroCompraPdf.new(@compra, @empresa)
         send_data pdf.render, filename: "registrodecompra_#{@compra.numero_compra}_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
       end
     end

@@ -3,66 +3,59 @@
 </style>
 <%= stylesheet_link_tag 'sales' %>
 
-
 <%= form_for @compra, remote: true  do |f| %>
-<div class="row">
-  <div class="col">
-    <h1 class="mb-2 text-gray-800">Registro de Compra</h1>
-    <br />
-    <div id="proveedor-compra" class="nombre-proveedor mb-2" >
-      <h4> Proveedor: <%= @compra.supplier.present? ?  @compra.supplier.try(:nombre_proveedor) : "No se ha asignado" %></h4>
-    </div>
-    <div class="mb-2">
-      <%= f.label :pago, "Metodo de pago: " %>
-      <%= f.collection_select(:type_payment_id, @tipopago, :id, :nombre_tipo_pago, {:prompt => 'Seleccione el tipo de pago'}, { class: "form-control", required: true })%>
-    </div>
-  </div>
-  <div class="col" style="text-align:right;">
-    <h2 id="importe_compra_lbl" > Subtotal de compra: Bs <%= @compra.total_compra %> </h2>
-    <h2 id="importe_compra_lbl2" > 16% del IVA: Bs <%= @compra.total_compra * 0.16 %> </h2>
-    <h2 id="importe_compra_lbl3" > Total de compra: Bs <%= @compra.total_compra * 1.16 %> </h2>
-  </div>
-</div>
 
-<div class="item form-group<%= @compra.errors[:numero_compra].any? ? ' has-error has-feedback' : '' %>">
-  <%= f.label :numero, "Numero de compra: " %>
-  <div class="input-group">
-    <%= f.number_field :numero_compra, {:class=> "form-control", :placeholder=>"Numero de compra...", required: true} %>       </div>
-</div>
-<br />
-
-<div class="row">
-  <div class="col">
-    <button type="button" class="btn btn-primary form-control" data-bs-toggle="modal" data-bs-target="#buscador_productocompra">
-      <span class="fas fa-search"></span> Buscar producto</button>
-  </div>
-  <div class="col">
-    <button type="button" class="btn btn-outline-secondary form-control" data-bs-toggle="modal" data-bs-target="#buscador_proveedor">
-      <span class="fas fa-search"></span> Buscar proveedor</button>
-  </div>
-</div>
+<h1 class="mb-2 text-gray-800">Registro de Compra</h1>
 <br>
 
 <div class="row">
   <div class="col">
-    <%= link_to @compra, method: :delete, data: { confirm: 'Cancelar la registro?' }, class: "btn btn-danger form-control" do %>
-    <span class="fas fa-window-close"></span> Cancelar registro
-  <% end %>
+    <div class="container">
+      <div id="proveedor-compra" class="nombre-proveedor" >
+	<h4> Proveedor: <%= @compra.supplier.present? ?  @compra.supplier.try(:nombre_proveedor) : "No se ha asignado" %></h4>
+      </div>
+	<button type="button" class="btn btn-primary form-control mt-3" data-bs-toggle="modal" data-bs-target="#buscador_proveedor">
+	  <span class="fas fa-search"></span> Buscar Proveedor</button>
+	<%= f.collection_select(:type_payment_id, @tipopago, :id, :nombre_tipo_pago, {:prompt => 'Seleccione el tipo de pago'}, { class: "form-control mt-3", required: true })%>
+	<div class="item form-group<%= @compra.errors[:numero_compra].any? ? ' has-error has-feedback' : '' %>">
+	  <div class="input-group">
+	    <%= f.number_field :numero_compra, {:class=> "form-control mt-3", :placeholder=>"Numero de compra...", required: true} %>
+	  </div>
+	</div>
+    </div>
   </div>
-  <div class="col">
-    <%= f.button :type => "submit", class: "btn btn-success form-control" do %>
-  <span class="fa fa-check"></span> Finalizar registro
-  <% end %>
+  <div class="col" style="text-align:right;">
+    <div class="container">
+      <h2 id="importe_compra_lbl" > Subtotal de compra: Bs <%= @compra.total_compra %> </h2>
+      <h2 id="importe_compra_lbl2" > 16% del IVA: Bs <%= @compra.total_compra * 0.16 %> </h2>
+      <h2 id="importe_compra_lbl3" > Total de compra: Bs <%= @compra.total_compra * 1.16 %> </h2>
+    </div>
   </div>
 </div>
-<% end %>
-<br />
+<br>
+
+<div class="container">
+  <button type="button" class="btn btn-primary btn-lg form-control" data-bs-toggle="modal" data-bs-target="#buscador_productocompra">
+    <span class="fas fa-search"></span> Buscar Producto</button>
+  <div class="row mt-3">
+    <div class="btn-group" role="group">
+      <%= link_to @compra, method: :delete, data: { confirm: 'Cancelar la registro?' }, class: "btn btn-danger form-control" do %>
+      <span class="fas fa-window-close"></span> Cancelar Registro
+      <% end %>
+      <%= f.button :type => "submit", class: "btn btn-success form-control", disabled: (!@compra.supplier || @compra.total_compra == 0) do %>
+      <span class="fa fa-check"></span> Finalizar Registro
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+</div>
+<br>
 
 <div class="card shadow mb-4">
   <div class="card-body">
     <div class="table-responsive">
-      <table class="table table-bordered" id="tabla_compras" width="80%" cellspacing="0">
-        <thead>
+      <table class="table table-striped" id="tabla_compras" width="80%" cellspacing="0">
+        <thead class="table-dark">
           <tr>
 	    <th>Producto</th>
 	    <th>Cantidad</th>

@@ -3,7 +3,7 @@
 </style>
 
 <div id="comienzoprin" class="text-center">
-  <span class="h1 text-gray-800">Bienvenido <strong><%= @nombre %></strong></span>
+  <span class="h1 text-gray-800">Bienvenido <strong><%= @nombre.upcase %></strong></span>
   <br>
 </div>
 
@@ -26,9 +26,18 @@
   <% end %>
 </div>
 
-<%= image_tag("cover.png", :class => "justify-content-center align-items-center w-100") %>
-<div>
-<div id="finprin" class="text-center">
-  <span class="h1 text-gray-800">Bienvenido <strong><%= @nombre %></strong></span>
-  <br>
-</div>
+<% if current_user.role_id == 2 %>
+Hay en total <%= @cantclien %> clientes registrados
+<br>
+Hay en total <%= @cantprove %>  proveedores registrados
+<br>
+Hoy se ha obtenido un total de <%= @monto %> en ventas
+<br>
+Se han hecho un total de <%= @numventas %> ventas hoy
+<br>
+seh na hecho un total de <%= @numcompras %> compras hoy
+<br>
+Hay un total de <%= @cantproductos %> productos
+<% else %>
+<%= image_tag("logoinverso.png", :class => "justify-content-center align-items-center w-100") %>
+<% end %>

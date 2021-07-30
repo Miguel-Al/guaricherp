@@ -81,6 +81,38 @@
 </div>
 <br>
 
+<div id="resultadosventa">
+  <div class="row">
+    <% if current_user.role_id == 1 || current_user.role_id ==  2 %>
+    <div class="col">
+      <button class="btn btn-outline-info form-control" data-bs-toggle="collapse" data-bs-target="#resultadosemanaventa" aria-expanded="true" aria-controls="resultadosemana"> Ventas en la Semana </button>
+    </div>
+    <div class="col">
+      <button class="btn btn-outline-info form-control" data-bs-toggle="collapse" data-bs-target="#resultadomesventa" aria-expanded="false" aria-controls="resultadomes"> Ventas en el Mes </button>
+    </div>
+    <% end %>
+    <div class="col">	
+      <%= link_to sales_path(request.params.merge(format: :pdf)), {class: "btn btn-outline-dark form-control", target: :_blank} do %>
+      <span class="fa fa-file-pdf" ></span> Generar reporte de ventas
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="collapse mt-3" id="resultadosemanaventa" data-bs-parent="#resultadosventa">
+      <div class="row">
+	<p> BRUH </p>
+      </div>
+    </div>
+    <div class="collapse mt-3" id="resultadomesventa" data-bs-parent="#resultadosventa">
+      <div class="row">
+	<p> KONICHIWA </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<% if false %>
 <div class="row">
   <div class="col">
     <%= link_to "Ventas de la semana", ventas_de_semana_path, class: "btn btn-outline-info form-control" %>
@@ -93,7 +125,8 @@
     <span class="fa fa-file-pdf" ></span> Generar reporte de ventas
     <% end %>
   </div>
-</div> 
+</div>
+<% end %>
 <br />
 
 	  	    
