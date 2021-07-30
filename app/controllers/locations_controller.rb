@@ -4,7 +4,7 @@ class LocationsController < ApplicationController
   
   def index
     @q = Location.ransack(params[:q])
-    @lugares = @q.result().page(params[:page]).per(1)
+    @lugares = @q.result().page(params[:page]).per(10)
   end
 
   def new

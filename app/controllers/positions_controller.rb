@@ -4,7 +4,7 @@ class PositionsController < ApplicationController
   
   def index
     @q = Position.ransack(params[:q])
-    @cargos = @q.result().page(params[:page]).per(1)
+    @cargos = @q.result().page(params[:page]).per(10)
   end
 
   def new

@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
   def index
     @empresa = Company.last
     @q = Product.ransack(params[:q])
-    @productos = @q.result().page(params[:page]).per(1)
+    @productos = @q.result().page(params[:page]).per(10)
     @todoproducto = Product.all
     respond_to do |format|
       format.html

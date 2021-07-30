@@ -7,7 +7,7 @@ class SalesController < ApplicationController
     @search = Sale.search(params[:q])
     @ventas = @search.result.where.not(total_venta: 0.0).where.not(client_id: nil)
     @ventasdocu = @search.result.where.not(total_venta: 0.0).where.not(client_id: nil)
-    @ventas = @ventas.order('created_at DESC').page(params[:page]).per(1)
+    @ventas = @ventas.order('created_at DESC').page(params[:page]).per(10)
      
     respond_to do |format|
       format.html

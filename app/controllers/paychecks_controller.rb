@@ -8,7 +8,7 @@ class PaychecksController < ApplicationController
     @search = Paycheck.search(params[:q])
     @nominas = @search.result.where.not(paycheck_type_id: nil).where.not(employee_id: nil)
     @nominasdocu = @search.result.where.not(paycheck_type_id: nil).where.not(employee_id: nil)
-    @nominas = @nominas.order('created_at DESC').page(params[:page]).per(1)
+    @nominas = @nominas.order('created_at DESC').page(params[:page]).per(10)
     respond_to do |format|
       format.html
       format.js

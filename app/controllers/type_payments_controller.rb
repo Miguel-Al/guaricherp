@@ -4,7 +4,7 @@ class TypePaymentsController < ApplicationController
   
   def index
     @q = TypePayment.ransack(params[:q])
-    @tipodepagos = @q.result().page(params[:page]).per(1)
+    @tipodepagos = @q.result().page(params[:page]).per(10)
   end
 
   def new
