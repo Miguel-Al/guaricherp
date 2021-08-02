@@ -1,9 +1,10 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show, :edit, :add_item, :destroy, :add_cliente]
   before_action :set_type_payment, only: [:edit, :destroy, :update, :show]
+  before_action :fechas, only: [:index]
   before_action :authenticate_allowed, only: [:index, :edit]
 
-   def index
+  def index
     @search = Sale.search(params[:q])
     @ventas = @search.result.where.not(total_venta: 0.0).where.not(client_id: nil)
     @ventasdocu = @search.result.where.not(total_venta: 0.0).where.not(client_id: nil)
@@ -140,5 +141,18 @@ class SalesController < ApplicationController
   def set_type_payment
     @tipopago = TypePayment.all
   end
+
+  def fechas
+    fechahoy = Date.today
+    @ini_sem = fechahoy.at_beginning_of_week
+    @fin_sem = fechahoy.at_end_of_week
+    @ini_sem_pas = fechahoy.at_beginning_of_week.last_week
+    @fin_sem_pas = fechahoy.at_beginning_of_week.last_week + 6
+    @ini_mes = fechahoy.at_beginning_of_month
+    @fin_mes = fechahoy.at_end_of_month
+    @ini_mes_pas = fechahoy.at_beginning_of_month.last_month
+    @fin_mes_pas = fechahoy.at_beginning_of_month - 1
+  end
+  
   
 end

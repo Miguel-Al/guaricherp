@@ -52,5 +52,7 @@
       </table>
     </div>
   </div>
+
+  <%= line_chart Position.group_by_day(:created_at).count %>
 </div>
 <%= render 'modal_cargos' %>

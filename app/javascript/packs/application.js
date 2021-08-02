@@ -13,6 +13,7 @@ import "channels"
 import '../src/bootstrap.js'
 import "../custom/algo.js"
 import "@fortawesome/fontawesome-free/css/all"
+import "chartkick/chart.js"
 
 
 Rails.start()

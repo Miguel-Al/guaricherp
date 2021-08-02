@@ -100,12 +100,26 @@
   <div class="row">
     <div class="collapse mt-3" id="resultadosemanaventa" data-bs-parent="#resultadosventa">
       <div class="row">
-	<p> BRUH </p>
+	<div class="col">
+	  pasada
+	  <%= line_chart Sale.group_by_day(:created_at, range: @ini_sem_pas..@fin_sem_pas).count, download: {filename: "diagramaventas_semana_pasado_#{DateTime.now.to_s(:number)}"} %>
+	</div>
+	<div class="col">
+	  presente
+	  <%= line_chart Sale.group_by_day(:created_at, range: @ini_sem..Time.now).count, download: true %>
+	</div>
       </div>
-    </div>
+    </div>  
     <div class="collapse mt-3" id="resultadomesventa" data-bs-parent="#resultadosventa">
       <div class="row">
-	<p> KONICHIWA </p>
+	<div class="col">
+	  pasada
+	  <%= line_chart Sale.group_by_week(:created_at, range: @ini_mes_pas..@fin_mes_pas).count, download: true %>
+	</div>
+	<div class="col">
+	  presente
+	  <%= line_chart Sale.group_by_week(:created_at, range: @ini_mes..Time.now).count, download: true %>
+	</div>
       </div>
     </div>
   </div>
