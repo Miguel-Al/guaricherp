@@ -122,7 +122,7 @@ en:
       optional: "Opcional"
       one_char: "caracter"
       char_length_up_to: "length up to"
-      char_length_of: "length of"
+      char_length_of: "desde"
       save: "Guardar"
       save_and_add_another: "Guardar y agregar otro"
       save_and_edit: "Guardar y editar"
@@ -140,9 +140,9 @@ en:
       display: "Mostrar %{name}: %{type}"
       options_for: "Opciones para %{name}"
       empty_value_for_associated_objects: "<vacio>"
-      click_to_reverse_selection: 'Haga click para invertir la selección'
+      click_to_reverse_selection: "Haga click para invertir la selección"
     csv:
-      header_for_root_methods: "%{name}" # 'model' is available
+      header_for_root_methods: "a%{name}"
       header_for_association_methods: "%{name} [%{association}]"
       encoding_to: "Codificar a"
       encoding_to_help: "Elija la codificación de salida. Deje en blanco para no cambiar la codificación actual: (%{name})"
@@ -150,4 +150,4 @@ en:
       skip_header_help: "No incluir un encabezado (sin descripción de los campos)"
       default_col_sep: ","
       col_sep: "Separador de columnas"
-      col_sep_help: "Deje en blanco para el de defecto ('%{value}')" # value is default_col_sep
+      col_sep_help: "Deje en blanco para el de defecto ('%{value}')"

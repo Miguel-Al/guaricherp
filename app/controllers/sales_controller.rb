@@ -5,6 +5,7 @@ class SalesController < ApplicationController
   before_action :authenticate_allowed, only: [:index, :edit]
 
   def index
+    @empresa = Company.last
     @search = Sale.search(params[:q])
     @ventas = @search.result.where.not(total_venta: 0.0).where.not(client_id: nil)
     @ventasdocu = @search.result.where.not(total_venta: 0.0).where.not(client_id: nil)
@@ -14,7 +15,7 @@ class SalesController < ApplicationController
       format.html
       format.js
       format.pdf do
-        pdf = ReporteVentaPdf.new(@ventasdocu)
+        pdf = ReporteVentaPdf.new(@ventasdocu, @empresa)
         send_data pdf.render, filename: "registro_de_ventas_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
       end
     end

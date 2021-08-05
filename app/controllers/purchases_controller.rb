@@ -3,14 +3,15 @@ class PurchasesController < ApplicationController
   before_action :set_type_payment, only: [:edit, :destroy, :update, :show]
   before_action :authenticate_allowed, only: [:index, :edit]
 
-   def index
+  def index
+    @empresa = Company.last
     @search = Purchase.search(params[:q])
     @compras = @search.result.where.not(total_compra: 0.0).where.not(supplier_id: nil)
     respond_to do |format|
       format.html
       format.js
       format.pdf do
-        pdf = ReporteCompraPdf.new(@compras)
+        pdf = ReporteCompraPdf.new(@compras, @empresa)
         send_data pdf.render, filename: "registro_de_compras_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
       end
     end

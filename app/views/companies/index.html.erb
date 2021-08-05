@@ -32,11 +32,11 @@
     </div>
     <div class="input-group input-group-lg mt-3">
       <label class="input-group-text fw-bold" for="nombrepresa">Nombre:</label>
-      <input type="text" readonly class="form-control text-center" aria-describedby="nombrepresa" value="<%= @empresa.nombre_empresa %>"></input>
+      <input type="text" readonly class="form-control text-center" aria-describedby="nombrepresa" value="<%= @empresa.nombre_empresa.upcase %>"></input>
     </div>
     <div class="input-group input-group-lg mt-3">
       <label class="input-group-text fw-bold" for="dirpresa">Direccion:</label>
-      <input type="text" readonly class="form-control text-center" aria-describedby="dirpresa" value="<%= @empresa.direccion_empresa %>"></input>
+      <input type="text" readonly class="form-control text-center" aria-describedby="dirpresa" value="<%= @empresa.direccion_empresa.upcase %>"></input>
     </div>
     <div class="input-group input-group-lg mt-3">
       <label class="input-group-text fw-bold" for="telpresa">Telefono:</label>

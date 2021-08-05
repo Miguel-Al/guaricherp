@@ -655,7 +655,11 @@ RailsAdmin.config do |config|
   
   PAPER_TRAIL_AUDIT_MODEL = ['Category']
   config.actions do
-    dashboard                     # mandatory
+    dashboard do
+      auditing_versions_limit 0 #Muestra ninguna de las version del historial
+      #buscar la manera de que no se muestre el historial quizas con un css
+      
+    end# mandatory
     index                         # mandatory
     new do
       except ['Role', 'Sale', 'Paycheck', 'Purchase']

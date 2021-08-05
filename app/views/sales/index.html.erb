@@ -38,8 +38,6 @@
   <% end %>
 </div>
 
-
-
 <div id="buscadoresventa">
   <div class="row">
     <div class="col">
@@ -99,26 +97,30 @@
   </div>
   <div class="row">
     <div class="collapse mt-3" id="resultadosemanaventa" data-bs-parent="#resultadosventa">
-      <div class="row">
-	<div class="col">
-	  pasada
-	  <%= line_chart Sale.group_by_day(:created_at, range: @ini_sem_pas..@fin_sem_pas).count, download: {filename: "diagramaventas_semana_pasado_#{DateTime.now.to_s(:number)}"} %>
-	</div>
-	<div class="col">
-	  presente
-	  <%= line_chart Sale.group_by_day(:created_at, range: @ini_sem..Time.now).count, download: true %>
+      <div class="container">
+	<div class="row">
+	  <div class="col">
+	    <p class="fw-bold text-center">Pasada</p>
+	    <%= line_chart Sale.group_by_day(:created_at, range: @ini_sem_pas..@fin_sem_pas).count, download: {filename: "diagramaventas_semana_pasado_#{DateTime.now.to_s(:number)}"} %>
+	  </div>
+	  <div class="col">
+	    <p class="fw-bold text-center">Presente</p>
+	    <%= line_chart Sale.group_by_day(:created_at, range: @ini_sem..Time.now).count, download: true %>
+	  </div>
 	</div>
       </div>
     </div>  
     <div class="collapse mt-3" id="resultadomesventa" data-bs-parent="#resultadosventa">
-      <div class="row">
-	<div class="col">
-	  pasada
-	  <%= line_chart Sale.group_by_week(:created_at, range: @ini_mes_pas..@fin_mes_pas).count, download: true %>
-	</div>
-	<div class="col">
-	  presente
-	  <%= line_chart Sale.group_by_week(:created_at, range: @ini_mes..Time.now).count, download: true %>
+      <div class="container">
+	<div class="row">
+	  <div class="col">
+	    <p class="fw-bold text-center">Pasada</p>
+	    <%= line_chart Sale.group_by_week(:created_at, range: @ini_mes_pas..@fin_mes_pas).count, download: true %>
+	  </div>
+	  <div class="col">
+	    <p class="fw-bold text-center">Presente</p>
+	    <%= line_chart Sale.group_by_week(:created_at, range: @ini_mes..Time.now).count, download: true %>
+	  </div>
 	</div>
       </div>
     </div>
@@ -157,7 +159,7 @@
 	    <th class="align-middle text-center"><%= sort_link @search, :user_username, "Vendedor",{ default_order: :desc }, { class: "link-light" }%></th>
 	    <th class="align-middle text-center"><%= sort_link @search, :cliente_nombre_cliente, "Cliente",{ default_order: :desc }, { class: "link-light" }%></th>
 	    <th class="align-middle text-center"><%= sort_link @search, :created_at, "Fecha",{ default_order: :desc }, { class: "link-light" }%></th>
-	    <th class="align-middle text-center">Total</th>
+	    <th class="align-middle text-center">Total(Bs)</th>
 	    <th class="align-middle text-center">Acciones</th>
 	  </tr>
 	</thead>
@@ -173,7 +175,7 @@
 	    <td class="align-middle text-center"> <%= venta.user.username %> </td>
 	    <td class="align-middle text-center"> <%= venta.try(:client).try(:nombre_cliente) %> </td>
 	    <td class="align-middle text-center"> <%= venta.created_at.strftime("%d-%m-%Y") %> </td>
-	    <td class="align-middle text-center"> Bs <%= venta.total_venta * 1.16 %> </td>
+	    <td class="align-middle text-center"> <%= venta.total_venta * 1.16 %> </td>
 	    <td class="align-middle text-center">
 	      <div class="btn-group">
 		<%= link_to ('<i class="fas fa-info-circle"> </i>').html_safe, sale_path(venta), {class: "btn btn-info btn-sm", remote: true} %>

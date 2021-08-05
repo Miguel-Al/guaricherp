@@ -5,6 +5,7 @@ class PaychecksController < ApplicationController
   before_action :authenticate_allowed, only: [:index, :edit]
 
   def index
+    @empresa = Company.last
     @search = Paycheck.search(params[:q])
     @nominas = @search.result.where.not(paycheck_type_id: nil).where.not(employee_id: nil)
     @nominasdocu = @search.result.where.not(paycheck_type_id: nil).where.not(employee_id: nil)
@@ -13,7 +14,7 @@ class PaychecksController < ApplicationController
       format.html
       format.js
       format.pdf do
-        pdf = ReporteNominaPdf.new(@nominasdocu)
+        pdf = ReporteNominaPdf.new(@nominasdocu, @empresa)
           send_data pdf.render, filename: "registro_de_nominas_#{DateTime.now.to_s(:number)}.pdf", type: "application/pdf", disposition: "inline"
       end
     end

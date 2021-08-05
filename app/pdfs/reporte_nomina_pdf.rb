@@ -1,7 +1,8 @@
 require 'prawn/table'
 class ReporteNominaPdf < Prawn::Document
-  def initialize(nominas)
+  def initialize(nominas, empresa)
     super :page_size => "LEGAL", :page_layout => :landscape
+    @empresa = empresa
     @nominas = nominas
     @minimo = nominas.minimum("inicio_nomina")
     @max = nominas.maximum("fin_nomina")
@@ -16,6 +17,11 @@ class ReporteNominaPdf < Prawn::Document
   end
 
   def titulo
+    text "#{@empresa.nombre_empresa.upcase}", style: :bold
+    text "RIF: J-#{@empresa.rif_empresa}", style: :bold
+    text "Direccion: #{@empresa.direccion_empresa.upcase}", style: :bold
+    text "Telf: #{@empresa.telefono_empresa}", style: :bold
+    move_down 20
     text "Resumen de nomina del periodo #{@minimo.strftime("%d-%m-%Y")} y #{@max.strftime("%d-%m-%Y")}", size: 25, style: :bold
     move_down 5
     text "Este documento ha sido generado el dia #{DateTime.now.to_s(:db)}"
@@ -23,10 +29,11 @@ class ReporteNominaPdf < Prawn::Document
   
   def listado
     move_down 10
-    table(item_table_data, :cell_style => {:border_color => "FFFFFF"}) do
+    table(item_table_data) do
       row(0).font_style = :bold
+      row(0).background_color = "DDDDDD"
       self.header = true
-      self.row_colors = ['DDDDDD', 'FFFFFF']
+      self.row_colors = ['FFFFFF']
     end
   end
 
@@ -46,15 +53,15 @@ end
 
 def total_asignado
   move_down 20
-  text "Total de asignaciones: Bs #{@asigna}", size: 15, style: :bold
+  text "Total de Asignaciones: Bs #{@asigna}", size: 15, style: :bold
 end
 
 def total_deducido
-  text "Total de deducciones: Bs #{(@deduce).round(2)}", size: 15, style: :bold
+  text "Total de Deducciones: Bs #{(@deduce).round(2)}", size: 15, style: :bold
 end
 
 def total
-  text "Total de la nomina del periodo: Bs #{((@asigna) - (@deduce)).round(2)}", size: 15, style: :bold
+  text "Total del Periodo: Bs #{((@asigna) - (@deduce)).round(2)}", size: 15, style: :bold
 end
 
 

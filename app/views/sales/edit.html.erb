@@ -24,7 +24,8 @@
 	</div>
       </div>
       <div class="input-group mt-3">
-      <%= f.collection_select(:type_payment_id, @tipopago, :id, :nombre_tipo_pago, {:prompt => 'Seleccione el tipo de pago'}, { class: "form-control", required: true })%>
+	<span class="input-group-text" id="addon-wrapping"><i class="fas fa-money-bill-wave-alt"></i></span>
+	<%= f.collection_select(:type_payment_id, @tipopago, :id, :nombre_tipo_pago, {:prompt => 'Seleccione el tipo de pago'}, { class: "form-control", required: true })%>
       </div>
     </div>
   </div>

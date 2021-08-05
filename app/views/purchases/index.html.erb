@@ -91,7 +91,7 @@
 	    <th class="align-middle text-center"><%= sort_link @search, :user_username, "Encargado",{ default_order: :desc }, { class: "link-light" }%></th>
 	    <th class="align-middle text-center"><%= sort_link @search, :supplier_nombre_proveedor, "Proveedor",{ default_order: :desc }, { class: "link-light" }%></th>
 	    <th class="align-middle text-center"><%= sort_link @search, :created_at, "Fecha",{ default_order: :desc }, { class: "link-light" }%></th>
-	    <th class="align-middle text-center">Total</th>
+	    <th class="align-middle text-center">Total(Bs)</th>
             <th class="align-middle text-center">Acciones</th>
 	  </tr>
         </thead>
@@ -107,7 +107,7 @@
 	    <td class="align-middle text-center"> <%= compra.user.username %> </td>
 	    <td class="align-middle text-center"> <%= compra.try(:supplier).try(:nombre_proveedor) %> </td>
 	    <td class="align-middle text-center"> <%= compra.created_at.strftime("%d-%m-%Y") %> </td>
-	    <td class="align-middle text-center"> Bs <%= compra.total_compra * 1.16%> </td>
+	    <td class="align-middle text-center"> <%= compra.total_compra * 1.16%> </td>
 	    <td class="align-middle text-center">
 	      <div class="btn-group ">
 		<%= link_to ('<i class="fas fa-info-circle"> </i>').html_safe, purchase_path(compra), {class: "btn btn-info btn-sm", remote: true} %>

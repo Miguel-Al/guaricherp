@@ -16,10 +16,14 @@
       </div>
 	<button type="button" class="btn btn-primary form-control mt-3" data-bs-toggle="modal" data-bs-target="#buscador_proveedor">
 	  <span class="fas fa-search"></span> Buscar Proveedor</button>
-	<%= f.collection_select(:type_payment_id, @tipopago, :id, :nombre_tipo_pago, {:prompt => 'Seleccione el tipo de pago'}, { class: "form-control mt-3", required: true })%>
+	<div class="input-group mt-3">
+	  <span class="input-group-text" id="addon-wrapping"><i class="fas fa-money-bill-wave-alt"></i></span>
+	  <%= f.collection_select(:type_payment_id, @tipopago, :id, :nombre_tipo_pago, {:prompt => 'Seleccione el tipo de pago'}, { class: "form-control", required: true })%>
+	  </div>
 	<div class="item form-group<%= @compra.errors[:numero_compra].any? ? ' has-error has-feedback' : '' %>">
-	  <div class="input-group">
-	    <%= f.number_field :numero_compra, {:class=> "form-control mt-3", :placeholder=>"Numero de compra...", required: true} %>
+	  <div class="input-group mt-3">
+	    <span class="input-group-text fw-bold" id="addon-wrapping">N:</span>
+	    <%= f.number_field :numero_compra, {:class=> "form-control", :placeholder=>"Numero de compra...", required: true} %>
 	  </div>
 	</div>
     </div>

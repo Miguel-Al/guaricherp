@@ -1,30 +1,38 @@
 require 'prawn/table'
 class ReporteCompraPdf < Prawn::Document
-  def initialize(compras)
-    super :page_size => "A4", :page_layout => :landscape
+  def initialize(compras, empresa)
+    super :page_size => "LEGAL", :page_layout => :landscape
     @compras = compras
+    @empresa = empresa
     titulo
     listado
     total
   end
 
   def titulo
+    text "#{@empresa.nombre_empresa.upcase}", style: :bold
+    text "RIF: J-#{@empresa.rif_empresa}", style: :bold
+    text "Direccion: #{@empresa.direccion_empresa.upcase}", style: :bold
+    text "Telf: #{@empresa.telefono_empresa}", style: :bold
+    move_down 20
     text "Listado de compras realizadas entre #{@compras.last.created_at.strftime("%d-%m-%Y")} y #{@compras.first.created_at.strftime("%d-%m-%Y")}", size: 25, style: :bold
+    move_down 5
     text "Este documento ha sido generado el dia #{DateTime.now.to_s(:db)}"
   end
 
   def listado
     move_down 10
-    table(item_table_data, :cell_style => {:border_color => "FFFFFF"}) do
+    table(item_table_data) do
       row(0).font_style = :bold
+      row(0).background_color = "DDDDDD"
       self.header = true
-      self.row_colors = ['DDDDDD', 'FFFFFF']
-      self.column_widths = [80, 100, 200, 150, 150]
+      self.row_colors = ['FFFFFF']
+      self.column_widths = [90, 90, 200, 150, 150]
     end
   end
 
   def item_header
-  ["#N de compra", "Fecha", "Proveedor", "Base Imponible", "Total pagado"]
+  ["#N compra", "Fecha", "Proveedor", "Base Imponible", "Total pagado"]
 end
 
 def item_rows
